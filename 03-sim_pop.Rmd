@@ -1,0 +1,243 @@
+# simulate_population
+
+
+## `simulate_population` function
+
+We can use the `simulate_population` function to simulate population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are demonstrated below. 
+
+The `simulate_population` function simulates predictors at each hierarchical level, using provided mean and vcov parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response.
+
+The `simulate_population` function is in the development version of the squid package on github:
+```r
+devtools::install_github("squid-group/squid", ref="development")
+library(squid)
+```
+
+
+<br>
+
+## Simple Linear Model
+
+<!-- <div class="panel panel-success">
+<div class="panel-heading">
+**Biological example**
+</div>
+<div class="panel-body">
+We are interested in how some environmental variables affect adult body mass.  
+</div>
+</div> -->
+
+We will start with a situation where we have some predictor variables ($x_1$, $x_2$, $x_3$) taht vary at thelevel of the observation, which affect a response variable $y$, each with a certain magnitude and direction of their effect (or the slope; $\beta_1$ etc), as well as some unexplained, residual variation ($\epsilon$)
+
+We can write this out in the form of the linear model: 
+$$
+y = \beta_0 + \beta_1 * x_1 + \beta_2 * x_2 + \beta_3 * x_3 + \epsilon
+$$
+
+We can also write this in matrix notation
+$$
+y = \beta_0 + \boldsymbol X \beta + \epsilon
+$$
+where $X$ is a matrix of predictors and $\beta$ is a (column) vector of slopes.
+
+If we want to simulate from this model, we can assume that these predictor variables are multivariate normally distributed, with given means ($\mu$) and a covariance structure ($\Sigma_x$), and the residuals are normally distributed with a given variance ($\sigma^2_\epsilon$)
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+
+
+We can simulate a set of predictors that vary at the level of the observation ($\boldsymbol X$), and some residuals ($\epsilon$). These predictors are scaled by some slopes ($\beta$), and added together to give the phenotype ($y$).
+
+<div class="alert alert-info">
+
+
+</div>
+
+The key to doing this is correctly specifying the parameters. These are specified as a nested list. Within the main list, there are named lists for the different hierarchical levels, containing the parameters for the predictors at that level. The residual level *must* be specified, all others are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
+<!-- Anne: be more specific -->
+
+To simulate from the above model we can use the `observation` level in the parameter list to simulate predictors at this level, as well as specifying the residual variance.
+
+```{r}
+squid_data <- simulate_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall"),
+      beta = c(0.5,-0.3)    ),
+    residual=list(
+      vcov=1
+    )
+  ),
+  N=2000
+)
+
+```
+In this case for the observation level predictors, we have given the names of the predictor variables, and the beta values. By default, these predictors are simulated as i.i.d. unit normals (mean=0, sd=1, cov=0). As we haven't given any data structure, we also have to specify the N. 
+
+<!-- Anne:
+Overall, I would create more links between the explanation and the code, e.g. add the code in brackets when you mention them. One example: “As we haven’t given any data structure, we also have to specify the N (n_level)” or further along “We can also put a global intercept (β0), by specifying a mean for the residual part (below mean of 10 specified)”. Is it worth specifying the n_level should be equal between observation and residual? I know this sounds obvious in these cases, but we want to make sure everyone follows!
+ -->
+
+This generates a squid object, which when run returns a friendly message
+```{r}
+squid_data
+```
+
+There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using `get_population_data()` The generated response is returned as `y`, along with simulated predictors and the data structure (not relevant here). 
+```{r}
+data <- get_population_data(squid_data)
+head(data)
+```
+
+We can run a linear model to check that we get back what we have simulated.
+```{r}
+coef(lm(y ~ temperature + rainfall,data))
+```
+
+We can also specify the predictors as having different means and variances, correlations between these predictors, and create patterns whereby simulated predictors do not affect the phenotype (i.e. beta=0). We can also put a global intercept ($\beta_0$), by specifying a mean for the residual part. In the observation list, `mean` and `cov` specify the means and covariance matrix of the predictors. If the predictors were uncorrelated, we could just specify the variances as a vector, and the function assumes the covariances are 0.
+
+For example, we may want to simulate the effect of a missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured.
+
+```{r, 'lm',fig.width=10,fig.height=4}
+squid_data <- simulate_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall", "wind"),
+      mean = c(10,1,20),
+      vcov =matrix(c(1,0,1,0,0.1,0,1,0,2), nrow=3 ,ncol=3),
+      beta =c(0,-3,0.5)
+    ),
+    residual=list(
+      mean=10,
+      vcov=1
+    )
+  ),
+  N=2000
+)
+
+data <- get_population_data(squid_data)
+
+library(scales)
+par(mfrow=c(1,3))
+plot(y ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha(1,0.5))
+
+coef(lm(y ~ temperature + rainfall, data))
+coef(lm(y ~ temperature + rainfall + wind, data))
+
+```
+
+<!--Dave:
+ 1. In the first box of code, it might be useful to have a few explanations for some of the lines. I sorted out the names and beta lines, but I think the beta especially could use an explanation (noting in particular that the order matches the names). 
+ 
+2. in the residual list, the cov=1 line needs explanation. Perhaps this is more important in the code for interactions and linear effects, where all of a sudden it is 0.3. I'm guessing this is really just the variance and "Cov" refers to a matrix of variances and covariances, which, so far, we only have 1 entry.  
+ -->
+
+
+<!-- measurement error - correlated variable #ffe58f-->
+
+
+<style>
+div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+**Matrices in R**
+
+To code a matrix in R we use the `matrix` function (see `?matrix`). This takes a vector of values, and arranges then in a matrix, with dimensions specified with `nrow` and `ncol`. By default it fills the matrix by column, which can be changed by specifying `byrow=TRUE`. For big matrices this can be petty annoying. The`Tri2M()` function from the package `MCMCglmm` allows you to just give the lower or upper half of the matrix, and it will fill the rest out for you. For example, we can make a correlation matrix using:
+```{r}
+Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE, diag=TRUE)
+```
+
+</div>
+
+
+
+
+## Non-Gaussian phenotypes
+
+To simulate non-Gaussian data, we can specify a link function and a family as arguments to the function. Underneath the predictors are being simulated as multivariate normal, and then the resulting phenotype is transformed.
+
+<div class="alert alert-info">
+
+$$
+y \sim Poisson(\hat{y})
+$$
+$$
+\hat{y} = exp( \beta_0 +  \boldsymbol X \beta + \epsilon )
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+
+```{r, 'non-gaussian',fig.width=6,fig.height=6}
+
+squid_data <- simulate_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall"),
+      beta = c(0.2,0.1)
+    ),
+    residual=list(
+      mean=1.75,
+      vcov=0.2
+    )
+  ),
+  N=2000,
+  family="poisson", 
+  link="log"
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+plot(table(data$y), ylab="Frequency", xlab="z")
+
+glm(y ~ temperature + rainfall, data, family="poisson")
+
+```
+
+<!-- 
+Dave: worth pointing out that the bulk of the function is the same, but just need to add an instruction about the distribution.
+
+Anne: I would provide here also a bit more comments on the code provided, presently it’s very dry. E.g. how is the phenotype transformed?
+ -->
+
+
+ ## Fixed Factors
+So far the simulated predictors have all been continuous, but we may want to simulate factors with known/fixed effects i.e. not drawn from a normal distribution. In this case we can specify `fixed = TRUE` for a particular level, and then give a beta for all the different levels of that group.
+<!-- 
+Anne: Fixed factors: perhaps the title could be more informative as “Known fixed effects”? Also, why the “/” in the text for “known/fixed effect”?
+ -->
+
+Lets take the example of sex:
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
+  parameters = list(
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(-0.5,0.5)
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+boxplot( y ~ factor(sex), data)
+lm( y ~ factor(sex), data)
+```
+
+
+<br>

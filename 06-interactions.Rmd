@@ -1,0 +1,59 @@
+# Interactions
+
+## Interactions and non-linear effects
+
+We can specify the interaction between two predictors by adding an 'iterations' list to the parameters list. Interactions can then be specified between two named variables using ":". Interactions can be between predictors at the same or different hierarchical level. 
+
+```{r}
+squid_data <- simulate_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall"),
+      beta = c(0.5,0.3)
+    ),
+    residual=list(
+      vcov=0.3
+    ),
+    interactions=list(
+      names=c("temperature:rainfall"),
+      beta = c(-0.1)
+    )
+  ),
+  N=2000
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+coef(lm(y ~ temperature * rainfall, data))
+
+```
+
+Polynomial (quadratic, cubic, etc) functions are essentially interactions with the same predictor. They can therefore be specified in the same way:
+
+```{r, 'non-linear',fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature"),
+      beta = c(0.5)
+    ),
+    interactions=list(
+      names=c("temperature:temperature"),
+      beta = c(-0.3)
+    ),
+    residual=list(
+      vcov=0.3
+    )
+  ),
+  N=2000
+)
+data <- get_population_data(squid_data)
+
+plot(y ~ temperature, data, pch=19, cex=0.5, col=alpha(1,0.5))
+
+coef(lm(y ~ temperature + I(temperature^2), data))
+
+```
+
+<br>

@@ -1,0 +1,71 @@
+# Breeding values
+We can provide the pedigree/phylogeny as an argument to the function. The pedigree is given as a list - the name of the pedigree in the list links it with the item in the parameter list. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated. Something like:
+```{r, eval=TRUE}
+param <- list(
+  individual = list(
+    vcov = 0.3
+  ),
+  animal = list(
+    group="individual",
+    vcov = 0.2
+  ),
+  residual = list(
+    vcov = 0.5
+  )
+)
+```
+
+Then a bit of code to sort out the pedigree. **NOTE** the `simulate_population` function has very little error checking of pedigree structure at the moment 
+```{r, eval=TRUE, cache=TRUE}
+
+data(BTped)
+
+## make data structure with two observations per individual
+ds <- data.frame(individual=rep(BTped[,1], 2))
+
+squid_data <- simulate_population(
+  data_structure = ds, 
+  parameters = param,
+  pedigree=list(animal=BTped)
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+Ainv<-inverseA(BTped)$Ainv
+data$animal_id <- data$individual
+# mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
+# summary(mod)
+
+```
+
+We can also run multivariate animal models and have the breeding values simulated at the residual level
+```{r, eval=TRUE, cache=TRUE}
+
+squid_data <- simulate_population(
+  data_structure = BTped,
+  parameters = list(
+    animal = list(
+      vcov = diag(2)
+    ),
+    residual = list(
+      vcov = diag(2)
+    )
+  ),
+  N_response=2,  
+  pedigree = list(animal = BTped)
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE,ginverse=list(animal=Ainv))
+
+```
+
+<br>
+
+
+
+

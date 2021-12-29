@@ -1,0 +1,161 @@
+# Hierarchical structure
+
+
+## Simple mixed model 
+<!-- <div class="panel panel-success">
+<div class="panel-heading">
+**Biological example**
+</div>
+<div class="panel-body">
+We have taken repeated measurements of adult body mass.  
+</div>
+</div> -->
+
+<!-- I would replace “this is simulating “ to something more explicit, like “In essence, running mixed models requires to simulate datasets with repeated values for individuals. This can be done by simulating a single combined predictor at each level…” -->
+In essence, this is simulating a single combined predictor at each level ($z$) with mean 0 and a given variance ($\sigma^2_z$). 
+
+<div class="alert alert-info">
+
+$$
+y_{i,j} = \beta_0 + z_j + \epsilon_{i,j}
+$$
+$$
+z \sim N(0,\sigma^2_z)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+At this point we need to specify some kind of hierarchical data structure. To make this we can use the `make_structure` function (which is still in development). The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. To generate nested data with `make_structure` we use the `/` symbol and we specify the number of levels for each grouping factor with `(n)` - with nested data this represents the number of levels within each level of the higher grouping factor. We also specify how many times each combination is observed using `repeat_obs`. This function assumes everything is balanced.
+
+```{r}
+ds <- make_structure(structure = "sex(2)/individual(500)", repeat_obs=2)
+
+head(ds)
+```
+In this case we have created a nested structure with 2000 observations - 2 observations for each of 1000 individuals, 500 for each of 2 sexes. We can then use this to simulate variation at different levels. Note that sample sizes are extracted from the data structure and so we do not need to specify `N` in the `simulate_population` function as above.
+
+```{r}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
+  parameters = list(
+    individual = list(
+      vcov = 0.5
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+library(lme4)
+short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FALSE, ranef.comp = c("Variance"))
+
+short_summary(lmer(y ~ 1 + (1|individual), data))
+```
+
+Note, the names of the different levels in the parameter list need to exactly match those in the data structure. The order does not, however, have to be the same.
+
+<!-- Dave: Also, in the code for the first example, how are the number of replicate observations within individuals determined? The observation level is not listed in the data_structure line.
+ -->
+
+We could also use an existing data structure. Here we can take the grouping factors and levels from an existing dataset and input them to `simulate_population`.
+<!-- Anne: Short summary of what BTdata is (or link in the explanation to the BTdata page?) and why it is useful for this example (i.e. that you use the structure of the pedigree of this population), what you aim to test with it?
+ -->
+
+```{r}
+library(MCMCglmm)
+data(BTdata)
+head(BTdata)
+
+squid_data <- simulate_population(
+  data_structure = BTdata[,c("dam","fosternest","sex")],
+  parameters = list(
+    dam = list(
+      vcov = 0.2
+    ),
+    fosternest = list(
+      vcov = 0.3
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+data
+
+```
+
+
+<!-- The importing a real dataset is very cool! But, I think there needs to be more explanation. How does this work when dam, fosternest, and residual lists are empty of variable names? Can you use the variances in the data instead of specifying them?
+ -->
+<!-- getME(mod,"theta")
+library(numDeriv)
+fm1Fun <- update(mod,devFunOnly=TRUE)
+fm1_thpar <- getME(mod,"theta")
+h <- hessian(fm1Fun, fm1_thpar)
+sqrt(diag(solve(h)))
+
+mySumm2 <- function(.) {
+    c(beta=fixef(.),sigma=sigma(.), sig01=unlist(VarCorr(.)))
+}
+bootMer(mod,mySumm2,nsim = 100) -->
+
+This setup also allows us to create variation at each level that is driven by specific predictors
+<!-- 
+Dave: At the bit just before Fixed Factors, what do you mean by “This setup”? It implies the data file import action in the previous section, which makes no sense. 
+Anne: the sentence “This setup also allows us to create variation at each level that is driven by specific predictors” comes out of the blue, and I find the wording ‘this setup’ too unspecific.
+
+-->
+
+<div class="alert alert-info">
+
+$$
+y = \beta_0 + \boldsymbol Z_j \boldsymbol\beta_z + \boldsymbol X_i \boldsymbol\beta_x + \epsilon_{i,j}
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\boldsymbol Z \sim MVN(\mu_z,\Sigma_z)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+```{r}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
+  parameters = list(
+    individual = list(
+      names = c("size","behaviour","physiology"),
+      beta = c(0.1,0.3,0.2)
+    ),
+    observation = list(
+      names=c("temperature","rainfall"),
+      beta = c(0.2,-0.1)
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+short_summary(lmer(y ~ 1 + (1|individual), data))
+
+short_summary(lmer(y ~ size + rainfall + (1|individual), data))
+
+```
+
+
+
+<br>

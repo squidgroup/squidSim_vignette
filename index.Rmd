@@ -1,0 +1,94 @@
+--- 
+title: "squid R package vignette"
+author: "Joel Pick"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: squid-group/squid
+description: "This is a vignette for using the squid R package."
+---
+
+# What is does the squid R package do? {#intro}
+
+
+## Ethos
+
+Create population and then sample from it
+
+
+## Functionality
+
+This is a summary of the desired functionality laid out in the different SQuID working group documents. 
+
+
+<!-- | <span style="display: inline-block; width:300px">Multiple groups</span> |<span style="display: inline-block; width:100px">  </span> |
+ -->
+
+|     |     |
+| --- | --- |
+| No limit in the number of predictors  | ✅ |
+| Interactions between predictors | ✅ |
+| Temporal effects | |
+|    - Linear/non-linear/cyclical| ✅ |
+|    - Temporal autocorrelation| ❌ |
+| Non-Gaussian data | ✅ |
+| IxE / random slopes | ✅ |
+| Within level-specific residual variance (DGLMM) | ✅ |
+|     - Equation on residual variance | ✅ |
+| No limit in the number of responses | ✅ |
+| Recursive relationships | ❌ |
+| Environmental dependency of cov matrices | Needs Discussion |
+| Additive genetic effects | ✅ |
+|     - Including indirect genetic effects | ✅ |
+| G,E correlations | In Progress |
+| Phylogenetic effects | In Progress |
+|     - Different models of evolution | ❌ |
+
+<br>
+
+## Installation
+
+
+## Issues and bugs
+It would be great if you could report any suggestions, issues or bugs using github issues https://github.com/squid-group/squid/issues. It is worth checking to see if anyone else has a similar problem first, and  adding comments to their issue, before starting a new one. 
+
+
+
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+
+options(width = 300)
+
+library(lme4)
+library(MCMCglmm)
+library(scales)
+devtools::load_all("~/github/squid/R")
+# devtools::check("~/github/squid/R")
+
+
+# devtools::install_github("squid-group/squid", ref="development")
+# library(squid)
+
+library(knitr)
+# the default source hook
+hook_source <- knit_hooks$get('source')
+knit_hooks$set(source = function(x, options) {
+  if (!is.null(n <- options$out.lines)) {
+    n <- as.numeric(n)
+    x <- unlist(stringr::str_split(x, "\n"))
+    nx <- length(x) 
+    x <- x[pmin(n,nx)]
+    if(min(n) > 1)  
+      x <- c(paste("[...]"), x)
+    if(max(n) < nx) 
+      x <- c(x, paste("[...]"))
+    x <- paste(c(x, "\n"), collapse = "\n")
+  }
+  hook_source(x, options)
+    })
+## adapted from https://stackoverflow.com/questions/48286722/rmarkdown-how-to-show-partial-output-from-chunk
+```

@@ -1,0 +1,191 @@
+
+# Multi-response Models
+
+We can simulate multiple phenotypes that covary at different levels. In the case of a simple random effects model, we can have a covariance matrix at each level, 
+
+<!-- Anne: I would formulate this section “Multi-trait response”, as it is different from say multidimensional plasticity where a single trait can respond to several environmental variables. Also, perhaps add a short sentence of introduction here such as “We simulate here no longer one phenotype y varying across I individuals, but a number of phenotypes that (co)vary across individuals..”
+ -->
+
+<!-- 
+$$
+\begin{bmatrix} 
+  y^{(1)} \\ 
+  y^{(2)} 
+\end{bmatrix}
+=   \beta_0 + \boldsymbol Z_j + \boldsymbol\epsilon_{i,j}
+$$ 
+-->
+<div class="alert alert-info">
+
+$$
+\boldsymbol Y_{i,j} =  \boldsymbol\beta_0 + \boldsymbol Z_j + \boldsymbol E_{i,j}
+$$ 
+$$
+\boldsymbol Z \sim MVN(0,\Sigma_z)
+$$
+$$
+\boldsymbol E \sim MVN(0,\Sigma_\epsilon)
+$$
+</div>
+
+We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `n_response` in the parameter list, and specifying the covariance matrix (cov) at each level. In this way we can simulate covariance at each level. 
+
+<!-- Anne: Should the blue background model not come after the first paragraph?
+  We probably just need an intro paragraph
+ -->
+
+```{r}
+squid_data <- simulate_population(
+  data_structure=make_structure(structure = "individual(100)",repeat_obs=10),
+  parameters=list(
+    individual = list(
+      vcov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+    ),
+    residual = list(
+      vcov = matrix(c(1,0.5,0.5,1),nrow = 2,ncol = 2)
+    )
+  ),
+  N_response = 2
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+```
+
+<!--Dave: I think in the Multi-response section there needs to be some explanation of the syntax, eg for lines like: cov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2). To what do each of those refer?
+
+BOX
+to code a matrix in R we use the `matrix` function. This takes a vector of values, and arranges then in a matrix, with dimensions specified with `nrow` and `ncol`. For big matrices this can be petty annoying. 
+`Tri2M()` function from the package `MCMCglmm`
+
+Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE)
+
+
+
+ -->
+
+
+
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
+
+ -->
+Second, we can build up predictors at each level that drive this covariance. Here we make `beta` into a matrix ($B$), with predictors as rows, and responses as columns. 
+
+<div class="alert alert-info">
+
+$$
+\boldsymbol Y_{i,j} = \beta_0 + \boldsymbol Z_j B_z + \boldsymbol X_i \boldsymbol B_x + \boldsymbol E_{i,j}
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\boldsymbol Z \sim MVN(\mu_z,\Sigma_z)
+$$
+$$
+\boldsymbol E \sim N(0,\Sigma_\epsilon)
+$$
+</div>
+
+The formulation above (just random effects), can be simulated in a similar way with `beta` as an identity matrix (i.e. a predictor for each trait).
+<!-- I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
+ -->
+```{r, eval=TRUE}
+
+squid_data <- simulate_population(
+  data_structure= make_structure(structure = "individual(100)",repeat_obs=10),
+  parameters=list(
+    individual = list(
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      beta= diag(2)
+    ),
+    residual = list(
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      beta= diag(2)
+    )
+  ),
+  N_response=2
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+# library(MCMCglmm)
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
+# summary(mod)
+
+```
+
+Alternatively, you could also create multivariate phenotypes being affected by the same predictors. Here we have two phenotypes, affected by three predictors, and so we can create a 3x2 matrix of betas
+
+```{r}
+beta <- matrix(c(0.5,0.1,0.2,0.2,0.3,0.1),nrow=3,ncol=2)
+beta
+```
+
+```{r, eval=TRUE}
+
+squid_data <- simulate_population(
+  data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
+  parameters= list(
+    individual = list(
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+    ),
+    observation = list(
+      names = c("temperature", "rainfall", "wind"),
+      beta= beta
+    ),
+    residual = list(
+      vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+    )
+  ),
+  N_response=2
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+# library(MCMCglmm)
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
+# summary(mod)
+
+```
+
+
+
+```{r, eval=TRUE}
+
+squid_data <- simulate_population(
+  data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
+  
+  parameters= list(
+    individual = list(
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+    ),
+    observation = list(
+      names = c("temperature", "rainfall", "wind"),
+      beta= beta
+    ),
+    interactions = list(
+      names = c("temperature:rainfall"),
+      beta=matrix(c(0.1,-0.3),ncol=2)
+    ),
+    residual = list(
+      vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+    )
+  ),
+  N_response=2
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+# library(MCMCglmm)
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
+# summary(mod)
+
+```
+

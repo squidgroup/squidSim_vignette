@@ -1,0 +1,77 @@
+# Temporal Effects
+
+## Temporal Effects
+
+We might have measured a variable over the course of a certain time period (e.g. 20 years). We might expect that there is stochastic year-to-year variation, which we can simulate already. However we might also want to simulate patterns in that temporal data. We can treat the levels associated with a particular grouping factor (e.g. year) as both a factor and continuous.
+
+To treat a grouping factor as continuous, we use `covariate=TRUE` in the parameter list. In this way we can simulate a linear effect of year:
+```{r}
+squid_data <- simulate_population( 
+  data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",repeat_obs=20),
+  parameters=list(
+    year_cont = list(
+      group="year",
+      names= "year_cont",
+      covariate=TRUE,
+      beta=0.3
+    ),
+    year = list(
+      vcov = 0.8
+    ),
+    residual=list(
+      vcov = 1
+      )
+    )
+)
+```
+
+note we have specified `group` in the parameter list. This enables us to link a set of parameters to the grouping factor in the data structure. This doesn't have to be specified and defaults to the name of the list item.
+
+
+```{r,fig.width=6,fig.height=6}
+data <- get_population_data(squid_data)
+head(data)
+plot(y ~ year_cont, data)
+```
+
+
+Here we can see there is within year variation, year to year variation, as well as a linear directional year effect.
+```{r}
+lmer(y ~ year_cont + (1|year), data)
+```
+
+In a similar way we can also simulate a quadratic effect of time.
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "year(20) + sex(2)/individual(50)",repeat_obs=20),
+  parameters=list(
+    year_cont = list(
+      group="year",
+      names= c("year_cont"),
+      covariate=TRUE,
+      beta=c(0.3)
+    ),
+    interactions=list(
+      names= c("year_cont:year_cont"),
+      beta=c(-0.05)
+    ),
+    year = list(
+      vcov = 1
+    ),
+    residual=list(
+      vcov = 0.8
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+plot(y~year_cont,data)
+```
+
+<br>
+
+Cyclical effects are described in a later section and temporal autocorrelation is still to be implemented.
+
+<br>
