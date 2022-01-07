@@ -1,7 +1,0 @@
-# Phylogenetic Effects
-Will work very similar to breeding values (in fact I think it work work if you put in a phylogeny in pedigree format). Might want to include different modes of evolution.
-
-Additionally we could have an argument to specify a covariance matrix which can be used to generate the effects. This means that as well as relationship matrices for phylogenies and pedigrees, we could also incorporate spatial effects.  
-
-
-<br><br>

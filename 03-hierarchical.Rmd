@@ -1,7 +1,101 @@
-# Hierarchical structure
+# Hierarchical structure {#hierarchical}
+
+## Making a hierarchical structure {#makestr}
+
+We can use the `make_structure` function to creating nested and crossed hierarchical structures
+
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+plot_nested<-function(data_structure){
+  par(mar=c(0,10,1,1))
+  plot(NA, xlim=c(1,nrow(data_structure)), ylim=c(ncol(data_structure)+0.5,0.5), yaxt="n", ylab="",bty="n", xlab="", xaxt="n")
+  axis(2,1:ncol(data_structure),colnames(data_structure), lty=0, las=2)
+  for(i in 1:ncol(data_structure)){
+    x<-data_structure[,i]
+    line_coords <- sapply(1:max(x), function(j) range(which(x==j)))
+    arrows(line_coords[1,],i,line_coords[2,],i, code=0, col=c(1,2))
+    text(x=colMeans(line_coords),y=i-0.1,1:ncol(line_coords), cex=0.5)
+  }
+}
+```
+
+### Single Factor
+
+Simplest structure - one grouping factor with multiple observations. Here we create a structure with 3 repeated observations of 10 individuals. The `structure` contains the name of the grouping factors and their sample sizes, and `repeat_obs` is the number of repeated observations.
+```{r}
+make_structure(structure="individual(10)", repeat_obs=3)
+```
 
 
-## Simple mixed model 
+### Nested factors
+If we want to have nested factors, so different hierarchical groups, where levels of one group only exist in one higher group then we can use the `/` symbol in the `structure` argument. For example, here we have 2 sexes, each with 10 individuals, with 3 repeated measurements each. 
+```{r}
+make_structure(structure="sex(2)/individual(10)", repeat_obs=3)
+```
+
+```{r,fig.width=6,fig.height=1.2, echo=FALSE}
+dat_str <- make_structure(structure="sex(2)/individual(10)", repeat_obs=3)
+plot_nested(dat_str)
+```
+Note that in the nesting, the sample size for the lower group now represents the number within each level of the higher, rather than the total sample size, so overall there is 20 individuals. 
+
+We can nest as much as we want:
+```{r}
+make_structure(structure="species(2)/population(2)/individual(5)", repeat_obs=3)
+```
+
+```{r,fig.width=6,fig.height=1.8, echo=FALSE}
+dat_str <- make_structure(structure="species(2)/population(2)/individual(5)", repeat_obs=3)
+plot_nested(dat_str)
+```
+
+
+### Crossed factors
+We can create completely crossed factors - every combination of levels exists - using the `+` symbol in the `structure` argument
+```{r}
+make_structure(structure="treatment(2) + individual(5)", repeat_obs=1)
+
+```
+
+We can combine crossed and nested structures:
+```{r}
+make_structure(structure="treatment(2) + sex(2)/individual(5)", repeat_obs=1)
+```
+
+We can also output the crossed and nested using `:`
+```{r}
+make_structure(structure="treatment(2) + individual(5) + treatment:individual", repeat_obs=1)
+```
+
+
+### Temporal structure
+```{r}
+make_structure(structure="year(2)/month(12)/day(30)", repeat_obs=1)
+```
+
+```{r}
+make_structure(structure="year(2) + month(12) + day(30) + year:month:day", repeat_obs=1)
+```
+
+<!-- ```{r}
+dat_str <- make_structure(structure="species5(2)/population(2)/individual(10)", repeat_obs=3)
+
+plot_nested(dat_str)
+
+structure="species(2)/population5(2)/individual(10)"
+structure <- gsub("\\s","",structure)
+gsub(".\\)(.)","\\1",structure)
+strsplit((gsub("\\w+\\(\\d+\\)","",structure)),"")[[1]]
+
+
+
+```
+ -->
+
+
+
+
+
+## Simulating data at different hierarchical levels
 <!-- <div class="panel panel-success">
 <div class="panel-heading">
 **Biological example**
@@ -158,4 +252,56 @@ short_summary(lmer(y ~ size + rainfall + (1|individual), data))
 
 
 
-<br>
+
+## Random slopes 
+
+<div class="alert alert-info">
+
+$$
+y_{i,j} = \beta_0 + u_j + x_{i,j} \boldsymbol\beta_j + \epsilon_{i,j}
+$$
+$$
+\begin{bmatrix} u_j \\\boldsymbol\beta_j \\ \end{bmatrix} \sim MVN(\begin{bmatrix} 0 \\ \bar{\beta} \\ \end{bmatrix},\Sigma_{u,\boldsymbol\beta})
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+Can be seen as an interaction
+
+We can specify random slopes by simulating a slopes variable (`ind_slope`) at the individual level ($\boldsymbol\beta_j$). Here we want to give the mean and variance of the slopes, rather than have the mean=0 and the slopes as deviations as in a LMM. 
+```{r}
+
+squid_data <- simulate_population(
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_slope"),
+      mean =c(0,0.2), 
+      beta=c(1,0),
+      vcov =matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2)
+    ),
+    observation= list(
+      names = c("environment"),
+      vcov =c(1)
+    ), 
+    residual = list(
+      names = c("residual"),
+      vcov =c(0.5)
+    ),
+    interactions = list(
+      names = c("ind_slope:environment"),
+      beta =c(1)
+    )
+  ),
+  data_structure=make_structure("individual(300)",repeat_obs=10)
+)
+
+data <- get_population_data(squid_data)
+
+short_summary(lmer(y ~ environment + (1+environment|individual),data))
+```
+
+
+
+<!-- Can also implement it as a slope and deviations from the slope using `I()`, to fit in more with how it is modelled. 
+ -->

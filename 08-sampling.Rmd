@@ -1,0 +1,157 @@
+# Sampling 
+
+We can simulate some data:
+
+```{r}
+pop_data <- simulate_population(
+  data_structure = make_structure("nest(10)/individual(20)",repeat_obs=20),
+
+  parameters = list(
+    individual = list( 
+      vcov = 0.1
+    ),
+    observation= list(
+      names = c("environment"),
+      beta =c(0.5)
+    ), 
+    residual = list(
+      vcov = 0.8
+    )
+  )
+  
+)
+
+```
+
+To sample this data, we can use the `sample_population` function, for example:
+```{r, eval=FALSE}
+sample_data <- sample_population(pop_data, 
+  type = "nested", 
+  param = cbind(individual=c(10, 15),observation=c(10, 5)), 
+  plot = FALSE)
+```
+
+There are three different types of sampling 'nested', 'missing' and 'temporal', each of which are outlined below.
+
+Sample population updates the squid data object, and you can then use 
+the function `get_sample_data()` to extract the sampled data. 
+
+
+## Nested
+
+Nested sampling assumes that you have a nested structure, and allows you to sample different numbers at each hierarchical level. The `param` input is a matrix with (named) columns.  The rows of this matrix represent different sampling sets. This is most easily put together using the `cbind()` (column bind) function, specifying the names. The number of repeat observations for a higher level can be specified using name 'observation' (this doesn't have to exist in the data structure). For example
+
+```{r}
+cbind(individual=c(10, 15),observation=c(10, 5))
+```
+ would represent sampling the data structure above, the first set having 10 individuals each with 10 observations
+
+Note this sampling procedure only produces balanced sampling designs. For unbalanced designs see 'missing data' below.
+
+### Worked example 1
+We want to see how the number of repeat measurements on individuals affects power. In order to vary the number of observations of an individual, we could specify:
+
+```{r}
+param <- cbind(nest=10,individual=10,observation=c(20, 10, 5, 2))
+```
+
+```{r}
+sample_data <- sample_population(pop_data, 
+  type = "nested", 
+  param = param, 
+  plot = FALSE)
+
+get_sample_data(sample_data, sample_set=2, list=TRUE)
+```
+
+
+
+## Missing data
+
+Missing data is generated through creating probabilities of being sampled using logistic regression. Missingness can then be a function of any of the simulated variables. In this was `sample_population()` can implements the three classes of missing data:
+
+- **M**issing **C**ompletely **A**t **R**andom (MCAR)
+- **M**issing **A**t **R**andom (MAR)
+- **M**issing **N**ot **A**t **R**andom (MNAR)
+
+<!--
+Logistic function - probability of being sampled
+	MNAR Y = beta_1 * body size
+	MNAR Y = beta_1 * (temp +residual)
+	MAR Y = beta_2*temp
+-->
+
+### MCAR
+Missing completely at random occurs when the probability of missingness is not dependent on anything.  This can be implemented through a logistic regression, where only the intercept is specified:
+$$ logit(p) = beta_0 $$
+
+Note this intercept is on the logit scale, so 0 is equivalent to 0.5.
+
+```{r}
+sample_data <- sample_population(pop_data, 
+  type = "missing", 
+  param = "0", 
+  plot=FALSE)
+```
+
+### MAR
+Missing  at random occurs when the probability of missingness is dependent on a predictor variable (or a variables correlated with y). This can be implemented through a logistic regression, where the predictor variable(s) is a predictor(s) of y:
+$$ logit(p) = beta_0 + beta_1*environment $$ 
+```{r}
+sample_data <- sample_population(pop_data, 
+  type = "missing", 
+  param = "0.5*environment", 
+  plot=FALSE)
+```
+The predictor variables are scaled (mean 0, variance 1), so the slopes are directly comparable across traits, and intercept represents the mean (on the logit scale).
+
+### MNAR
+Missing not at random occurs when the probability of missingness is dependent on the response variable itself variable (i.e. y). This can be implemented through a logistic regression, where the predictor variable is y:
+$$ logit(p) = beta_0 + beta_1*y $$ 
+Again y is scaled.
+
+```{r}
+sample_data <- sample_population(pop_data, 
+  type = "missing", 
+  param = "0.5*y", 
+  plot=FALSE)
+```	
+
+<!-- example of variation in sampling between individuals, but not related to phenotype - create an individual level variable with beta=0 (doesn't affect phenotype, and then do sampling based on that) -->
+
+
+## Temporal Sampling
+
+In the parameters we specify a list, with the temporal variable `time`, the grouping variable with which the temporal sampling occurs `group`, the between group variance (as a proportion) in sampling times `variance` and the within group sample size `N`:
+```{r}
+
+pop_data <- simulate_population(
+  data_structure = make_structure("day(100) + individual(100)",repeat_obs=1),
+
+  parameters = list(
+    individual = list( 
+      vcov = 0.1
+    ),
+    day=list(
+    	covariate=TRUE, 
+    	beta=0.4
+    ), 
+    residual = list(
+      vcov = 0.8
+    )
+  )
+  
+)
+
+sample_data <- sample_population(pop_data, 
+  type = "temporal", 
+  param = list(
+    time = c("day"), 
+    group = c("individual"), 
+    variance = c(0.1,0.2), 
+    N=4), 
+  plot=FALSE)
+
+
+
+```

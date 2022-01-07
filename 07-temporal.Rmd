@@ -1,6 +1,6 @@
-# Temporal Effects
+# Temporal and Spatial Effects
 
-## Temporal Effects
+## Simple Temporal Effects
 
 We might have measured a variable over the course of a certain time period (e.g. 20 years). We might expect that there is stochastic year-to-year variation, which we can simulate already. However we might also want to simulate patterns in that temporal data. We can treat the levels associated with a particular grouping factor (e.g. year) as both a factor and continuous.
 
@@ -72,6 +72,73 @@ plot(y~year_cont,data)
 
 <br>
 
-Cyclical effects are described in a later section and temporal autocorrelation is still to be implemented.
+## Cyclical Temporal Effects
+`squidR` uses the sinusoidal equation to implement cyclical temporal effects
 
-<br>
+<div class="alert alert-info">
+
+$$
+y = A sin(B(x - C)) + D
+$$
+</div>
+
+ where A is the amplitude, $B/2\pi$ is the period $C/B$ is the horizontal shift and D is the vertical shift. We can visualise this
+
+```{r}
+ 
+time <- 1:20
+
+amplitude <- 10       # |A| = the amplitude
+period <- 10
+h_shift <- 3
+v_shift <- 5
+
+B <- (2*pi) / abs(period) # 2pi/|B| = the period 
+cyclic_effect <- amplitude*sin(B*time - B^2*h_shift ) + v_shift
+
+plot(cyclic_effect~time)
+
+ ```
+
+
+We can include this complexity into the model part of the `simulate_population`, adding the extra parameters for the cyclical effects into the year_cont part of the list.
+
+```{r}
+squid_data <- simulate_population(
+  parameters=list(
+    year_cont = list(
+      group="year",
+      names= "linear_effect",
+      covariate=TRUE,
+      beta=0.3,
+      amplitude = 2,       # |A| = the amplitude
+      period = 10,
+      h_shift = 3,
+      v_shift = 5
+    ),
+    year = list(
+      vcov = 1.2
+    ),
+    residual=list(
+      vcov = 1
+      )
+    ), 
+  data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",N=1000),
+
+  model=" B =(2*pi) / abs(period);
+          cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;
+          y = linear_effect + cyclic_effect + year_effect + residual_effect"
+)
+
+data <- get_population_data(squid_data)
+
+plot(y~year,data)
+
+
+```
+
+## Temporal Autocorrelation
+
+
+
+## Spatial Autocorrelation
