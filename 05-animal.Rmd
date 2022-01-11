@@ -1,8 +1,8 @@
-# Genetic effects
+# Genetic effects {#animal}
 
 This vignette assumes that you are generally happy with how the `sim_population()` function works.
 
-## Additive genetics effects
+## Additive genetics effects {#va}
 In order to simulate breeding values (additive genetic effects), we can provide the `simulate_population()` function with the relatedness structure in the population. The simplest way to do this is providing a pedigree using the the `pedigree` argument (a genetic relatedness matrix could also be given to the `cov_str` argument). The input to this argument needs to be a list, and the name of the pedigree in the list links it with the item in the parameter list.
 
 When simulating breeding values, **all** individuals in pedigree need to be in the data_structure and *vice versa*. Having unsampled individuals (for example the base population) can be achieved in the sampling stage (not implemented yet). 

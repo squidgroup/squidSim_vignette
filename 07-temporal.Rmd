@@ -137,8 +137,8 @@ plot(y~year,data)
 
 ```
 
-## Temporal Autocorrelation
+## Temporal Autocorrelation {#temporalauto}
 
 
 
-## Spatial Autocorrelation
+## Spatial Autocorrelation {#spatialauto}
