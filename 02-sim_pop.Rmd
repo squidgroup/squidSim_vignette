@@ -58,7 +58,7 @@ We are interested in how some environmental variables affect adult body mass.
 
 We will start simulating data without any hierarchical structure, i.e. everything varies at the level of the *observation*.
 
-Lets imagine a situation where we have some predictor variables ($x_1$, $x_2$, $x_3$) that vary at the level of the observation, which affect a response variable ($y$), each with a certain magnitude and direction of their effect (or the slope; $\beta_1$ etc), as well as some unexplained, residual variation ($\epsilon$). These are added together to give create the response variable.
+Let's imagine a situation where we have some predictor variables ($x_1$, $x_2$, $x_3$) that vary at the level of the observation, which affect a response variable ($y$), each with a certain magnitude and direction of their effect (or the slope; $\beta_1$ etc), as well as some unexplained, residual variation ($\epsilon$). These are added together to give create the response variable.
 
 We can write this out in the form of a linear model: 
 $$
@@ -87,7 +87,14 @@ $$
  -->
 The key to simulating data using the `squid` package is correctly specifying the parameters (from the equations above that would be $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
 
-Let's simulate from the above model. To simulate the predictors varying at the level of the observation, we can use the `observation` slot in the parameter list. Within the parameters list, we create an observation list. We can then specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
+Let's simulate from the above model. To simulate the predictors varying at the level of the observation, we can use the `observation`  and `residual` slots in the parameter list, to specify the parameters for the observation level predictors and the residuals, respectively. 
+
+```{r lm-explain1, echo=FALSE, out.width = '50%', fig.align="center"}
+knitr::include_graphics("lm_explain1.png")
+```
+
+
+For both observation and residual we create a list containing the respective parameters. Let's start with the observation list. We can then specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
 ```r
     observation = list(
       names = c("temperature","rainfall", "wind"),
@@ -171,6 +178,13 @@ plot(y ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha(1,0.5))
 coef(lm(y ~ temperature + rainfall + wind, data))
 
 ```
+
+<!-- ![](lm_explain.pdf){#lm_explain width=100% max-height=2000px} -->
+
+```{r lm_explain, echo=FALSE, out.width = '100%'}
+knitr::include_graphics("lm_explain.png")
+```
+
 
 ## Correlated predictors {#corpred}
 We can simulate correlations between these predictors, as `vcov` specifies the variance/covariance matrix of the predictors.
@@ -293,34 +307,6 @@ We can also use this to induce measurement error in a predictor - we can simulat
 
 
 
-## Factors
-So far the simulated predictors have all been continuous, but we may want to simulate factors with known or *fixed* effects i.e. not drawn from a normal distribution. In this case we can specify `fixed = TRUE` for a particular level, and then give a beta for all the different levels of that group.
-
-
-Lets take the example of sex. Factors can be thought of as a hierarcihc First we can create a data structure using the 
-
-```{r,fig.width=6,fig.height=6}
-squid_data <- simulate_population(
-  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
-  parameters = list(
-    sex=list(
-      fixed=TRUE,
-      names=c("female","male"),
-      beta=c(-0.5,0.5)
-    ),
-    residual = list(
-      vcov = 0.5
-    )
-  )
-)
-
-data <- get_population_data(squid_data)
-
-boxplot( y ~ factor(sex), data)
-lm( y ~ factor(sex), data)
-```
-
-
 ## Interactions and non-linear effects
 
 
@@ -382,38 +368,7 @@ coef(lm(y ~ temperature + I(temperature^2), data))
 
 <br>
 
-### Fixed Factor Interactions
 
-```{r,fig.width=6,fig.height=6}
-squid_data <- simulate_population(
-  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
-  parameters = list(
-    sex=list(
-      fixed=TRUE,
-      names=c("female","male"),
-      beta=c(-0.5,0.5)
-    ),
-    observation= list(
-      names = c("environment"),
-      beta =c(0.2)
-      ),
-    interactions = list(
-      names=c("environment:male"),
-      beta = 0.2
-      ),
-    residual = list(
-      names="residual",
-      vcov = 0.1
-    )
-  )
-)
-
-data <- get_population_data(squid_data)
-head(data)
-plot(y~environment,data, pch=19, col=alpha(c(1,2),0.5)[factor(data$sex)])
-
-lm( y ~ 0 + factor(sex)*environment, data)
-```
 
 ## Transformations
 We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are scaled by the beta values. To do this we can use provide the transformation function to the functions option of a given parameter list, as a character vector. The given funtion needs to b a known function in R. The below code will exponentiate rainfall (using the `exp` function), before it is scaled by its beta (here 2).

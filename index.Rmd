@@ -1,5 +1,5 @@
 --- 
-title: "squid R package vignette"
+title: "The {squid} R Package Vignette"
 author: "Joel Pick"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -12,9 +12,9 @@ github-repo: squid-group/squid
 description: "This is a vignette for using the squid R package."
 ---
 
-# What is does the squid R package do? {#intro}
+# The {squid} R package {.unnumbered #intro}
 
-The squid R package is designed to simplify data simulation, for a highly flexible set of models, including:
+The squid R package is designed to simplify data simulation from a highly flexible set of models, including:
 
 - Correlated and interacting predictor variables
 - Non-gaussian data (Poisson and binomial)
@@ -30,11 +30,16 @@ The squid R package is designed to simplify data simulation, for a highly flexib
 
 The main idea is that anything you can model using a linear mixed effect model framework (assuming underlying multivariate normality) you should be able to simulate using the squid package.
 
+### Why use squid?
+For people confident with programming in R, simulating data doesn't provide a huge challenge. However, to those less confident with programming, or the process of data simulation more generally, starting with simulations can seem like a daunting task. The {squid} R package is designed to facilitate that transition, and to focus attention on the data structure and parameters needed for simulation, rather than the programming knowledge.
+
+{squid} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else's code) is that many people have very contrasting programming styles. Another motivation for the squid package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone's personal code. 
 
 
-### Using the vignette
-If you are new to using the squid package, we recommend that you read Sections \@ref(linearmod) and \@ref(hierarchical) to familiarise yourself with the squid package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work. 
+### Using the vignette {-}
+If you are new to using the {squid} package, we recommend that you read Sections \@ref(linearmod) and \@ref(hierarchical) to familiarise yourself with the squid package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work. 
 
+The vignette assumes that you have a working knowledge of R.
 
 <!-- 
 ## Functionality
@@ -64,7 +69,7 @@ This is a summary of the desired functionality laid out in the different SQuID w
 <br> 
 -->
 
-### Installation
+### Installation {-}
 
 The new squid functions are currently in the development version of the squid package on github:
 ```r
@@ -72,7 +77,7 @@ devtools::install_github("squid-group/squid", ref="development")
 library(squid)
 ```
 
-### Issues and bugs
+### Issues and bugs {-}
 It would be great if you could report any suggestions, issues or bugs using github issues https://github.com/squid-group/squid/issues. It is worth checking to see if anyone else has a similar problem first, and  adding comments to their issue, before starting a new one. 
 
 
@@ -80,17 +85,15 @@ It would be great if you could report any suggestions, issues or bugs using gith
 ```{r, echo=FALSE, message=FALSE,warning=FALSE}
 rm(list=ls())
 
-options(width = 300)
-
 library(lme4)
 library(MCMCglmm)
 library(scales)
- devtools::load_all("~/github/squid/R")
+ # devtools::load_all("~/github/squid/R")
 # devtools::check("~/github/squid/R")
 
 
 # devtools::install_github("squid-group/squid", ref="development")
-# library(squid)
+library(squid)
 
 library(knitr)
 # the default source hook

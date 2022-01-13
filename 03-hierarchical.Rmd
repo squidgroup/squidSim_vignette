@@ -6,7 +6,7 @@ There are two parts to simulating hierarchical data. First you need to have a hi
 
 ## Making a hierarchical structure {#makestr}
 
-We can use the `make_structure` function to create nested and crossed hierarchical data structures. The `make_structure` function only produces balanced data structures, but these can be made unbalanced using by sampling, which is outlined in Section \@ref(Sampling)
+We can use the `make_structure` function to create nested and crossed hierarchical data structures. The `make_structure` function only produces balanced data structures, but these can be made unbalanced using by sampling, which is outlined in Section \@ref(sampling)
 
 ```{r, echo=FALSE, message=FALSE,warning=FALSE}
 plot_nested<-function(data_structure){
@@ -285,56 +285,116 @@ Anne: the sentence “This setup also allows us to create variation at each leve
 
 
 
+## Factors
+So far the simulated predictors have all been continuous, but we may want to simulate factors with known or *fixed* effects i.e. not drawn from a normal distribution. In this case we can specify `fixed = TRUE` for a particular level, and then give a beta for all the different levels of that group.
+
+
+Lets take the example of sex. Factors can be thought of as a hierarcihc First we can create a data structure using the 
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
+  parameters = list(
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(-0.5,0.5)
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+boxplot( y ~ factor(sex), data)
+lm( y ~ factor(sex), data)
+```
+
+
+### Fixed Factor Interactions
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
+  parameters = list(
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(-0.5,0.5)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta =c(0.2)
+      ),
+    interactions = list(
+      names=c("environment:male"),
+      beta = 0.2
+      ),
+    residual = list(
+      names="residual",
+      vcov = 0.1
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+plot(y~environment,data, pch=19, col=alpha(c(1,2),0.5)[factor(data$sex)])
+
+lm( y ~ 0 + factor(sex)*environment, data)
+```
+
 
 ## Random slopes {#randomslopes}
+
+Random slopes are essentially an interaction between predictors at different levels, with the random slopes being an unobserved, latent variable.
 
 <div class="alert alert-info">
 
 $$
-y_{i,j} = \beta_0 + u_j + x_{i,j} \boldsymbol\beta_j + \epsilon_{i,j}
+y_{i,j} = \beta_0 + \beta_1 x_{i,j} + z_{1,j} + z_{2,j}x_{i,j}  + \epsilon_{i,j}
 $$
 $$
-\begin{bmatrix} u_j \\\boldsymbol\beta_j \\ \end{bmatrix} \sim MVN(\begin{bmatrix} 0 \\ \bar{\beta} \\ \end{bmatrix},\Sigma_{u,\boldsymbol\beta})
+Z \sim MVN(0,\Sigma_{z})
 $$
 $$
 \epsilon \sim N(0,\sigma^2_\epsilon)
 $$
-</div>
-Random slopes are essentially an interaction between predictors at different levels, with the random slopes being an unobserved, latent variable.
 
-We can specify random slopes by simulating a slopes variable (`ind_slope`) at the individual level ($\boldsymbol\beta_j$). Here we want to give the mean and variance of the slopes, rather than have the mean=0 and the slopes as deviations as in a LMM. 
+</div>
+
+We can specify random slopes by simulating a slopes variable at the individual level (`ind_slope` - $z_{2,j}$). We can specify the mean environmental effect the slope of the environmental variable ($beta_1$). $z_{2,j}$ then represents the deviations from the mean slope (this is typically how it is modelling in a linear mixed effect model).
+<!-- alternatively the mean environmental effect could be specified as the mean of the slopes variable with the environment slope as 0 -->
+Importantly the `beta` parameter associated with `ind_slope` is specified as 0 (there is no 'main effect' of the slopes, just the interaction), and the `beta` parameter associated with interaction is 1.
+
+
 ```{r}
 
 squid_data <- simulate_population(
+  data_structure=make_structure("individual(300)",repeat_obs=10),
   parameters = list(
     individual = list(
-      names = c("ind_int","ind_slope"),
-      mean =c(0,0.2), 
-      beta=c(1,0),
-      vcov =matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2)
+      names = c("ind_int","ind_slope"), 
+      beta = c(1,0),
+      vcov = matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2)
     ),
     observation= list(
       names = c("environment"),
-      vcov =c(1)
+      beta = c(0.2)
     ), 
     residual = list(
-      names = c("residual"),
-      vcov =c(0.5)
+      vcov = c(0.5)
     ),
     interactions = list(
       names = c("ind_slope:environment"),
-      beta =c(1)
+      beta = c(1)
     )
-  ),
-  data_structure=make_structure("individual(300)",repeat_obs=10)
+  )
 )
 
 data <- get_population_data(squid_data)
 
 short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ```
-
-
-
-<!-- Can also implement it as a slope and deviations from the slope using `I()`, to fit in more with how it is modelled. 
- -->
