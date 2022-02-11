@@ -14,7 +14,7 @@ Stuff about underlying ethos - Create population and then sample from it
 
 ## `simulate_population` function
 
-The heart of the squid R package is the `simulate_population` function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
+The heart of the squidSim R package is the `simulate_population` function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
 
 The `simulate_population` function simulates predictors at each hierarchical level, using provided mean and vcov parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population` function (along with their defaults) are:
 
@@ -33,6 +33,8 @@ simulate_population(
   phylogeny, 
   phylogeny_type, 
   cov_str, 
+  sample_type,
+  sample_param,
   N_pop=1
 )
 ```
@@ -41,7 +43,9 @@ Each of these will be covered in more detail in the following sections. Briefly,
 
 `pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type`, relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic)and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
 
-`N_pop` relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section \@ref(phylogenetic)
+`sample_type` and `sample_param` relate to different sampling methods and are covered in Section \@ref(sampling)
+
+`N_pop` relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section \@ref(npop)
 
 <br>
 
@@ -85,7 +89,7 @@ $$
 
 </div>
  -->
-The key to simulating data using the `squid` package is correctly specifying the parameters (from the equations above that would be $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
+The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
 
 Let's simulate from the above model. To simulate the predictors varying at the level of the observation, we can use the `observation`  and `residual` slots in the parameter list, to specify the parameters for the observation level predictors and the residuals, respectively. 
 
@@ -605,7 +609,7 @@ coef(lm(y ~ temperature + rainfall, data))
 Finally, we can use `[]` to index the levels of the random effects within the formula...
 
 
-## Simulating multiple populations
+## Simulating multiple populations {#npop}
 
 We can use the `simulate_population()` function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the `N_pop` argument in `simulate_population()`. This defaults to 1.
 

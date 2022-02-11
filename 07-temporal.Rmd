@@ -98,7 +98,7 @@ cyclic_effect <- amplitude*sin(B*time - B^2*h_shift ) + v_shift
 
 plot(cyclic_effect~time)
 
- ```
+```
 
 
 We can include this complexity into the model part of the `simulate_population`, adding the extra parameters for the cyclical effects into the year_cont part of the list.
@@ -127,7 +127,7 @@ squid_data <- simulate_population(
 
   model=" B =(2*pi) / abs(period);
           cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;
-          y = linear_effect + cyclic_effect + year_effect + residual_effect"
+          y = linear_effect + cyclic_effect + year_effect + residual"
 )
 
 data <- get_population_data(squid_data)
