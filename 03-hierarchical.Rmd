@@ -1,6 +1,6 @@
 # Hierarchical structure {#hierarchical}
 
-There are two parts to simulating hierarchical data. First you need to have a hierarchical data structure and second you need parameters at each of the different hierarchical levels. The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. In this Section, we will first demonstrate how to make a hierarchical structure using the `make_structure` function. `simulate_population` also allows pre-existing data structures to be incorporated. The remaining part of the section detail how to simulate hierarchical data once you have a hierarchical data structure. 
+There are two parts to simulating hierarchical data. First you need to have a hierarchical data structure and second you need parameters at each of the different hierarchical levels. The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. In this Section, we will first demonstrate how to make a hierarchical structure using the `make_structure` function. `simulate_population` also allows pre-existing data structures to be incorporated. The remaining part of the section details how to simulate hierarchical data once you have a hierarchical data structure. 
 
 
 

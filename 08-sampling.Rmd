@@ -62,14 +62,14 @@ nrow(sample_data)
 ```
 
 ## Missing data
-The missing data methods allows generation of unbalanced data. Missing data is generated through creating probabilities of being sampled using logistic regression. Missingness can then wither be random, or a function of any of the simulated variables. 
+The missing data methods allows generation of unbalanced data. Missing data is generated through creating probabilities of being sampled using logistic regression. Missingness can then either be random, or a function of any of the simulated variables. 
 
 This methods allows the different classes of missing data to be generated:
 
 - **M**issing **C**ompletely **A**t **R**andom (MCAR)
     - All observations have an equal probability of being sampled
 - **M**issing **A**t **R**andom (MAR)
-    - Probability of missingness is dependent a variables correlated with the response variable (i.e. a predictor variable)
+    - Probability of missingness is dependent on variables correlated with the response variable (i.e. a predictor variable)
 - **M**issing **N**ot **A**t **R**andom (MNAR)
     - Probability of missingness is dependent on the response variable itself 
 

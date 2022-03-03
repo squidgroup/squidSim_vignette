@@ -375,7 +375,7 @@ coef(lm(y ~ temperature + I(temperature^2), data))
 
 
 ## Transformations
-We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are scaled by the beta values. To do this we can use provide the transformation function to the functions option of a given parameter list, as a character vector. The given funtion needs to b a known function in R. The below code will exponentiate rainfall (using the `exp` function), before it is scaled by its beta (here 2).
+We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are scaled by the beta values. To do this we can provide the transformation function to the functions option of a given parameter list, as a character vector. The given function needs to be a known function in R. The below code will exponentiate rainfall (using the `exp` function), before it is scaled by its beta (here 2).
 
 ```{r}
 squid_data <- simulate_population(
