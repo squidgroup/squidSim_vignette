@@ -1,2 +1,2 @@
-# squid_vignette
-vignette for the updated squid R package
+# squidSim_vignette
+vignette for the updated squidSim R package

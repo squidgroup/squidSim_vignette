@@ -1,6 +1,10 @@
 # Simulating population level data {#linearmod}
 
-Stuff about underlying ethos - Create population and then sample from it
+Stuff about underlying ethos of squid
+<br>
+
+ - Create population and then sample from it
+<br>
 
 <div style="float: left; width: 40%; text-align: center;" >
   Make Hierarchical Structure<br>
@@ -16,7 +20,7 @@ Stuff about underlying ethos - Create population and then sample from it
 
 The heart of the squidSim R package is the `simulate_population` function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
 
-The `simulate_population` function simulates predictors at each hierarchical level, using provided mean and vcov parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population` function (along with their defaults) are:
+The `simulate_population` function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population` function (along with their defaults) are:
 
 ```r
 simulate_population(
@@ -24,6 +28,7 @@ simulate_population(
   N, 
   parameters, 
   N_response=1, 
+  response_names,
   family="gaussian", 
   link="identity", 
   model, 
@@ -39,13 +44,13 @@ simulate_population(
 )
 ```
 
-Each of these will be covered in more detail in the following sections. Briefly, `N` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. `N_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (\@ref(multivariate)). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). 
+Each of these will be covered in more detail in the following sections. Briefly, `N` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. `N_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section \@ref(multivariate)). `response_names` controls what the simulated response variables are named, and is described in the following parts of this section and Section \@ref(multivariate). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). 
 
 `pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type`, relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic)and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
 
 `sample_type` and `sample_param` relate to different sampling methods and are covered in Section \@ref(sampling)
 
-`N_pop` relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section \@ref(npop)
+`N_pop` relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section \@ref(npop).
 
 <br>
 
@@ -62,7 +67,7 @@ We are interested in how some environmental variables affect adult body mass.
 
 We will start simulating data without any hierarchical structure, i.e. everything varies at the level of the *observation*.
 
-Let's imagine a situation where we have some predictor variables ($x_1$, $x_2$, $x_3$) that vary at the level of the observation, which affect a response variable ($y$), each with a certain magnitude and direction of their effect (or the slope; $\beta_1$ etc), as well as some unexplained, residual variation ($\epsilon$). These are added together to give create the response variable.
+Let's imagine a situation where we have some predictor variables ($x_1$, $x_2$, $x_3$) that vary at the level of the observation, which affect a response variable ($y$), each with a certain magnitude and direction of their effect (or the slope; $\beta_1$ etc), as well as some unexplained, residual variation ($\epsilon$), and an intercept ($\beta_0$; value of the response when the sum of the predictors is 0). These are added together to give create the response variable.
 
 We can write this out in the form of a linear model: 
 $$
@@ -73,7 +78,7 @@ We can also write this in matrix notation
 $$
 y = \beta_0 + \boldsymbol X \beta + \epsilon
 $$
-where $X$ is a matrix of predictors and $\beta$ is a (column) vector of slopes.
+where $X$ is a matrix of predictors and $\beta$ is a (column) vector of slopes/effect sizes.
 
 If we want to simulate from this model, we can assume that these predictor variables are multivariate normally distributed, with given means ($\mu$) and a covariance structure ($\Sigma_x$), and the residuals are normally distributed with a given variance ($\sigma^2_\epsilon$)
 $$
@@ -89,13 +94,9 @@ $$
 
 </div>
  -->
-The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
+The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
 
 Let's simulate from the above model. To simulate the predictors varying at the level of the observation, we can use the `observation`  and `residual` slots in the parameter list, to specify the parameters for the observation level predictors and the residuals, respectively. 
-
-```{r lm-explain1, echo=FALSE, out.width = '50%', fig.align="center"}
-knitr::include_graphics("lm_explain1.png")
-```
 
 
 For both observation and residual we create a list containing the respective parameters. Let's start with the observation list. We can then specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
@@ -184,10 +185,6 @@ coef(lm(y ~ temperature + rainfall + wind, data))
 ```
 
 <!-- ![](lm_explain.pdf){#lm_explain width=100% max-height=2000px} -->
-
-```{r lm_explain, echo=FALSE, out.width = '100%'}
-knitr::include_graphics("lm_explain.png")
-```
 
 
 ## Correlated predictors {#corpred}
@@ -641,8 +638,78 @@ data <- get_population_data(squid_data, list=TRUE)
 
 
 ## Parameter list summary
-- **names**
-- **group**
+
+The parameters list contains one (or more) list for each hierarchical level that you want to simulate at. A residual list is always need, specifying variances/covariances for the residual. Additionally, the parameter list can also be provided with an intercept vector and interactions list. 
+
+```r
+parameters=list(
+  residual=list(
+    vcov=...
+  )  
+)
+```
+
+```r
+parameters=list(
+  intercept=c(...),  
+  residual=list(
+    vcov=...
+  )  
+)
+```
+
+```r
+parameters=list(
+  intercept=c(...),
+  observation=list(
+    beta = ...
+  ),
+  residual=list(
+    vcov = ...
+  )  
+)
+```
+
+```r
+parameters=list(
+  intercept=c(...),
+  individual=list(
+    beta = ...
+  ),
+  observation=list(
+    names = c(...),
+    beta = ...
+  ),
+  residual=list(
+    vcov = ...
+  )  
+)
+```
+
+```r
+parameters=list(
+  intercept=c(...),
+  individual=list(
+    beta = ...
+  ),
+  observation=list(
+    names = c(...),
+    beta = ...
+  ),
+  interactions=list(
+    names = c(...),
+    beta = ...
+  ),
+  residual=list(
+    vcov = ...
+  )  
+)
+```
+
+For each item in the parameter list (excluding intercept, interactions, and residual), the following can be specified:
+
+- **names** This is the names of predictors from this list that will be output. This doesn't not have to be specified, unless the predictors at this level are included in interactions. By default, the names will be the name of the list (e.g. 'individual' in the example above), appended with `_effect` and a sequential number if there are multiple predictors.
+- **group** This is the 
 - **mean**
 - **vcov**
 - **vcorr**

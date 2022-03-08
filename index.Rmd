@@ -5,7 +5,6 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: squid-group/squid
@@ -17,7 +16,7 @@ description: "This is a vignette for using the squid R package."
 The squidSim R package is designed to simplify data simulation from a highly flexible set of models, including:
 
 - Correlated and interacting predictor variables
-- Non-gaussian data (Poisson and binomial)
+- Non-Gaussian response variables (Poisson and binomial)
 - Crossed and nested hierarchical structures
 - Random intercepts and slopes
 - Univariate and multivariate data
@@ -88,12 +87,12 @@ rm(list=ls())
 library(lme4)
 library(MCMCglmm)
 library(scales)
- # devtools::load_all("~/github/squidSim/R")
+ devtools::load_all("~/github/squidSim/R")
 # devtools::check("~/github/squidSim/R")
 
 
 # devtools::install_github("squid-group/squidSim", ref="development")
-library(squidSim)
+# library(squidSim)
 
 library(knitr)
 # the default source hook
