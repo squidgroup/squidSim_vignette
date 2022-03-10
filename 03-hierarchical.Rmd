@@ -1,6 +1,13 @@
 # Hierarchical structure {#hierarchical}
 
-There are two parts to simulating hierarchical data. First you need to have a hierarchical data structure and second you need parameters at each of the different hierarchical levels. The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. In this Section, we will first demonstrate how to make a hierarchical structure using the `make_structure` function. `simulate_population` also allows pre-existing data structures to be incorporated. The remaining part of the section details how to simulate hierarchical data once you have a hierarchical data structure. 
+There are two parts to simulating hierarchical data. First you need to have a hierarchical data structure and second you need parameters at each of the different hierarchical levels. The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. Lets take the blue tit dataset we explored earlier:
+
+```{r}
+head(BTdata)
+```
+Here `animal`, `dam`, `fosternest` and `sex` make up the data structure.
+
+In this Section, we will first demonstrate how to make a simple hierarchical structure using the `make_structure` function. `simulate_population` also allows pre-existing data structures to be incorporated into simulations. The remaining part of the section details how to simulate hierarchical data once you have a hierarchical data structure. 
 
 
 
@@ -74,11 +81,13 @@ make_structure(structure="treatment(2) + individual(5) + treatment:individual", 
 
 ### Temporal structure
 ```{r}
-make_structure(structure="year(2)/month(12)/day(30)", repeat_obs=1)
+ds <- make_structure(structure="year(2)/month(12)/day(30)", repeat_obs=1)
+head(ds)
 ```
 
 ```{r}
-make_structure(structure="year(2) + month(12) + day(30) + year:month:day", repeat_obs=1)
+ds <- make_structure(structure="year(2) + month(12) + day(30) + year:month:day", repeat_obs=1)
+head(ds)
 ```
 
 <!-- ```{r}
@@ -157,7 +166,7 @@ coef(lm(y ~ size + behaviour + physiology + temperature + rainfall , data))
 
 ```
 
-Here, we have simulated 5 predictors, 'size', 'behaviour' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation (all with mean=0 and variance=1). Note, the names of the different grouping factors in the parameter list need to exactly match those in the data structure. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
+Here, we have simulated 5 predictors, 'size', 'behaviour' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
 
 ```{r}
 squid_data <- simulate_population(
@@ -183,7 +192,6 @@ squid_data <- simulate_population(
   )
 )
 ```
-
 
 It is also worth noting that predictors do not have to be simulated for every grouping factor in the data structure.
 
