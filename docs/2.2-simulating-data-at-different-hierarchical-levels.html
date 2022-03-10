@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -289,8 +289,8 @@ To do this, we can either specify a data structure generated using <code>make_st
 <span id="cb91-18"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb91-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb91-19"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb91-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-20"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb91-20" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> size <span class="sc">+</span> behaviour <span class="sc">+</span> physiology <span class="sc">+</span> temperature <span class="sc">+</span> rainfall , data))</span></code></pre></div>
-<pre><code>##  (Intercept)         size    behaviour   physiology  temperature     rainfall 
-## -0.004619823  0.113363827  0.300209126  0.213696150  0.173801551 -0.069308797</code></pre>
+<pre><code>## (Intercept)        size   behaviour  physiology temperature    rainfall 
+##  0.04341343  0.10691685  0.29493441  0.21752938  0.21177249 -0.12458160</code></pre>
 <p>Here, we have simulated 5 predictors, ‘size’, ‘behaviour’ and ‘physiology’ that vary at the level of the individual, and ‘temperature’ and ‘rainfall’ that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, <strong>the names of the different grouping factors in the parameter list needs to exactly match those in the data structure</strong>. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section <a href="4.1-va.html#va">4.1</a>), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a <code>group</code> name. For example the following will produce the same simulation as above:</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb93-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb93-2"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(500)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">2</span>),</span>
@@ -345,13 +345,13 @@ z \sim N(0,\sigma^2_z)
 <span id="cb94-12"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb94-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb94-13"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb94-13" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb94-14"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##             y individual_effect    residual individual squid_pop
-## 1: -1.2079359        -1.0257919 -0.18214399          1         1
-## 2: -2.3019686        -1.0257919 -1.27617664          1         1
-## 3:  0.7622309         0.3815617  0.38066920          2         1
-## 4:  1.7634982         0.3815617  1.38193656          2         1
-## 5: -0.5656264        -0.6821035  0.11647709          3         1
-## 6: -0.6447769        -0.6821035  0.03732662          3         1</code></pre>
+<pre><code>##             y individual_effect   residual individual squid_pop
+## 1: -1.6777145        -0.9419815 -0.7357329          1         1
+## 2: -1.4025959        -0.9419815 -0.4606144          1         1
+## 3:  0.7206756         1.1249739 -0.4042984          2         1
+## 4:  1.3959790         1.1249739  0.2710051          2         1
+## 5:  2.1898493         1.3680272  0.8218221          3         1
+## 6:  1.4893575         1.3680272  0.1213303          3         1</code></pre>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
 <span id="cb96-2"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb96-2" aria-hidden="true" tabindex="-1"></a>short_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">print</span>(<span class="fu">summary</span>(x), <span class="at">correlation=</span><span class="cn">FALSE</span>, <span class="at">show.resids=</span><span class="cn">FALSE</span>, <span class="at">ranef.comp =</span> <span class="fu">c</span>(<span class="st">&quot;Variance&quot;</span>))</span>
 <span id="cb96-3"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -360,17 +360,17 @@ z \sim N(0,\sigma^2_z)
 ## Formula: y ~ 1 + (1 | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 2650.7
+## REML criterion at convergence: 2716.2
 ## 
 ## Random effects:
 ##  Groups     Name        Variance
-##  individual (Intercept) 0.4916  
-##  Residual               0.4699  
+##  individual (Intercept) 0.5334  
+##  Residual               0.4976  
 ## Number of obs: 1000, groups:  individual, 500
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.02446    0.03812  -0.642</code></pre>
+## (Intercept) -0.02974    0.03955  -0.752</code></pre>
 <p>Note that here we haven’t specified any variable names. In this case the simulated predictors are named by the grouping factors (e.g. individual_effects).</p>
 </div>
 <div id="incorporating-existing-data-structures" class="section level3" number="2.2.2">
@@ -403,18 +403,18 @@ z \sim N(0,\sigma^2_z)
 <span id="cb100-15"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb100-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb100-16"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb100-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb100-17"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#cb100-17" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
-<pre><code>##               y  dam_effect fosternest_effect   residual     dam fosternest
-##   1:  0.9341310  0.47570613        0.19132612  0.2670988 R187557      F2102
-##   2:  2.4709091  0.49003687        1.26942996  0.7114423 R187559      F1902
-##   3: -0.8876028 -0.49521486       -0.56947508  0.1770872 R187568       A602
-##   4: -1.3056287 -0.07032347       -0.24634675 -0.9889585 R187518      A1302
-##   5: -0.8498537 -0.10370246       -0.49850826 -0.2476430 R187528      A2602
-##  ---                                                                       
-## 824: -0.3160093  0.02331247        0.01608296 -0.3554047 K983388      H1102
-## 825:  2.2909789  0.97609293       -0.04340071  1.3582867 R186903       H702
-## 826: -0.4200143  0.22324257        0.03865625 -0.6819131 R187535       H502
-## 827:  0.5804389 -0.33236969       -0.05291349  0.9657221 R186911       H302
-## 828: -0.7293586 -0.47923466        0.92423544 -1.1743594 R187001       H102
+<pre><code>##               y  dam_effect fosternest_effect     residual     dam fosternest
+##   1:  1.1672894  0.65404906         0.1073194  0.405920979 R187557      F2102
+##   2:  1.8087669  0.98628579         0.2580972  0.564383881 R187559      F1902
+##   3: -1.0786592  0.28997300        -0.9376271 -0.431005023 R187568       A602
+##   4:  0.6095347  0.09568555        -0.0146496  0.528498768 R187518      A1302
+##   5:  0.7202249  0.22261742        -0.1549762  0.652583722 R187528      A2602
+##  ---                                                                         
+## 824: -0.8136378 -0.43020131         0.2054801 -0.588916582 K983388      H1102
+## 825: -0.4140612 -0.13307324         0.1243798 -0.405367733 R186903       H702
+## 826:  0.7183663  0.59685279         0.9701100 -0.848596488 R187535       H502
+## 827: -0.6785256  0.20706809        -0.3019021 -0.583691581 R186911       H302
+## 828: -0.5661182  0.06113824        -0.6191307 -0.008125703 R187001       H102
 ##      squid_pop
 ##   1:         1
 ##   2:         1

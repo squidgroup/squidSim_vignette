@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -273,7 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="_main_files/figure-html/lm3-1.png" width="960" /></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="1.3-corpred.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##   9.6282295   0.4796357  -2.9581787   0.4279059</code></pre>
+##  10.1508543   0.5071426  -2.9837414   0.3877572</code></pre>
 <style>
 div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 </style>
@@ -312,9 +312,9 @@ div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 <span id="cb27-23"><a href="1.3-corpred.html#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-24"><a href="1.3-corpred.html#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>)])</span></code></pre></div>
 <pre><code>##             temperature   rainfall      wind
-## temperature   1.0000000 -0.2050040 0.5267326
-## rainfall     -0.2050040  1.0000000 0.2944958
-## wind          0.5267326  0.2944958 1.0000000</code></pre>
+## temperature   1.0000000 -0.2238435 0.4742474
+## rainfall     -0.2238435  1.0000000 0.2952022
+## wind          0.4742474  0.2952022 1.0000000</code></pre>
 <p>Through simulating correlated predictors, we can also simulate more interesting phenomena. For example, we may want to simulate the effect of a correlated missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="1.3-corpred.html#cb29-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb29-2"><a href="1.3-corpred.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
@@ -345,10 +345,10 @@ div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 <p><img src="_main_files/figure-html/lm5-1.png" width="960" /></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="1.3-corpred.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall 
-##  14.0474418   0.8921506  -3.0301798</code></pre>
+##  13.9311275   0.9111508  -3.0323837</code></pre>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="1.3-corpred.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##  10.2130145   0.5251596  -3.0253127   0.3751656</code></pre>
+##   9.6807476   0.5047093  -3.0048690   0.4140934</code></pre>
 <p>We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain affect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).</p>
 <!-- measurement error - correlated variable #ffe58f-->
 </div>

@@ -187,7 +187,7 @@ boxplot(mean~n,ind_data)
 
 ## Temporal Sampling
 
-In the parameters we specify a list, with the temporal variable `time`, the grouping variable with which the temporal sampling occurs `group`, the between group variance (as a proportion) in sampling times `variance` and the within group sample size `N`:
+In the parameters we specify a list, with the temporal variable `time`, the grouping variable with which the temporal sampling occurs `group`, the between group variance (as a proportion) in sampling times `variance` and the within group sample size `n`:
 ```{r}
 
 pop_data <- simulate_population(
@@ -211,7 +211,7 @@ pop_data <- simulate_population(
     time = c("day"), 
     group = c("individual"), 
     variance = c(0.1,0.2), 
-    N=4), 
+    n=4), 
   
 )
 

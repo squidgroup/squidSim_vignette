@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -270,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##  (Intercept)  factor(sex)2  
-##      -0.4650        0.9289</code></pre>
+##      -0.4997        0.9561</code></pre>
 <div id="fixed-factor-interactions" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Fixed Factor Interactions</h3>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="2.3-factors.html#cb105-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
@@ -298,13 +298,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-23"><a href="2.3-factors.html#cb105-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb105-24"><a href="2.3-factors.html#cb105-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb105-25"><a href="2.3-factors.html#cb105-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##               y female male environment environment:male    residual sex
-## 1:  0.009234392      1    0  -0.1795794                0  0.54515027   1
-## 2: -0.741546197      1    0  -0.9310662                0 -0.05533296   1
-## 3: -0.036056143      1    0   0.5268317                0  0.35857751   1
-## 4: -0.944761773      1    0  -1.1993119                0 -0.20489940   1
-## 5: -0.406552868      1    0  -0.3585898                0  0.16516510   1
-## 6: -0.484035322      1    0   0.4249365                0 -0.06902263   1
+<pre><code>##             y female male  environment environment:male    residual sex
+## 1: -0.6007998      1    0 -0.874737200                0  0.07414769   1
+## 2: -0.2595129      1    0 -0.411796120                0  0.32284633   1
+## 3: -0.7276224      1    0 -0.007414494                0 -0.22613952   1
+## 4: -0.3374965      1    0  0.928201717                0 -0.02313686   1
+## 5: -0.2751921      1    0 -0.346524521                0  0.29411280   1
+## 6: -0.9509419      1    0 -0.375567231                0 -0.37582847   1
 ##    individual squid_pop
 ## 1:          1         1
 ## 2:          1         1
@@ -321,9 +321,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##             factor(sex)1              factor(sex)2               environment  
-##                  -0.5052                    0.4953                    0.2035  
+##                  -0.5003                    0.5020                    0.2070  
 ## factor(sex)2:environment  
-##                   0.1826</code></pre>
+##                   0.1828</code></pre>
 </div>
 </div>
             </section>

@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -262,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb154-17"><a href="5.1-brownian-motion.html#cb154-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb154-18"><a href="5.1-brownian-motion.html#cb154-18" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_dat)</span>
 <span id="cb154-19"><a href="5.1-brownian-motion.html#cb154-19" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(pop_dat<span class="sc">$</span>taxon_effect)</span></code></pre></div>
-<pre><code>## [1] 0.9823898</code></pre>
+<pre><code>## [1] 1.135483</code></pre>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="5.1-brownian-motion.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
 <span id="cb156-2"><a href="5.1-brownian-motion.html#cb156-2" aria-hidden="true" tabindex="-1"></a>Ainv<span class="ot">&lt;-</span><span class="fu">inverseA</span>(bird.families)<span class="sc">$</span>Ainv</span>
 <span id="cb156-3"><a href="5.1-brownian-motion.html#cb156-3" aria-hidden="true" tabindex="-1"></a>prior<span class="ot">&lt;-</span><span class="fu">list</span>(</span>
@@ -282,22 +282,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Thinning interval  = 10
 ##  Sample size  = 1000 
 ## 
-##  DIC: 467.3017 
+##  DIC: 492.3177 
 ## 
 ##  G-structure:  ~taxon
 ## 
 ##       post.mean  l-95% CI u-95% CI eff.samp
-## taxon    0.1234 0.0002363   0.5372    37.49
+## taxon   0.02692 0.0002335   0.1185    55.97
 ## 
 ##  R-structure:  ~units
 ## 
 ##       post.mean l-95% CI u-95% CI eff.samp
-## units     1.705    1.236    2.283    102.7
+## units     2.087    1.642    2.577    912.1
 ## 
 ##  Location effects: y ~ 1 
 ## 
 ##             post.mean l-95% CI u-95% CI eff.samp pMCMC
-## (Intercept)   -0.1268  -0.4413   0.1800     1384  0.38</code></pre>
+## (Intercept)   0.03224 -0.21330  0.32140     1000 0.822</code></pre>
 <p><br><br></p>
 </div>
             </section>

@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -267,8 +267,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-16"><a href="1.8-modeleq.html#cb58-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb58-17"><a href="1.8-modeleq.html#cb58-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-18"><a href="1.8-modeleq.html#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
-<pre><code>## (Intercept) temperature    rainfall 
-##  0.02288729  0.49834327  0.33949476</code></pre>
+<pre><code>##  (Intercept)  temperature     rainfall 
+## -0.005735326  0.486182964  0.291958273</code></pre>
 <p>In the formula, we write out how the variables are added up. <em>Everything that you want exported needs to be defined and named</em> (e.g. <code>y=...</code>). By default they are all scaled by their beta values before this happens. Sometimes it is useful to prevent this (i.e. multiply two traits together without them being scaled by their respective beta) and we can do this by using <code>I()</code>.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="1.8-modeleq.html#cb60-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb60-2"><a href="1.8-modeleq.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
@@ -288,8 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb60-16"><a href="1.8-modeleq.html#cb60-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb60-17"><a href="1.8-modeleq.html#cb60-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-18"><a href="1.8-modeleq.html#cb60-18" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
-<pre><code>## (Intercept) temperature    rainfall 
-## -0.01955774  0.49420677  1.02039067</code></pre>
+<pre><code>##  (Intercept)  temperature     rainfall 
+## 0.0006460971 0.5075384889 0.9822818886</code></pre>
 <p>We can also add extra parameters to the parameter list, which we can call from within the function. In combination with <code>I()</code> we can then customise the model formula a bit</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="1.8-modeleq.html#cb62-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb62-2"><a href="1.8-modeleq.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
@@ -310,8 +310,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb62-17"><a href="1.8-modeleq.html#cb62-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb62-18"><a href="1.8-modeleq.html#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-19"><a href="1.8-modeleq.html#cb62-19" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
-<pre><code>##  (Intercept)  temperature     rainfall 
-## -0.003901467  0.483226000  0.140662484</code></pre>
+<pre><code>## (Intercept) temperature    rainfall 
+##  0.01099725  0.50426612  0.10102721</code></pre>
 <p>Finally, we can use <code>[]</code> to index the levels of the random effects within the formula…</p>
 </div>
             </section>

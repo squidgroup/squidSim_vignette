@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -269,13 +269,13 @@ y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,
 <span id="cb34-18"><a href="1.4-interactions.html#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-19"><a href="1.4-interactions.html#cb34-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb34-20"><a href="1.4-interactions.html#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##      body_mass temperature   rainfall    residual temperature:rainfall
-## 1:  0.05583209   0.2163558 -0.2434278  0.01541581          -0.05266702
-## 2: -0.60433886  -0.5276402  0.1061885 -0.37797824          -0.05602931
-## 3: -0.57198969   0.2819388 -0.3756151 -0.61086463          -0.10590048
-## 4:  0.38887066   1.2738838  1.5304591 -0.51224626           1.94962703
-## 5: -1.39174439  -1.3518966 -1.5186742 -0.05488479           2.05309048
-## 6: -0.09615354  -1.1667876  0.3517047  0.34069236          -0.41036466
+<pre><code>##      body_mass temperature   rainfall     residual temperature:rainfall
+## 1:  0.03252592  1.27117267 -0.5154449 -0.513948886          -0.65521949
+## 2:  0.34057307  0.03419443  0.3595870  0.216829339           0.01229587
+## 3: -0.60356674 -1.53521629 -0.5771299  0.425782312           0.88601929
+## 4: -0.44340530 -0.43747155  0.3668314 -0.350766770          -0.16047830
+## 5:  0.09792254 -0.28500850  0.7050671  0.008811633          -0.20095013
+## 6: -1.26673078 -0.45597483 -1.3029473 -0.588448065           0.59411116
 ##    squid_pop
 ## 1:         1
 ## 2:         1
@@ -285,9 +285,9 @@ y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,
 ## 6:         1</code></pre>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="1.4-interactions.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
 <pre><code>##          (Intercept)          temperature             rainfall 
-##          0.003027238          0.501485674          0.283064490 
+##           0.02176780           0.48733430           0.30172563 
 ## temperature:rainfall 
-##         -0.105694384</code></pre>
+##          -0.09243185</code></pre>
 </div>
 <div id="non-linear-effects" class="section level3" number="1.4.2">
 <h3><span class="header-section-number">1.4.2</span> Non-linear effects</h3>
@@ -315,7 +315,7 @@ y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,
 <p><img src="_main_files/figure-html/non-linear-1.png" width="576" /></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="1.4-interactions.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
 <pre><code>##      (Intercept)      temperature I(temperature^2) 
-##       0.01184923       0.47385414      -0.29764415</code></pre>
+##       0.01192661       0.50173503      -0.30366726</code></pre>
 <p><br></p>
 </div>
 </div>

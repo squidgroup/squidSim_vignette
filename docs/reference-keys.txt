@@ -1,4 +1,3 @@
-squid-ethos
 linearmod
 simulate_population-function
 simple-linear-model

@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -265,13 +265,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>note we have specified <code>group</code> in the parameter list. This enables us to link a set of parameters to the grouping factor in the data structure. This doesn’t have to be specified and defaults to the name of the list item.</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="6.1-simple-temporal-effects.html#cb159-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb159-2"><a href="6.1-simple-temporal-effects.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##             y year_cont year_effect     residual year sex individual squid_pop
-## 1:  1.2237799         1   -0.425285  1.349064923    1   1          1         1
-## 2:  1.1661787         1   -0.425285  1.291463797    1   1          1         1
-## 3: -0.1271065         1   -0.425285 -0.001821446    1   1          1         1
-## 4:  0.6364934         1   -0.425285  0.761778494    1   1          1         1
-## 5:  1.7338051         1   -0.425285  1.859090145    1   1          1         1
-## 6:  1.1691746         1   -0.425285  1.294459642    1   1          1         1</code></pre>
+<pre><code>##              y year_cont year_effect   residual year sex individual squid_pop
+## 1:  0.50697256         1   -0.490787 0.69775958    1   1          1         1
+## 2: -0.15318608         1   -0.490787 0.03760093    1   1          1         1
+## 3: -0.03179253         1   -0.490787 0.15899448    1   1          1         1
+## 4:  0.66940022         1   -0.490787 0.86018723    1   1          1         1
+## 5: -0.08174843         1   -0.490787 0.10903858    1   1          1         1
+## 6:  0.93317181         1   -0.490787 1.12395882    1   1          1         1</code></pre>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="6.1-simple-temporal-effects.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> year_cont, data)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="576" /></p>
 <p>Here we can see there is within year variation, year to year variation, as well as a linear directional year effect.</p>
@@ -279,15 +279,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ year_cont + (1 | year)
 ##    Data: data
-## REML criterion at convergence: 113684.4
+## REML criterion at convergence: 113874.8
 ## Random effects:
 ##  Groups   Name        Std.Dev.
-##  year     (Intercept) 0.7868  
-##  Residual             1.0003  
+##  year     (Intercept) 0.7215  
+##  Residual             1.0027  
 ## Number of obs: 40000, groups:  year, 20
 ## Fixed Effects:
 ## (Intercept)    year_cont  
-##     -0.1751       0.2891</code></pre>
+##     -0.7832       0.3263</code></pre>
 <p>In a similar way we can also simulate a quadratic effect of time.</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="6.1-simple-temporal-effects.html#cb164-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb164-2"><a href="6.1-simple-temporal-effects.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>

@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
@@ -260,12 +260,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="1.9-npop.html#cb65-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb65-2"><a href="1.9-npop.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##             y individual_effect   residual sex individual squid_pop
-## 1:  0.4994329        -0.2535822  0.7530151   1          1         1
-## 2:  0.8686495         0.4448963  0.4237532   1          2         1
-## 3: -0.3757492        -0.6965252  0.3207760   1          3         1
-## 4:  0.2189955         0.4682161 -0.2492207   1          4         1
-## 5:  1.3598554         0.3310095  1.0288458   1          5         1
-## 6: -1.2596665        -0.7119674 -0.5476990   1          6         1</code></pre>
+## 1:  0.7840109        0.23190654  0.5521044   1          1         1
+## 2:  0.5978521       -0.09821326  0.6960653   1          2         1
+## 3: -0.7016209        0.35601426 -1.0576352   1          3         1
+## 4: -0.2581335       -0.12753745 -0.1305960   1          4         1
+## 5: -0.9819522       -0.24545511 -0.7364971   1          5         1
+## 6:  0.3315022        0.67917206 -0.3476699   1          6         1</code></pre>
 <p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="1.9-npop.html#cb67-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 </div>

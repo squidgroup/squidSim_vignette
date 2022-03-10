@@ -62,13 +62,12 @@ where our predictor variables (denoted as $x_1$, $x_2$, $x_3$), which vary at th
 
 We can also write this in matrix notation
 $$
-y = \beta_0 + \boldsymbol X \beta + \epsilon
+y = \beta_0 + X \beta + \epsilon
 $$
-where $X$ is a matrix of predictors and $\beta$ is a (column) vector of slopes/effect sizes.
+where $X$ is a matrix of predictors and $\beta$ is a (column) vector of slopes/effect sizes. We will use both notations in the vignette, although this matrix notation is a bit more compact and relates most easily the structure of the the `simulate_population()` function.
 
 If we want to simulate from this model, we can assume that these predictor variables are multivariate normally distributed, with given means ($\mu$) and a covariance structure ($\Sigma_x$), and the residuals are normally distributed with a given variance ($\sigma^2_\epsilon$)
-$$
-\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$ X \sim MVN(\mu_x,\Sigma_x)
 $$
 $$
 \epsilon \sim N(0,\sigma^2_\epsilon)
@@ -80,7 +79,7 @@ $$
 
 </div>
  -->
-The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. In addition to the named lists relating to hierarchical level, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section \@ref(interactions). Many of the components in the parameter list don't need to be specified and default values will be created.
+The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section \@ref(interactions). Many of the components in the parameter list don't need to be specified and default values will be created.
 
 Let's simulate from the above model. 
 First we can specify a sample size or data_structure. As we don't have any hierarchical data structure yet (see Section \@ref(hierarchical)), we have to specify the sample size with the `n` argument to the `simulate_population` function (e.g. 2000).
@@ -98,7 +97,7 @@ simulate_population(
   ...
 )
 ```
-We then need to add in our parameter list
+We then need to add in our parameter list:
 ```r
 simulate_population(
   n=2000,
@@ -108,9 +107,21 @@ simulate_population(
   )
 )
 ```
-To simulate our environmental predictors varying at the level of the observation, we can use the `observation`  and `residual` slots in the parameter list, to specify the parameters for the observation level predictors and the residuals, respectively. 
+To fill in our parameter list, lets think about our model
+$$
+y = \beta_0 + X \beta + \epsilon
+$$
+$$ X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+ or in words:
 
-For both observation and residual we create a list containing the respective parameters. Let's start with the observation list. We can then specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
+```intercept + observation + residual ```
+
+To simulate our environmental predictors varying at the level of the observation, we can use the `observation`  slot in the parameter list, 
+as well as specifying an intercept and residual variance in the `intercept` and `residual` slots, respectively. For simplicity we will ignore the intercept for now (it defaults to 0). For both observation and residual we create a **list** containing the respective parameters. Let's start with the observation list. We can specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
 ```r
     observation = list(
       names = c("temperature","rainfall", "wind"),
@@ -142,18 +153,17 @@ squid_data <- simulate_population(
 
 ```
 
-This generates a squid object, which when run returns a friendly message
+to generate a squid object, which when run returns a friendly message
 ```{r}
 squid_data
 ```
-
-At this point we want to be able to access the simulated data. There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using `get_population_data()` The generated response is returned as `y`, along with simulated predictors and the data structure (not relevant here). 
+ and contains all our simulation parameters as well as the simulated data. At this point we want to be able to access the simulated data. There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using `get_population_data()` The generated response is returned as `y`, along with simulated predictors and the data structure (not relevant here). 
 ```{r}
 data <- get_population_data(squid_data)
 head(data)
 ```
 
-Later on we will explore how to simulate data for multiple populations with the same parameters (Section \@ref(npop)). `squid_pop` is an identifier for the population number, but 
+Later on we will explore how to simulate data for multiple populations with the same parameters (Section \@ref(npop)). `squid_pop` is an identifier for the population number, but is not relavent here.
 
 We can plot what we have simulated:
 ```{r, 'lm1',fig.width=10,fig.height=4}
@@ -520,10 +530,9 @@ $$
 y \sim Poisson(\hat{y})
 $$
 $$
-\hat{y} = exp( \beta_0 +  \boldsymbol X \beta + \epsilon )
+\hat{y} = exp( \beta_0 +  X \beta + \epsilon )
 $$
-$$
-\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$ X \sim MVN(\mu_x,\Sigma_x)
 $$
 $$
 \epsilon \sim N(0,\sigma^2_\epsilon)
