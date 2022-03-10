@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>The {squidSim} R Package Vignette</title>
-  <meta name="description" content="This is a vignette for using the squid R package." />
+  <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a vignette for using the squid R package." />
+  <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squid-group/squid" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="The {squidSim} R Package Vignette" />
   
-  <meta name="twitter:description" content="This is a vignette for using the squid R package." />
+  <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
 
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-08" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,12 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
+<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population level data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
@@ -148,10 +149,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#interactions"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
 <li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
@@ -243,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">The {squidSim} R Package Vignette</h1>
 <p class="author"><em>Joel Pick</em></p>
-<p class="date"><em>2022-03-08</em></p>
+<p class="date"><em>2022-03-10</em></p>
 </div>
 <div id="intro" class="section level1 unnumbered">
 <h1>The {squidSim} R package</h1>
@@ -261,16 +262,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Missing data (MNAR, MAR and MCAR)</li>
 <li>Temporal sampling</li>
 </ul>
-<p>The main idea is that anything you can model using a linear mixed effect model framework (assuming underlying multivariate normality) you should be able to simulate using the squid package.</p>
+<p>The main idea is that anything you can model using a linear mixed effect model framework (assuming underlying multivariate normality) you should be able to simulate using the squidSim package.</p>
+<div id="squid-ethos" class="section level3" number="0.0.1">
+<h3><span class="header-section-number">0.0.1</span> SQuID ethos</h3>
+<p>Create population and then sample from it
+<br></p>
+<div style="float: left; width: 40%; text-align: center;">
+<p>Make Hierarchical Structure<br>
+↓<br>
+Simulate data<br>
+↓<br>
+Sample Data<br></p>
+</div>
+<p><br></p>
+</div>
 <div id="why-use-squidsim" class="section level3 unnumbered">
 <h3>Why use squidSim?</h3>
 <p>For people confident with programming in R, simulating data doesn’t provide a huge challenge. However, to those less confident with programming, or the process of data simulation more generally, starting with simulations can seem like a daunting task. The {squidSim} R package is designed to facilitate that transition, and to focus attention on the data structure and parameters needed for simulation, rather than the programming knowledge.</p>
-<p>{squidSim} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else’s code) is that many people have very contrasting programming styles. Another motivation for the squid package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone’s personal code.</p>
+<p>{squidSim} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else’s code) is that many people have very contrasting programming styles. Another motivation for the squidSim package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone’s personal code.</p>
 </div>
 <div id="using-the-vignette" class="section level3 unnumbered">
 <h3>Using the vignette</h3>
-<p>If you are new to using the {squidSim} package, we recommend that you read Sections <a href="1-linearmod.html#linearmod">1</a> and <a href="2-hierarchical.html#hierarchical">2</a> to familiarise yourself with the squid package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work.</p>
-<p>The vignette assumes that you have a working knowledge of R.</p>
+<p>If you are new to using the {squidSim} package, we recommend that you read Sections <a href="1-linearmod.html#linearmod">1</a> and <a href="2-hierarchical.html#hierarchical">2</a> to familiarise yourself with the squidSim package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work.</p>
+<p>The vignette assumes that you have a working knowledge of R, in particular being comfortable using vectors, matrices and lists.</p>
 <!-- 
 ## Functionality
 

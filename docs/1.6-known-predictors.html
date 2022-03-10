@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.6 Known Predictors | The {squidSim} R Package Vignette</title>
-  <meta name="description" content="This is a vignette for using the squid R package." />
+  <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.6 Known Predictors | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a vignette for using the squid R package." />
+  <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squid-group/squid" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="1.6 Known Predictors | The {squidSim} R Package Vignette" />
   
-  <meta name="twitter:description" content="This is a vignette for using the squid R package." />
+  <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
 
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-08" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,12 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
+<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population level data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
@@ -148,10 +149,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#interactions"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
 <li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
@@ -242,11 +243,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="known-predictors" class="section level2" number="1.6">
 <h2><span class="header-section-number">1.6</span> Known Predictors</h2>
-<p>We might have the situation where we don’t want to simulate a predictor, rather use existing data to simulate a response variable from. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predoctors can be fed into the <code>simulate_population</code> function, using the known_predictors argument. This argument takes a list, with one item, called predictors, a matrix or dataframe of predictors and one item called beta, with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="1.6-known-predictors.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
-<span id="cb42-2"><a href="1.6-known-predictors.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTdata)</span>
-<span id="cb42-3"><a href="1.6-known-predictors.html#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="1.6-known-predictors.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTdata)</span></code></pre></div>
+<p>We might have the situation where we don’t want to simulate a predictor, rather use existing data to simulate a response variable from. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the <code>simulate_population()</code> function, using the <code>known_predictors</code> argument. This argument takes a list, with one item, called <code>predictors</code>, a matrix or dataframe of predictors and one item called <code>beta</code>, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="1.6-known-predictors.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
+<span id="cb48-2"><a href="1.6-known-predictors.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTdata)</span>
+<span id="cb48-3"><a href="1.6-known-predictors.html#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="1.6-known-predictors.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTdata)</span></code></pre></div>
 <pre><code>##        tarsus       back  animal     dam fosternest  hatchdate  sex
 ## 1 -1.89229718  1.1464212 R187142 R187557      F2102 -0.6874021  Fem
 ## 2  1.13610981 -0.7596521 R187154 R187559      F1902 -0.6874021 Male
@@ -255,31 +256,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 -0.07525299 -0.3006992 R046161 R187528      A2602 -1.4656641  Fem
 ## 6 -1.13519543  1.5577219 R187409 R187945      C2302  0.3502805  Fem</code></pre>
 <p>We can see that in this dataset there are several continuous predictors. Here we will use “hatchdate” and “tarsus”.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="1.6-known-predictors.html#cb44-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb44-2"><a href="1.6-known-predictors.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb44-3"><a href="1.6-known-predictors.html#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb44-4"><a href="1.6-known-predictors.html#cb44-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
-<span id="cb44-5"><a href="1.6-known-predictors.html#cb44-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
-<span id="cb44-6"><a href="1.6-known-predictors.html#cb44-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb44-7"><a href="1.6-known-predictors.html#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb44-8"><a href="1.6-known-predictors.html#cb44-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
-<span id="cb44-9"><a href="1.6-known-predictors.html#cb44-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb44-10"><a href="1.6-known-predictors.html#cb44-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb44-11"><a href="1.6-known-predictors.html#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">known_predictors =</span> <span class="fu">list</span>(</span>
-<span id="cb44-12"><a href="1.6-known-predictors.html#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictors =</span> BTdata[,<span class="fu">c</span>(<span class="st">&quot;hatchdate&quot;</span>,<span class="st">&quot;tarsus&quot;</span>)], </span>
-<span id="cb44-13"><a href="1.6-known-predictors.html#cb44-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)),</span>
-<span id="cb44-14"><a href="1.6-known-predictors.html#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">nrow</span>(BTdata)</span>
-<span id="cb44-15"><a href="1.6-known-predictors.html#cb44-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb44-16"><a href="1.6-known-predictors.html#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-17"><a href="1.6-known-predictors.html#cb44-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb44-18"><a href="1.6-known-predictors.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##              y temperature   rainfall   residual  hatchdate      tarsus
-## 1: -6.02592493 -2.35040229 -0.4349989 -0.2482277 -0.6874021 -1.89229718
-## 2:  0.02495111 -0.61907285 -0.4851338 -1.1047899 -0.6874021  1.13610981
-## 3:  1.49055651  0.01375907 -0.7053509  0.1538848 -0.4279814  0.98468946
-## 4: -1.86530897  0.43570700 -2.5299180 -0.6165391 -1.4656641  0.37900806
-## 5: -0.16666644  2.32032945 -0.4505345  0.4244992 -1.4656641 -0.07525299
-## 6: -2.48208090 -0.32259766 -0.7290652 -0.1819522  0.3502805 -1.13519543
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="1.6-known-predictors.html#cb50-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb50-2"><a href="1.6-known-predictors.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">nrow</span>(BTdata),</span>
+<span id="cb50-3"><a href="1.6-known-predictors.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb50-4"><a href="1.6-known-predictors.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb50-5"><a href="1.6-known-predictors.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span><span class="fu">list</span>(</span>
+<span id="cb50-6"><a href="1.6-known-predictors.html#cb50-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb50-7"><a href="1.6-known-predictors.html#cb50-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
+<span id="cb50-8"><a href="1.6-known-predictors.html#cb50-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb50-9"><a href="1.6-known-predictors.html#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb50-10"><a href="1.6-known-predictors.html#cb50-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
+<span id="cb50-11"><a href="1.6-known-predictors.html#cb50-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-12"><a href="1.6-known-predictors.html#cb50-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb50-13"><a href="1.6-known-predictors.html#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">known_predictors =</span> <span class="fu">list</span>(</span>
+<span id="cb50-14"><a href="1.6-known-predictors.html#cb50-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictors =</span> BTdata[,<span class="fu">c</span>(<span class="st">&quot;hatchdate&quot;</span>,<span class="st">&quot;tarsus&quot;</span>)], </span>
+<span id="cb50-15"><a href="1.6-known-predictors.html#cb50-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb50-16"><a href="1.6-known-predictors.html#cb50-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-17"><a href="1.6-known-predictors.html#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-18"><a href="1.6-known-predictors.html#cb50-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb50-19"><a href="1.6-known-predictors.html#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##    body_mass temperature   rainfall    residual  hatchdate      tarsus
+## 1: -4.878498  0.44375692  0.1339881 -0.66857609 -0.6874021 -1.89229718
+## 2:  1.137379  1.01049215 -0.8869782 -0.68659150 -0.6874021  1.13610981
+## 3:  1.732884 -0.73807439  0.8242709  0.31324252 -0.4279814  0.98468946
+## 4: -0.421354 -0.37705524  1.4341062  0.04458972 -1.4656641  0.37900806
+## 5: -2.333781 -0.06818533 -1.6976200 -0.17423214 -1.4656641 -0.07525299
+## 6: -2.077116 -0.76837895  0.8748090 -0.03525851  0.3502805 -1.13519543
 ##    squid_pop
 ## 1:         1
 ## 2:         1
@@ -287,8 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4:         1
 ## 5:         1
 ## 6:         1</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="1.6-known-predictors.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>hatchdate,data)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="1.6-known-predictors.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass<span class="sc">~</span>hatchdate,data)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
             </section>
 

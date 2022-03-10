@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.4 GxE | The {squidSim} R Package Vignette</title>
-  <meta name="description" content="This is a vignette for using the squid R package." />
+  <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.4 GxE | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a vignette for using the squid R package." />
+  <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squid-group/squid" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="4.4 GxE | The {squidSim} R Package Vignette" />
   
-  <meta name="twitter:description" content="This is a vignette for using the squid R package." />
+  <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
 
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-08" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,12 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
+<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population level data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
@@ -148,10 +149,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#interactions"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
 <li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
@@ -242,49 +243,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="gxe" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> GxE</h2>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="4.4-gxe.html#cb138-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb138-2"><a href="4.4-gxe.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb138-3"><a href="4.4-gxe.html#cb138-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb138-4"><a href="4.4-gxe.html#cb138-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;G_int&quot;</span>,<span class="st">&quot;G_slope&quot;</span>),</span>
-<span id="cb138-5"><a href="4.4-gxe.html#cb138-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>), </span>
-<span id="cb138-6"><a href="4.4-gxe.html#cb138-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb138-7"><a href="4.4-gxe.html#cb138-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb138-8"><a href="4.4-gxe.html#cb138-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
-<span id="cb138-9"><a href="4.4-gxe.html#cb138-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
-<span id="cb138-10"><a href="4.4-gxe.html#cb138-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb138-11"><a href="4.4-gxe.html#cb138-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb138-12"><a href="4.4-gxe.html#cb138-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb138-13"><a href="4.4-gxe.html#cb138-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;residual&quot;</span>),</span>
-<span id="cb138-14"><a href="4.4-gxe.html#cb138-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb138-15"><a href="4.4-gxe.html#cb138-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb138-16"><a href="4.4-gxe.html#cb138-16" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb138-17"><a href="4.4-gxe.html#cb138-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">rbind</span>(BTped,BTped,BTped,BTped,BTped),</span>
-<span id="cb138-18"><a href="4.4-gxe.html#cb138-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb138-19"><a href="4.4-gxe.html#cb138-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">model=</span><span class="st">&quot;y = G_int + G_slope * environment + residual&quot;</span></span>
-<span id="cb138-20"><a href="4.4-gxe.html#cb138-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb138-21"><a href="4.4-gxe.html#cb138-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-22"><a href="4.4-gxe.html#cb138-22" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb138-23"><a href="4.4-gxe.html#cb138-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb138-24"><a href="4.4-gxe.html#cb138-24" aria-hidden="true" tabindex="-1"></a>short_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">print</span>(<span class="fu">summary</span>(x), <span class="at">correlation=</span><span class="cn">FALSE</span>, <span class="at">show.resids=</span><span class="cn">FALSE</span>, <span class="at">ranef.comp =</span> <span class="fu">c</span>(<span class="st">&quot;Variance&quot;</span>))</span>
-<span id="cb138-25"><a href="4.4-gxe.html#cb138-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-26"><a href="4.4-gxe.html#cb138-26" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>animal),data))</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="4.4-gxe.html#cb146-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb146-2"><a href="4.4-gxe.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb146-3"><a href="4.4-gxe.html#cb146-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb146-4"><a href="4.4-gxe.html#cb146-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;G_int&quot;</span>,<span class="st">&quot;G_slope&quot;</span>),</span>
+<span id="cb146-5"><a href="4.4-gxe.html#cb146-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>), </span>
+<span id="cb146-6"><a href="4.4-gxe.html#cb146-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb146-7"><a href="4.4-gxe.html#cb146-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb146-8"><a href="4.4-gxe.html#cb146-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
+<span id="cb146-9"><a href="4.4-gxe.html#cb146-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
+<span id="cb146-10"><a href="4.4-gxe.html#cb146-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb146-11"><a href="4.4-gxe.html#cb146-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb146-12"><a href="4.4-gxe.html#cb146-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb146-13"><a href="4.4-gxe.html#cb146-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;residual&quot;</span>),</span>
+<span id="cb146-14"><a href="4.4-gxe.html#cb146-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="fl">0.5</span>)</span>
+<span id="cb146-15"><a href="4.4-gxe.html#cb146-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb146-16"><a href="4.4-gxe.html#cb146-16" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb146-17"><a href="4.4-gxe.html#cb146-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">rbind</span>(BTped,BTped,BTped,BTped,BTped),</span>
+<span id="cb146-18"><a href="4.4-gxe.html#cb146-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb146-19"><a href="4.4-gxe.html#cb146-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">model=</span><span class="st">&quot;y = G_int + G_slope * environment + residual&quot;</span></span>
+<span id="cb146-20"><a href="4.4-gxe.html#cb146-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb146-21"><a href="4.4-gxe.html#cb146-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-22"><a href="4.4-gxe.html#cb146-22" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb146-23"><a href="4.4-gxe.html#cb146-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb146-24"><a href="4.4-gxe.html#cb146-24" aria-hidden="true" tabindex="-1"></a>short_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">print</span>(<span class="fu">summary</span>(x), <span class="at">correlation=</span><span class="cn">FALSE</span>, <span class="at">show.resids=</span><span class="cn">FALSE</span>, <span class="at">ranef.comp =</span> <span class="fu">c</span>(<span class="st">&quot;Variance&quot;</span>))</span>
+<span id="cb146-25"><a href="4.4-gxe.html#cb146-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-26"><a href="4.4-gxe.html#cb146-26" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>animal),data))</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ environment + (1 + environment | animal)
 ##    Data: data
 ## 
-## REML criterion at convergence: 14972.1
+## REML criterion at convergence: 14876
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Corr
-##  animal   (Intercept) 0.8813       
-##           environment 0.5136   0.40
-##  Residual             0.5020       
+##  animal   (Intercept) 0.9759       
+##           environment 0.4868   0.40
+##  Residual             0.4780       
 ## Number of obs: 5200, groups:  animal, 1040
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)  0.06347    0.03110   2.041
-## environment  0.21643    0.02583   8.380</code></pre>
+## (Intercept) -0.06226    0.03247  -1.917
+## environment  0.22196    0.02511   8.838</code></pre>
 </div>
             </section>
 

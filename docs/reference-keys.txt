@@ -1,10 +1,11 @@
+squid-ethos
 linearmod
 simulate_population-function
 simple-linear-model
 adding-more-information-about-the-predictors
 corpred
-interactions-and-non-linear-effects
 interactions
+interactions-1
 non-linear-effects
 transformations
 known-predictors

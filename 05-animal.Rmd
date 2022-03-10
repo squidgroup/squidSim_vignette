@@ -83,6 +83,7 @@ We can simulate genetic effects affecting multiple phenotypes and the covariance
 squid_data <- simulate_population(
   data_structure = BTped,
   pedigree = list(animal = BTped),
+  n_response=2,
   parameters = list(
     animal = list(
       vcov = diag(2)
@@ -91,8 +92,7 @@ squid_data <- simulate_population(
     residual = list(
       vcov = diag(2)
     )
-  ),
-  N_response=2
+  )
 )
 
 data <- get_population_data(squid_data)
@@ -303,7 +303,7 @@ squid_data <- simulate_population(
       vcov = diag(2)
     )
   ),
-  N_response=2,  
+  n_response=2,  
   pedigree = list(animal = BTped)
 )
 

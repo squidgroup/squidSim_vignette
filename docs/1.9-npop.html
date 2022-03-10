@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.9 Simulating multiple populations | The {squidSim} R Package Vignette</title>
-  <meta name="description" content="This is a vignette for using the squid R package." />
+  <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.9 Simulating multiple populations | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a vignette for using the squid R package." />
+  <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squid-group/squid" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="1.9 Simulating multiple populations | The {squidSim} R Package Vignette" />
   
-  <meta name="twitter:description" content="This is a vignette for using the squid R package." />
+  <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
 
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-08" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,12 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
+<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population level data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
@@ -148,10 +149,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#interactions"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
 <li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
@@ -242,31 +243,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="npop" class="section level2" number="1.9">
 <h2><span class="header-section-number">1.9</span> Simulating multiple populations</h2>
-<p>We can use the <code>simulate_population()</code> function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the <code>N_pop</code> argument in <code>simulate_population()</code>. This defaults to 1.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="1.9-npop.html#cb58-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb58-2"><a href="1.9-npop.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb58-3"><a href="1.9-npop.html#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb58-4"><a href="1.9-npop.html#cb58-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb58-5"><a href="1.9-npop.html#cb58-5" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb58-6"><a href="1.9-npop.html#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb58-7"><a href="1.9-npop.html#cb58-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb58-8"><a href="1.9-npop.html#cb58-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb58-9"><a href="1.9-npop.html#cb58-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb58-10"><a href="1.9-npop.html#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;sex(2)/individual(1000)&quot;</span>, <span class="at">N=</span><span class="dv">2000</span>),</span>
-<span id="cb58-11"><a href="1.9-npop.html#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">N_pop=</span><span class="dv">5</span></span>
-<span id="cb58-12"><a href="1.9-npop.html#cb58-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We can use the <code>simulate_population()</code> function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the <code>n_pop</code> argument in <code>simulate_population()</code>. This defaults to 1.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.9-npop.html#cb64-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb64-2"><a href="1.9-npop.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb64-3"><a href="1.9-npop.html#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb64-4"><a href="1.9-npop.html#cb64-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb64-5"><a href="1.9-npop.html#cb64-5" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb64-6"><a href="1.9-npop.html#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb64-7"><a href="1.9-npop.html#cb64-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb64-8"><a href="1.9-npop.html#cb64-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb64-9"><a href="1.9-npop.html#cb64-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb64-10"><a href="1.9-npop.html#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;sex(2)/individual(1000)&quot;</span>, <span class="at">n=</span><span class="dv">2000</span>),</span>
+<span id="cb64-11"><a href="1.9-npop.html#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop=</span><span class="dv">5</span></span>
+<span id="cb64-12"><a href="1.9-npop.html#cb64-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>By default <code>get_population_data</code> returns a data.table, where the <code>squid_pop</code> column indicates the population</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="1.9-npop.html#cb59-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb59-2"><a href="1.9-npop.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##              y individual_effect    residual sex individual squid_pop
-## 1: -0.06859586      -0.009120874 -0.05947499   1          1         1
-## 2: -1.15405658      -0.476526543 -0.67753003   1          2         1
-## 3: -1.14034031       0.144830924 -1.28517124   1          3         1
-## 4: -2.17071933      -0.687110137 -1.48360919   1          4         1
-## 5:  1.40844287       0.118108726  1.29033415   1          5         1
-## 6:  0.37294260       0.030414565  0.34252804   1          6         1</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="1.9-npop.html#cb65-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb65-2"><a href="1.9-npop.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##             y individual_effect   residual sex individual squid_pop
+## 1:  0.4994329        -0.2535822  0.7530151   1          1         1
+## 2:  0.8686495         0.4448963  0.4237532   1          2         1
+## 3: -0.3757492        -0.6965252  0.3207760   1          3         1
+## 4:  0.2189955         0.4682161 -0.2492207   1          4         1
+## 5:  1.3598554         0.3310095  1.0288458   1          5         1
+## 6: -1.2596665        -0.7119674 -0.5476990   1          6         1</code></pre>
 <p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="1.9-npop.html#cb61-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="1.9-npop.html#cb67-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
             </section>
 

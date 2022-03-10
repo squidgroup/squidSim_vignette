@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.10 Parameter list summary | The {squidSim} R Package Vignette</title>
-  <meta name="description" content="This is a vignette for using the squid R package." />
+  <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.10 Parameter list summary | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a vignette for using the squid R package." />
+  <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squid-group/squid" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="1.10 Parameter list summary | The {squidSim} R Package Vignette" />
   
-  <meta name="twitter:description" content="This is a vignette for using the squid R package." />
+  <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
 
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-08" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,12 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
+<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i><b>0.0.1</b> SQuID ethos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population level data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
@@ -148,10 +149,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#interactions"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions-and-non-linear-effects.html"><a href="1.4-interactions-and-non-linear-effects.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
 <li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
@@ -243,67 +244,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="parameter-list-summary" class="section level2" number="1.10">
 <h2><span class="header-section-number">1.10</span> Parameter list summary</h2>
 <p>The parameters list contains one (or more) list for each hierarchical level that you want to simulate at. A residual list is always need, specifying variances/covariances for the residual. Additionally, the parameter list can also be provided with an intercept vector and interactions list.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="1.10-parameter-list-summary.html#cb62-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
-<span id="cb62-2"><a href="1.10-parameter-list-summary.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb62-3"><a href="1.10-parameter-list-summary.html#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov=</span>...</span>
-<span id="cb62-4"><a href="1.10-parameter-list-summary.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb62-5"><a href="1.10-parameter-list-summary.html#cb62-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="1.10-parameter-list-summary.html#cb63-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
-<span id="cb63-2"><a href="1.10-parameter-list-summary.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),  </span>
-<span id="cb63-3"><a href="1.10-parameter-list-summary.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb63-4"><a href="1.10-parameter-list-summary.html#cb63-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov=</span>...</span>
-<span id="cb63-5"><a href="1.10-parameter-list-summary.html#cb63-5" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb63-6"><a href="1.10-parameter-list-summary.html#cb63-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.10-parameter-list-summary.html#cb64-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
-<span id="cb64-2"><a href="1.10-parameter-list-summary.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),</span>
-<span id="cb64-3"><a href="1.10-parameter-list-summary.html#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb64-4"><a href="1.10-parameter-list-summary.html#cb64-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
-<span id="cb64-5"><a href="1.10-parameter-list-summary.html#cb64-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb64-6"><a href="1.10-parameter-list-summary.html#cb64-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb64-7"><a href="1.10-parameter-list-summary.html#cb64-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov =</span> ...</span>
-<span id="cb64-8"><a href="1.10-parameter-list-summary.html#cb64-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb64-9"><a href="1.10-parameter-list-summary.html#cb64-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="1.10-parameter-list-summary.html#cb65-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
-<span id="cb65-2"><a href="1.10-parameter-list-summary.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),</span>
-<span id="cb65-3"><a href="1.10-parameter-list-summary.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">list</span>(</span>
-<span id="cb65-4"><a href="1.10-parameter-list-summary.html#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
-<span id="cb65-5"><a href="1.10-parameter-list-summary.html#cb65-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb65-6"><a href="1.10-parameter-list-summary.html#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb65-7"><a href="1.10-parameter-list-summary.html#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
-<span id="cb65-8"><a href="1.10-parameter-list-summary.html#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
-<span id="cb65-9"><a href="1.10-parameter-list-summary.html#cb65-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb65-10"><a href="1.10-parameter-list-summary.html#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb65-11"><a href="1.10-parameter-list-summary.html#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov =</span> ...</span>
-<span id="cb65-12"><a href="1.10-parameter-list-summary.html#cb65-12" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb65-13"><a href="1.10-parameter-list-summary.html#cb65-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="1.10-parameter-list-summary.html#cb66-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
-<span id="cb66-2"><a href="1.10-parameter-list-summary.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),</span>
-<span id="cb66-3"><a href="1.10-parameter-list-summary.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">list</span>(</span>
-<span id="cb66-4"><a href="1.10-parameter-list-summary.html#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
-<span id="cb66-5"><a href="1.10-parameter-list-summary.html#cb66-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb66-6"><a href="1.10-parameter-list-summary.html#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb66-7"><a href="1.10-parameter-list-summary.html#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
-<span id="cb66-8"><a href="1.10-parameter-list-summary.html#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
-<span id="cb66-9"><a href="1.10-parameter-list-summary.html#cb66-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb66-10"><a href="1.10-parameter-list-summary.html#cb66-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">interactions=</span><span class="fu">list</span>(</span>
-<span id="cb66-11"><a href="1.10-parameter-list-summary.html#cb66-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
-<span id="cb66-12"><a href="1.10-parameter-list-summary.html#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
-<span id="cb66-13"><a href="1.10-parameter-list-summary.html#cb66-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb66-14"><a href="1.10-parameter-list-summary.html#cb66-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb66-15"><a href="1.10-parameter-list-summary.html#cb66-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov =</span> ...</span>
-<span id="cb66-16"><a href="1.10-parameter-list-summary.html#cb66-16" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb66-17"><a href="1.10-parameter-list-summary.html#cb66-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>The simplest paramter list will look something like this:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="1.10-parameter-list-summary.html#cb68-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
+<span id="cb68-2"><a href="1.10-parameter-list-summary.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb68-3"><a href="1.10-parameter-list-summary.html#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov=</span>...</span>
+<span id="cb68-4"><a href="1.10-parameter-list-summary.html#cb68-4" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb68-5"><a href="1.10-parameter-list-summary.html#cb68-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We can add more complexity by adding an intercept (if not specified, is assumed to be 0):</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="1.10-parameter-list-summary.html#cb69-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
+<span id="cb69-2"><a href="1.10-parameter-list-summary.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),  </span>
+<span id="cb69-3"><a href="1.10-parameter-list-summary.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb69-4"><a href="1.10-parameter-list-summary.html#cb69-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov=</span>...</span>
+<span id="cb69-5"><a href="1.10-parameter-list-summary.html#cb69-5" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb69-6"><a href="1.10-parameter-list-summary.html#cb69-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>and then simulate variables that vary at the observation level:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="1.10-parameter-list-summary.html#cb70-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
+<span id="cb70-2"><a href="1.10-parameter-list-summary.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),</span>
+<span id="cb70-3"><a href="1.10-parameter-list-summary.html#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb70-4"><a href="1.10-parameter-list-summary.html#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
+<span id="cb70-5"><a href="1.10-parameter-list-summary.html#cb70-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb70-6"><a href="1.10-parameter-list-summary.html#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb70-7"><a href="1.10-parameter-list-summary.html#cb70-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov =</span> ...</span>
+<span id="cb70-8"><a href="1.10-parameter-list-summary.html#cb70-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb70-9"><a href="1.10-parameter-list-summary.html#cb70-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>as well as variables that vary at the other levels, for example at the level of the individual:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="1.10-parameter-list-summary.html#cb71-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
+<span id="cb71-2"><a href="1.10-parameter-list-summary.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),</span>
+<span id="cb71-3"><a href="1.10-parameter-list-summary.html#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">list</span>(</span>
+<span id="cb71-4"><a href="1.10-parameter-list-summary.html#cb71-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
+<span id="cb71-5"><a href="1.10-parameter-list-summary.html#cb71-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
+<span id="cb71-6"><a href="1.10-parameter-list-summary.html#cb71-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb71-7"><a href="1.10-parameter-list-summary.html#cb71-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb71-8"><a href="1.10-parameter-list-summary.html#cb71-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
+<span id="cb71-9"><a href="1.10-parameter-list-summary.html#cb71-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
+<span id="cb71-10"><a href="1.10-parameter-list-summary.html#cb71-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb71-11"><a href="1.10-parameter-list-summary.html#cb71-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb71-12"><a href="1.10-parameter-list-summary.html#cb71-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov =</span> ...</span>
+<span id="cb71-13"><a href="1.10-parameter-list-summary.html#cb71-13" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb71-14"><a href="1.10-parameter-list-summary.html#cb71-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Finally we can add in interactions:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="1.10-parameter-list-summary.html#cb72-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="ot">=</span><span class="fu">list</span>(</span>
+<span id="cb72-2"><a href="1.10-parameter-list-summary.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept=</span><span class="fu">c</span>(...),</span>
+<span id="cb72-3"><a href="1.10-parameter-list-summary.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">individual=</span><span class="fu">list</span>(</span>
+<span id="cb72-4"><a href="1.10-parameter-list-summary.html#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
+<span id="cb72-5"><a href="1.10-parameter-list-summary.html#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
+<span id="cb72-6"><a href="1.10-parameter-list-summary.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb72-7"><a href="1.10-parameter-list-summary.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb72-8"><a href="1.10-parameter-list-summary.html#cb72-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
+<span id="cb72-9"><a href="1.10-parameter-list-summary.html#cb72-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
+<span id="cb72-10"><a href="1.10-parameter-list-summary.html#cb72-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb72-11"><a href="1.10-parameter-list-summary.html#cb72-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">interactions=</span><span class="fu">list</span>(</span>
+<span id="cb72-12"><a href="1.10-parameter-list-summary.html#cb72-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(...),</span>
+<span id="cb72-13"><a href="1.10-parameter-list-summary.html#cb72-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> ...</span>
+<span id="cb72-14"><a href="1.10-parameter-list-summary.html#cb72-14" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb72-15"><a href="1.10-parameter-list-summary.html#cb72-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb72-16"><a href="1.10-parameter-list-summary.html#cb72-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">vcov =</span> ...</span>
+<span id="cb72-17"><a href="1.10-parameter-list-summary.html#cb72-17" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb72-18"><a href="1.10-parameter-list-summary.html#cb72-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>For each item in the parameter list (excluding intercept, interactions, and residual), the following can be specified:</p>
 <ul>
-<li><strong>names</strong> This is the names of predictors from this list that will be output. This doesn’t not have to be specified, unless the predictors at this level are included in interactions. By default, the names will be the name of the list (e.g. ‘individual’ in the example above), appended with <code>_effect</code> and a sequential number if there are multiple predictors.</li>
-<li><strong>group</strong> This is the</li>
-<li><strong>mean</strong></li>
-<li><strong>vcov</strong></li>
-<li><strong>vcorr</strong></li>
-<li><strong>beta</strong></li>
-<li><strong>fixed</strong></li>
-<li><strong>covariate</strong></li>
-<li><strong>functions</strong></li>
+<li><strong>names</strong> Vector containing the names of predictors from this list that will be output. This doesn’t not have to be specified, unless the predictors at this level are included in interactions. By default, the names will be the name of the list (e.g. ‘individual’ in the example above), appended with <code>_effect</code> and a sequential number if there are multiple predictors.</li>
+<li><strong>group</strong> Character string relates the level of variation back to the data_structure. Does not have to be specified and by default is the name of the list.</li>
+<li><strong>mean</strong> Vector of means for the predictor variables. Defaults to 0.</li>
+<li><strong>vcov</strong> Either a vector of variances, or a variance-covariance matrix, for the predictor variables. Defaults to identity matrix.</li>
+<li><strong>vcorr</strong> Variance-correlation matrix, can be specified instead of vcov (it is ignored if both are specified).</li>
+<li><strong>beta</strong> Vector (or matrix with multiple responses) of effect sizes/slopes. Defaults to 1.</li>
+<li><strong>fixed</strong> Logical, indicating whether the effects for the levels are fixed or to be simulated. If TRUE, <code>beta</code> represents the fixed effects. Defaults to FALSE.</li>
+<li><strong>covariate</strong> Logical, indicating whether the indexes in the data structure are to be used as a continuous variable rather than simulating one. Defaults to FALSE.</li>
+<li><strong>functions</strong> Vector - transformation to be applied to the response variable. Defaults to ‘identity’.</li>
 </ul>
 
 </div>

@@ -478,7 +478,7 @@ We can see that in this dataset there are several continuous predictors. Here we
 
 ```{r}
 squid_data <- simulate_population(
-  N = nrow(BTdata),
+  n = nrow(BTdata),
   response_name = "body_mass",
   parameters = list(
     observation =list(
@@ -497,7 +497,7 @@ squid_data <- simulate_population(
 data <- get_population_data(squid_data)
 head(data)
 
-plot(y~hatchdate,data)
+plot(body_mass~hatchdate,data)
 
 ```
 
