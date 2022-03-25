@@ -13,7 +13,7 @@ In this Section, we will first demonstrate how to make a simple hierarchical str
 
 ## Making a hierarchical structure {#makestr}
 
-We can use the `make_structure` function to create nested and crossed hierarchical data structures. The `make_structure` function only produces balanced data structures, but these can be made unbalanced using by sampling, which is outlined in Section \@ref(sampling)
+We can use the `make_structure` function to create nested and crossed hierarchical data structures. The `make_structure` function only produces balanced data structures, but these can be made unbalanced by sampling, which is outlined in Section \@ref(sampling)
 
 ```{r, echo=FALSE, message=FALSE,warning=FALSE}
 plot_nested<-function(data_structure){
@@ -90,6 +90,20 @@ ds <- make_structure(structure="year(2) + month(12) + day(30) + year:month:day",
 head(ds)
 ```
 
+### Naming factor levels
+Rather than just outputting 1 - N levels for the levels names of each factor, we might want to assign names. 
+
+This can be done for all or some of the grouping factors, using the `level_names` argument. We can input a list, with an item in the list for each grouping factor we want to assign names, and then a vector of their names, which is the same length of the number of levels in that grouping factor. For example, below we just assign names to the two sexes:
+
+```{r}
+make_structure(structure="sex(2)/individual(5)", repeat_obs=2,  level_names=list(sex=c("female","male")))
+```
+
+And then to the individuals and the sexes
+```{r}
+make_structure(structure="sex(2)/individual(5)", repeat_obs=2,  level_names=list(sex=c("female","male"),individual=paste0("ind_",1:10)))
+```
+
 <!-- ```{r}
 dat_str <- make_structure(structure="species5(2)/population(2)/individual(10)", repeat_obs=3)
 
@@ -108,51 +122,98 @@ strsplit((gsub("\\w+\\(\\d+\\)","",structure)),"")[[1]]
 
 
 
+## Factors
+In the first sections, we just simulated continuous predictors, varying at the level of the observation. However, we may want to simulate factors with known or *fixed* effects (i.e. not variables drawn randomly from a particular distribution) at different levels, such as sex or treatment effects.
 
-## Simulating data at different hierarchical levels
-<!-- <div class="panel panel-success">
-<div class="panel-heading">
-**Biological example**
-</div>
-<div class="panel-body">
-We have taken repeated measurements of adult body mass.  
-</div>
-</div> -->
+The first thing we want to do is specify a simple data structure, for example 20 observations for each of two sexes: 
 
-We can simulate predictors at different hierarchical levels. Lets take the example of a situation where we have repeated measures of individuals. The individuals have traits that are consistently expressed, whilst the environment varies between observations. We can describe variation at these different hierarchical levels as:
+```{r}
+ds <- make_structure(structure="sex(2)", repeat_obs=100,  level_names=list(sex=c("female","male")))
+```
 
-<div class="alert alert-info">
+Then we feed this data structure into the `simulate_population()` function using the `data_structure` argument. Note that we no longer need to specify the sample size (`n`), as this is taken from the number of rows in the data_structure.
 
-$$
-y = \beta_0 + \boldsymbol Z_j \boldsymbol\beta_z + \boldsymbol X_i \boldsymbol\beta_x + \epsilon_{i,j}
-$$
-$$
-\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
-$$
-$$
-\boldsymbol Z \sim MVN(\mu_z,\Sigma_z)
-$$
-$$
-\epsilon \sim N(0,\sigma^2_\epsilon)
-$$
-</div>
+```r
 
-where $Z$ is a matrix of predictors at the individual level, and $X$ is a matrix of predictors at the observation level.
+squid_data <- simulate_population(
+  data_structure = ds,
+  parameters = ...
+)
 
-In order to simulate from this model, we need a data structure and parameters for each of these levels. 
-To do this, we can either specify a data structure generated using `make_structure` (outlined in the previous section \@ref(makestr)), or a pre-existing data structure, to the `simulate_population` function. We then add in a item to the parameter list, the name of which matches on of the grouping factors in the data structure, and specify the parameters for predictors that vary at that level in the same way as outlined in the previous section (\@ref(linearmod)).
+```
+
+In order to tell the parameter list we have effects that vary at different hierarchical levels, we can create additional slots in the parameter list for the grouping factors, so now it will look something like:
+
+```r
+
+squid_data <- simulate_population(
+  data_structure = ds,
+  parameters = list(
+    intercept = ...,
+    sex = list(
+      ...
+    ),
+    observation = list(
+      ...
+    ),
+    residual = list(
+      ...
+    )
+  )
+)
+```
+The names in the parameter list that relate to the different grouping factors either need to match the name in the data structure exactly (as above) or a 'group' argument needs to be given e.g.
+
+```r
+squid_data <- simulate_population(
+  data_structure = ds,
+  parameters = list(
+    intercept = ...,
+    anything = list(
+      group="sex,"
+      ...
+    ),
+    observation = list(
+      ...
+    ),
+    residual = list(
+      ...
+    )
+  )
+)
+```
+
+We then need to tell the parameters list that we have fixed effects for this grouping factor, in other words we know the difference in body size between the sexes is 0.5, for example. To do this we specify `fixed = TRUE`. 
+
+```r
+squid_data <- simulate_population(
+  data_structure = ds,
+  parameters = list(
+    intercept = ...,
+    anything = list(
+      group="sex,"
+      ...
+    ),
+    observation = list(
+      ...
+    ),
+    residual = list(
+      ...
+    )
+  )
+)
+```
+
+We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of `lm(body_mass~sex)`, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline).
 
 ```{r}
 squid_data <- simulate_population(
-  data_structure = make_structure(structure = "individual(500)", repeat_obs=2),
+  data_structure = ds,
   parameters = list(
-    individual = list(
-      names = c("size","behaviour","physiology"),
-      beta = c(0.1,0.3,0.2)
-    ),
-    observation = list(
-      names=c("temperature","rainfall"),
-      beta = c(0.2,-0.1)
+    intercept= 10,
+    sex=list(
+      fixed=TRUE,
+      beta=c(0,0.5)
     ),
     residual = list(
       vcov = 0.5
@@ -162,11 +223,162 @@ squid_data <- simulate_population(
 
 data <- get_population_data(squid_data)
 
-coef(lm(y ~ size + behaviour + physiology + temperature + rainfall , data))
+boxplot( y ~ factor(sex), data)
+lm( y ~ factor(sex), data)
+```
+
+Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas( equivalent to `lm(body_mass~0+sex)`):
+```{r}
+squid_data <- simulate_population(
+  data_structure = ds,
+  parameters = list(
+    sex=list(
+      fixed=TRUE,
+      beta=c(10,10.5)
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+boxplot( y ~ factor(sex), data)
+lm( y ~ factor(sex), data)
+lm( y ~ 0+factor(sex), data)
+```
+
+We would recommend the former methods, as this makes things clearer if other factors are simulated.
+
+Finally We can also name the levels: 
+THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE
+
+
+Lets take the example of sex. Factors can be thought of as a hierarchical structure. First we can create a data structure using the 
+
+```{r,fig.width=6,fig.height=6}
+
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
+  parameters = list(
+    intercept= 10,
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(0,0.5)
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+
+data <- get_population_data(squid_data)
+
+boxplot( y ~ factor(sex), data)
+lm( y ~ factor(sex), data)
+```
+
+
+### Fixed Factor Interactions
+
+We might want to simulate an interaction between a continuous predictor and a factor, for example the effect of the environment varying between two sexes. Specifying this using `simulate_population()` is similar to interactions between two continuous predictors that we have previously encountered (Section \@ref(interactions)). In the `interaction` part of the parameter list, we now specify the contrasts between the slopes for environment, using the names that we have assigned the different levels. In the simulation below, males are larger, and have a larger environment slope:
+
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "sex(2)", repeat_obs=1000),
+  parameters = list(
+    intercept=10,
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(0,0.5)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta =c(0.2)
+      ),
+    interactions = list(
+      names=c("environment:male"),
+      beta = 0.4
+      ),
+    residual = list(
+      names="residual",
+      vcov = 0.1
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+plot(y~environment,data, pch=19, col=scales::alpha(c(1,2),0.5)[factor(data$sex)])
+
+lm( y ~ 0 + factor(sex)*environment, data)
+```
+
+
+## Simulating predictors at different hierarchical levels
+<!-- <div class="panel panel-success">
+<div class="panel-heading">
+**Biological example**
+</div>
+<div class="panel-body">
+We have taken repeated measurements of adult body mass.  
+</div>
+</div> -->
+As well as simulating  continuous predictors at the level of the observation, we can also simulate predictors at different hierarchical levels. Lets take the example of a situation where we have repeated measures of individuals. The individuals have traits that are consistently expressed, whilst the environment varies between observations. We can describe variation at these different hierarchical levels as:
+
+<div class="alert alert-info">
+
+$$
+y_i = \beta_0 +  Z_j beta_Z +  X_i \beta_X + \epsilon_{i}
+$$
+$$
+ X \sim MVN(\mu_X,\Sigma_X)
+$$
+$$
+ Z \sim MVN(\mu_Z,\Sigma_Z)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+where $Z$ is a matrix of predictors that vary at the individual level (denoted by the subscript $j$), and $X$ is a matrix of predictors at the observation level (denoted by the index $i$).
+
+In order to simulate from this model, we need a data structure and parameters for each of these levels. To do this, we can either specify a data structure generated using `make_structure` (outlined previously in Section \@ref(makestr)), or a pre-existing data structure, to the `simulate_population` function. We then add in a item to the parameter list, the name of which matches on of the grouping factors in the data structure, and specify the parameters for predictors that vary at that level in the same way as outlined in the previous section (\@ref(linearmod)). This is similar to the fixed factors above, but we are now assuming that the variable is drawn randomly from a distribution, rather than the effects at each level being fixed. 
+
+
+Lets imagine that we simulate behaviour, that is a functions of an individual's size and physiology, and also varies in response to the environment, here temperature and rainfall:
+```{r}
+squid_data <- simulate_population(
+  data_structure = make_structure(structure = "individual(500)", repeat_obs=2),
+  parameters = list(
+    individual = list(
+      names = c("size","physiology"),
+      beta = c(0.1,0.2)
+    ),
+    observation = list(
+      names=c("temperature","rainfall"),
+      beta = c(0.2,-0.1)
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  ),
+  response_names="behaviour"
+)
+
+data <- get_population_data(squid_data)
+
+coef(lm(behaviour ~ size + physiology + temperature + rainfall , data))
 
 ```
 
-Here, we have simulated 5 predictors, 'size', 'behaviour' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
+Here, we have simulated 4 predictors, 'size' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
 
 ```{r}
 squid_data <- simulate_population(
@@ -179,8 +391,8 @@ squid_data <- simulate_population(
     ),
     ind2 = list(
       group="individual",
-      names = c("behaviour","physiology"),
-      beta = c(0.3,0.2)
+      names = c("physiology"),
+      beta = c(0.2)
     ),
     observation = list(
       names=c("temperature","rainfall"),
@@ -189,21 +401,21 @@ squid_data <- simulate_population(
     residual = list(
       vcov = 0.5
     )
-  )
+  ),
+  response_names="behaviour"
 )
 ```
 
-It is also worth noting that predictors do not have to be simulated for every grouping factor in the data structure.
+It is also worth noting that predictors do not have to be simulated for every grouping factor in the data structure - in this way no variation at that level can be simulated.
 
-### Simulating 'random effects'
+### Simulating 'random' effects
 
-<!-- I would replace “this is simulating “ to something more explicit, like “In essence, running mixed models requires to simulate datasets with repeated values for individuals. This can be done by simulating a single combined predictor at each level…” -->
-In essence, random effects (random intercepts) are an unobserved/latent predictor (or group of predictors), which varies at a given hierarchical level. In a mixed effect model, the effect at each level of the grouping factor is unknown, and estimated by the model (and assumed to come from a normal distribution). When simulating this, however, we can simply simulate an additional predictor at a particular level ($z$) with mean 0 and a given variance ($\sigma^2_z$). 
+In essence, random effects (random intercepts) represent an unobserved/latent predictor (or group of predictors), which varies at a given hierarchical level. In a mixed effect model, the effect at each level of the grouping factor is unknown, and estimated by the model (and assumed to come from a normal distribution). When simulating this, however, we can simply simulate an additional predictor at a particular hierarchical level ($z$) with mean 0 and a given variance ($\sigma^2_z$). 
 
 <div class="alert alert-info">
 
 $$
-y_{i,j} = \beta_0 + z_j + \epsilon_{i,j}
+y_{i} = \beta_0 + z_j + \epsilon_{i}
 $$
 $$
 z \sim N(0,\sigma^2_z)
@@ -269,8 +481,7 @@ data
 ```
 
 
-<!-- The importing a real dataset is very cool! But, I think there needs to be more explanation. How does this work when dam, fosternest, and residual lists are empty of variable names? Can you use the variances in the data instead of specifying them?
- -->
+
 <!-- getME(mod,"theta")
 library(numDeriv)
 fm1Fun <- update(mod,devFunOnly=TRUE)
@@ -283,80 +494,6 @@ mySumm2 <- function(.) {
 }
 bootMer(mod,mySumm2,nsim = 100) -->
 
-<!-- This setup also allows us to create variation at each level that is driven by specific predictors -->
-<!-- 
-Dave: At the bit just before Fixed Factors, what do you mean by “This setup”? It implies the data file import action in the previous section, which makes no sense. 
-Anne: the sentence “This setup also allows us to create variation at each level that is driven by specific predictors” comes out of the blue, and I find the wording ‘this setup’ too unspecific.
-
--->
-
-
-
-
-## Factors
-So far the simulated predictors have all been continuous, but we may want to simulate factors with known or *fixed* effects i.e. not drawn from a normal distribution. In this case we can specify `fixed = TRUE` for a particular level, and then give a beta for all the different levels of that group.
-
-
-Lets take the example of sex. Factors can be thought of as a hierarcihc First we can create a data structure using the 
-
-```{r,fig.width=6,fig.height=6}
-
-squid_data <- simulate_population(
-  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
-  parameters = list(
-    intercept= 10,
-    sex=list(
-      fixed=TRUE,
-      names=c("female","male"),
-      beta=c(0,0.5)
-    ),
-    residual = list(
-      vcov = 0.5
-    )
-  )
-)
-
-
-data <- get_population_data(squid_data)
-
-boxplot( y ~ factor(sex), data)
-lm( y ~ factor(sex), data)
-```
-
-
-### Fixed Factor Interactions
-
-```{r,fig.width=6,fig.height=6}
-squid_data <- simulate_population(
-  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
-  parameters = list(
-    sex=list(
-      fixed=TRUE,
-      names=c("female","male"),
-      beta=c(-0.5,0.5)
-    ),
-    observation= list(
-      names = c("environment"),
-      beta =c(0.2)
-      ),
-    interactions = list(
-      names=c("environment:male"),
-      beta = 0.2
-      ),
-    residual = list(
-      names="residual",
-      vcov = 0.1
-    )
-  )
-)
-
-data <- get_population_data(squid_data)
-head(data)
-plot(y~environment,data, pch=19, col=alpha(c(1,2),0.5)[factor(data$sex)])
-
-lm( y ~ 0 + factor(sex)*environment, data)
-```
-
 
 ## Random slopes {#randomslopes}
 
@@ -365,10 +502,13 @@ Random slopes are essentially an interaction between predictors at different lev
 <div class="alert alert-info">
 
 $$
-y_{i,j} = \beta_0 + \beta_1 x_{i,j} + z_{1,j} + z_{2,j}x_{i,j}  + \epsilon_{i,j}
+y_{i} = \beta_0 + \beta_1 x_{i} + z_{1,j} + z_{2,j}x_{i}  + \epsilon_{i}
 $$
 $$
-Z \sim MVN(0,\Sigma_{z})
+x \sim MVN(0,\sigma^2_{x})
+$$
+$$
+Z \sim MVN(0,\Sigma_{Z})
 $$
 $$
 \epsilon \sim N(0,\sigma^2_\epsilon)
@@ -380,6 +520,38 @@ We can specify random slopes by simulating a slopes variable at the individual l
 <!-- alternatively the mean environmental effect could be specified as the mean of the slopes variable with the environment slope as 0 -->
 Importantly the `beta` parameter associated with `ind_slope` is specified as 0 (there is no 'main effect' of the slopes, just the interaction), and the `beta` parameter associated with interaction is 1.
 
+
+```{r}
+
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(300)",repeat_obs=10),
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_slope"), 
+      beta = c(1,0),
+      vcov = c(1,0.5)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta = c(0.2)
+    ), 
+    residual = list(
+      vcov = c(0.5)
+    ),
+    interactions = list(
+      names = c("ind_slope:environment"),
+      beta = c(1)
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+short_summary(lmer(y ~ environment + (1+environment|individual),data))
+```
+
+
+Here we have specified no correlation between intercepts and slopes. To simulate a correlation between intercepts and slopes, we can simply give the `vcov` argument a covariance matrix, instead of two variances:
 
 ```{r}
 
@@ -409,3 +581,116 @@ data <- get_population_data(squid_data)
 
 short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ```
+
+
+
+## Between- and within-group effects {#BetweenWithin}
+
+We may want to simulate the case where a predictor variable varies both within and between groups - in other words it is repeatable at the group level. For example, if we are simulating body mass, we might expect that body mass is a function of an environmental variable, rainfall, and that differs systematically between individuals, as well as within, for example due to spatial variation in where individual lives. 
+
+The simplest way of simulating this is as two rainfall variables, one at the level of the individual and one at the level of the observation, something like:
+
+
+```r
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(100)", repeat_obs=5),
+  parameters = list(
+    individual=list(
+      names=c("between_rainfall"), 
+      ...
+    ),
+    observation=list(
+      names=c("within_rainfall"), 
+      ...
+    ),
+    residual=list(
+      ...
+    )
+  )
+)  
+```
+We can then specify the variation in rainfall within and between individuals, for example, if the repeatability of rainfall amongst individuals is 0.5, and the total variance in rainfall is 0.8, we would make the variance in rainfall 0.4 at each level:
+
+```r
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(100)", repeat_obs=5),
+  parameters = list(
+    individual=list(
+      names=c("between_rainfall"), 
+      vcov=0.4,
+      ...
+    ),
+    observation=list(
+      names=c("within_rainfall"), 
+      vcov=0.4,
+      ...
+    ),
+    residual=list(
+      0.8
+    )
+  )
+)  
+```
+
+If we want the rainfall variable to have a mean that is not 0, we should specify this in only one place, as otherwise they will add up weirdly!
+```r
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(100)", repeat_obs=5),
+  parameters = list(
+    individual=list(
+      names=c("between_rainfall"), 
+      vcov=0.4,
+      ...
+    ),
+    observation=list(
+      names=c("within_rainfall"), 
+      vcov=0.4,
+      mean=10
+    ),
+    residual=list(
+      0.8
+    )
+  )
+)  
+```
+Now we want to add in some betas. If the effect of rainfall on body mass is causal, we would expect the beta to be the same at both levels - this results as a simple reorganisation of the model equation. We start with an effect of rainfall on body size
+$$ y_i = beta_0 + beta_1 (x_{1i,j}) + \epsilon_i $$
+where $x_{1ij}$ is rainfall varying at levels $i$ (observation) and $j$ (individual).
+
+We can split rainfall up into within ($x_{1i}$) and between ($z_{1i}$) individual components:
+
+$$ y_i = beta_0 + beta_1 (z_1_j + x_1_i) + \epsilon_i $$
+
+$$ y_i = beta_0 + beta_{1}z_1_j + beta_{1}*x_1_i + \epsilon_i $$
+
+you see that the coefficients should be the same.
+
+
+```{r}
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(100)", repeat_obs=5),
+  parameters = list(
+    individual=list(
+      names=c("between_env", "ind_int"), 
+      vcov=c(0.5,1), 
+      beta=c(-2,1)
+    ),
+    observation=list(
+      names=c("within_env"), 
+      vcov=c(0.5), 
+      beta=c(2)
+    ),
+    residual=list(
+      vcov=1
+    )
+  )
+)  
+
+data <- get_population_data(squid_data)
+data$environment <- data$between_env + data$within_env
+
+```
+
+
+
+

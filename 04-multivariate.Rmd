@@ -12,23 +12,23 @@ $$
   y^{(1)} \\ 
   y^{(2)} 
 \end{bmatrix}
-=   \beta_0 + \boldsymbol Z_j + \boldsymbol\epsilon_{i,j}
+=   \beta_0 +  Z_j + \epsilon_{i,j}
 $$ 
 -->
 <div class="alert alert-info">
 
 $$
-\boldsymbol Y_{i,j} =  \boldsymbol\beta_0 + \boldsymbol Z_j + \boldsymbol E_{i,j}
+ Y_{i} =  beta_0 + Z_j + E_{i}
 $$ 
 $$
-\boldsymbol Z \sim MVN(0,\Sigma_z)
+ Z \sim MVN(0,\Sigma_Z)
 $$
 $$
-\boldsymbol E \sim MVN(0,\Sigma_\epsilon)
+ E \sim MVN(0,\Sigma_E)
 $$
 </div>
 
-We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `N_response` in the parameter list, and specifying the covariance matrix (vcov) at each level. In this way we can simulate covariance at each level. 
+We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `n_response` in the parameter list, and specifying the covariance matrix (vcov) at each level. In this way we can simulate covariance at each level. 
 
 <!-- Anne: Should the blue background model not come after the first paragraph?
   We probably just need an intro paragraph
@@ -71,16 +71,16 @@ Second, we can build up predictors at each level that drive this covariance. Her
 <div class="alert alert-info">
 
 $$
-\boldsymbol Y_{i,j} = \beta_0 + \boldsymbol Z_j B_z + \boldsymbol X_i \boldsymbol B_x + \boldsymbol E_{i,j}
+ Y_{i} = \beta_0 +  Z_j B_Z +  X_i  B_X +  E_{i}
 $$
 $$
-\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+ X \sim MVN(\mu_X,\Sigma_X)
 $$
 $$
-\boldsymbol Z \sim MVN(\mu_z,\Sigma_z)
+ Z \sim MVN(\mu_Z,\Sigma_Z)
 $$
 $$
-\boldsymbol E \sim N(0,\Sigma_\epsilon)
+ E \sim N(0,\Sigma_E)
 $$
 </div>
 
