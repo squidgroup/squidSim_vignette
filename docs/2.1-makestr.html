@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-10" />
+<meta name="date" content="2022-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
   
 <link rel="prev" href="2-hierarchical.html"/>
-<link rel="next" href="2.2-simulating-data-at-different-hierarchical-levels.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="next" href="2.2-factors.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -133,96 +134,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
+<li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
+<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
+<li><a href="index.html#installation">Installation<span></span></a></li>
+<li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
-<li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
+<li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
+<li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects<span></span></a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions<span></span></a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes</a></li>
-<li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations</a></li>
-<li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations</a></li>
-<li class="chapter" data-level="1.10" data-path="1.10-parameter-list-summary.html"><a href="1.10-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.10</b> Parameter list summary</a></li>
+<li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
+<li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
+<li class="chapter" data-level="1.10" data-path="1.10-parameter-list-summary.html"><a href="1.10-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.10</b> Parameter list summary<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure</a>
+<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure</a>
+<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor</a></li>
-<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors</a></li>
-<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors</a></li>
-<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure</a></li>
+<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor<span></span></a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors<span></span></a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors<span></span></a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure<span></span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="2.2-simulating-data-at-different-hierarchical-levels.html"><a href="2.2-simulating-data-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.2</b> Simulating data at different hierarchical levels</a>
+<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors<span></span></a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="2.2-simulating-data-at-different-hierarchical-levels.html"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.2.1</b> Simulating ‘random effects’</a></li>
-<li class="chapter" data-level="2.2.2" data-path="2.2-simulating-data-at-different-hierarchical-levels.html"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.2.2</b> Incorporating existing data structures</a></li>
+<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2.3-factors.html"><a href="2.3-factors.html"><i class="fa fa-check"></i><b>2.3</b> Factors</a>
+<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels<span></span></a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="2.3-factors.html"><a href="2.3-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.3.1</b> Fixed Factor Interactions</a></li>
+<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random slopes</a></li>
+<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random slopes<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Between- and within-group effects<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models</a>
+<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not</a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions</a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes</a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects</a>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects</a></li>
-<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects</a></li>
-<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations</a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE</a></li>
-<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects</a></li>
-<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance</a></li>
-<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
-<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
+<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
-<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process</a></li>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
+<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
-<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
-<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
+<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling<span></span></a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested</a>
+<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested<span></span></a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1</a></li>
+<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data</a>
+<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data<span></span></a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR</a></li>
-<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR</a></li>
-<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR</a></li>
+<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling</a></li>
+<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling<span></span></a></li>
 </ul></li>
 </ul>
 
@@ -241,11 +244,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="makestr" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Making a hierarchical structure</h2>
-<p>We can use the <code>make_structure</code> function to create nested and crossed hierarchical data structures. The <code>make_structure</code> function only produces balanced data structures, but these can be made unbalanced using by sampling, which is outlined in Section <a href="7-sampling.html#sampling">7</a></p>
-<div id="single-factor" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Single Factor</h3>
+<div id="makestr" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Making a hierarchical structure<a href="2.1-makestr.html#makestr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can use the <code>make_structure</code> function to create nested and crossed hierarchical data structures. The <code>make_structure</code> function only produces balanced data structures, but these can be made unbalanced by sampling, which is outlined in Section <a href="7-sampling.html#sampling">7</a></p>
+<div id="single-factor" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Single Factor<a href="2.1-makestr.html#single-factor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Simplest structure - one grouping factor with multiple observations. Here we create a structure with 2 repeated observations of 5 individuals (small number are used here simply for illustration purposes). The <code>structure</code> contains the name of the grouping factors and their sample sizes, and <code>repeat_obs</code> is the number of repeated observations.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="2.1-makestr.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_structure</span>(<span class="at">structure=</span><span class="st">&quot;individual(5)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##    individual
@@ -260,8 +263,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 9           5
 ## 10          5</code></pre>
 </div>
-<div id="nested-factors" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Nested factors</h3>
+<div id="nested-factors" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Nested factors<a href="2.1-makestr.html#nested-factors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we want to have nested factors, so different hierarchical groups, where levels of one group only exist in one higher group then we can use the <code>/</code> symbol in the <code>structure</code> argument. For example, here we have 2 sexes, each with 5 individuals, with 2 repeated measurements each.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="2.1-makestr.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_structure</span>(<span class="at">structure=</span><span class="st">&quot;sex(2)/individual(5)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##    sex individual
@@ -310,8 +313,8 @@ Note that in the nesting, the sample size for the lower group now represents the
 ## 16       2          4          8</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="576" /></p>
 </div>
-<div id="crossed-factors" class="section level3" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Crossed factors</h3>
+<div id="crossed-factors" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Crossed factors<a href="2.1-makestr.html#crossed-factors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can create completely crossed factors - every combination of levels exists - using the <code>+</code> symbol in the <code>structure</code> argument</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="2.1-makestr.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_structure</span>(<span class="at">structure=</span><span class="st">&quot;treatment(2) + individual(5)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##    treatment individual
@@ -362,8 +365,8 @@ Note that in the nesting, the sample size for the lower group now represents the
 ## 9          2          4                    9
 ## 10         2          5                   10</code></pre>
 </div>
-<div id="temporal-structure" class="section level3" number="2.1.4">
-<h3><span class="header-section-number">2.1.4</span> Temporal structure</h3>
+<div id="temporal-structure" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Temporal structure<a href="2.1-makestr.html#temporal-structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="2.1-makestr.html#cb87-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">make_structure</span>(<span class="at">structure=</span><span class="st">&quot;year(2)/month(12)/day(30)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">1</span>)</span>
 <span id="cb87-2"><a href="2.1-makestr.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ds)</span></code></pre></div>
 <pre><code>##   year month day
@@ -382,6 +385,56 @@ Note that in the nesting, the sample size for the lower group now represents the
 ## 4    1     1   4              4
 ## 5    1     1   5              5
 ## 6    1     1   6              6</code></pre>
+</div>
+<div id="naming-factor-levels" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Naming factor levels<a href="2.1-makestr.html#naming-factor-levels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Rather than just outputting 1 - N levels for the levels names of each factor, we might want to assign names.</p>
+<p>This can be done for all or some of the grouping factors, using the <code>level_names</code> argument. We can input a list, with an item in the list for each grouping factor we want to assign names, and then a vector of their names, which is the same length of the number of levels in that grouping factor. For example, below we just assign names to the two sexes:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="2.1-makestr.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_structure</span>(<span class="at">structure=</span><span class="st">&quot;sex(2)/individual(5)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">2</span>,  <span class="at">level_names=</span><span class="fu">list</span>(<span class="at">sex=</span><span class="fu">c</span>(<span class="st">&quot;female&quot;</span>,<span class="st">&quot;male&quot;</span>)))</span></code></pre></div>
+<pre><code>##       sex individual
+## 1  female          1
+## 2  female          1
+## 3  female          2
+## 4  female          2
+## 5  female          3
+## 6  female          3
+## 7  female          4
+## 8  female          4
+## 9  female          5
+## 10 female          5
+## 11   male          6
+## 12   male          6
+## 13   male          7
+## 14   male          7
+## 15   male          8
+## 16   male          8
+## 17   male          9
+## 18   male          9
+## 19   male         10
+## 20   male         10</code></pre>
+<p>And then to the individuals and the sexes</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="2.1-makestr.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_structure</span>(<span class="at">structure=</span><span class="st">&quot;sex(2)/individual(5)&quot;</span>, <span class="at">repeat_obs=</span><span class="dv">2</span>,  <span class="at">level_names=</span><span class="fu">list</span>(<span class="at">sex=</span><span class="fu">c</span>(<span class="st">&quot;female&quot;</span>,<span class="st">&quot;male&quot;</span>),<span class="at">individual=</span><span class="fu">paste0</span>(<span class="st">&quot;ind_&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)))</span></code></pre></div>
+<pre><code>##       sex individual
+## 1  female      ind_1
+## 2  female      ind_1
+## 3  female      ind_2
+## 4  female      ind_2
+## 5  female      ind_3
+## 6  female      ind_3
+## 7  female      ind_4
+## 8  female      ind_4
+## 9  female      ind_5
+## 10 female      ind_5
+## 11   male      ind_6
+## 12   male      ind_6
+## 13   male      ind_7
+## 14   male      ind_7
+## 15   male      ind_8
+## 16   male      ind_8
+## 17   male      ind_9
+## 18   male      ind_9
+## 19   male     ind_10
+## 20   male     ind_10</code></pre>
 <!-- ```{r}
 dat_str <- make_structure(structure="species5(2)/population(2)/individual(10)", repeat_obs=3)
 
@@ -404,7 +457,7 @@ strsplit((gsub("\\w+\\(\\d+\\)","",structure)),"")[[1]]
         </div>
       </div>
 <a href="2-hierarchical.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="2.2-simulating-data-at-different-hierarchical-levels.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2.2-factors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

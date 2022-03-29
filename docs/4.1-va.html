@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-10" />
+<meta name="date" content="2022-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="4-animal.html"/>
 <link rel="next" href="4.2-multivariate-genetic-effects.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -133,96 +134,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
+<li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#squid-ethos"><i class="fa fa-check"></i>SQuID ethos</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use squidSim?</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
+<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
+<li><a href="index.html#installation">Installation<span></span></a></li>
+<li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data</a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function</a></li>
-<li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model</a>
+<li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors</a></li>
+<li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors</a></li>
-<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects</a>
+<li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects<span></span></a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions</a></li>
-<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions<span></span></a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes</a></li>
-<li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations</a></li>
-<li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations</a></li>
-<li class="chapter" data-level="1.10" data-path="1.10-parameter-list-summary.html"><a href="1.10-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.10</b> Parameter list summary</a></li>
+<li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
+<li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
+<li class="chapter" data-level="1.10" data-path="1.10-parameter-list-summary.html"><a href="1.10-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.10</b> Parameter list summary<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure</a>
+<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure</a>
+<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor</a></li>
-<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors</a></li>
-<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors</a></li>
-<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure</a></li>
+<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor<span></span></a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors<span></span></a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors<span></span></a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure<span></span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="2.2-simulating-data-at-different-hierarchical-levels.html"><a href="2.2-simulating-data-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.2</b> Simulating data at different hierarchical levels</a>
+<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors<span></span></a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="2.2-simulating-data-at-different-hierarchical-levels.html"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.2.1</b> Simulating ‘random effects’</a></li>
-<li class="chapter" data-level="2.2.2" data-path="2.2-simulating-data-at-different-hierarchical-levels.html"><a href="2.2-simulating-data-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.2.2</b> Incorporating existing data structures</a></li>
+<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2.3-factors.html"><a href="2.3-factors.html"><i class="fa fa-check"></i><b>2.3</b> Factors</a>
+<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels<span></span></a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="2.3-factors.html"><a href="2.3-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.3.1</b> Fixed Factor Interactions</a></li>
+<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random slopes</a></li>
+<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random slopes<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Between- and within-group effects<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models</a>
+<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not</a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions</a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes</a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects</a>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects</a></li>
-<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects</a></li>
-<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations</a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE</a></li>
-<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects</a></li>
-<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance</a></li>
-<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
-<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
+<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
-<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process</a></li>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
+<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
-<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
-<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
+<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling<span></span></a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested</a>
+<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested<span></span></a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1</a></li>
+<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data</a>
+<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data<span></span></a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR</a></li>
-<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR</a></li>
-<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR</a></li>
+<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling</a></li>
+<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling<span></span></a></li>
 </ul></li>
 </ul>
 
@@ -241,14 +244,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="va" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Additive genetics effects</h2>
+<div id="va" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Additive genetics effects<a href="4.1-va.html#va" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In order to simulate breeding values (additive genetic effects), we can provide the <code>simulate_population()</code> function with the relatedness structure in the population. The simplest way to do this is providing a pedigree using the the <code>pedigree</code> argument (a genetic relatedness matrix could also be given to the <code>cov_str</code> argument). The input to this argument needs to be a list, and the name of the pedigree in the list links it with the item in the parameter list.</p>
 <p>When simulating breeding values, <strong>all</strong> individuals in pedigree need to be in the data_structure and <em>vice versa</em>. Having unsampled individuals (for example the base population) can be achieved in the sampling stage (not implemented yet).</p>
 <p>Lets start by importing a pedigree</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="4.1-va.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
-<span id="cb132-2"><a href="4.1-va.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTped)</span>
-<span id="cb132-3"><a href="4.1-va.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTped)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="4.1-va.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
+<span id="cb155-2"><a href="4.1-va.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTped)</span>
+<span id="cb155-3"><a href="4.1-va.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTped)</span></code></pre></div>
 <pre><code>##    animal  dam sire
 ## 1 R187557 &lt;NA&gt; &lt;NA&gt;
 ## 2 R187559 &lt;NA&gt; &lt;NA&gt;
@@ -257,67 +260,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 R187528 &lt;NA&gt; &lt;NA&gt;
 ## 6 R187945 &lt;NA&gt; &lt;NA&gt;</code></pre>
 <p>We can use this pedigree as a data_structure</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="4.1-va.html#cb134-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb134-2"><a href="4.1-va.html#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> BTped, </span>
-<span id="cb134-3"><a href="4.1-va.html#cb134-3" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb134-4"><a href="4.1-va.html#cb134-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb134-5"><a href="4.1-va.html#cb134-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb134-6"><a href="4.1-va.html#cb134-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span><span class="fu">list</span>(</span>
-<span id="cb134-7"><a href="4.1-va.html#cb134-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb134-8"><a href="4.1-va.html#cb134-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
-<span id="cb134-9"><a href="4.1-va.html#cb134-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb134-10"><a href="4.1-va.html#cb134-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb134-11"><a href="4.1-va.html#cb134-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb134-12"><a href="4.1-va.html#cb134-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb134-13"><a href="4.1-va.html#cb134-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb134-14"><a href="4.1-va.html#cb134-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb134-15"><a href="4.1-va.html#cb134-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-16"><a href="4.1-va.html#cb134-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb134-17"><a href="4.1-va.html#cb134-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##             y animal_effect    residual  animal  dam sire squid_pop
-## 1:  0.1408629    0.18759363 -0.04673068 R187557 &lt;NA&gt; &lt;NA&gt;         1
-## 2: -1.4145434   -0.17231178 -1.24223167 R187559 &lt;NA&gt; &lt;NA&gt;         1
-## 3: -0.9708503   -0.50123352 -0.46961675 R187568 &lt;NA&gt; &lt;NA&gt;         1
-## 4: -0.7059491   -0.13719967 -0.56874946 R187518 &lt;NA&gt; &lt;NA&gt;         1
-## 5: -1.2008420   -0.92193408 -0.27890794 R187528 &lt;NA&gt; &lt;NA&gt;         1
-## 6: -0.6783558    0.07772013 -0.75607594 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="4.1-va.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
-<span id="cb136-2"><a href="4.1-va.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)</span></span>
-<span id="cb136-3"><a href="4.1-va.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="4.1-va.html#cb157-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb157-2"><a href="4.1-va.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> BTped, </span>
+<span id="cb157-3"><a href="4.1-va.html#cb157-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb157-4"><a href="4.1-va.html#cb157-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb157-5"><a href="4.1-va.html#cb157-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb157-6"><a href="4.1-va.html#cb157-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span><span class="fu">list</span>(</span>
+<span id="cb157-7"><a href="4.1-va.html#cb157-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb157-8"><a href="4.1-va.html#cb157-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb157-9"><a href="4.1-va.html#cb157-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb157-10"><a href="4.1-va.html#cb157-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb157-11"><a href="4.1-va.html#cb157-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb157-12"><a href="4.1-va.html#cb157-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb157-13"><a href="4.1-va.html#cb157-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb157-14"><a href="4.1-va.html#cb157-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-15"><a href="4.1-va.html#cb157-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-16"><a href="4.1-va.html#cb157-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb157-17"><a href="4.1-va.html#cb157-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##             y animal_effect     residual  animal  dam sire squid_pop
+## 1:  0.6299455   -0.59735554  1.227301052 R187557 &lt;NA&gt; &lt;NA&gt;         1
+## 2: -1.0715188   -1.06326827 -0.008250515 R187559 &lt;NA&gt; &lt;NA&gt;         1
+## 3:  0.8394293   -0.21413577  1.053565091 R187568 &lt;NA&gt; &lt;NA&gt;         1
+## 4:  0.6541319   -0.08560826  0.739740146 R187518 &lt;NA&gt; &lt;NA&gt;         1
+## 5:  0.1678007    0.15687912  0.010921623 R187528 &lt;NA&gt; &lt;NA&gt;         1
+## 6:  0.9215093    0.15707319  0.764436093 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="4.1-va.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
+<span id="cb159-2"><a href="4.1-va.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)</span></span>
+<span id="cb159-3"><a href="4.1-va.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 <p>We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="4.1-va.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="do">## make data structure with two observations per individual</span></span>
-<span id="cb137-2"><a href="4.1-va.html#cb137-2" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">individual=</span><span class="fu">rep</span>(BTped[,<span class="dv">1</span>], <span class="dv">2</span>))</span>
-<span id="cb137-3"><a href="4.1-va.html#cb137-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-4"><a href="4.1-va.html#cb137-4" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb137-5"><a href="4.1-va.html#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds, </span>
-<span id="cb137-6"><a href="4.1-va.html#cb137-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb137-7"><a href="4.1-va.html#cb137-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb137-8"><a href="4.1-va.html#cb137-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb137-9"><a href="4.1-va.html#cb137-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
-<span id="cb137-10"><a href="4.1-va.html#cb137-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb137-11"><a href="4.1-va.html#cb137-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb137-12"><a href="4.1-va.html#cb137-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;individual&quot;</span>,</span>
-<span id="cb137-13"><a href="4.1-va.html#cb137-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
-<span id="cb137-14"><a href="4.1-va.html#cb137-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb137-15"><a href="4.1-va.html#cb137-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb137-16"><a href="4.1-va.html#cb137-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb137-17"><a href="4.1-va.html#cb137-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb137-18"><a href="4.1-va.html#cb137-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb137-19"><a href="4.1-va.html#cb137-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb137-20"><a href="4.1-va.html#cb137-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-21"><a href="4.1-va.html#cb137-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb137-22"><a href="4.1-va.html#cb137-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##             y individual_effect animal_effect    residual individual squid_pop
-## 1:  1.1726587        0.71827348   0.483968305 -0.02958304    R187557         1
-## 2:  1.4027857        0.31345580  -0.247213444  1.33654338    R187559         1
-## 3: -1.1043061        0.27120457  -0.248661996 -1.12684872    R187568         1
-## 4:  0.8255693        0.06146464   0.185600959  0.57850366    R187518         1
-## 5: -0.5874701       -0.66204624   0.003023518  0.07155263    R187528         1
-## 6: -2.5998148       -0.50605207  -1.015211391 -1.07855130    R187945         1</code></pre>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="4.1-va.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
-<span id="cb139-2"><a href="4.1-va.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data$animal_id &lt;- data$individual</span></span>
-<span id="cb139-3"><a href="4.1-va.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)</span></span>
-<span id="cb139-4"><a href="4.1-va.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="4.1-va.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="do">## make data structure with two observations per individual</span></span>
+<span id="cb160-2"><a href="4.1-va.html#cb160-2" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">individual=</span><span class="fu">rep</span>(BTped[,<span class="dv">1</span>], <span class="dv">2</span>))</span>
+<span id="cb160-3"><a href="4.1-va.html#cb160-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-4"><a href="4.1-va.html#cb160-4" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb160-5"><a href="4.1-va.html#cb160-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds, </span>
+<span id="cb160-6"><a href="4.1-va.html#cb160-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb160-7"><a href="4.1-va.html#cb160-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb160-8"><a href="4.1-va.html#cb160-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb160-9"><a href="4.1-va.html#cb160-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
+<span id="cb160-10"><a href="4.1-va.html#cb160-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb160-11"><a href="4.1-va.html#cb160-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb160-12"><a href="4.1-va.html#cb160-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;individual&quot;</span>,</span>
+<span id="cb160-13"><a href="4.1-va.html#cb160-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb160-14"><a href="4.1-va.html#cb160-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb160-15"><a href="4.1-va.html#cb160-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb160-16"><a href="4.1-va.html#cb160-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb160-17"><a href="4.1-va.html#cb160-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb160-18"><a href="4.1-va.html#cb160-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb160-19"><a href="4.1-va.html#cb160-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb160-20"><a href="4.1-va.html#cb160-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-21"><a href="4.1-va.html#cb160-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb160-22"><a href="4.1-va.html#cb160-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##              y individual_effect animal_effect    residual individual squid_pop
+## 1:  0.63931843       0.789632450    -0.8700417  0.71972763    R187557         1
+## 2: -1.19403354      -0.032155234    -0.5284956 -0.63338274    R187559         1
+## 3:  1.71448660       0.153228268     0.1663007  1.39495764    R187568         1
+## 4: -1.26770364      -0.555243106     0.4178264 -1.13028689    R187518         1
+## 5:  0.69908364      -0.193335432     0.1091134  0.78330563    R187528         1
+## 6: -0.03217351      -0.002272233    -0.1023082  0.07240689    R187945         1</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="4.1-va.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
+<span id="cb162-2"><a href="4.1-va.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data$animal_id &lt;- data$individual</span></span>
+<span id="cb162-3"><a href="4.1-va.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)</span></span>
+<span id="cb162-4"><a href="4.1-va.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 </div>
             </section>
 

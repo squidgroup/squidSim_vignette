@@ -18,12 +18,14 @@ single-factor
 nested-factors
 crossed-factors
 temporal-structure
-simulating-data-at-different-hierarchical-levels
-simulating-random-effects
-incorporating-existing-data-structures
+naming-factor-levels
 factors
 fixed-factor-interactions
+simulating-predictors-at-different-hierarchical-levels
+simulating-random-effects
+incorporating-existing-data-structures
 randomslopes
+BetweenWithin
 multivariate
 one-response-repeatedly-measured-the-other-not
 different-distributions
