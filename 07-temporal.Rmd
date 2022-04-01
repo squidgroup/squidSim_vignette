@@ -105,6 +105,8 @@ We can include this complexity into the model part of the `simulate_population`,
 
 ```{r}
 squid_data <- simulate_population(
+  data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",repeat_obs=1),
+
   parameters=list(
     year_cont = list(
       group="year",
@@ -123,7 +125,6 @@ squid_data <- simulate_population(
       vcov = 1
       )
     ), 
-  data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",N=1000),
 
   model=" B =(2*pi) / abs(period);
           cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;
