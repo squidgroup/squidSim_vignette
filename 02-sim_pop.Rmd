@@ -1,12 +1,12 @@
-# Simulating population data {#linearmod}
+# Simulating from linear models {#linearmod}
 
 
-In this section, we will look at simulating data simple data from linear models, to familiarise ourselves with how squidSim works.
+In this section, we will look at simulating data simple data from linear models, to familiarise ourselves with how {squidSim} works.
 
 
 ## `simulate_population` function
 
-The heart of the squidSim R package is the `simulate_population()` function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
+The heart of the {squidSim} R package is the `simulate_population()` function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
 
 The `simulate_population()` function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population()` function (along with their defaults) are:
 
@@ -55,22 +55,26 @@ We are interested in how some environmental variables affect adult body mass.
 
 We will start simulating data without any hierarchical structure, i.e. everything varies at the level of the *observation*. Let's imagine a situation where body mass is affected by some environmental variables - temperature, rainfall and wind. We can write this out in the form of a linear model: 
 $$
-y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{3,i} + \epsilon_i
+y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \epsilon_i
 $$
 
-where our predictor variables (denoted as $x_1$, $x_2$, $x_3$), which vary at the level of the observation (denoted by the index $i$), affect our response variable ($y$), each with a certain magnitude and direction of their effect (effect size or slope; $\beta_1$ etc), as well as some unexplained, residual variation ($\epsilon$), and an intercept ($\beta_0$; value of the response when the sum of the predictors is 0). These are added together to give create the response variable.
+where each observation (denoted by the index $i$) of our response variable ($y_i$) is the sum of an intercept ($\beta_0$; value of the response when the predictor variables are all 0), the associated value of our predictor variables ($x_{1i}$, $x_{2i}$, $x_{3i}$; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; $\beta_1$ etc), and some unexplained, residual variation ($\epsilon_i$). 
 
-We can also write this in matrix notation
+We can write this in more compact notation, 
 $$
-y = \beta_0 + X \beta + \epsilon
+y_{i} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 $$
-where $X$ is a matrix of predictors and $\beta$ is a (column) vector of slopes/effect sizes. We will use both notations in the vignette, although this matrix notation is a bit more compact and relates most easily the structure of the the `simulate_population()` function.
+
+where $\boldsymbol{x}_{i}$ is a (row) vector of $x_{1i}$, $x_{2i}$ $x_{3i}$ etc, or equivalently row $i$ in the matrix $X$, and $\boldsymbol{\beta}$ is a (column) vector of slopes/effect sizes
+
+ We will use this notation in the vignette, as it is a bit more compact, relates most easily the structure of the `simulate_population()` function, and can incorporate the flexibility needed for the different model structures.
 
 If we want to simulate from this model, we can assume that these predictor variables are multivariate normally distributed, with given means ($\mu$) and a covariance structure ($\Sigma_x$), and the residuals are normally distributed with a given variance ($\sigma^2_\epsilon$)
-$$ X \sim MVN(\mu_x,\Sigma_x)
+$$
+\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim N(0,\sigma^2_\epsilon)
 $$
 
 <!-- 
@@ -79,7 +83,7 @@ $$
 
 </div>
  -->
-The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\beta$, $\mu$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section \@ref(interactions). Many of the components in the parameter list don't need to be specified and default values will be created.
+The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\boldsymbol{\beta}$, $\boldsymbol{\mu}_x$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section \@ref(interactions). Many of the components in the parameter list don't need to be specified and default values will be created.
 
 Let's simulate from the above model. 
 First we can specify a sample size or data_structure. As we don't have any hierarchical data structure yet (see Section \@ref(hierarchical)), we have to specify the sample size with the `n` argument to the `simulate_population` function (e.g. 2000).
@@ -107,18 +111,50 @@ simulate_population(
   )
 )
 ```
+
+<!-- <mark style="background-color: lightblue">Correlated and interacting predictor variables</mark> -->
+
 To fill in our parameter list, lets think about our model
 $$
-y = \beta_0 + X \beta + \epsilon
-$$
-$$ X \sim MVN(\mu_x,\Sigma_x)
+y_{i} = \color{red}{\beta_0}+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 $$
 $$
-\epsilon \sim N(0,\sigma^2_\epsilon)
+\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
+$$
+$$
+\epsilon_i \sim N(0,\sigma^2_\epsilon)
 $$
  or in words:
 
 ```intercept + observation + residual ```
+
+
+
+```{r buildcode1, include=FALSE}
+
+squid_data <- simulate_population(
+  n=2000,
+  response_name = "body_mass",
+  parameters = list(
+    intercept=10,
+    observation = list(
+      names = c("temperature","rainfall", "wind"),
+      beta = c(0.5,-0.3, 0.4)    
+    ),
+    residual = list(
+      vcov = 1
+    )
+  )
+)
+
+```
+
+```{r, echo = FALSE}
+
+decorate("buildcode1") %>%
+  flair("intercept")
+
+```
 
 To simulate our environmental predictors varying at the level of the observation, we can use the `observation`  slot in the parameter list, 
 as well as specifying an intercept and residual variance in the `intercept` and `residual` slots, respectively. For simplicity we will ignore the intercept for now (it defaults to 0). For both observation and residual we create a **list** containing the respective parameters. Let's start with the observation list. We can specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
