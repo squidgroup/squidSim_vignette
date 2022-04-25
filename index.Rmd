@@ -7,7 +7,7 @@ output: bookdown::gitbook
 documentclass: book
 biblio-style: apalike
 link-citations: yes
-github-repo: squid-group/squidSim
+github-repo: squidgroup/squidSim
 description: "This is a vignette for using the squidSim R package."
 ---
 
@@ -89,12 +89,12 @@ This is a summary of the desired functionality laid out in the different SQuID w
 
 The {squidSim} package is currently only available on github:
 ```r
-devtools::install_github("squid-group/squidSim")
+devtools::install_github("squidgroup/squidSim")
 library(squidSim)
 ```
 
 ### Issues and bugs {-}
-It would be great if you could report any suggestions, issues or bugs using github issues https://github.com/squid-group/squidSim/issues. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 
+It would be great if you could report any suggestions, issues or bugs using github issues https://github.com/squidgroup/squidSim/issues. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 
 
 
 
@@ -109,7 +109,7 @@ library(scales)
 # devtools::check("~/github/squidSim/R")
 
 
-# devtools::install_github("squid-group/squidSim", ref="development")
+# devtools::install_github("squidgroup/squidSim", ref="development")
 library(squidSim)
 
 library(knitr)
