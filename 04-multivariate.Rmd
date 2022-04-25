@@ -1,6 +1,15 @@
 
 # Multi-response Models {#multivariate}
-
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+```
 We can simulate multiple response variables, that covary at different hierarchical levels. In the case of a simple random effects model, we can have a covariance matrix at each level, 
 
 <!-- Anne: perhaps add a short sentence of introduction here such as “We simulate here no longer one phenotype y varying across I individuals, but a number of phenotypes that (co)vary across individuals..”
@@ -18,14 +27,15 @@ $$
 <div class="alert alert-info">
 
 $$
- Y_{i} =  beta_0 + Z_j + E_{i}
-$$ 
-$$
- Z \sim MVN(0,\Sigma_Z)
+\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}
 $$
 $$
- E \sim MVN(0,\Sigma_E)
+\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)
 $$
+$$
+\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})
+$$
+
 </div>
 
 We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `n_response` in the parameter list, and specifying the covariance matrix (vcov) at each level. In this way we can simulate covariance at each level. 
@@ -53,36 +63,6 @@ head(data)
 
 ```
 
-
-
-
-
- -->
-
-
-
-<!-- 
-https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
-make little shiny app that allows you to enter diagonal and 
-
- -->
-Second, we can build up predictors at each level that drive this covariance. Here we make `beta` into a matrix ($B$), with predictors as rows, and responses as columns. 
-
-<div class="alert alert-info">
-
-$$
- Y_{i} = \beta_0 +  Z_j B_Z +  X_i  B_X +  E_{i}
-$$
-$$
- X \sim MVN(\mu_X,\Sigma_X)
-$$
-$$
- Z \sim MVN(\mu_Z,\Sigma_Z)
-$$
-$$
- E \sim N(0,\Sigma_E)
-$$
-</div>
 
 The formulation above (just random effects), can be simulated in a similar way with `beta` as an identity matrix (i.e. a predictor for each trait).
 <!-- I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
@@ -112,6 +92,27 @@ head(data)
 # summary(mod)
 
 ```
+
+
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
+
+ -->
+Second, we can build up predictors at each level that drive this covariance. Here we make `beta` into a matrix ($B$), with predictors as rows, and responses as columns. 
+
+<div class="alert alert-info">
+
+
+$$\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}$$
+
+$$\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$$
+
+$$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$$
+
+$$\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})$$
+
+</div>
 
 Alternatively, you could also create multivariate phenotypes being affected by the same predictors. Here we have two phenotypes, affected by three predictors, and so we can create a 3x2 matrix of betas
 
@@ -260,6 +261,9 @@ data <- get_population_data(squid_data)
 
 ## Multivariate Random Slopes
 Before reading this it is worth checking out how to simulate univariate random slopes in Section \@ref(randomslopes).
+
+Here we have to think about the beta matrix. As we saw in an example above, in multivariate models beta can be thought of as switching on and off predictor variables for the response variables. We we can simulate 4 variables, an intercept and slope for each variable, and then use the beta matrix to tell `simulate_population` which response variable they link to 
+
 ```{r}
 individual <- list(
   names = c("ind_int1","ind_slope1","ind_int2","ind_slope2"),
@@ -271,9 +275,9 @@ individual <- list(
     ),nrow=4,ncol=4, byrow=TRUE),
   beta = matrix(c(
     1, 0,
-    1, 0,
+    0, 0,
     0, 1,
-    0, 1
+    0, 0
     ),nrow = 4,ncol = 2, byrow=TRUE)
 
 )
@@ -311,5 +315,4 @@ squid_data <- simulate_population(
 
 data <- get_population_data(squid_data)
 head(data,20)
-data <- get_population_data(squid_data)
 ```

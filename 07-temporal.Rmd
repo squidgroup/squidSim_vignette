@@ -1,5 +1,14 @@
 # Temporal and Spatial Effects
-
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+```
 ## Simple Temporal Effects
 
 We might have measured a variable over the course of a certain time period (e.g. 20 years). We might expect that there is stochastic year-to-year variation, which we can simulate already. However we might also want to simulate patterns in that temporal data. We can treat the levels associated with a particular grouping factor (e.g. year) as both a factor and continuous.

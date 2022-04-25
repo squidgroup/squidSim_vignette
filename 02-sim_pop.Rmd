@@ -1,5 +1,16 @@
 # Simulating from linear models {#linearmod}
 
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+```
+
 
 In this section, we will look at simulating data simple data from linear models, to familiarise ourselves with how {squidSim} works.
 
@@ -116,7 +127,7 @@ simulate_population(
 
 To fill in our parameter list, lets think about our model
 $$
-y_{i} = \color{red}{\beta_0}+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
+y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}} + \color{orange}{\epsilon_{i}}
 $$
 $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
@@ -128,6 +139,7 @@ $$
 
 ```intercept + observation + residual ```
 
+```intercept + observation + residual ```
 
 
 ```{r buildcode1, include=FALSE}
@@ -152,9 +164,44 @@ squid_data <- simulate_population(
 ```{r, echo = FALSE}
 
 decorate("buildcode1") %>%
-  flair("intercept")
-
+  flair("intercept=10",color = "red") %>%
+  flair('observation = list(
+      names = c("temperature","rainfall", "wind"),
+      beta = c(0.5,-0.3, 0.4)    
+    )',color = "blue") %>%
+  flair('residual = list(
+      vcov = 1
+    )',color = "orange")
 ```
+
+<!-- ```{css, echo=FALSE}
+
+.watch-out {
+  background-color: lightpink;
+  border: 3px solid red;
+  font-weight: bold;
+}
+
+``` -->
+
+<!-- ```{style="background: pink;"}
+
+squid_data <- simulate_population(
+  n=2000,
+  response_name = "body_mass",
+  parameters = list(
+    intercept=10,
+``` 
+```{style="background: pink;"}  
+    observation = list(...),
+``` 
+```{style="background: blue;"}  
+    residual = list(
+      vcov = 1
+    )
+  )
+)
+``` -->
 
 To simulate our environmental predictors varying at the level of the observation, we can use the `observation`  slot in the parameter list, 
 as well as specifying an intercept and residual variance in the `intercept` and `residual` slots, respectively. For simplicity we will ignore the intercept for now (it defaults to 0). For both observation and residual we create a **list** containing the respective parameters. Let's start with the observation list. We can specify the names of these variables as a vector (these can be anything - I like giving things actual names, but could also be x_1, x_2 and x_3) and, in the simplest case, the $\beta$ values as a vector.
@@ -253,9 +300,9 @@ plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha
 
 ```
 
-It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the `expected_variance()` function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and levels to the these.
+It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the `simulated_variance()` function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and levels to the these.
 ```{r}
- expected_variance(squid_data)
+ simulated_variance(squid_data)
 ```
 
 <!-- ![](lm_explain.pdf){#lm_explain width=100% max-height=2000px} -->
@@ -507,7 +554,7 @@ cov(data$temperature,log(data$rainfall))
 ```
 The simulate covariance can be recovered on the back-transformed predictor.
 
-The `expected_variance()` function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.
+The `simulated_variance()` function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.
 
 
 ## Known Predictors

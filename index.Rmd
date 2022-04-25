@@ -7,9 +7,10 @@ output: bookdown::gitbook
 documentclass: book
 biblio-style: apalike
 link-citations: yes
-github-repo: squid-group/squid
+github-repo: squid-group/squidSim
 description: "This is a vignette for using the squidSim R package."
 ---
+
 
 # The {squidSim} R package {.unnumbered #intro}
 
@@ -104,12 +105,12 @@ library(flair)
 library(lme4)
 library(MCMCglmm)
 library(scales)
- devtools::load_all("~/github/squidSim/R")
+ # devtools::load_all("~/github/squidSim/R")
 # devtools::check("~/github/squidSim/R")
 
 
 # devtools::install_github("squid-group/squidSim", ref="development")
-# library(squidSim)
+library(squidSim)
 
 library(knitr)
 # the default source hook

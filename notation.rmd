@@ -108,21 +108,33 @@ where $\boldsymbol{\beta}_0$ is a vector of intercepts of length q (number of re
 
 ```{r, echo=FALSE}
 library(flair)
-library(dplyr)
-library(ggplot2)
+
+library(squidSim)
 ```
 
-```{r how_to_pipe, include = FALSE}
 
-iris %>%
-  group_by(Species) %>%
-  summarize(mean(Sepal.Length))
+```{r buildcode2, include=FALSE}
+
+squid_data <- simulate_population(
+  n=2000,
+  response_name = "body_mass",
+  parameters = list(
+    intercept=10,
+    observation = list(
+      names = c("temperature","rainfall", "wind"),
+      beta = c(0.5,-0.3, 0.4)    
+    ),
+    residual = list(
+      vcov = 1
+    )
+  )
+)
 
 ```
 
 ```{r, echo = FALSE}
 
-decorate("how_to_pipe") %>% 
-  flair("%>%")
-  
+decorate("buildcode2") %>%
+  flair("intercept")
+
 ```

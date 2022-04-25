@@ -1,5 +1,14 @@
 # Sampling  {#sampling}
-
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+```
 To create different sampling schemes, we can use the sample arguments in the `simulate_population()` function, for example:
 ```{r, eval=FALSE}
   sample_type = "nested", 

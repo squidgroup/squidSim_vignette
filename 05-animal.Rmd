@@ -1,5 +1,14 @@
 # Genetic effects {#animal}
-
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+```
 This vignette assumes that you are generally happy with how the `sim_population()` function works.
 
 ## Additive genetics effects {#va}
