@@ -108,12 +108,7 @@ library(scales)
  # devtools::load_all("~/github/squidSim/R")
 # devtools::check("~/github/squidSim/R")
 
-
-<<<<<<< HEAD
 # devtools::install_github("squidgroup/squidSim")
-=======
-# devtools::install_github("squidgroup/squidSim", ref="development")
->>>>>>> d0ad40c5df83031e5ce4c4d1308d89f37e6d629d
 library(squidSim)
 
 library(knitr)
