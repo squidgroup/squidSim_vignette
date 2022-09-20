@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="5.1 Brownian motion | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -246,61 +245,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="brownian-motion" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Brownian motion<a href="5.1-brownian-motion.html#brownian-motion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="5.1-brownian-motion.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb177-2"><a href="5.1-brownian-motion.html#cb177-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-3"><a href="5.1-brownian-motion.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bird.families)</span>
-<span id="cb177-4"><a href="5.1-brownian-motion.html#cb177-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-5"><a href="5.1-brownian-motion.html#cb177-5" aria-hidden="true" tabindex="-1"></a>squid_dat <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb177-6"><a href="5.1-brownian-motion.html#cb177-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_structure=</span><span class="fu">data.frame</span>(<span class="at">taxon=</span>bird.families<span class="sc">$</span>tip.label),</span>
-<span id="cb177-7"><a href="5.1-brownian-motion.html#cb177-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb177-8"><a href="5.1-brownian-motion.html#cb177-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">taxon=</span><span class="fu">list</span>(</span>
-<span id="cb177-9"><a href="5.1-brownian-motion.html#cb177-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
-<span id="cb177-10"><a href="5.1-brownian-motion.html#cb177-10" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb177-11"><a href="5.1-brownian-motion.html#cb177-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb177-12"><a href="5.1-brownian-motion.html#cb177-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
-<span id="cb177-13"><a href="5.1-brownian-motion.html#cb177-13" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb177-14"><a href="5.1-brownian-motion.html#cb177-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb177-15"><a href="5.1-brownian-motion.html#cb177-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">phylogeny=</span><span class="fu">list</span>(<span class="at">taxon=</span>bird.families)</span>
-<span id="cb177-16"><a href="5.1-brownian-motion.html#cb177-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb177-17"><a href="5.1-brownian-motion.html#cb177-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-18"><a href="5.1-brownian-motion.html#cb177-18" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_dat)</span>
-<span id="cb177-19"><a href="5.1-brownian-motion.html#cb177-19" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(pop_dat<span class="sc">$</span>taxon_effect)</span></code></pre></div>
-<pre><code>## [1] 0.9815805</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="5.1-brownian-motion.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
-<span id="cb179-2"><a href="5.1-brownian-motion.html#cb179-2" aria-hidden="true" tabindex="-1"></a>Ainv<span class="ot">&lt;-</span><span class="fu">inverseA</span>(bird.families)<span class="sc">$</span>Ainv</span>
-<span id="cb179-3"><a href="5.1-brownian-motion.html#cb179-3" aria-hidden="true" tabindex="-1"></a>prior<span class="ot">&lt;-</span><span class="fu">list</span>(</span>
-<span id="cb179-4"><a href="5.1-brownian-motion.html#cb179-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">R=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>), </span>
-<span id="cb179-5"><a href="5.1-brownian-motion.html#cb179-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">G=</span><span class="fu">list</span>(<span class="at">G1=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>)))</span>
-<span id="cb179-6"><a href="5.1-brownian-motion.html#cb179-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb179-7"><a href="5.1-brownian-motion.html#cb179-7" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">&lt;-</span><span class="fu">MCMCglmm</span>(y<span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb179-8"><a href="5.1-brownian-motion.html#cb179-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="sc">~</span>taxon, </span>
-<span id="cb179-9"><a href="5.1-brownian-motion.html#cb179-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ginverse=</span><span class="fu">list</span>(<span class="at">taxon=</span>Ainv),</span>
-<span id="cb179-10"><a href="5.1-brownian-motion.html#cb179-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>pop_dat, </span>
-<span id="cb179-11"><a href="5.1-brownian-motion.html#cb179-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior=</span>prior, </span>
-<span id="cb179-12"><a href="5.1-brownian-motion.html#cb179-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose=</span><span class="cn">FALSE</span>, <span class="at">nitt=</span><span class="dv">13000</span>, <span class="at">burnin=</span><span class="dv">3000</span>, <span class="at">thin=</span><span class="dv">10</span>)</span>
-<span id="cb179-13"><a href="5.1-brownian-motion.html#cb179-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb179-14"><a href="5.1-brownian-motion.html#cb179-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="5.1-brownian-motion.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb180-2"><a href="5.1-brownian-motion.html#cb180-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-3"><a href="5.1-brownian-motion.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bird.families)</span>
+<span id="cb180-4"><a href="5.1-brownian-motion.html#cb180-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-5"><a href="5.1-brownian-motion.html#cb180-5" aria-hidden="true" tabindex="-1"></a>squid_dat <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb180-6"><a href="5.1-brownian-motion.html#cb180-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_structure=</span><span class="fu">data.frame</span>(<span class="at">taxon=</span>bird.families<span class="sc">$</span>tip.label),</span>
+<span id="cb180-7"><a href="5.1-brownian-motion.html#cb180-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb180-8"><a href="5.1-brownian-motion.html#cb180-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">taxon=</span><span class="fu">list</span>(</span>
+<span id="cb180-9"><a href="5.1-brownian-motion.html#cb180-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
+<span id="cb180-10"><a href="5.1-brownian-motion.html#cb180-10" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb180-11"><a href="5.1-brownian-motion.html#cb180-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb180-12"><a href="5.1-brownian-motion.html#cb180-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
+<span id="cb180-13"><a href="5.1-brownian-motion.html#cb180-13" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb180-14"><a href="5.1-brownian-motion.html#cb180-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb180-15"><a href="5.1-brownian-motion.html#cb180-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">phylogeny=</span><span class="fu">list</span>(<span class="at">taxon=</span>bird.families)</span>
+<span id="cb180-16"><a href="5.1-brownian-motion.html#cb180-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb180-17"><a href="5.1-brownian-motion.html#cb180-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-18"><a href="5.1-brownian-motion.html#cb180-18" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_dat)</span>
+<span id="cb180-19"><a href="5.1-brownian-motion.html#cb180-19" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(pop_dat<span class="sc">$</span>taxon_effect)</span></code></pre></div>
+<pre><code>## [1] 0.9280515</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="5.1-brownian-motion.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
+<span id="cb182-2"><a href="5.1-brownian-motion.html#cb182-2" aria-hidden="true" tabindex="-1"></a>Ainv<span class="ot">&lt;-</span><span class="fu">inverseA</span>(bird.families)<span class="sc">$</span>Ainv</span>
+<span id="cb182-3"><a href="5.1-brownian-motion.html#cb182-3" aria-hidden="true" tabindex="-1"></a>prior<span class="ot">&lt;-</span><span class="fu">list</span>(</span>
+<span id="cb182-4"><a href="5.1-brownian-motion.html#cb182-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">R=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>), </span>
+<span id="cb182-5"><a href="5.1-brownian-motion.html#cb182-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">G=</span><span class="fu">list</span>(<span class="at">G1=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>)))</span>
+<span id="cb182-6"><a href="5.1-brownian-motion.html#cb182-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-7"><a href="5.1-brownian-motion.html#cb182-7" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">&lt;-</span><span class="fu">MCMCglmm</span>(y<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb182-8"><a href="5.1-brownian-motion.html#cb182-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="sc">~</span>taxon, </span>
+<span id="cb182-9"><a href="5.1-brownian-motion.html#cb182-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ginverse=</span><span class="fu">list</span>(<span class="at">taxon=</span>Ainv),</span>
+<span id="cb182-10"><a href="5.1-brownian-motion.html#cb182-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>pop_dat, </span>
+<span id="cb182-11"><a href="5.1-brownian-motion.html#cb182-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior=</span>prior, </span>
+<span id="cb182-12"><a href="5.1-brownian-motion.html#cb182-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose=</span><span class="cn">FALSE</span>, <span class="at">nitt=</span><span class="dv">13000</span>, <span class="at">burnin=</span><span class="dv">3000</span>, <span class="at">thin=</span><span class="dv">10</span>)</span>
+<span id="cb182-13"><a href="5.1-brownian-motion.html#cb182-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-14"><a href="5.1-brownian-motion.html#cb182-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
 <pre><code>## 
 ##  Iterations = 3001:12991
 ##  Thinning interval  = 10
 ##  Sample size  = 1000 
 ## 
-##  DIC: 490.3238 
+##  DIC: 1.487591 
 ## 
 ##  G-structure:  ~taxon
 ## 
 ##       post.mean l-95% CI u-95% CI eff.samp
-## taxon   0.05934 0.000312   0.2457    53.47
+## taxon     1.925   0.6246    2.807    45.52
 ## 
 ##  R-structure:  ~units
 ## 
 ##       post.mean l-95% CI u-95% CI eff.samp
-## units     2.042    1.561    2.526     1000
+## units    0.2583 0.000836   0.8639    19.19
 ## 
 ##  Location effects: y ~ 1 
 ## 
 ##             post.mean l-95% CI u-95% CI eff.samp pMCMC
-## (Intercept)    0.1283  -0.1411   0.4442     1000  0.39</code></pre>
+## (Intercept)    0.1383  -0.7230   0.8997     1375  0.72</code></pre>
 <p><br><br></p>
 </div>
             </section>

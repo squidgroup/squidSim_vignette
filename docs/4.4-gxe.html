@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="4.4 GxE | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -246,49 +245,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="gxe" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> GxE<a href="4.4-gxe.html#gxe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="4.4-gxe.html#cb169-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb169-2"><a href="4.4-gxe.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb169-3"><a href="4.4-gxe.html#cb169-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb169-4"><a href="4.4-gxe.html#cb169-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;G_int&quot;</span>,<span class="st">&quot;G_slope&quot;</span>),</span>
-<span id="cb169-5"><a href="4.4-gxe.html#cb169-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>), </span>
-<span id="cb169-6"><a href="4.4-gxe.html#cb169-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb169-7"><a href="4.4-gxe.html#cb169-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb169-8"><a href="4.4-gxe.html#cb169-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
-<span id="cb169-9"><a href="4.4-gxe.html#cb169-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
-<span id="cb169-10"><a href="4.4-gxe.html#cb169-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb169-11"><a href="4.4-gxe.html#cb169-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb169-12"><a href="4.4-gxe.html#cb169-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb169-13"><a href="4.4-gxe.html#cb169-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;residual&quot;</span>),</span>
-<span id="cb169-14"><a href="4.4-gxe.html#cb169-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb169-15"><a href="4.4-gxe.html#cb169-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb169-16"><a href="4.4-gxe.html#cb169-16" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb169-17"><a href="4.4-gxe.html#cb169-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">rbind</span>(BTped,BTped,BTped,BTped,BTped),</span>
-<span id="cb169-18"><a href="4.4-gxe.html#cb169-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb169-19"><a href="4.4-gxe.html#cb169-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">model=</span><span class="st">&quot;y = G_int + G_slope * environment + residual&quot;</span></span>
-<span id="cb169-20"><a href="4.4-gxe.html#cb169-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb169-21"><a href="4.4-gxe.html#cb169-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-22"><a href="4.4-gxe.html#cb169-22" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb169-23"><a href="4.4-gxe.html#cb169-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb169-24"><a href="4.4-gxe.html#cb169-24" aria-hidden="true" tabindex="-1"></a>short_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">print</span>(<span class="fu">summary</span>(x), <span class="at">correlation=</span><span class="cn">FALSE</span>, <span class="at">show.resids=</span><span class="cn">FALSE</span>, <span class="at">ranef.comp =</span> <span class="fu">c</span>(<span class="st">&quot;Variance&quot;</span>))</span>
-<span id="cb169-25"><a href="4.4-gxe.html#cb169-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-26"><a href="4.4-gxe.html#cb169-26" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>animal),data))</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="4.4-gxe.html#cb176-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb176-2"><a href="4.4-gxe.html#cb176-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb176-3"><a href="4.4-gxe.html#cb176-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb176-4"><a href="4.4-gxe.html#cb176-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;G_int&quot;</span>,<span class="st">&quot;G_slope&quot;</span>),</span>
+<span id="cb176-5"><a href="4.4-gxe.html#cb176-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>), </span>
+<span id="cb176-6"><a href="4.4-gxe.html#cb176-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb176-7"><a href="4.4-gxe.html#cb176-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb176-8"><a href="4.4-gxe.html#cb176-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
+<span id="cb176-9"><a href="4.4-gxe.html#cb176-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
+<span id="cb176-10"><a href="4.4-gxe.html#cb176-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb176-11"><a href="4.4-gxe.html#cb176-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb176-12"><a href="4.4-gxe.html#cb176-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb176-13"><a href="4.4-gxe.html#cb176-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;residual&quot;</span>),</span>
+<span id="cb176-14"><a href="4.4-gxe.html#cb176-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">c</span>(<span class="fl">0.5</span>)</span>
+<span id="cb176-15"><a href="4.4-gxe.html#cb176-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb176-16"><a href="4.4-gxe.html#cb176-16" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb176-17"><a href="4.4-gxe.html#cb176-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">rbind</span>(BTped,BTped,BTped,BTped,BTped),</span>
+<span id="cb176-18"><a href="4.4-gxe.html#cb176-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb176-19"><a href="4.4-gxe.html#cb176-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">model=</span><span class="st">&quot;y = G_int + G_slope * environment + residual&quot;</span></span>
+<span id="cb176-20"><a href="4.4-gxe.html#cb176-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb176-21"><a href="4.4-gxe.html#cb176-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-22"><a href="4.4-gxe.html#cb176-22" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb176-23"><a href="4.4-gxe.html#cb176-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb176-24"><a href="4.4-gxe.html#cb176-24" aria-hidden="true" tabindex="-1"></a>short_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">print</span>(<span class="fu">summary</span>(x), <span class="at">correlation=</span><span class="cn">FALSE</span>, <span class="at">show.resids=</span><span class="cn">FALSE</span>, <span class="at">ranef.comp =</span> <span class="fu">c</span>(<span class="st">&quot;Variance&quot;</span>))</span>
+<span id="cb176-25"><a href="4.4-gxe.html#cb176-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-26"><a href="4.4-gxe.html#cb176-26" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>animal),data))</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ environment + (1 + environment | animal)
 ##    Data: data
 ## 
-## REML criterion at convergence: 15094
+## REML criterion at convergence: 15028.3
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Corr
-##  animal   (Intercept) 1.0154       
-##           environment 0.5219   0.38
-##  Residual             0.4975       
+##  animal   (Intercept) 0.9701       
+##           environment 0.4891   0.42
+##  Residual             0.4960       
 ## Number of obs: 5200, groups:  animal, 1040
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.02223    0.03313  -0.671
-## environment  0.18842    0.02597   7.257</code></pre>
+## (Intercept) -0.03107    0.03243  -0.958
+## environment  0.36240    0.02504  14.473</code></pre>
 </div>
             </section>
 

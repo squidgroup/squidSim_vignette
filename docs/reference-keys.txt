@@ -7,7 +7,7 @@ interactions
 interactions-1
 non-linear-effects
 transformations
-known-predictors
+knownpreds
 nonGaussian
 modeleq
 npop

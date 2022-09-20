@@ -94,7 +94,7 @@ library(squidSim)
 ```
 
 ### Issues and bugs {-}
-It would be great if you could report any suggestions, issues or bugs using github issues https://github.com/squidgroup/squidSim/issues. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 
+It would be great if you could report any suggestions, issues or bugs; [here](https://github.com/squidgroup/squidSim/issues) for issues relating to the package, and [here](https://github.com/squidgroup/squidSim_vignette/issues)for issues relating to this vignette. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 
 
 
 

@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="2.4 Random slopes | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -264,91 +263,91 @@ Z \sim MVN(0,\Sigma_{Z})
 <p>We can specify random slopes by simulating a slopes variable at the individual level (<code>ind_slope</code> - <span class="math inline">\(z_{2,j}\)</span>). We can specify the mean environmental effect the slope of the environmental variable (<span class="math inline">\(beta_1\)</span>). <span class="math inline">\(z_{2,j}\)</span> then represents the deviations from the mean slope (this is typically how it is modelling in a linear mixed effect model).
 <!-- alternatively the mean environmental effect could be specified as the mean of the slopes variable with the environment slope as 0 -->
 Importantly the <code>beta</code> parameter associated with <code>ind_slope</code> is specified as 0 (there is no ‘main effect’ of the slopes, just the interaction), and the <code>beta</code> parameter associated with interaction is 1.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="2.4-randomslopes.html#cb127-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb127-2"><a href="2.4-randomslopes.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(300)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
-<span id="cb127-3"><a href="2.4-randomslopes.html#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb127-4"><a href="2.4-randomslopes.html#cb127-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb127-5"><a href="2.4-randomslopes.html#cb127-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int&quot;</span>,<span class="st">&quot;ind_slope&quot;</span>), </span>
-<span id="cb127-6"><a href="2.4-randomslopes.html#cb127-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</span>
-<span id="cb127-7"><a href="2.4-randomslopes.html#cb127-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>)</span>
-<span id="cb127-8"><a href="2.4-randomslopes.html#cb127-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb127-9"><a href="2.4-randomslopes.html#cb127-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
-<span id="cb127-10"><a href="2.4-randomslopes.html#cb127-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
-<span id="cb127-11"><a href="2.4-randomslopes.html#cb127-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>)</span>
-<span id="cb127-12"><a href="2.4-randomslopes.html#cb127-12" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb127-13"><a href="2.4-randomslopes.html#cb127-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb127-14"><a href="2.4-randomslopes.html#cb127-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb127-15"><a href="2.4-randomslopes.html#cb127-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb127-16"><a href="2.4-randomslopes.html#cb127-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
-<span id="cb127-17"><a href="2.4-randomslopes.html#cb127-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slope:environment&quot;</span>),</span>
-<span id="cb127-18"><a href="2.4-randomslopes.html#cb127-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb127-19"><a href="2.4-randomslopes.html#cb127-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb127-20"><a href="2.4-randomslopes.html#cb127-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb127-21"><a href="2.4-randomslopes.html#cb127-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb127-22"><a href="2.4-randomslopes.html#cb127-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-23"><a href="2.4-randomslopes.html#cb127-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb127-24"><a href="2.4-randomslopes.html#cb127-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-25"><a href="2.4-randomslopes.html#cb127-25" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>individual),data))</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="2.4-randomslopes.html#cb135-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb135-2"><a href="2.4-randomslopes.html#cb135-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(300)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
+<span id="cb135-3"><a href="2.4-randomslopes.html#cb135-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb135-4"><a href="2.4-randomslopes.html#cb135-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb135-5"><a href="2.4-randomslopes.html#cb135-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int&quot;</span>,<span class="st">&quot;ind_slope&quot;</span>), </span>
+<span id="cb135-6"><a href="2.4-randomslopes.html#cb135-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb135-7"><a href="2.4-randomslopes.html#cb135-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>)</span>
+<span id="cb135-8"><a href="2.4-randomslopes.html#cb135-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb135-9"><a href="2.4-randomslopes.html#cb135-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
+<span id="cb135-10"><a href="2.4-randomslopes.html#cb135-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
+<span id="cb135-11"><a href="2.4-randomslopes.html#cb135-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>)</span>
+<span id="cb135-12"><a href="2.4-randomslopes.html#cb135-12" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb135-13"><a href="2.4-randomslopes.html#cb135-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb135-14"><a href="2.4-randomslopes.html#cb135-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
+<span id="cb135-15"><a href="2.4-randomslopes.html#cb135-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb135-16"><a href="2.4-randomslopes.html#cb135-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
+<span id="cb135-17"><a href="2.4-randomslopes.html#cb135-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slope:environment&quot;</span>),</span>
+<span id="cb135-18"><a href="2.4-randomslopes.html#cb135-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb135-19"><a href="2.4-randomslopes.html#cb135-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb135-20"><a href="2.4-randomslopes.html#cb135-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb135-21"><a href="2.4-randomslopes.html#cb135-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb135-22"><a href="2.4-randomslopes.html#cb135-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-23"><a href="2.4-randomslopes.html#cb135-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb135-24"><a href="2.4-randomslopes.html#cb135-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-25"><a href="2.4-randomslopes.html#cb135-25" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>individual),data))</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7869.6
-## 
-## Random effects:
-##  Groups     Name        Variance Corr 
-##  individual (Intercept) 1.1482        
-##             environment 0.4536   -0.04
-##  Residual               0.4695        
-## Number of obs: 3000, groups:  individual, 300
-## 
-## Fixed effects:
-##             Estimate Std. Error t value
-## (Intercept) -0.02647    0.06327  -0.418
-## environment  0.11486    0.04164   2.759</code></pre>
-<p>Here we have specified no correlation between intercepts and slopes. To simulate a correlation between intercepts and slopes, we can simply give the <code>vcov</code> argument a covariance matrix, instead of two variances:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="2.4-randomslopes.html#cb129-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb129-2"><a href="2.4-randomslopes.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(300)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
-<span id="cb129-3"><a href="2.4-randomslopes.html#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb129-4"><a href="2.4-randomslopes.html#cb129-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb129-5"><a href="2.4-randomslopes.html#cb129-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int&quot;</span>,<span class="st">&quot;ind_slope&quot;</span>), </span>
-<span id="cb129-6"><a href="2.4-randomslopes.html#cb129-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</span>
-<span id="cb129-7"><a href="2.4-randomslopes.html#cb129-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb129-8"><a href="2.4-randomslopes.html#cb129-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb129-9"><a href="2.4-randomslopes.html#cb129-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
-<span id="cb129-10"><a href="2.4-randomslopes.html#cb129-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
-<span id="cb129-11"><a href="2.4-randomslopes.html#cb129-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>)</span>
-<span id="cb129-12"><a href="2.4-randomslopes.html#cb129-12" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb129-13"><a href="2.4-randomslopes.html#cb129-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb129-14"><a href="2.4-randomslopes.html#cb129-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb129-15"><a href="2.4-randomslopes.html#cb129-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb129-16"><a href="2.4-randomslopes.html#cb129-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
-<span id="cb129-17"><a href="2.4-randomslopes.html#cb129-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slope:environment&quot;</span>),</span>
-<span id="cb129-18"><a href="2.4-randomslopes.html#cb129-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb129-19"><a href="2.4-randomslopes.html#cb129-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb129-20"><a href="2.4-randomslopes.html#cb129-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb129-21"><a href="2.4-randomslopes.html#cb129-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb129-22"><a href="2.4-randomslopes.html#cb129-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-23"><a href="2.4-randomslopes.html#cb129-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb129-24"><a href="2.4-randomslopes.html#cb129-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-25"><a href="2.4-randomslopes.html#cb129-25" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>individual),data))</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
-## Formula: y ~ environment + (1 + environment | individual)
-##    Data: data
-## 
-## REML criterion at convergence: 7896.8
+## REML criterion at convergence: 7929.6
 ## 
 ## Random effects:
 ##  Groups     Name        Variance Corr
-##  individual (Intercept) 1.0259       
-##             environment 0.5046   0.46
-##  Residual               0.4905       
+##  individual (Intercept) 0.9537       
+##             environment 0.4442   0.04
+##  Residual               0.4925       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.05832    0.06002  -0.972
-## environment  0.13885    0.04391   3.162</code></pre>
+## (Intercept)  0.04645    0.05799   0.801
+## environment  0.24768    0.04135   5.989</code></pre>
+<p>Here we have specified no correlation between intercepts and slopes. To simulate a correlation between intercepts and slopes, we can simply give the <code>vcov</code> argument a covariance matrix, instead of two variances:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="2.4-randomslopes.html#cb137-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb137-2"><a href="2.4-randomslopes.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(300)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
+<span id="cb137-3"><a href="2.4-randomslopes.html#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb137-4"><a href="2.4-randomslopes.html#cb137-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb137-5"><a href="2.4-randomslopes.html#cb137-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int&quot;</span>,<span class="st">&quot;ind_slope&quot;</span>), </span>
+<span id="cb137-6"><a href="2.4-randomslopes.html#cb137-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb137-7"><a href="2.4-randomslopes.html#cb137-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb137-8"><a href="2.4-randomslopes.html#cb137-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb137-9"><a href="2.4-randomslopes.html#cb137-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
+<span id="cb137-10"><a href="2.4-randomslopes.html#cb137-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
+<span id="cb137-11"><a href="2.4-randomslopes.html#cb137-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>)</span>
+<span id="cb137-12"><a href="2.4-randomslopes.html#cb137-12" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb137-13"><a href="2.4-randomslopes.html#cb137-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb137-14"><a href="2.4-randomslopes.html#cb137-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
+<span id="cb137-15"><a href="2.4-randomslopes.html#cb137-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb137-16"><a href="2.4-randomslopes.html#cb137-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
+<span id="cb137-17"><a href="2.4-randomslopes.html#cb137-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slope:environment&quot;</span>),</span>
+<span id="cb137-18"><a href="2.4-randomslopes.html#cb137-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb137-19"><a href="2.4-randomslopes.html#cb137-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb137-20"><a href="2.4-randomslopes.html#cb137-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb137-21"><a href="2.4-randomslopes.html#cb137-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb137-22"><a href="2.4-randomslopes.html#cb137-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-23"><a href="2.4-randomslopes.html#cb137-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb137-24"><a href="2.4-randomslopes.html#cb137-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-25"><a href="2.4-randomslopes.html#cb137-25" aria-hidden="true" tabindex="-1"></a><span class="fu">short_summary</span>(<span class="fu">lmer</span>(y <span class="sc">~</span> environment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>environment<span class="sc">|</span>individual),data))</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: y ~ environment + (1 + environment | individual)
+##    Data: data
+## 
+## REML criterion at convergence: 7854.1
+## 
+## Random effects:
+##  Groups     Name        Variance Corr
+##  individual (Intercept) 0.8896       
+##             environment 0.4560   0.37
+##  Residual               0.4884       
+## Number of obs: 3000, groups:  individual, 300
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  0.04673    0.05608   0.833
+## environment  0.14736    0.04179   3.526</code></pre>
 </div>
             </section>
 

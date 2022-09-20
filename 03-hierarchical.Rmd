@@ -135,7 +135,7 @@ strsplit((gsub("\\w+\\(\\d+\\)","",structure)),"")[[1]]
 ## Factors
 In the first sections, we just simulated continuous predictors, varying at the level of the observation. However, we may want to simulate factors with known or *fixed* effects (i.e. not variables drawn randomly from a particular distribution) at different levels, such as sex or treatment effects.
 
-The first thing we want to do is specify a simple data structure, for example 20 observations for each of two sexes: 
+The first thing we want to do is specify a simple data structure, for example 100 observations for each of two sexes: 
 
 ```{r}
 ds <- make_structure(structure="sex(2)", repeat_obs=100,  level_names=list(sex=c("female","male")))
@@ -571,7 +571,7 @@ squid_data <- simulate_population(
     individual = list(
       names = c("ind_int","ind_slope"), 
       beta = c(1,0),
-      vcov = matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2)
+      vcov = matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2,byrow=TRUE)
     ),
     observation= list(
       names = c("environment"),

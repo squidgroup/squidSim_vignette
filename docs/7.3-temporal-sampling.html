@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="7.3 Temporal Sampling | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -247,32 +246,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="temporal-sampling" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Temporal Sampling<a href="7.3-temporal-sampling.html#temporal-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the parameters we specify a list, with the temporal variable <code>time</code>, the grouping variable with which the temporal sampling occurs <code>group</code>, the between group variance (as a proportion) in sampling times <code>variance</code> and the within group sample size <code>n</code>:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="7.3-temporal-sampling.html#cb208-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb208-2"><a href="7.3-temporal-sampling.html#cb208-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;day(100) + individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">1</span>),</span>
-<span id="cb208-3"><a href="7.3-temporal-sampling.html#cb208-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb208-4"><a href="7.3-temporal-sampling.html#cb208-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb208-5"><a href="7.3-temporal-sampling.html#cb208-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>( </span>
-<span id="cb208-6"><a href="7.3-temporal-sampling.html#cb208-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.1</span></span>
-<span id="cb208-7"><a href="7.3-temporal-sampling.html#cb208-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb208-8"><a href="7.3-temporal-sampling.html#cb208-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">day=</span><span class="fu">list</span>(</span>
-<span id="cb208-9"><a href="7.3-temporal-sampling.html#cb208-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">covariate=</span><span class="cn">TRUE</span>, </span>
-<span id="cb208-10"><a href="7.3-temporal-sampling.html#cb208-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">beta=</span><span class="fl">0.4</span></span>
-<span id="cb208-11"><a href="7.3-temporal-sampling.html#cb208-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb208-12"><a href="7.3-temporal-sampling.html#cb208-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb208-13"><a href="7.3-temporal-sampling.html#cb208-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
-<span id="cb208-14"><a href="7.3-temporal-sampling.html#cb208-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb208-15"><a href="7.3-temporal-sampling.html#cb208-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb208-16"><a href="7.3-temporal-sampling.html#cb208-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb208-17"><a href="7.3-temporal-sampling.html#cb208-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;temporal&quot;</span>, </span>
-<span id="cb208-18"><a href="7.3-temporal-sampling.html#cb208-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="fu">list</span>(</span>
-<span id="cb208-19"><a href="7.3-temporal-sampling.html#cb208-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">c</span>(<span class="st">&quot;day&quot;</span>), </span>
-<span id="cb208-20"><a href="7.3-temporal-sampling.html#cb208-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;individual&quot;</span>), </span>
-<span id="cb208-21"><a href="7.3-temporal-sampling.html#cb208-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance =</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>), </span>
-<span id="cb208-22"><a href="7.3-temporal-sampling.html#cb208-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">n=</span><span class="dv">4</span>), </span>
-<span id="cb208-23"><a href="7.3-temporal-sampling.html#cb208-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb208-24"><a href="7.3-temporal-sampling.html#cb208-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb208-25"><a href="7.3-temporal-sampling.html#cb208-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb208-26"><a href="7.3-temporal-sampling.html#cb208-26" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="7.3-temporal-sampling.html#cb211-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb211-2"><a href="7.3-temporal-sampling.html#cb211-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;day(100) + individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">1</span>),</span>
+<span id="cb211-3"><a href="7.3-temporal-sampling.html#cb211-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-4"><a href="7.3-temporal-sampling.html#cb211-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb211-5"><a href="7.3-temporal-sampling.html#cb211-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>( </span>
+<span id="cb211-6"><a href="7.3-temporal-sampling.html#cb211-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.1</span></span>
+<span id="cb211-7"><a href="7.3-temporal-sampling.html#cb211-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb211-8"><a href="7.3-temporal-sampling.html#cb211-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">day=</span><span class="fu">list</span>(</span>
+<span id="cb211-9"><a href="7.3-temporal-sampling.html#cb211-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">covariate=</span><span class="cn">TRUE</span>, </span>
+<span id="cb211-10"><a href="7.3-temporal-sampling.html#cb211-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">beta=</span><span class="fl">0.4</span></span>
+<span id="cb211-11"><a href="7.3-temporal-sampling.html#cb211-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb211-12"><a href="7.3-temporal-sampling.html#cb211-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb211-13"><a href="7.3-temporal-sampling.html#cb211-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
+<span id="cb211-14"><a href="7.3-temporal-sampling.html#cb211-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb211-15"><a href="7.3-temporal-sampling.html#cb211-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb211-16"><a href="7.3-temporal-sampling.html#cb211-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-17"><a href="7.3-temporal-sampling.html#cb211-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;temporal&quot;</span>, </span>
+<span id="cb211-18"><a href="7.3-temporal-sampling.html#cb211-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="fu">list</span>(</span>
+<span id="cb211-19"><a href="7.3-temporal-sampling.html#cb211-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">c</span>(<span class="st">&quot;day&quot;</span>), </span>
+<span id="cb211-20"><a href="7.3-temporal-sampling.html#cb211-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;individual&quot;</span>), </span>
+<span id="cb211-21"><a href="7.3-temporal-sampling.html#cb211-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance =</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>), </span>
+<span id="cb211-22"><a href="7.3-temporal-sampling.html#cb211-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">n=</span><span class="dv">4</span>), </span>
+<span id="cb211-23"><a href="7.3-temporal-sampling.html#cb211-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb211-24"><a href="7.3-temporal-sampling.html#cb211-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb211-25"><a href="7.3-temporal-sampling.html#cb211-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-26"><a href="7.3-temporal-sampling.html#cb211-26" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span></code></pre></div>
 
 </div>
 <!-- </div> -->

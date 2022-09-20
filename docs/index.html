@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -247,11 +246,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">The {squidSim} R Package Vignette</h1>
 <p class="author"><em>Joel Pick</em></p>
-<p class="date"><em>2022-03-29</em></p>
+<p class="date"><em>2022-09-20</em></p>
 </div>
 <div id="intro" class="section level1 unnumbered hasAnchor">
 <h1>The {squidSim} R package<a href="index.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The squidSim R package is designed to simplify data simulation from a highly flexible set of models, including:</p>
+<p>The {squidSim} R package is designed to simplify data simulation from a highly flexible set of models, including:</p>
 <ul>
 <li>Correlated and interacting predictor variables</li>
 <li>Non-Gaussian response variables (Poisson and binomial)</li>
@@ -265,28 +264,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Missing data (MNAR, MAR and MCAR)</li>
 <li>Temporal sampling</li>
 </ul>
-<p>The main idea is that anything you can model using a linear mixed effect model framework (assuming underlying multivariate normality) you should be able to simulate using the squidSim package.</p>
-<div id="squid-ethos" class="section level3 unnumbered hasAnchor">
-<h3>SQuID ethos<a href="index.html#squid-ethos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Create population and then sample from it
-<br></p>
-<div style="float: width: 40%; text-align: center;">
-<p>Make Hierarchical Structure<br>
-↓<br>
-Simulate data<br>
-↓<br>
-Sample Data<br></p>
+<p>The main idea is that anything you can model using a linear mixed effect model framework (assuming underlying multivariate normality) you can simulate using the {squidSim} package.</p>
+<!-- ### SQuID ethos {-}
+
+Create population and then sample from it
+<br>
+
+<div style="float: width: 40%; text-align: center;" >
+  Make Hierarchical Structure<br>
+         ↓<br>
+    Simulate data<br>
+         ↓<br>
+     Sample Data<br>
 </div>
-<p><br></p>
-</div>
+<br>
+ -->
 <div id="why-use-squidsim" class="section level3 unnumbered hasAnchor">
-<h3>Why use squidSim?<a href="index.html#why-use-squidsim" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3>Why use {squidSim}?<a href="index.html#why-use-squidsim" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For people confident with programming in R, simulating data doesn’t provide a huge challenge. However, to those less confident with programming, or the process of data simulation more generally, starting with simulations can seem like a daunting task. The {squidSim} R package is designed to facilitate that transition, and to focus attention on the data structure and parameters needed for simulation, rather than the programming knowledge.</p>
-<p>{squidSim} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else’s code) is that many people have very contrasting programming styles. Another motivation for the squidSim package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone’s personal code.</p>
+<p>{squidSim} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else’s code) is that many people have very contrasting programming styles. Another motivation for the {squidSim} package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone’s personal code.</p>
 </div>
 <div id="using-the-vignette" class="section level3 unnumbered hasAnchor">
 <h3>Using the vignette<a href="index.html#using-the-vignette" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If you are new to using the {squidSim} package, we recommend that you read Sections <a href="1-linearmod.html#linearmod">1</a> and <a href="2-hierarchical.html#hierarchical">2</a> to familiarise yourself with the squidSim package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work.</p>
+<p>If you are new to using the {squidSim} package, we recommend that you read Sections <a href="1-linearmod.html#linearmod">1</a> and <a href="2-hierarchical.html#hierarchical">2</a> to familiarise yourself with the {squidSim} package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work.</p>
 <p>The vignette assumes that you have a working knowledge of R, in particular being comfortable using vectors, matrices and lists.</p>
 <!-- 
 ## Functionality
@@ -318,13 +318,13 @@ This is a summary of the desired functionality laid out in the different SQuID w
 </div>
 <div id="installation" class="section level3 unnumbered hasAnchor">
 <h3>Installation<a href="index.html#installation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The squidSim package is currently only available on github:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;squid-group/squidSim&quot;</span>)</span>
+<p>The {squidSim} package is currently only available on github:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;squidgroup/squidSim&quot;</span>)</span>
 <span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(squidSim)</span></code></pre></div>
 </div>
 <div id="issues-and-bugs" class="section level3 unnumbered hasAnchor">
 <h3>Issues and bugs<a href="index.html#issues-and-bugs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>It would be great if you could report any suggestions, issues or bugs using github issues <a href="https://github.com/squid-group/squidSim/issues" class="uri">https://github.com/squid-group/squidSim/issues</a>. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one.</p>
+<p>It would be great if you could report any suggestions, issues or bugs; <a href="https://github.com/squidgroup/squidSim/issues">here</a> for issues relating to the package, and <a href="https://github.com/squidgroup/squidSim_vignette/issues">here</a>for issues relating to this vignette. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one.</p>
 
 </div>
 </div>

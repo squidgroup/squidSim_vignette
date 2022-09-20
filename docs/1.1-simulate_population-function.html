@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="1.1 simulate_population function | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -246,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="simulate_population-function" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> <code>simulate_population</code> function<a href="1.1-simulate_population-function.html#simulate_population-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The heart of the squidSim R package is the <code>simulate_population()</code> function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below.</p>
+<p>The heart of the {squidSim} R package is the <code>simulate_population()</code> function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below.</p>
 <p>The <code>simulate_population()</code> function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the <code>simulate_population()</code> function (along with their defaults) are:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="1.1-simulate_population-function.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_population</span>(</span>
 <span id="cb2-2"><a href="1.1-simulate_population-function.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  data_structure, </span>
@@ -267,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-17"><a href="1.1-simulate_population-function.html#cb2-17" aria-hidden="true" tabindex="-1"></a>  sample_param,</span>
 <span id="cb2-18"><a href="1.1-simulate_population-function.html#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop=</span><span class="dv">1</span></span>
 <span id="cb2-19"><a href="1.1-simulate_population-function.html#cb2-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Each of these will be covered in more detail in the following sections. Briefly, <code>n</code> and <code>data_structure</code> refer to the size and structure of the data being simulated - <code>data_structure</code> is covered in more detail in Section <a href="2-hierarchical.html#hierarchical">2</a>. <code>parameters</code> is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. <code>n_response</code> refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section <a href="3-multivariate.html#multivariate">3</a>). <code>response_names</code> controls what the simulated response variables are named, and is described in the following parts of this section and Section <a href="3-multivariate.html#multivariate">3</a>. <code>family</code> and <code>link</code> refer to simulating non Gaussian response variables and are covered in Section <a href="1.7-nonGaussian.html#nonGaussian">1.7</a>. <code>model</code> allows for the specification of more complex models and is covered in Section <a href="1.8-modeleq.html#modeleq">1.8</a>.</p>
+<p>Each of these will be covered in more detail in the following sections. Briefly, <code>n</code> and <code>data_structure</code> refer to the size and structure of the data being simulated - <code>data_structure</code> is covered in more detail in Section <a href="2-hierarchical.html#hierarchical">2</a>. <code>parameters</code> is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. <code>n_response</code> refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section <a href="3-multivariate.html#multivariate">3</a>). <code>response_names</code> controls what the simulated response variables are named, and is described in the following parts of this section and Section <a href="3-multivariate.html#multivariate">3</a>. <code>family</code> and <code>link</code> refer to simulating non Gaussian response variables and are covered in Section <a href="1.7-nonGaussian.html#nonGaussian">1.7</a>. <code>model</code> allows for the specification of more complex models and is covered in Section <a href="1.8-modeleq.html#modeleq">1.8</a>. <code>known_predictors</code> allows for existing data to be incorporated into the simulations and is covered in <a href="1.6-knownpreds.html#knownpreds">1.6</a>.</p>
 <p><code>pedigree</code> and <code>pedigree_type</code> relate to simulating genetic effects and are covered in Section <a href="4-animal.html#animal">4</a>, <code>phylogeny</code> and <code>phylogeny_type</code>, relate to simulating phylogenetic effects and are covered in Section <a href="5-phylogenetic.html#phylogenetic">5</a>and <code>cov_str</code> relates to simulating a general covariance structure and is covered in multiple sections, including <a href="4-animal.html#animal">4</a>, <a href="5-phylogenetic.html#phylogenetic">5</a>, <a href="6.3-temporalauto.html#temporalauto">6.3</a> and <a href="6.4-spatialauto.html#spatialauto">6.4</a>.</p>
 <p><code>sample_type</code> and <code>sample_param</code> relate to different sampling methods and are covered in Section <a href="7-sampling.html#sampling">7</a></p>
 <p><code>n_pop</code> relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section <a href="1.9-npop.html#npop">1.9</a>.</p>

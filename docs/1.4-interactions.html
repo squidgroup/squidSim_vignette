@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="1.4 Interactions and non-linear effects | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -252,73 +251,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,i} + \epsilon_i
 \]</span></p>
 <p>We can specify the interaction between two predictors by adding an <code>interactions</code> list to the parameters list. Interactions can then be specified between two named variables using “:”. Interactions can be between predictors at the same or different hierarchical level.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="1.4-interactions.html#cb34-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb34-2"><a href="1.4-interactions.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
-<span id="cb34-3"><a href="1.4-interactions.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
-<span id="cb34-4"><a href="1.4-interactions.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb34-5"><a href="1.4-interactions.html#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb34-6"><a href="1.4-interactions.html#cb34-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
-<span id="cb34-7"><a href="1.4-interactions.html#cb34-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
-<span id="cb34-8"><a href="1.4-interactions.html#cb34-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb34-9"><a href="1.4-interactions.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb34-10"><a href="1.4-interactions.html#cb34-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
-<span id="cb34-11"><a href="1.4-interactions.html#cb34-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb34-12"><a href="1.4-interactions.html#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
-<span id="cb34-13"><a href="1.4-interactions.html#cb34-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature:rainfall&quot;</span>),</span>
-<span id="cb34-14"><a href="1.4-interactions.html#cb34-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>)</span>
-<span id="cb34-15"><a href="1.4-interactions.html#cb34-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb34-16"><a href="1.4-interactions.html#cb34-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-17"><a href="1.4-interactions.html#cb34-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-18"><a href="1.4-interactions.html#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-19"><a href="1.4-interactions.html#cb34-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb34-20"><a href="1.4-interactions.html#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##     body_mass temperature    rainfall     residual temperature:rainfall
-## 1: -0.7344191 -0.98516512 -0.01547634 -0.235669004           0.01524675
-## 2: -1.7525511 -0.75179788 -0.51938957 -1.181787716           0.39047598
-## 3:  0.4046517  1.28328942 -1.39972389  0.003299097          -1.79625085
-## 4:  0.1181085  0.25642449  0.79563581 -0.228392413           0.20402051
-## 5:  0.5158573 -0.05515661 -0.29069883  0.632248674           0.01603396
-## 6: -0.2674168 -1.15479399 -0.13836495  0.367467974           0.15978301
-##    squid_pop
-## 1:         1
-## 2:         1
-## 3:         1
-## 4:         1
-## 5:         1
-## 6:         1</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="1.4-interactions.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="1.4-interactions.html#cb42-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb42-2"><a href="1.4-interactions.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
+<span id="cb42-3"><a href="1.4-interactions.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb42-4"><a href="1.4-interactions.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb42-5"><a href="1.4-interactions.html#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb42-6"><a href="1.4-interactions.html#cb42-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb42-7"><a href="1.4-interactions.html#cb42-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
+<span id="cb42-8"><a href="1.4-interactions.html#cb42-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb42-9"><a href="1.4-interactions.html#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb42-10"><a href="1.4-interactions.html#cb42-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
+<span id="cb42-11"><a href="1.4-interactions.html#cb42-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb42-12"><a href="1.4-interactions.html#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
+<span id="cb42-13"><a href="1.4-interactions.html#cb42-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature:rainfall&quot;</span>),</span>
+<span id="cb42-14"><a href="1.4-interactions.html#cb42-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>)</span>
+<span id="cb42-15"><a href="1.4-interactions.html#cb42-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-16"><a href="1.4-interactions.html#cb42-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-17"><a href="1.4-interactions.html#cb42-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-18"><a href="1.4-interactions.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-19"><a href="1.4-interactions.html#cb42-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb42-20"><a href="1.4-interactions.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##     body_mass temperature    rainfall   residual temperature:rainfall squid_pop
+## 1  0.61286657  -0.5130807  0.08637747  0.8390618          -0.04431861         1
+## 2  0.05508649   0.0454231  0.62357042 -0.1518637           0.02832450         1
+## 3 -1.47608473   0.1901009 -0.65525396 -1.3870154          -0.12456439         1
+## 4  0.36916582   0.2297521 -1.34934586  0.6280920          -0.31001502         1
+## 5  0.21970698   0.3136446 -0.17009161  0.1085773          -0.05334831         1
+## 6 -0.57941884  -0.6966629  1.30167142 -0.7122714          -0.90682620         1</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="1.4-interactions.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
 <pre><code>##          (Intercept)          temperature             rainfall 
-##          0.007941413          0.505107312          0.306923219 
+##           0.01206604           0.51817160           0.30862876 
 ## temperature:rainfall 
-##         -0.110025404</code></pre>
+##          -0.09310298</code></pre>
 </div>
 <div id="non-linear-effects" class="section level3 hasAnchor" number="1.4.2">
 <h3><span class="header-section-number">1.4.2</span> Non-linear effects<a href="1.4-interactions.html#non-linear-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Polynomial (quadratic, cubic, etc) functions are essentially interactions with the same predictor. They can therefore be specified in the same way:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="1.4-interactions.html#cb38-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb38-2"><a href="1.4-interactions.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
-<span id="cb38-3"><a href="1.4-interactions.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
-<span id="cb38-4"><a href="1.4-interactions.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb38-5"><a href="1.4-interactions.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb38-6"><a href="1.4-interactions.html#cb38-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>),</span>
-<span id="cb38-7"><a href="1.4-interactions.html#cb38-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb38-8"><a href="1.4-interactions.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb38-9"><a href="1.4-interactions.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
-<span id="cb38-10"><a href="1.4-interactions.html#cb38-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature:temperature&quot;</span>),</span>
-<span id="cb38-11"><a href="1.4-interactions.html#cb38-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>)</span>
-<span id="cb38-12"><a href="1.4-interactions.html#cb38-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb38-13"><a href="1.4-interactions.html#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb38-14"><a href="1.4-interactions.html#cb38-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
-<span id="cb38-15"><a href="1.4-interactions.html#cb38-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb38-16"><a href="1.4-interactions.html#cb38-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb38-17"><a href="1.4-interactions.html#cb38-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-18"><a href="1.4-interactions.html#cb38-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb38-19"><a href="1.4-interactions.html#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-20"><a href="1.4-interactions.html#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass <span class="sc">~</span> temperature, data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">col=</span><span class="fu">alpha</span>(<span class="dv">1</span>,<span class="fl">0.5</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/non-linear-1.png" width="576" /></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="1.4-interactions.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="1.4-interactions.html#cb46-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb46-2"><a href="1.4-interactions.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
+<span id="cb46-3"><a href="1.4-interactions.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb46-4"><a href="1.4-interactions.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb46-5"><a href="1.4-interactions.html#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb46-6"><a href="1.4-interactions.html#cb46-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>),</span>
+<span id="cb46-7"><a href="1.4-interactions.html#cb46-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
+<span id="cb46-8"><a href="1.4-interactions.html#cb46-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb46-9"><a href="1.4-interactions.html#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
+<span id="cb46-10"><a href="1.4-interactions.html#cb46-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature:temperature&quot;</span>),</span>
+<span id="cb46-11"><a href="1.4-interactions.html#cb46-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>)</span>
+<span id="cb46-12"><a href="1.4-interactions.html#cb46-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb46-13"><a href="1.4-interactions.html#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb46-14"><a href="1.4-interactions.html#cb46-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
+<span id="cb46-15"><a href="1.4-interactions.html#cb46-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb46-16"><a href="1.4-interactions.html#cb46-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb46-17"><a href="1.4-interactions.html#cb46-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-18"><a href="1.4-interactions.html#cb46-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb46-19"><a href="1.4-interactions.html#cb46-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-20"><a href="1.4-interactions.html#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass <span class="sc">~</span> temperature, data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">col=</span><span class="fu">alpha</span>(<span class="dv">1</span>,<span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="02-sim_pop_files/figure-html/non-linear-1.png" width="576" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="1.4-interactions.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
 <pre><code>##      (Intercept)      temperature I(temperature^2) 
-##     -0.006296047      0.484081703     -0.297198664</code></pre>
+##      -0.01455692       0.50008624      -0.29110356</code></pre>
 <p><br></p>
 </div>
 </div>

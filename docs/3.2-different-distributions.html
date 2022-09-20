@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
-  <meta name="github-repo" content="squid-group/squid" />
+  <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="3.2 Different distributions | The {squidSim} R Package Vignette" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,13 +136,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li><a href="index.html#intro">The {squidSim} R package<span></span></a>
 <ul>
-<li><a href="index.html#squid-ethos">SQuID ethos<span></span></a></li>
-<li><a href="index.html#why-use-squidsim">Why use squidSim?<span></span></a></li>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating population data<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
@@ -156,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-known-predictors.html"><a href="1.6-known-predictors.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
 <li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
@@ -246,77 +245,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="different-distributions" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Different distributions<a href="3.2-different-distributions.html#different-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="3.2-different-distributions.html#cb149-1" aria-hidden="true" tabindex="-1"></a>individual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb149-2"><a href="3.2-different-distributions.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb149-3"><a href="3.2-different-distributions.html#cb149-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
-<span id="cb149-4"><a href="3.2-different-distributions.html#cb149-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
-<span id="cb149-5"><a href="3.2-different-distributions.html#cb149-5" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>)</span>
-<span id="cb149-6"><a href="3.2-different-distributions.html#cb149-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb149-7"><a href="3.2-different-distributions.html#cb149-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-8"><a href="3.2-different-distributions.html#cb149-8" aria-hidden="true" tabindex="-1"></a>residual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb149-9"><a href="3.2-different-distributions.html#cb149-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb149-10"><a href="3.2-different-distributions.html#cb149-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
-<span id="cb149-11"><a href="3.2-different-distributions.html#cb149-11" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
-<span id="cb149-12"><a href="3.2-different-distributions.html#cb149-12" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>),</span>
-<span id="cb149-13"><a href="3.2-different-distributions.html#cb149-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb149-14"><a href="3.2-different-distributions.html#cb149-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">0</span>,</span>
-<span id="cb149-15"><a href="3.2-different-distributions.html#cb149-15" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">0</span></span>
-<span id="cb149-16"><a href="3.2-different-distributions.html#cb149-16" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb149-17"><a href="3.2-different-distributions.html#cb149-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb149-18"><a href="3.2-different-distributions.html#cb149-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-19"><a href="3.2-different-distributions.html#cb149-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-20"><a href="3.2-different-distributions.html#cb149-20" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb149-21"><a href="3.2-different-distributions.html#cb149-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb149-22"><a href="3.2-different-distributions.html#cb149-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
-<span id="cb149-23"><a href="3.2-different-distributions.html#cb149-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(<span class="at">individual =</span> individual, <span class="at">residual =</span> residual),</span>
-<span id="cb149-24"><a href="3.2-different-distributions.html#cb149-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span><span class="fu">c</span>(<span class="st">&quot;gaussian&quot;</span>,<span class="st">&quot;binomial&quot;</span>), <span class="at">link=</span><span class="fu">c</span>(<span class="st">&quot;identity&quot;</span>,<span class="st">&quot;logit&quot;</span>)</span>
-<span id="cb149-25"><a href="3.2-different-distributions.html#cb149-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb149-26"><a href="3.2-different-distributions.html#cb149-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-27"><a href="3.2-different-distributions.html#cb149-27" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb149-28"><a href="3.2-different-distributions.html#cb149-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data,<span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##              y1 y2 individual_effect1 individual_effect2   residual1  residual2
-##  1:  3.21396617  1           1.020548           0.263079  2.19341795  1.0536989
-##  2:  2.36447918  0           1.020548           0.263079  1.34393096  0.3808591
-##  3:  0.63283323  0           1.020548           0.263079 -0.38771499  0.7728319
-##  4:  2.24483855  0           1.020548           0.263079  1.22429033  0.9640626
-##  5: -1.92764988  1           1.020548           0.263079 -2.94819810 -0.7199675
-##  6:  2.23897391  0           1.020548           0.263079  1.21842569  1.4191216
-##  7: -0.07544168  1           1.020548           0.263079 -1.09598990 -0.7454547
-##  8: -0.33641928  0           1.020548           0.263079 -1.35696750 -0.3875023
-##  9:  1.90003576  0           1.020548           0.263079  0.87948754  1.6662882
-## 10:  1.03137851  0           1.020548           0.263079  0.01083029  0.6269957
-## 11:  2.22255459  0           1.020548           0.263079  1.20200637  0.1506133
-## 12:  0.16786408  1           1.020548           0.263079 -0.85268414  0.2397995
-## 13:  0.39046792  0           1.020548           0.263079 -0.63008030 -1.3564530
-## 14:  1.20200606  0           1.020548           0.263079  0.18145784 -0.2644987
-## 15:  1.64968616  0           1.020548           0.263079  0.62913794  0.3583049
-## 16:  1.47990942  1           1.020548           0.263079  0.45936120  0.4477770
-## 17:  2.13798517  0           1.020548           0.263079  1.11743695  1.3829373
-## 18:  2.18364989  0           1.020548           0.263079  1.16310167 -0.1448516
-## 19:  0.03917287  1           1.020548           0.263079 -0.98137535 -1.1092424
-## 20:  0.89634593  0           1.020548           0.263079 -0.12420229  1.7894439
-##     individual squid_pop
-##  1:          1         1
-##  2:          1         1
-##  3:          1         1
-##  4:          1         1
-##  5:          1         1
-##  6:          1         1
-##  7:          1         1
-##  8:          1         1
-##  9:          1         1
-## 10:          1         1
-## 11:          1         1
-## 12:          1         1
-## 13:          1         1
-## 14:          1         1
-## 15:          1         1
-## 16:          1         1
-## 17:          1         1
-## 18:          1         1
-## 19:          1         1
-## 20:          1         1</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="3.2-different-distributions.html#cb151-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="3.2-different-distributions.html#cb157-1" aria-hidden="true" tabindex="-1"></a>individual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb157-2"><a href="3.2-different-distributions.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb157-3"><a href="3.2-different-distributions.html#cb157-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
+<span id="cb157-4"><a href="3.2-different-distributions.html#cb157-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
+<span id="cb157-5"><a href="3.2-different-distributions.html#cb157-5" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb157-6"><a href="3.2-different-distributions.html#cb157-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-7"><a href="3.2-different-distributions.html#cb157-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-8"><a href="3.2-different-distributions.html#cb157-8" aria-hidden="true" tabindex="-1"></a>residual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb157-9"><a href="3.2-different-distributions.html#cb157-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb157-10"><a href="3.2-different-distributions.html#cb157-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
+<span id="cb157-11"><a href="3.2-different-distributions.html#cb157-11" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
+<span id="cb157-12"><a href="3.2-different-distributions.html#cb157-12" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
+<span id="cb157-13"><a href="3.2-different-distributions.html#cb157-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb157-14"><a href="3.2-different-distributions.html#cb157-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">0</span>,</span>
+<span id="cb157-15"><a href="3.2-different-distributions.html#cb157-15" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">0</span></span>
+<span id="cb157-16"><a href="3.2-different-distributions.html#cb157-16" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb157-17"><a href="3.2-different-distributions.html#cb157-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-18"><a href="3.2-different-distributions.html#cb157-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-19"><a href="3.2-different-distributions.html#cb157-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-20"><a href="3.2-different-distributions.html#cb157-20" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb157-21"><a href="3.2-different-distributions.html#cb157-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb157-22"><a href="3.2-different-distributions.html#cb157-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb157-23"><a href="3.2-different-distributions.html#cb157-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(<span class="at">individual =</span> individual, <span class="at">residual =</span> residual),</span>
+<span id="cb157-24"><a href="3.2-different-distributions.html#cb157-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span><span class="fu">c</span>(<span class="st">&quot;gaussian&quot;</span>,<span class="st">&quot;binomial&quot;</span>), <span class="at">link=</span><span class="fu">c</span>(<span class="st">&quot;identity&quot;</span>,<span class="st">&quot;logit&quot;</span>)</span>
+<span id="cb157-25"><a href="3.2-different-distributions.html#cb157-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-26"><a href="3.2-different-distributions.html#cb157-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-27"><a href="3.2-different-distributions.html#cb157-27" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb157-28"><a href="3.2-different-distributions.html#cb157-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data,<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##             y1 y2 individual_effect1 individual_effect2   residual1  residual2
+## 1   1.61928491  0           0.089718         -0.0319013  1.52956691 -0.8320741
+## 2   0.07115411  1           0.089718         -0.0319013 -0.01856389 -0.3423347
+## 3  -0.38236721  1           0.089718         -0.0319013 -0.47208521 -0.1958661
+## 4  -0.35181603  1           0.089718         -0.0319013 -0.44153403 -0.1002483
+## 5   0.49072247  1           0.089718         -0.0319013  0.40100447 -0.2131839
+## 6   0.24993480  1           0.089718         -0.0319013  0.16021680 -0.5755633
+## 7  -2.11716246  0           0.089718         -0.0319013 -2.20688046 -0.6703496
+## 8  -2.12512582  0           0.089718         -0.0319013 -2.21484382 -2.3029096
+## 9   0.20257401  1           0.089718         -0.0319013  0.11285601  0.1454820
+## 10 -1.70056613  0           0.089718         -0.0319013 -1.79028413 -1.0506684
+## 11 -0.43735808  0           0.089718         -0.0319013 -0.52707608 -1.5176008
+## 12 -1.11461414  0           0.089718         -0.0319013 -1.20433214 -1.1724473
+## 13 -0.07459436  0           0.089718         -0.0319013 -0.16431237  2.2018673
+## 14  0.44286088  0           0.089718         -0.0319013  0.35314288 -1.4699753
+## 15  0.20694715  0           0.089718         -0.0319013  0.11722915  0.6657859
+## 16  0.13846332  1           0.089718         -0.0319013  0.04874531 -1.2186944
+## 17 -0.38020964  0           0.089718         -0.0319013 -0.46992764  1.1685338
+## 18  0.15653474  1           0.089718         -0.0319013  0.06681674 -1.1453769
+## 19  0.64819966  0           0.089718         -0.0319013  0.55848166  0.8638714
+## 20 -0.32038550  1           0.089718         -0.0319013 -0.41010351 -0.8966339
+##    individual squid_pop
+## 1           1         1
+## 2           1         1
+## 3           1         1
+## 4           1         1
+## 5           1         1
+## 6           1         1
+## 7           1         1
+## 8           1         1
+## 9           1         1
+## 10          1         1
+## 11          1         1
+## 12          1         1
+## 13          1         1
+## 14          1         1
+## 15          1         1
+## 16          1         1
+## 17          1         1
+## 18          1         1
+## 19          1         1
+## 20          1         1</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="3.2-different-distributions.html#cb159-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
 </div>
             </section>
 
