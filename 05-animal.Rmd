@@ -216,10 +216,12 @@ head(data)
 
 
 ## Dominance
+Coming soon...
+<!--
 Here we can make use of the dominance relatedness matrices that can be generated in the `nadiv` package
 
 NOTE: not working fully yet!!! 
-
+ 
 ```{r, eval=TRUE, cache=TRUE, message=FALSE,warning=FALSE}
 library(nadiv)
 D <- makeD(BTped,invertD = FALSE, returnA = FALSE, det=FALSE)$D
@@ -247,7 +249,7 @@ data <- get_population_data(squid_data)
 
 head(data)
 
-```
+``` -->
 
 ## Inbreeding depression
 Coming soon...

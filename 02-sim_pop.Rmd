@@ -17,7 +17,7 @@ In this section, we will look at simulating data simple data from linear models,
 
 ## `simulate_population` function
 
-The heart of the {squidSim} R package is the `simulate_population()` function, which we can use to simulate hierarchical population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
+The heart of the {squidSim} R package is the `simulate_population()` function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
 
 The `simulate_population()` function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population()` function (along with their defaults) are:
 
@@ -43,7 +43,7 @@ simulate_population(
 )
 ```
 
-Each of these will be covered in more detail in the following sections. Briefly, `n` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. `n_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section \@ref(multivariate)). `response_names` controls what the simulated response variables are named, and is described in the following parts of this section and Section \@ref(multivariate). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). 
+Each of these will be covered in more detail in the following sections. Briefly, `n` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. `n_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section \@ref(multivariate)). `response_names` controls what the simulated response variables are named, and is described in the following parts of this section and Section \@ref(multivariate). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). `known_predictors` allows for existing data to be incorporated into the simulations and is covered in \@ref(known_preds).
 
 `pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type`, relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic)and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
 
@@ -65,6 +65,7 @@ We are interested in how some environmental variables affect adult body mass.
 </div> -->
 
 We will start simulating data without any hierarchical structure, i.e. everything varies at the level of the *observation*. Let's imagine a situation where body mass is affected by some environmental variables - temperature, rainfall and wind. We can write this out in the form of a linear model: 
+
 $$
 y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \epsilon_i
 $$
@@ -76,7 +77,20 @@ $$
 y_{i} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 $$
 
-where $\boldsymbol{x}_{i}$ is a (row) vector of $x_{1i}$, $x_{2i}$ $x_{3i}$ etc, or equivalently row $i$ in the matrix $X$, and $\boldsymbol{\beta}$ is a (column) vector of slopes/effect sizes
+where $\boldsymbol{x}_{i}$ is a (row) vector of $x_{1i}$, $x_{2i}$ $x_{3i}$ etc, or equivalently row $i$ in the matrix of predictors $X$, 
+$$
+\boldsymbol{x}_{i} = \begin{bmatrix}
+x_{1i} & x_{2i} & x_{3i}
+\end{bmatrix}
+$$
+and $\boldsymbol{\beta}$ is a (column) vector of slopes/effect sizes
+$$
+\boldsymbol{\beta} = \begin{bmatrix}
+\beta_1 \\
+\beta_2 \\
+\beta_3 
+\end{bmatrix}
+$$
 
  We will use this notation in the vignette, as it is a bit more compact, relates most easily the structure of the `simulate_population()` function, and can incorporate the flexibility needed for the different model structures.
 
@@ -87,6 +101,21 @@ $$
 $$
 \epsilon_i \sim N(0,\sigma^2_\epsilon)
 $$
+
+where $$
+\boldsymbol{\mu}_x = \begin{bmatrix}
+\mu_{x_1} \\
+\mu_{x_2} \\
+\mu_{x_3} 
+\end{bmatrix}
+,
+\Sigma_x = \begin{bmatrix}
+\sigma^2_{x_1} & \sigma_{x_1x_2} & \sigma_{x_1x_3}\\
+\sigma_{x_1x_2} & \sigma^2_{x_2} & \sigma_{x_2x_3}\\
+\sigma_{x_1x_3} & \sigma_{x_2x_3} & \sigma^2_{x_3}
+\end{bmatrix}
+$$
+
 
 <!-- 
 <div class="alert alert-info">
@@ -137,10 +166,38 @@ $$
 $$
  or in words:
 
-```intercept + observation + residual ```
+```{r,echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+}
+```
 
-```intercept + observation + residual ```
+`r colorize("intercept", "red")` + `r colorize("observation", "blue")` level predictors + `r colorize("residual", "orange")`
 
+
+
+<!-- ```{r,echo=FALSE}
+cat('squid_data <- simulate_population(
+  n=2000,
+  response_name =, "body_mass",
+  parameters = list(',
+colorize('    intercept=10,',"red"),
+'    observation = list(
+      names = c("temperature","rainfall", "wind"),
+      beta = c(0.5,-0.3, 0.4)    
+    ),
+    residual = list(
+      vcov = 1
+    )
+  )
+)')
+```
+ -->
 
 ```{r buildcode1, include=FALSE}
 
@@ -158,7 +215,6 @@ squid_data <- simulate_population(
     )
   )
 )
-
 ```
 
 ```{r, echo = FALSE}
@@ -211,7 +267,22 @@ as well as specifying an intercept and residual variance in the `intercept` and 
       beta = c(0.5,-0.3, 0.4)    
     )
 ```
- By default, these predictors are simulated as i.i.d. unit normals (mean=0, var=1, cov=0). Note that the order of the names and betas has to match. We can then specify the residual variance, here as 1 (but can be anything)
+ By default, these predictors are simulated as i.i.d. unit normals (mean=0, var=1, cov=0), so 
+$$
+\boldsymbol{\mu}_x = \begin{bmatrix}
+0 \\
+0 \\
+0 
+\end{bmatrix}
+, 
+\Sigma_x = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+ . Note that the order of the names and betas has to match. We can then specify the residual variance, here as 1 (but can be anything)
 ```r
     residual = list(
           vcov = 1
@@ -246,7 +317,7 @@ data <- get_population_data(squid_data)
 head(data)
 ```
 
-Later on we will explore how to simulate data for multiple populations with the same parameters (Section \@ref(npop)). `squid_pop` is an identifier for the population number, but is not relavent here.
+Later on we will explore how to simulate data for multiple populations with the same parameters (Section \@ref(npop)). `squid_pop` is an identifier for the population number, but is not relevant here.
 
 We can plot what we have simulated:
 ```{r, 'lm1',fig.width=10,fig.height=4}
@@ -255,22 +326,62 @@ par(mfrow=c(1,3))
 plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha(1,0.5))
 ```
 
-and run a linear model to check that we get back what we have simulated:
+and run a linear model to check that we get back the betas that we simulated:
 ```{r}
-coef(lm(body_mass ~ temperature + rainfall,data))
+coef(lm(body_mass ~ temperature + rainfall + wind,data))
+```
+
+We can also check the means and variances of the predictors
+
+```{r}
+predictors <- data[,c("temperature","rainfall","wind")]
+colMeans(predictors)
+cov(predictors)
 ```
 
 
+Its worth noting that these values are not *exactly* what we simulated. That is to be expect - simulation involves *randomly* generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
+<!-- 
 We can extract the parameters we used for the simulations
 ```{r}
 # get_parameters(squid_data)
 ```
-
+ -->
 
 ### Adding more information about the predictors
 
 We can also specify the predictors as having different means and variances, and specify a global intercept ($\beta_0$). In the observation list, `mean` and `vcov` specify the means and covariance matrix of the predictors. If the predictors were uncorrelated, we can just specify the variances as a vector (the diagonal elements of the covariance matrix), and the function assumes the covariances are 0 (see section \@ref(corpred) for correlated predictors). 
-The global intercept can be given by specifying an intercept vector in the parameter list (`intercept=10` in the example below). So below we have three predictors, temperature, rainfall and wind, with means 10, 1  and 20 respectively, variances 1, 0.1 and 2, respectively, and betas 0.5,-3 and 0.4, a residual variance 0.8 and a global intercept of 10.
+The global intercept can be given by specifying an intercept vector in the parameter list (`intercept=10` in the example below). So below we have three predictors, temperature, rainfall and wind, with means 10, 1 and 20 respectively, variances 1, 0.1 and 2, respectively, and betas 0.5,-3 and 0.4, a residual variance 0.8 and a global intercept of 10:
+
+$$
+y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}} + \color{orange}{\epsilon_{i}}
+$$
+$$
+\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
+$$
+$$
+\epsilon_i \sim N(0,\sigma^2_\epsilon)
+$$
+
+$$
+\boldsymbol{\mu}_x = \begin{bmatrix}
+10 \\
+1 \\
+20 
+\end{bmatrix}
+, 
+\Sigma_x = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 0.1 & 0\\
+0 & 0 & 2
+\end{bmatrix},
+\boldsymbol{\beta} = \begin{bmatrix}
+0.5 \\
+-3 \\
+0.4 
+\end{bmatrix}
+$$
+
 
 ```{r, 'lm2',fig.width=10,fig.height=4}
 squid_data <- simulate_population(
@@ -300,7 +411,15 @@ plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha
 
 ```
 
-It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the `simulated_variance()` function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and levels to the these.
+Again, we can check that the means and variances of the predictors are being simulated as we think they should be
+
+```{r}
+predictors <- data[,c("temperature","rainfall","wind")]
+colMeans(predictors)
+cov(predictors)
+```
+
+It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the `simulated_variance()` function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and hierarchical levels to the these.
 ```{r}
  simulated_variance(squid_data)
 ```
@@ -557,7 +676,7 @@ The simulate covariance can be recovered on the back-transformed predictor.
 The `simulated_variance()` function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.
 
 
-## Known Predictors
+## Known Predictors {#known_preds}
 
 We might have the situation where we don't want to simulate a predictor, rather use existing data to simulate a response variable from. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the `simulate_population()` function, using the `known_predictors` argument. This argument takes a list, with one item, called `predictors`, a matrix or dataframe of predictors and one item called `beta`, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.
 
