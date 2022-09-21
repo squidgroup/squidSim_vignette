@@ -329,7 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##     (Intercept)  factor(sex)male  
-##         10.0180           0.4019</code></pre>
+##          9.8998           0.6062</code></pre>
 <p>Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas( equivalent to <code>lm(body_mass~0+sex)</code>):</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="2.2-factors.html#cb111-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb111-2"><a href="2.2-factors.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
@@ -355,7 +355,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##     (Intercept)  factor(sex)male  
-##         10.0005           0.4774</code></pre>
+##         10.0470           0.5415</code></pre>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="2.2-factors.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>( y <span class="sc">~</span> <span class="dv">0</span><span class="sc">+</span><span class="fu">factor</span>(sex), data)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -363,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ## factor(sex)female    factor(sex)male  
-##             10.00              10.48</code></pre>
+##             10.05              10.59</code></pre>
 <p>We would recommend the former methods, as this makes things clearer if other factors are simulated.</p>
 <p>Finally We can also name the levels:
 THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE</p>
@@ -395,7 +395,7 @@ THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE</p>
 ## 
 ## Coefficients:
 ##  (Intercept)  factor(sex)2  
-##      10.0035        0.4666</code></pre>
+##       9.9611        0.5436</code></pre>
 <div id="fixed-factor-interactions" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Fixed Factor Interactions<a href="2.2-factors.html#fixed-factor-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We might want to simulate an interaction between a continuous predictor and a factor, for example the effect of the environment varying between two sexes. Specifying this using <code>simulate_population()</code> is similar to interactions between two continuous predictors that we have previously encountered (Section <a href="1.4-interactions.html#interactions">1.4</a>). In the <code>interaction</code> part of the parameter list, we now specify the contrasts between the slopes for environment, using the names that we have assigned the different levels. In the simulation below, males are larger, and have a larger environment slope:</p>
@@ -426,12 +426,12 @@ THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE</p>
 <span id="cb119-25"><a href="2.2-factors.html#cb119-25" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb119-26"><a href="2.2-factors.html#cb119-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##           y female male environment    residual environment:male sex squid_pop
-## 1  9.712770      1    0  -1.0789111 -0.07144816                0   1         1
-## 2  9.973229      1    0   0.3827627 -0.10332401                0   1         1
-## 3 10.178768      1    0   0.2988904  0.11898991                0   1         1
-## 4 10.740719      1    0   2.1762381  0.30547178                0   1         1
-## 5 10.350520      1    0   1.1953571  0.11144855                0   1         1
-## 6 10.358600      1    0   0.9419259  0.17021443                0   1         1</code></pre>
+## 1  9.807636      1    0  -0.1435788 -0.16364834                0   1         1
+## 2 10.449341      1    0   0.2475861  0.39982356                0   1         1
+## 3 10.181951      1    0   0.7089928  0.04015207                0   1         1
+## 4 10.000570      1    0  -0.6151096  0.12359190                0   1         1
+## 5 10.072634      1    0   0.6629097 -0.05994789                0   1         1
+## 6  9.794465      1    0   1.1754860 -0.44063238                0   1         1</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="2.2-factors.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>environment,data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span>scales<span class="sc">::</span><span class="fu">alpha</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="fl">0.5</span>)[<span class="fu">factor</span>(data<span class="sc">$</span>sex)])</span></code></pre></div>
 <p><img src="03-hierarchical_files/figure-html/unnamed-chunk-20-1.png" width="576" /></p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="2.2-factors.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>( y <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">factor</span>(sex)<span class="sc">*</span>environment, data)</span></code></pre></div>
@@ -441,9 +441,9 @@ THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE</p>
 ## 
 ## Coefficients:
 ##             factor(sex)1              factor(sex)2               environment  
-##                  10.0060                   10.4829                    0.1926  
+##                  10.0079                   10.5030                    0.2056  
 ## factor(sex)2:environment  
-##                   0.4229</code></pre>
+##                   0.4078</code></pre>
 </div>
 </div>
             </section>

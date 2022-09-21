@@ -269,25 +269,18 @@ y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,
 <span id="cb42-18"><a href="1.4-interactions.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-19"><a href="1.4-interactions.html#cb42-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb42-20"><a href="1.4-interactions.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##      body_mass temperature    rainfall   residual temperature:rainfall
-## 1 -1.542745770  -1.8103549 -2.50235744  0.5661544           4.53015507
-## 2  0.677618525  -1.6356569 -0.24224927  1.6077454           0.39623668
-## 3  0.274506819   1.1401138 -0.01126801 -0.2934544          -0.01284681
-## 4  0.002828893   1.0872126  1.11052277 -0.7531968           1.20737438
-## 5 -0.603612088   0.2483245  0.78916978 -0.9449282           0.19597016
-## 6 -0.031214712  -0.6420770 -0.68237408  0.5383497           0.43813670
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1</code></pre>
+<pre><code>##    body_mass temperature   rainfall    residual temperature:rainfall squid_pop
+## 1 -0.7810324  -0.2575065 -0.5530252 -0.47213086            0.1424076         1
+## 2 -1.0077190  -1.1021496 -0.8873056 -0.09265814            0.9779436         1
+## 3 -1.2303681  -0.5881243  1.4602275 -1.46025374           -0.8587953         1
+## 4 -1.3927076  -1.6882974 -0.7199612 -0.21101976            1.2155085         1
+## 5 -1.2943652  -0.9944179 -0.3012667 -0.67681774            0.2995850         1
+## 6 -0.7267851  -2.3731463  0.1755323  0.36547194           -0.4165639         1</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="1.4-interactions.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
 <pre><code>##          (Intercept)          temperature             rainfall 
-##          0.006916188          0.511216820          0.302122350 
+##         -0.004678602          0.482533057          0.307074749 
 ## temperature:rainfall 
-##         -0.109177108</code></pre>
+##         -0.146545595</code></pre>
 </div>
 <div id="non-linear-effects" class="section level3 hasAnchor" number="1.4.2">
 <h3><span class="header-section-number">1.4.2</span> Non-linear effects<a href="1.4-interactions.html#non-linear-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -315,7 +308,7 @@ y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,
 <p><img src="02-sim_pop_files/figure-html/non-linear-1.png" width="576" /></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="1.4-interactions.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
 <pre><code>##      (Intercept)      temperature I(temperature^2) 
-##      0.008536945      0.493621147     -0.298535115</code></pre>
+##       0.01398833       0.51002733      -0.30475147</code></pre>
 <p><br></p>
 </div>
 </div>

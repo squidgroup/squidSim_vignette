@@ -261,20 +261,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb170-15"><a href="4.2-multivariate-genetic-effects.html#cb170-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb170-16"><a href="4.2-multivariate-genetic-effects.html#cb170-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb170-17"><a href="4.2-multivariate-genetic-effects.html#cb170-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##                 y1          y2 animal_effect1 animal_effect2  residual1
-## R187557  1.0498536  0.99911359      1.5538579     0.29484094 -0.5040043
-## R187559  2.4038024  0.17754768      1.3908246     0.60434753  1.0129778
-## R187568 -0.4330169  0.01933489      0.5873343    -0.34427107 -1.0203512
-## R187518 -0.5699932  0.83640542     -0.2065690     0.59328999 -0.3634242
-## R187528  1.3531016 -0.65915595      0.4161831    -0.40080982  0.9369184
-## R187945  1.0216835  0.12231473     -0.2603361     0.04645542  1.2820196
-##           residual2  animal  dam sire squid_pop
-## R187557  0.70427265 R187557 &lt;NA&gt; &lt;NA&gt;         1
-## R187559 -0.42679985 R187559 &lt;NA&gt; &lt;NA&gt;         1
-## R187568  0.36360596 R187568 &lt;NA&gt; &lt;NA&gt;         1
-## R187518  0.24311543 R187518 &lt;NA&gt; &lt;NA&gt;         1
-## R187528 -0.25834613 R187528 &lt;NA&gt; &lt;NA&gt;         1
-## R187945  0.07585931 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
+<pre><code>##                 y1         y2 animal_effect1 animal_effect2  residual1
+## R187557 -0.8385548  0.1841058      0.6786441     -0.3935136 -1.5171990
+## R187559 -0.4701207  1.0400757     -1.4113157      1.0666325  0.9411949
+## R187568 -0.1846425  0.3584195      1.0712568      0.3008260 -1.2558993
+## R187518 -0.9746306  1.1945939     -2.3299460      0.7226137  1.3553154
+## R187528 -0.8318896  0.2290793      0.3754430      0.3256557 -1.2073326
+## R187945  1.8103155 -1.2127095      2.1203028     -1.2159118 -0.3099873
+##            residual2  animal  dam sire squid_pop
+## R187557  0.577619380 R187557 &lt;NA&gt; &lt;NA&gt;         1
+## R187559 -0.026556865 R187559 &lt;NA&gt; &lt;NA&gt;         1
+## R187568  0.057593543 R187568 &lt;NA&gt; &lt;NA&gt;         1
+## R187518  0.471980260 R187518 &lt;NA&gt; &lt;NA&gt;         1
+## R187528 -0.096576413 R187528 &lt;NA&gt; &lt;NA&gt;         1
+## R187945  0.003202301 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="4.2-multivariate-genetic-effects.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
 <span id="cb172-2"><a href="4.2-multivariate-genetic-effects.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE,ginverse=list(animal=Ainv))</span></span>
 <span id="cb172-3"><a href="4.2-multivariate-genetic-effects.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>

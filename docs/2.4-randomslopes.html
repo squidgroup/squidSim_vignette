@@ -290,19 +290,19 @@ Importantly the <code>beta</code> parameter associated with <code>ind_slope</cod
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 8158.9
+## REML criterion at convergence: 7978.4
 ## 
 ## Random effects:
-##  Groups     Name        Variance Corr
-##  individual (Intercept) 1.0441       
-##             environment 0.5863   0.05
-##  Residual               0.5183       
+##  Groups     Name        Variance Corr 
+##  individual (Intercept) 0.9303        
+##             environment 0.5319   -0.02
+##  Residual               0.4914        
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.02146    0.06061  -0.354
-## environment  0.26719    0.04685   5.703</code></pre>
+## (Intercept) -0.10614    0.05730  -1.852
+## environment  0.17721    0.04457   3.976</code></pre>
 <p>Here we have specified no correlation between intercepts and slopes. To simulate a correlation between intercepts and slopes, we can simply give the <code>vcov</code> argument a covariance matrix, instead of two variances:</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="2.4-randomslopes.html#cb137-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb137-2"><a href="2.4-randomslopes.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(300)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
@@ -333,19 +333,19 @@ Importantly the <code>beta</code> parameter associated with <code>ind_slope</cod
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7920.1
+## REML criterion at convergence: 7863.7
 ## 
 ## Random effects:
 ##  Groups     Name        Variance Corr
-##  individual (Intercept) 1.0083       
-##             environment 0.5075   0.50
-##  Residual               0.4925       
+##  individual (Intercept) 0.9532       
+##             environment 0.5960   0.38
+##  Residual               0.4709       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.07204    0.05952  -1.210
-## environment  0.15551    0.04371   3.558</code></pre>
+## (Intercept)  0.03492    0.05788   0.603
+## environment  0.23387    0.04695   4.981</code></pre>
 </div>
             </section>
 

@@ -275,13 +275,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb164-15"><a href="4.1-va.html#cb164-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb164-16"><a href="4.1-va.html#cb164-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb164-17"><a href="4.1-va.html#cb164-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##                   y animal_effect   residual  animal  dam sire squid_pop
-## R187557  1.14113884    0.27282191  0.8683169 R187557 &lt;NA&gt; &lt;NA&gt;         1
-## R187559  0.03346801    0.35796019 -0.3244922 R187559 &lt;NA&gt; &lt;NA&gt;         1
-## R187568 -0.56407013   -0.02598051 -0.5380896 R187568 &lt;NA&gt; &lt;NA&gt;         1
-## R187518  0.65999435    0.47562458  0.1843698 R187518 &lt;NA&gt; &lt;NA&gt;         1
-## R187528 -0.05576888    0.24929916 -0.3050680 R187528 &lt;NA&gt; &lt;NA&gt;         1
-## R187945 -0.61011638   -0.33503416 -0.2750822 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
+<pre><code>##                  y animal_effect   residual  animal  dam sire squid_pop
+## R187557 -0.7104031    -0.1749195 -0.5354836 R187557 &lt;NA&gt; &lt;NA&gt;         1
+## R187559  1.2892857     0.6665992  0.6226864 R187559 &lt;NA&gt; &lt;NA&gt;         1
+## R187568  1.6393384     0.6900526  0.9492857 R187568 &lt;NA&gt; &lt;NA&gt;         1
+## R187518  1.2545103     0.3999815  0.8545287 R187518 &lt;NA&gt; &lt;NA&gt;         1
+## R187528 -0.4945722    -0.3827869 -0.1117853 R187528 &lt;NA&gt; &lt;NA&gt;         1
+## R187945  0.1780773    -0.3703026  0.5483799 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="4.1-va.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
 <span id="cb166-2"><a href="4.1-va.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)</span></span>
 <span id="cb166-3"><a href="4.1-va.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
@@ -308,13 +308,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb167-20"><a href="4.1-va.html#cb167-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb167-21"><a href="4.1-va.html#cb167-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb167-22"><a href="4.1-va.html#cb167-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##                   y individual_effect animal_effect    residual individual
-## R187888  0.01020696     -0.2477738401   0.377913082 -0.11993228    R187557
-## R187646 -0.63839217     -0.0007032285   0.174850109 -0.81253905    R187559
-## R187330  0.01347281     -0.0821917366   0.054403988  0.04126056    R187568
-## R187374 -1.12147800     -0.1123699443   0.346614744 -1.35572280    R187518
-## R187225 -0.06709685      0.6892948600  -0.357196984 -0.39919472    R187528
-## R187133 -1.10036324     -0.3270334353   0.009196374 -0.78252618    R187945
+<pre><code>##                   y individual_effect animal_effect   residual individual
+## R187888 -0.29800108        -0.3030617    -0.2605827  0.2656433    R187557
+## R187646  0.17464214         0.3344371    -0.5309132  0.3711182    R187559
+## R187330  1.17443051         0.7872808     0.9885985 -0.6014488    R187568
+## R187374 -0.88713844        -0.4727921    -0.1421482 -0.2721982    R187518
+## R187225 -0.06469935        -0.2399442     0.5130975 -0.3378527    R187528
+## R187133  1.72913172         0.5764696     0.7417825  0.4108797    R187945
 ##         squid_pop
 ## R187888         1
 ## R187646         1

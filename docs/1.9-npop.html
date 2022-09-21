@@ -262,13 +262,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By default <code>get_population_data</code> returns a data.frame, where the <code>squid_pop</code> column indicates the population</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="1.9-npop.html#cb73-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb73-2"><a href="1.9-npop.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature    rainfall       wind   residual squid_pop
-## 1 10.005295  -1.1654991  0.35459529  1.6583320 0.03109071         1
-## 2 12.360163   1.3615324 -0.85899074 -0.1794190 1.49346681         1
-## 3 11.141171   0.2689424 -0.92371358  0.6016949 0.48890763         1
-## 4  9.996407  -0.4873329  0.71938128 -1.1541438 0.91754489         1
-## 5 10.701918   0.5408134 -0.05005525 -0.1765411 0.48711156         1
-## 6  9.816331  -0.9406155  0.37838599  0.4061491 0.23769499         1</code></pre>
+<pre><code>##   body_mass temperature   rainfall        wind   residual squid_pop
+## 1  8.906215  -0.2013546  1.0914686 -0.08025817 -0.6335637         1
+## 2  8.390708  -0.7510973  1.1983599 -0.47818611 -0.6829611         1
+## 3 12.326615   0.2831264 -0.7470349  0.94887204  1.5813924         1
+## 4  8.896674  -0.4140191 -0.7077954  1.12080579 -1.5569778         1
+## 5  9.612464  -0.3528805 -0.3567630 -1.92059092  0.4501119         1
+## 6  9.582828   0.1838831  0.1172861 -0.38272149 -0.3208392         1</code></pre>
 <p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="1.9-npop.html#cb75-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 </div>

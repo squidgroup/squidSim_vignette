@@ -128,5 +128,7 @@ knit_hooks$set(source = function(x, options) {
   }
   hook_source(x, options)
     })
+
+set.seed(25)
 ## adapted from https://stackoverflow.com/questions/48286722/rmarkdown-how-to-show-partial-output-from-chunk
 ```

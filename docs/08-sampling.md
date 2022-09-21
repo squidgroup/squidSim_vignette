@@ -141,7 +141,7 @@ nrow(sample_data)
 ```
 
 ```
-## [1] 276
+## [1] 243
 ```
 
 ### MAR
@@ -174,7 +174,7 @@ nrow(sample_data)
 ```
 
 ```
-## [1] 250
+## [1] 259
 ```
 The predictor variables are scaled (mean 0, variance 1), so the slopes are directly comparable across traits, and intercept represents the mean (on the logit scale).
 
@@ -210,7 +210,7 @@ nrow(sample_data)
 ```
 
 ```
-## [1] 255
+## [1] 244
 ```
 
 Lets try and visualise this. We know there is lots f between individual variation, and we know sampling is based on phenotype, so we would expect an association between number of observations and phenotype:

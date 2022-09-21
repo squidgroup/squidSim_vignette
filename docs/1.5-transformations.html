@@ -261,13 +261,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-15"><a href="1.5-transformations.html#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-16"><a href="1.5-transformations.html#cb49-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb49-17"><a href="1.5-transformations.html#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##     body_mass temperature  rainfall    residual squid_pop
-## 1 -0.77103097  -1.9388569 1.0345330 -0.11196245         1
-## 2  0.21172446   0.2942249 1.1474142 -0.27961227         1
-## 3  0.75654431   0.3661947 4.6274436 -0.81478616         1
-## 4  0.05137618  -0.2465226 0.7529438 -0.05124566         1
-## 5 -0.93102042  -1.0964295 0.2171511 -0.44795099         1
-## 6  1.14805414   0.9509128 2.7306594 -0.14660011         1</code></pre>
+<pre><code>##    body_mass temperature   rainfall   residual squid_pop
+## 1  1.0148227  -0.4638675  1.0644139  0.9274323         1
+## 2 -0.7929494  -2.0381499  2.9743000 -0.6661645         1
+## 3 -0.8361535  -0.7706635  0.6329107 -0.6406949         1
+## 4  1.1190533   0.7512061  0.2361302  0.6726112         1
+## 5  2.5218647  -1.7906485 10.8177189  0.1718733         1
+## 6  0.9423819   0.1696683  1.3648199  0.4481018         1</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="1.5-transformations.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>rainfall, <span class="at">breaks=</span><span class="dv">100</span>)</span></code></pre></div>
 <p><img src="02-sim_pop_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>If a covariance between variables is specified, this covariance is on the untransformed (Gaussian) scale (as the variables are simulated as multivariate normal), NOT on the transformed scale, so care should be taken with this. For example:</p>
@@ -290,9 +290,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-17"><a href="1.5-transformations.html#cb52-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb52-18"><a href="1.5-transformations.html#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-19"><a href="1.5-transformations.html#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,data<span class="sc">$</span>rainfall)</span></code></pre></div>
-<pre><code>## [1] 1.211839</code></pre>
+<pre><code>## [1] 1.146191</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="1.5-transformations.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,<span class="fu">log</span>(data<span class="sc">$</span>rainfall))</span></code></pre></div>
-<pre><code>## [1] 0.6953772</code></pre>
+<pre><code>## [1] 0.7024106</code></pre>
 <p>The simulate covariance can be recovered on the back-transformed predictor.</p>
 <p>The <code>simulated_variance()</code> function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.</p>
 </div>

@@ -27,7 +27,7 @@ var(pop_dat$taxon_effect)
 ```
 
 ```
-## [1] 0.7089991
+## [1] 0.8066261
 ```
 
 
@@ -55,22 +55,24 @@ summary(model2)
 ##  Thinning interval  = 10
 ##  Sample size  = 1000 
 ## 
-##  DIC: 447.5037 
+##  DIC: 463.9362 
 ## 
 ##  G-structure:  ~taxon
 ## 
 ##       post.mean l-95% CI u-95% CI eff.samp
-## taxon    0.4609 0.001543    1.566    29.06
+## taxon    0.2959 0.002924    1.003    55.44
 ## 
 ##  R-structure:  ~units
 ## 
 ##       post.mean l-95% CI u-95% CI eff.samp
-## units     1.412   0.5849    2.098    35.49
+## units     1.564   0.8973    2.096    97.23
 ## 
 ##  Location effects: y ~ 1 
 ## 
-##             post.mean l-95% CI u-95% CI eff.samp pMCMC
-## (Intercept)   0.05707 -0.42173  0.57725    589.2  0.86
+##             post.mean l-95% CI u-95% CI eff.samp pMCMC  
+## (Intercept)   -0.6124  -1.0119  -0.1617    518.4 0.024 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 
