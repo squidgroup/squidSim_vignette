@@ -161,7 +161,8 @@ Capital letters (e.g. $X$) denote matrices
 |$\beta$           | slope                               |
 |$x$               | predictor variable                  |
 |$y$               | response variable                   |
-|||
+|                  |                                     |
+
 
 ### Notation for a linear mixed model
 
