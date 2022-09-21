@@ -280,13 +280,13 @@ y \sim Poisson(\hat{y})
 <span id="cb61-16"><a href="1.7-nonGaussian.html#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-17"><a href="1.7-nonGaussian.html#cb61-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb61-18"><a href="1.7-nonGaussian.html#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##    y temperature   rainfall residual squid_pop
-## 1  2   0.9399924 -0.2930682 1.191704         1
-## 2  7   2.4843860 -2.0495869 1.624985         1
-## 3 13   0.5567632  0.4179332 2.185568         1
-## 4  3   0.2722443 -1.0308223 1.827618         1
-## 5 11  -0.7912487 -0.8792614 2.046372         1
-## 6 10   1.1187499 -0.8272514 1.910986         1</code></pre>
+<pre><code>##   y temperature    rainfall  residual squid_pop
+## 1 0   0.2490819  0.18108147 0.8249614         1
+## 2 3  -0.3059614 -0.01854387 1.0974162         1
+## 3 3  -1.9080617 -0.10657783 1.4348215         1
+## 4 5  -0.3827834 -0.63354609 2.0413375         1
+## 5 5   2.1639215  0.02263793 0.8399427         1
+## 6 4  -0.2962397 -0.14766836 1.6809449         1</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="1.7-nonGaussian.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">table</span>(data<span class="sc">$</span>y), <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;z&quot;</span>)</span></code></pre></div>
 <p><img src="02-sim_pop_files/figure-html/non-gaussian-1.png" width="576" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.7-nonGaussian.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
@@ -296,11 +296,11 @@ y \sim Poisson(\hat{y})
 ## 
 ## Coefficients:
 ## (Intercept)  temperature     rainfall  
-##      1.8639       0.1971       0.1061  
+##      1.8545       0.1857       0.1124  
 ## 
 ## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
-## Null Deviance:       5623 
-## Residual Deviance: 4978  AIC: 11990</code></pre>
+## Null Deviance:       5169 
+## Residual Deviance: 4537  AIC: 11550</code></pre>
 </div>
             </section>
 

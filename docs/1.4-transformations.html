@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.8 Genetic Groups | The {squidSim} R Package Vignette</title>
+  <title>1.4 Transformations | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.4 Transformations | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.4 Transformations | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4.7-inbreeding-depression.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="1.3-interactions.html"/>
+<link rel="next" href="1.5-knownpreds.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -249,19 +249,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genetic-groups" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Genetic Groups<a href="4.8-genetic-groups.html#genetic-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Coming soon…</p>
-
+<div id="transformations" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Transformations<a href="1.4-transformations.html#transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are scaled by the beta values. To do this we can provide the transformation function to the functions option of a given parameter list, as a character vector. The given function needs to be a known function in R. The below code will exponentiate rainfall (using the <code>exp</code> function), before it is scaled by its beta (here 2).</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="1.4-transformations.html#cb49-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb49-2"><a href="1.4-transformations.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
+<span id="cb49-3"><a href="1.4-transformations.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb49-4"><a href="1.4-transformations.html#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb49-5"><a href="1.4-transformations.html#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb49-6"><a href="1.4-transformations.html#cb49-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb49-7"><a href="1.4-transformations.html#cb49-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">functions=</span><span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>),</span>
+<span id="cb49-8"><a href="1.4-transformations.html#cb49-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
+<span id="cb49-9"><a href="1.4-transformations.html#cb49-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb49-10"><a href="1.4-transformations.html#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb49-11"><a href="1.4-transformations.html#cb49-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
+<span id="cb49-12"><a href="1.4-transformations.html#cb49-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb49-13"><a href="1.4-transformations.html#cb49-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb49-14"><a href="1.4-transformations.html#cb49-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb49-15"><a href="1.4-transformations.html#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-16"><a href="1.4-transformations.html#cb49-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb49-17"><a href="1.4-transformations.html#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##   body_mass temperature  rainfall   residual squid_pop
+## 1 0.8808384   0.9661316 1.7834867 -0.1372734         1
+## 2 0.2263617  -0.3593466 1.8415211 -0.1464213         1
+## 3 0.3550851   1.5984683 0.2318093 -0.5136918         1
+## 4 1.4382651  -1.5338100 4.4990114  0.8554666         1
+## 5 0.6630719   2.1241124 0.9072182 -0.6711498         1
+## 6 0.6877911  -0.9466144 0.9671257  0.8709606         1</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="1.4-transformations.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>rainfall, <span class="at">breaks=</span><span class="dv">100</span>)</span></code></pre></div>
+<p><img src="02-sim_pop_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>If a covariance between variables is specified, this covariance is on the untransformed (Gaussian) scale (as the variables are simulated as multivariate normal), NOT on the transformed scale, so care should be taken with this. For example:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="1.4-transformations.html#cb52-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb52-2"><a href="1.4-transformations.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
+<span id="cb52-3"><a href="1.4-transformations.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb52-4"><a href="1.4-transformations.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb52-5"><a href="1.4-transformations.html#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb52-6"><a href="1.4-transformations.html#cb52-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb52-7"><a href="1.4-transformations.html#cb52-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.7</span>,<span class="fl">0.7</span>,<span class="dv">1</span>), <span class="at">nrow=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
+<span id="cb52-8"><a href="1.4-transformations.html#cb52-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">functions=</span><span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>),</span>
+<span id="cb52-9"><a href="1.4-transformations.html#cb52-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
+<span id="cb52-10"><a href="1.4-transformations.html#cb52-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb52-11"><a href="1.4-transformations.html#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb52-12"><a href="1.4-transformations.html#cb52-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
+<span id="cb52-13"><a href="1.4-transformations.html#cb52-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-14"><a href="1.4-transformations.html#cb52-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-15"><a href="1.4-transformations.html#cb52-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-16"><a href="1.4-transformations.html#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-17"><a href="1.4-transformations.html#cb52-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb52-18"><a href="1.4-transformations.html#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="1.4-transformations.html#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,data<span class="sc">$</span>rainfall)</span></code></pre></div>
+<pre><code>## [1] 1.132242</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="1.4-transformations.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,<span class="fu">log</span>(data<span class="sc">$</span>rainfall))</span></code></pre></div>
+<pre><code>## [1] 0.6947967</code></pre>
+<p>The simulate covariance can be recovered on the back-transformed predictor.</p>
+<p>The <code>simulated_variance()</code> function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.</p>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="4.7-inbreeding-depression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1.3-interactions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.5-knownpreds.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

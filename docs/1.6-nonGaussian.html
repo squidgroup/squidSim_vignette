@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.8 Genetic Groups | The {squidSim} R Package Vignette</title>
+  <title>1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4.7-inbreeding-depression.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="1.5-knownpreds.html"/>
+<link rel="next" href="1.7-modeleq.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -249,19 +249,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genetic-groups" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Genetic Groups<a href="4.8-genetic-groups.html#genetic-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Coming soon…</p>
+<div id="nonGaussian" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Non-Gaussian phenotypes<a href="1.6-nonGaussian.html#nonGaussian" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To simulate non-Gaussian data, we can specify a link function and a family as arguments to the simulate_population function. Underneath the predictors are being simulated as multivariate normal, and then the resulting phenotype is transformed.</p>
+<!-- 
+Dave: worth pointing out that the bulk of the function is the same, but just need to add an instruction about the distribution.
 
+Anne: I would provide here also a bit more comments on the code provided, presently it’s very dry. E.g. how is the phenotype transformed?
+ -->
+<div class="alert alert-info">
+<p><span class="math display">\[
+y \sim Poisson(\hat{y})
+\]</span>
+<span class="math display">\[
+\hat{y} = exp( \beta_0 +  X \beta + \epsilon )
+\]</span>
+<span class="math display">\[ X \sim MVN(\mu_x,\Sigma_x)
+\]</span>
+<span class="math display">\[
+\epsilon \sim N(0,\sigma^2_\epsilon)
+\]</span></p>
 </div>
-<!-- </div> -->
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="1.6-nonGaussian.html#cb61-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb61-2"><a href="1.6-nonGaussian.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb61-3"><a href="1.6-nonGaussian.html#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
+<span id="cb61-4"><a href="1.6-nonGaussian.html#cb61-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb61-5"><a href="1.6-nonGaussian.html#cb61-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.1</span>)</span>
+<span id="cb61-6"><a href="1.6-nonGaussian.html#cb61-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb61-7"><a href="1.6-nonGaussian.html#cb61-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb61-8"><a href="1.6-nonGaussian.html#cb61-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fl">1.75</span>,</span>
+<span id="cb61-9"><a href="1.6-nonGaussian.html#cb61-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb61-10"><a href="1.6-nonGaussian.html#cb61-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb61-11"><a href="1.6-nonGaussian.html#cb61-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb61-12"><a href="1.6-nonGaussian.html#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">2000</span>,</span>
+<span id="cb61-13"><a href="1.6-nonGaussian.html#cb61-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>, </span>
+<span id="cb61-14"><a href="1.6-nonGaussian.html#cb61-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">link =</span> <span class="st">&quot;log&quot;</span></span>
+<span id="cb61-15"><a href="1.6-nonGaussian.html#cb61-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-16"><a href="1.6-nonGaussian.html#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-17"><a href="1.6-nonGaussian.html#cb61-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb61-18"><a href="1.6-nonGaussian.html#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##   y temperature    rainfall  residual squid_pop
+## 1 0   0.2490819  0.18108147 0.8249614         1
+## 2 3  -0.3059614 -0.01854387 1.0974162         1
+## 3 3  -1.9080617 -0.10657783 1.4348215         1
+## 4 5  -0.3827834 -0.63354609 2.0413375         1
+## 5 5   2.1639215  0.02263793 0.8399427         1
+## 6 4  -0.2962397 -0.14766836 1.6809449         1</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="1.6-nonGaussian.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">table</span>(data<span class="sc">$</span>y), <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;z&quot;</span>)</span></code></pre></div>
+<p><img src="02-sim_pop_files/figure-html/non-gaussian-1.png" width="576" /></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.6-nonGaussian.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = y ~ temperature + rainfall, family = &quot;poisson&quot;, 
+##     data = data)
+## 
+## Coefficients:
+## (Intercept)  temperature     rainfall  
+##      1.8545       0.1857       0.1124  
+## 
+## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
+## Null Deviance:       5169 
+## Residual Deviance: 4537  AIC: 11550</code></pre>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="4.7-inbreeding-depression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1.5-knownpreds.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.7-modeleq.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

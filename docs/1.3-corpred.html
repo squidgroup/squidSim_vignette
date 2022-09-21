@@ -273,7 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="02-sim_pop_files/figure-html/lm3-1.png" width="960" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="1.3-corpred.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##  10.1920610   0.4752182  -3.0042077   0.4014642</code></pre>
+##   9.7745865   0.4847876  -2.9889811   0.4172907</code></pre>
 <style>
 div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 </style>
@@ -312,9 +312,9 @@ div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 <span id="cb35-23"><a href="1.3-corpred.html#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-24"><a href="1.3-corpred.html#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>)])</span></code></pre></div>
 <pre><code>##             temperature   rainfall      wind
-## temperature   1.0000000 -0.2167612 0.4968246
-## rainfall     -0.2167612  1.0000000 0.2688573
-## wind          0.4968246  0.2688573 1.0000000</code></pre>
+## temperature   1.0000000 -0.1812635 0.5176010
+## rainfall     -0.1812635  1.0000000 0.2617843
+## wind          0.5176010  0.2617843 1.0000000</code></pre>
 <p>Through simulating correlated predictors, we can also simulate more interesting phenomena. For example, we may want to simulate the effect of a correlated missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="1.3-corpred.html#cb37-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb37-2"><a href="1.3-corpred.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
@@ -345,10 +345,10 @@ div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 <p><img src="02-sim_pop_files/figure-html/lm5-1.png" width="960" /></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="1.3-corpred.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall 
-##   13.931587    0.898620   -2.879264</code></pre>
+##  13.8936511   0.9148843  -3.0592937</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="1.3-corpred.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##   9.7968096   0.4844335  -2.8602052   0.4125032</code></pre>
+##  10.2631334   0.5509808  -3.0467600   0.3633353</code></pre>
 <p>We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain affect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).</p>
 <!-- measurement error - correlated variable #ffe58f-->
 </div>

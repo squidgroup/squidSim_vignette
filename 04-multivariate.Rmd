@@ -9,6 +9,7 @@ library(MCMCglmm)
 library(scales)
 library(squidSim)
 library(knitr)
+set.seed(25)
 ```
 We can simulate multiple response variables, that covary at different hierarchical levels. In the case of a simple random effects model, we can have a covariance matrix at each level, 
 
