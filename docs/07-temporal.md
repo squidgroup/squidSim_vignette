@@ -36,13 +36,13 @@ head(data)
 ```
 
 ```
-##            y year_cont year_effect    residual year sex individual squid_pop
-## 1 -0.9450778         1  -0.6389349 -0.60614293    1   1          1         1
-## 2  1.4958143         1  -0.6389349  1.83474923    1   1          1         1
-## 3 -0.2601360         1  -0.6389349  0.07879889    1   1          1         1
-## 4 -0.2027583         1  -0.6389349  0.13617657    1   1          1         1
-## 5 -0.5789989         1  -0.6389349 -0.24006394    1   1          1         1
-## 6  0.9830012         1  -0.6389349  1.32193608    1   1          1         1
+##            y year_cont year_effect   residual year sex individual squid_pop
+## 1 -1.1341644         1    1.101183 -2.5353474    1   1          1         1
+## 2  1.6593033         1    1.101183  0.2581203    1   1          1         1
+## 3 -0.2963135         1    1.101183 -1.6974965    1   1          1         1
+## 4  1.2287343         1    1.101183 -0.1724488    1   1          1         1
+## 5  1.8794300         1    1.101183  0.4782469    1   1          1         1
+## 6  2.8333199         1    1.101183  1.4321368    1   1          1         1
 ```
 
 ```r
@@ -62,15 +62,15 @@ lmer(y ~ year_cont + (1|year), data)
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: y ~ year_cont + (1 | year)
 ##    Data: data
-## REML criterion at convergence: 113707.3
+## REML criterion at convergence: 113917.7
 ## Random effects:
 ##  Groups   Name        Std.Dev.
-##  year     (Intercept) 0.9291  
-##  Residual             1.0005  
+##  year     (Intercept) 0.855   
+##  Residual             1.003   
 ## Number of obs: 40000, groups:  year, 20
 ## Fixed Effects:
 ## (Intercept)    year_cont  
-##     -0.0806       0.3163
+##     -0.1813       0.3073
 ```
 
 In a similar way we can also simulate a quadratic effect of time.
