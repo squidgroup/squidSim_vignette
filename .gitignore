@@ -3,3 +3,5 @@
 .RData
 *.Rproj
 *.Renviron
+/_bookdown_files
+/libs
