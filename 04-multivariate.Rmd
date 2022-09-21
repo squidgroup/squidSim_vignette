@@ -50,10 +50,10 @@ squid_data <- simulate_population(
   n_response = 2,
   parameters=list(
     individual = list(
-      vcov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+      vcov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
     ),
     residual = list(
-      vcov = matrix(c(1,0.5,0.5,1),nrow = 2,ncol = 2)
+      vcov = matrix(c(1,0.5,0.5,1),nrow = 2,ncol = 2,byrow=TRUE)
     )
   )  
 )
@@ -74,11 +74,11 @@ squid_data <- simulate_population(
   n_response=2,
   parameters=list(
     individual = list(
-      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
       beta= diag(2)
     ),
     residual = list(
-      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
       beta= diag(2)
     )
   )
@@ -121,7 +121,7 @@ beta <- matrix(c(
   0.5, 0.1,
   0.2, 0.2,
   0.3, 0.1
-  ),nrow=3,ncol=2)
+  ),nrow=3,ncol=2,byrow=TRUE)
 beta
 ```
 
@@ -132,14 +132,14 @@ squid_data <- simulate_population(
   n_response=2,
   parameters= list(
     individual = list(
-      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
     ),
     observation = list(
       names = c("temperature", "rainfall", "wind"),
       beta= beta
     ),
     residual = list(
-      vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+      vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
     )
   )
 )
@@ -163,7 +163,7 @@ squid_data <- simulate_population(
   
   parameters= list(
     individual = list(
-      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
     ),
     observation = list(
       names = c("temperature", "rainfall", "wind"),
@@ -171,10 +171,10 @@ squid_data <- simulate_population(
     ),
     interactions = list(
       names = c("temperature:rainfall"),
-      beta=matrix(c(0.1,-0.3),ncol=2)
+      beta=matrix(c(0.1,-0.3),ncol=2,byrow=TRUE)
     ),
     residual = list(
-      vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2)
+      vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
     )
   )
 )
@@ -200,18 +200,18 @@ individual <- list(
   vcov = matrix(c(
     1,0.5,
     0.5,1
-    ),nrow=2,ncol=2)
+    ),nrow=2,ncol=2,byrow=TRUE)
 )
 
 residual <- list(
   vcov = matrix(c(
     1,0.5,
     0.5,1
-    ),nrow = 2,ncol = 2),
+    ),nrow = 2,ncol = 2,byrow=TRUE),
   beta = matrix(c(
     1,0,
     0,0
-    ),nrow = 2,ncol = 2)
+    ),nrow = 2,ncol = 2,byrow=TRUE)
 )
 
 squid_data <- simulate_population(
@@ -231,18 +231,18 @@ individual <- list(
   vcov = matrix(c(
     1,0.5,
     0.5,1
-    ),nrow=2,ncol=2)
+    ),nrow=2,ncol=2,byrow=TRUE)
 )
 
 residual <- list(
   vcov = matrix(c(
     1,0.5,
     0.5,1
-    ),nrow = 2,ncol = 2),
+    ),nrow = 2,ncol = 2,byrow=TRUE),
   beta = matrix(c(
     1,0,
     0,0
-    ),nrow = 2,ncol = 2)
+    ),nrow = 2,ncol = 2,byrow=TRUE)
 )
 
 
@@ -284,14 +284,14 @@ individual <- list(
 
 observation <- list(
   names="environment",
-  beta=matrix(c(0.5,-0.3), ncol=2)
+  beta=matrix(c(0.5,-0.3), ncol=2,byrow=TRUE)
 )
 
 residual <- list(
   vcov = matrix(c(
     1,0.5,
     0.5,1
-    ),nrow = 2,ncol = 2)
+    ),nrow = 2,ncol = 2,byrow=TRUE)
 )
 
 interactions <- list(
@@ -299,7 +299,7 @@ interactions <- list(
   beta= matrix(c(
     1,0,
     0,1
-    ), ncol=2)
+    ), ncol=2,byrow=TRUE)
 )
 
 squid_data <- simulate_population(

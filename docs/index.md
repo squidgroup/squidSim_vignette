@@ -1,7 +1,7 @@
 --- 
 title: "The {squidSim} R Package Vignette"
 author: "Joel Pick"
-date: "`r Sys.Date()`"
+date: "2022-09-20"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -98,35 +98,4 @@ It would be great if you could report any suggestions, issues or bugs; [here](ht
 
 
 
-```{r, echo=FALSE, message=FALSE,warning=FALSE}
-rm(list=ls())
-library(dplyr)
-library(flair)
-library(lme4)
-library(MCMCglmm)
-library(scales)
- # devtools::load_all("~/github/squidSim/R")
-# devtools::check("~/github/squidSim/R")
 
-# devtools::install_github("squidgroup/squidSim")
-library(squidSim)
-
-library(knitr)
-# the default source hook
-hook_source <- knit_hooks$get('source')
-knit_hooks$set(source = function(x, options) {
-  if (!is.null(n <- options$out.lines)) {
-    n <- as.numeric(n)
-    x <- unlist(stringr::str_split(x, "\n"))
-    nx <- length(x) 
-    x <- x[pmin(n,nx)]
-    if(min(n) > 1)  
-      x <- c(paste("[...]"), x)
-    if(max(n) < nx) 
-      x <- c(x, paste("[...]"))
-    x <- paste(c(x, "\n"), collapse = "\n")
-  }
-  hook_source(x, options)
-    })
-## adapted from https://stackoverflow.com/questions/48286722/rmarkdown-how-to-show-partial-output-from-chunk
-```

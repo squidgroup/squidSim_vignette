@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.2 Different distributions | The {squidSim} R Package Vignette</title>
+  <meta name="description" content="This is a vignette for using the squidSim R package." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.2 Different distributions | The {squidSim} R Package Vignette" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a vignette for using the squidSim R package." />
+  <meta name="github-repo" content="squidgroup/squidSim" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.2 Different distributions | The {squidSim} R Package Vignette" />
+  
+  <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
+  
+
+<meta name="author" content="Joel Pick" />
+
+
+<meta name="date" content="2022-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="3.1-one-response-repeatedly-measured-the-other-not.html"/>
+<link rel="next" href="3.3-multivariate-random-slopes.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html#intro">The {squidSim} R package<span></span></a>
+<ul>
+<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
+<li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
+<li><a href="index.html#installation">Installation<span></span></a></li>
+<li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1.1-simulate_population-function.html"><a href="1.1-simulate_population-function.html"><i class="fa fa-check"></i><b>1.1</b> <code>simulate_population</code> function<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html"><i class="fa fa-check"></i><b>1.2</b> Simple Linear Model<span></span></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1.2-simple-linear-model.html"><a href="1.2-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.2.1</b> Adding more information about the predictors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1.3-corpred.html"><a href="1.3-corpred.html"><i class="fa fa-check"></i><b>1.3</b> Correlated predictors<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="1.4-interactions.html"><a href="1.4-interactions.html"><i class="fa fa-check"></i><b>1.4</b> Interactions and non-linear effects<span></span></a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1.4-interactions.html"><a href="1.4-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.4.1</b> Interactions<span></span></a></li>
+<li class="chapter" data-level="1.4.2" data-path="1.4-interactions.html"><a href="1.4-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.4.2</b> Non-linear effects<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1.5-transformations.html"><a href="1.5-transformations.html"><i class="fa fa-check"></i><b>1.5</b> Transformations<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-knownpreds.html"><a href="1.6-knownpreds.html"><i class="fa fa-check"></i><b>1.6</b> Known Predictors<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="1.7-nonGaussian.html"><a href="1.7-nonGaussian.html"><i class="fa fa-check"></i><b>1.7</b> Non-Gaussian phenotypes<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-modeleq.html"><a href="1.8-modeleq.html"><i class="fa fa-check"></i><b>1.8</b> Model equations<span></span></a></li>
+<li class="chapter" data-level="1.9" data-path="1.9-npop.html"><a href="1.9-npop.html"><i class="fa fa-check"></i><b>1.9</b> Simulating multiple populations<span></span></a></li>
+<li class="chapter" data-level="1.10" data-path="1.10-parameter-list-summary.html"><a href="1.10-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.10</b> Parameter list summary<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor<span></span></a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors<span></span></a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors<span></span></a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure<span></span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random slopes<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Between- and within-group effects<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling<span></span></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="different-distributions" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Different distributions<a href="3.2-different-distributions.html#different-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="3.2-different-distributions.html#cb157-1" aria-hidden="true" tabindex="-1"></a>individual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb157-2"><a href="3.2-different-distributions.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb157-3"><a href="3.2-different-distributions.html#cb157-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
+<span id="cb157-4"><a href="3.2-different-distributions.html#cb157-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
+<span id="cb157-5"><a href="3.2-different-distributions.html#cb157-5" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb157-6"><a href="3.2-different-distributions.html#cb157-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-7"><a href="3.2-different-distributions.html#cb157-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-8"><a href="3.2-different-distributions.html#cb157-8" aria-hidden="true" tabindex="-1"></a>residual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb157-9"><a href="3.2-different-distributions.html#cb157-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb157-10"><a href="3.2-different-distributions.html#cb157-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
+<span id="cb157-11"><a href="3.2-different-distributions.html#cb157-11" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
+<span id="cb157-12"><a href="3.2-different-distributions.html#cb157-12" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
+<span id="cb157-13"><a href="3.2-different-distributions.html#cb157-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb157-14"><a href="3.2-different-distributions.html#cb157-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">0</span>,</span>
+<span id="cb157-15"><a href="3.2-different-distributions.html#cb157-15" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">0</span></span>
+<span id="cb157-16"><a href="3.2-different-distributions.html#cb157-16" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb157-17"><a href="3.2-different-distributions.html#cb157-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-18"><a href="3.2-different-distributions.html#cb157-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-19"><a href="3.2-different-distributions.html#cb157-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-20"><a href="3.2-different-distributions.html#cb157-20" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb157-21"><a href="3.2-different-distributions.html#cb157-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb157-22"><a href="3.2-different-distributions.html#cb157-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb157-23"><a href="3.2-different-distributions.html#cb157-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(<span class="at">individual =</span> individual, <span class="at">residual =</span> residual),</span>
+<span id="cb157-24"><a href="3.2-different-distributions.html#cb157-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span><span class="fu">c</span>(<span class="st">&quot;gaussian&quot;</span>,<span class="st">&quot;binomial&quot;</span>), <span class="at">link=</span><span class="fu">c</span>(<span class="st">&quot;identity&quot;</span>,<span class="st">&quot;logit&quot;</span>)</span>
+<span id="cb157-25"><a href="3.2-different-distributions.html#cb157-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb157-26"><a href="3.2-different-distributions.html#cb157-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-27"><a href="3.2-different-distributions.html#cb157-27" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb157-28"><a href="3.2-different-distributions.html#cb157-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data,<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##             y1 y2 individual_effect1 individual_effect2   residual1  residual2
+## 1   1.61928491  0           0.089718         -0.0319013  1.52956691 -0.8320741
+## 2   0.07115411  1           0.089718         -0.0319013 -0.01856389 -0.3423347
+## 3  -0.38236721  1           0.089718         -0.0319013 -0.47208521 -0.1958661
+## 4  -0.35181603  1           0.089718         -0.0319013 -0.44153403 -0.1002483
+## 5   0.49072247  1           0.089718         -0.0319013  0.40100447 -0.2131839
+## 6   0.24993480  1           0.089718         -0.0319013  0.16021680 -0.5755633
+## 7  -2.11716246  0           0.089718         -0.0319013 -2.20688046 -0.6703496
+## 8  -2.12512582  0           0.089718         -0.0319013 -2.21484382 -2.3029096
+## 9   0.20257401  1           0.089718         -0.0319013  0.11285601  0.1454820
+## 10 -1.70056613  0           0.089718         -0.0319013 -1.79028413 -1.0506684
+## 11 -0.43735808  0           0.089718         -0.0319013 -0.52707608 -1.5176008
+## 12 -1.11461414  0           0.089718         -0.0319013 -1.20433214 -1.1724473
+## 13 -0.07459436  0           0.089718         -0.0319013 -0.16431237  2.2018673
+## 14  0.44286088  0           0.089718         -0.0319013  0.35314288 -1.4699753
+## 15  0.20694715  0           0.089718         -0.0319013  0.11722915  0.6657859
+## 16  0.13846332  1           0.089718         -0.0319013  0.04874531 -1.2186944
+## 17 -0.38020964  0           0.089718         -0.0319013 -0.46992764  1.1685338
+## 18  0.15653474  1           0.089718         -0.0319013  0.06681674 -1.1453769
+## 19  0.64819966  0           0.089718         -0.0319013  0.55848166  0.8638714
+## 20 -0.32038550  1           0.089718         -0.0319013 -0.41010351 -0.8966339
+##    individual squid_pop
+## 1           1         1
+## 2           1         1
+## 3           1         1
+## 4           1         1
+## 5           1         1
+## 6           1         1
+## 7           1         1
+## 8           1         1
+## 9           1         1
+## 10          1         1
+## 11          1         1
+## 12          1         1
+## 13          1         1
+## 14          1         1
+## 15          1         1
+## 16          1         1
+## 17          1         1
+## 18          1         1
+## 19          1         1
+## 20          1         1</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="3.2-different-distributions.html#cb159-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="3.1-one-response-repeatedly-measured-the-other-not.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3.3-multivariate-random-slopes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
