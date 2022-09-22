@@ -1,7 +1,7 @@
 --- 
 title: "The {squidSim} R Package Vignette"
 author: "Joel Pick"
-date: "2022-09-20"
+date: "2022-09-21"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -98,4 +98,155 @@ It would be great if you could report any suggestions, issues or bugs; [here](ht
 
 
 
+
+
+
+## `simulate_population` function {-}
+
+The heart of the {squidSim} R package is the `simulate_population()` function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
+
+The `simulate_population()` function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population()` function (along with their defaults) are:
+
+```r
+simulate_population(
+  data_structure, 
+  n, 
+  parameters, 
+  n_response=1, 
+  response_names,
+  family="gaussian", 
+  link="identity", 
+  model, 
+  known_predictors, 
+  pedigree, 
+  pedigree_type, 
+  phylogeny, 
+  phylogeny_type, 
+  cov_str, 
+  sample_type,
+  sample_param,
+  n_pop=1
+)
+```
+
+Each of these will be covered in more detail in the following sections. Briefly, `n` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in Section \@ref(linearmod). `n_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section \@ref(multivariate)). `response_names` controls what the simulated response variables are named, and is described in Sections \@ref(linearmod) and \@ref(multivariate). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). `known_predictors` allows for existing data to be incorporated into the simulations and is covered in \@ref(knownpreds).
+
+`pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type`, relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic) and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
+
+`sample_type` and `sample_param` relate to different sampling methods and are covered in Section \@ref(sampling)
+
+`n_pop` relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section \@ref(npop).
+
+<br>
+
+
+## Vignette Notation {-}
+
+We try to use a consistent notation in equations throughout the manuscript, which we try to explain as we go. For the sake of clarity we have outlined everything here.
+
+### General rules
+Small letters (e.g. $x$) denote scalars
+
+Bold, small letters (e.g. $\boldsymbol{x}$) denote vectors
+
+Capital letters (e.g. $X$) denote matrices
+
+| <span style="display: inline-block; width:10px">Letter/Symbol </span>  |  Usage                              |
+|:-----------------|:------------------------------------|
+|$\sigma$          | standard deviation                  |
+|$\Sigma$          | covariance matrix                   |
+|$\Sigma_{x_1x_2}$     | covariance between variables x and y|
+|$\mu$             | mean                                |
+|$\epsilon$        | residual                            |
+|$\beta$           | slope                               |
+|$x$               | predictor variable                  |
+|$y$               | response variable                   |
+|                  |                                     |
+
+
+### Notation for a linear mixed model
+
+There are several ways to write out an equation for a linear model. First we can write out all the different variables:
+
+$y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \beta_3 x_{3,i} + \epsilon_i$
+
+where each observation (denoted by the index $i$) of our response variable ($y_i$) is the sum of an intercept ($\beta_0$; value of the response when the predictor variables are all 0), the associated value of our predictor variables ($x_{1i}$, $x_{2i}$, $x_{3i}$; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; $\beta_1$ etc), and some unexplained, residual variation ($\epsilon_i$). 
+
+We can also write this in matrix notation:
+
+$\boldsymbol{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon}$
+
+where $X$ is a matrix of predictors and $\boldsymbol{\beta}$ is a (column) vector of slopes/effect sizes. This matrix notation is a bit more compact and relates most easily the structure of the `simulate_population()` function. However it becomes more complex when we have things varying at different levels, as we have to start getting design matrices for the random effects involved e.g.
+
+$\boldsymbol{y} = X\boldsymbol{\beta} + Z\boldsymbol{u} + \boldsymbol{\epsilon}$
+
+which we would rather avoid here as it has little relation to the squidSim code.
+
+We can therefore combine the index and matrix notation. This is maybe a little more complex, but it's compact and flexible and relates well to the `simulate_population()` function.
+
+$y_{i} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}$
+
+where $\boldsymbol{x}_{i}$ is the $i$th row of $X$. I have deliberately separated the intercept ($\beta_0$) out here, for the purpose of comparing with the structure of `simulate_population()`. Then for models that have predictors vary at different levels we can have 
+
+$y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + \epsilon_{ij}$
+
+<!-- Its not completely clear to me if $\boldsymbol{x}_{i}$ should be $\boldsymbol{x}_{ij}$?  -->
+Instead of having predictors at different levels, we might have 'random effects'
+
+$y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + u_j + \epsilon_{ij}$
+
+at multiple levels
+
+$y_{ijk} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + u_j + w_k + \epsilon_{ijk}$
+
+<!-- or a mixture of predictors and random effects
+
+$y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + w_j + \epsilon_{ij}$
+
+Having $u$ and $w$ varying at the same level to me implies that dont covary, which they could. So something like 
+
+$y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + u_{0j} + \epsilon_{ij}$
+
+might work - individual intercepts at that level as well as predictors? Also 
+ -->
+
+### Distributions
+
+We can write distribution equations as:
+
+$x_{1i} \sim \mathcal{N}(\mu, \sigma^2)$
+
+or
+
+$\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$
+
+<!-- or
+
+$\boldsymbol{x} \sim \mathcal{N}(\boldsymbol{\mu}_x, \boldsymbol{\sigma}_\x \text{I})$
+
+ -->
+
+
+### Interactions / Random regression
+
+$y_{ij} = \beta_0 + \beta_1x_{i} + u_{1j} + x_{i}u_{2j} + \epsilon_{ij}$
+
+$x_{i} \sim \mathcal{N}(\mu_x, \sigma^2_x)$
+
+$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$
+
+$\epsilon_{i} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$
+
+
+### Multivariate
+
+$\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}$
+
+$\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$
+
+$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$
+
+$\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})$
+
+where $\boldsymbol{\beta}_0$ is a vector of intercepts of length q (number of responses) $B$ is a $p*q$ (p - number of predictors) matrix of $\beta$s
 

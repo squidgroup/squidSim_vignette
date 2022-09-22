@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.8 Genetic Groups | The {squidSim} R Package Vignette</title>
+  <title>1.8 Simulating multiple populations | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4.7-inbreeding-depression.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="1.7-modeleq.html"/>
+<link rel="next" href="1.9-parameter-list-summary.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -249,19 +249,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genetic-groups" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Genetic Groups<a href="4.8-genetic-groups.html#genetic-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Coming soon…</p>
-
+<div id="npop" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Simulating multiple populations<a href="1.8-npop.html#npop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can use the <code>simulate_population()</code> function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the <code>n_pop</code> argument in <code>simulate_population()</code>. This defaults to 1.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="1.8-npop.html#cb72-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb72-2"><a href="1.8-npop.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
+<span id="cb72-3"><a href="1.8-npop.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb72-4"><a href="1.8-npop.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb72-5"><a href="1.8-npop.html#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept=</span><span class="dv">10</span>,</span>
+<span id="cb72-6"><a href="1.8-npop.html#cb72-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb72-7"><a href="1.8-npop.html#cb72-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
+<span id="cb72-8"><a href="1.8-npop.html#cb72-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="sc">-</span><span class="fl">0.3</span>,<span class="fl">0.4</span>)</span>
+<span id="cb72-9"><a href="1.8-npop.html#cb72-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb72-10"><a href="1.8-npop.html#cb72-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb72-11"><a href="1.8-npop.html#cb72-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.8</span></span>
+<span id="cb72-12"><a href="1.8-npop.html#cb72-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb72-13"><a href="1.8-npop.html#cb72-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb72-14"><a href="1.8-npop.html#cb72-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop=</span><span class="dv">5</span></span>
+<span id="cb72-15"><a href="1.8-npop.html#cb72-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>By default <code>get_population_data</code> returns a data.frame, where the <code>squid_pop</code> column indicates the population</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="1.8-npop.html#cb73-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb73-2"><a href="1.8-npop.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##   body_mass temperature    rainfall        wind    residual squid_pop
+## 1  9.963488 -0.87042429  0.08123816 -1.46160423  1.00771338         1
+## 2 11.679887  0.54596251 -1.35020676  0.44824010  0.82254729         1
+## 3 10.205083  0.05409334 -0.59114054  0.30053533 -0.11952024         1
+## 4  9.957851 -1.73773422 -0.62630133 -0.38115588  0.79129050         1
+## 5 10.547339  1.61947126  0.76155388 -0.05519906 -0.01185064         1
+## 6 10.196599  0.68431346  0.65455707 -2.19404168  0.92842638         1</code></pre>
+<p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="1.8-npop.html#cb75-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="4.7-inbreeding-depression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1.7-modeleq.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.9-parameter-list-summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

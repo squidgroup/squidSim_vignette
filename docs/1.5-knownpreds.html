@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.8 Genetic Groups | The {squidSim} R Package Vignette</title>
+  <title>1.5 Known Predictors | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.5 Known Predictors | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.5 Known Predictors | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4.7-inbreeding-depression.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="1.4-transformations.html"/>
+<link rel="next" href="1.6-nonGaussian.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -249,19 +249,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genetic-groups" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Genetic Groups<a href="4.8-genetic-groups.html#genetic-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Coming soon…</p>
-
+<div id="knownpreds" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Known Predictors<a href="1.5-knownpreds.html#knownpreds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We might have the situation where we don’t want to simulate a predictor, rather use existing data to simulate a response variable from. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the <code>simulate_population()</code> function, using the <code>known_predictors</code> argument. This argument takes a list, with one item, called <code>predictors</code>, a matrix or dataframe of predictors and one item called <code>beta</code>, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="1.5-knownpreds.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
+<span id="cb56-2"><a href="1.5-knownpreds.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTdata)</span>
+<span id="cb56-3"><a href="1.5-knownpreds.html#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="1.5-knownpreds.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTdata)</span></code></pre></div>
+<pre><code>##        tarsus       back  animal     dam fosternest  hatchdate  sex
+## 1 -1.89229718  1.1464212 R187142 R187557      F2102 -0.6874021  Fem
+## 2  1.13610981 -0.7596521 R187154 R187559      F1902 -0.6874021 Male
+## 3  0.98468946  0.1449373 R187341 R187568       A602 -0.4279814 Male
+## 4  0.37900806  0.2555847 R046169 R187518      A1302 -1.4656641 Male
+## 5 -0.07525299 -0.3006992 R046161 R187528      A2602 -1.4656641  Fem
+## 6 -1.13519543  1.5577219 R187409 R187945      C2302  0.3502805  Fem</code></pre>
+<p>We can see that in this dataset there are several continuous predictors. Here we will use “hatchdate” and “tarsus”.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="1.5-knownpreds.html#cb58-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb58-2"><a href="1.5-knownpreds.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">nrow</span>(BTdata),</span>
+<span id="cb58-3"><a href="1.5-knownpreds.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb58-4"><a href="1.5-knownpreds.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb58-5"><a href="1.5-knownpreds.html#cb58-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span><span class="fu">list</span>(</span>
+<span id="cb58-6"><a href="1.5-knownpreds.html#cb58-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb58-7"><a href="1.5-knownpreds.html#cb58-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
+<span id="cb58-8"><a href="1.5-knownpreds.html#cb58-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb58-9"><a href="1.5-knownpreds.html#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb58-10"><a href="1.5-knownpreds.html#cb58-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
+<span id="cb58-11"><a href="1.5-knownpreds.html#cb58-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb58-12"><a href="1.5-knownpreds.html#cb58-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb58-13"><a href="1.5-knownpreds.html#cb58-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">known_predictors =</span> <span class="fu">list</span>(</span>
+<span id="cb58-14"><a href="1.5-knownpreds.html#cb58-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictors =</span> BTdata[,<span class="fu">c</span>(<span class="st">&quot;hatchdate&quot;</span>,<span class="st">&quot;tarsus&quot;</span>)], </span>
+<span id="cb58-15"><a href="1.5-knownpreds.html#cb58-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb58-16"><a href="1.5-knownpreds.html#cb58-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-17"><a href="1.5-knownpreds.html#cb58-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-18"><a href="1.5-knownpreds.html#cb58-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb58-19"><a href="1.5-knownpreds.html#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##   body_mass temperature     rainfall     residual  hatchdate      tarsus
+## 1 -4.286821   0.5290832  0.375800507 -0.192105859 -0.6874021 -1.89229718
+## 2  1.858944   0.3625056  0.002274996  0.092191340 -0.6874021  1.13610981
+## 3  1.638961  -0.1032856  0.492434356  0.001475751 -0.4279814  0.98468946
+## 4 -1.182909   0.3381428  1.479198475 -1.088091557 -1.4656641  0.37900806
+## 5 -3.318436  -2.4582996 -0.693746732 -0.264992183 -1.4656641 -0.07525299
+## 6 -1.858113   1.6906011 -0.309655352 -0.690406667  0.3502805 -1.13519543
+##   squid_pop
+## 1         1
+## 2         1
+## 3         1
+## 4         1
+## 5         1
+## 6         1</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="1.5-knownpreds.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass<span class="sc">~</span>hatchdate,data)</span></code></pre></div>
+<p><img src="02-sim_pop_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="4.7-inbreeding-depression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1.4-transformations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.6-nonGaussian.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

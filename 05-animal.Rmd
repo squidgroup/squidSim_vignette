@@ -8,6 +8,7 @@ library(MCMCglmm)
 library(scales)
 library(squidSim)
 library(knitr)
+set.seed(25)
 ```
 This vignette assumes that you are generally happy with how the `sim_population()` function works.
 

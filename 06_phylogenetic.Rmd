@@ -8,6 +8,7 @@ library(MCMCglmm)
 library(scales)
 library(squidSim)
 library(knitr)
+set.seed(25)
 ```
 ## Brownian motion
 

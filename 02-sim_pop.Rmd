@@ -9,49 +9,12 @@ library(MCMCglmm)
 library(scales)
 library(squidSim)
 library(knitr)
+set.seed(25)
 ```
 
 
 In this section, we will look at simulating data simple data from linear models, to familiarise ourselves with how {squidSim} works.
 
-
-## `simulate_population` function
-
-The heart of the {squidSim} R package is the `simulate_population()` function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
-
-The `simulate_population()` function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the `simulate_population()` function (along with their defaults) are:
-
-```r
-simulate_population(
-  data_structure, 
-  n, 
-  parameters, 
-  n_response=1, 
-  response_names,
-  family="gaussian", 
-  link="identity", 
-  model, 
-  known_predictors, 
-  pedigree, 
-  pedigree_type, 
-  phylogeny, 
-  phylogeny_type, 
-  cov_str, 
-  sample_type,
-  sample_param,
-  n_pop=1
-)
-```
-
-Each of these will be covered in more detail in the following sections. Briefly, `n` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. `n_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section \@ref(multivariate)). `response_names` controls what the simulated response variables are named, and is described in the following parts of this section and Section \@ref(multivariate). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). `known_predictors` allows for existing data to be incorporated into the simulations and is covered in \@ref(knownpreds).
-
-`pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type`, relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic)and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
-
-`sample_type` and `sample_param` relate to different sampling methods and are covered in Section \@ref(sampling)
-
-`n_pop` relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section \@ref(npop).
-
-<br>
 
 ## Simple Linear Model
 

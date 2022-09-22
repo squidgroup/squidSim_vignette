@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.8 Genetic Groups | The {squidSim} R Package Vignette</title>
+  <title>simulate_population function | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="simulate_population function | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.8 Genetic Groups | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="simulate_population function | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4.7-inbreeding-depression.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="1-linearmod.html"/>
+<link rel="next" href="1.1-simple-linear-model.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -139,17 +139,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population</code> function</a></li>
-<li class="chapter" data-level="" data-path="vignette-notation.html"><a href="vignette-notation.html"><i class="fa fa-check"></i>Vignette Notation</a>
-<ul>
-<li class="chapter" data-level="0.0.1" data-path="vignette-notation.html"><a href="vignette-notation.html#general-rules"><i class="fa fa-check"></i><b>0.0.1</b> General rules</a></li>
-<li class="chapter" data-level="0.0.2" data-path="vignette-notation.html"><a href="vignette-notation.html#notation-for-a-linear-mixed-model"><i class="fa fa-check"></i><b>0.0.2</b> Notation for a linear mixed model</a></li>
-<li class="chapter" data-level="0.0.3" data-path="vignette-notation.html"><a href="vignette-notation.html#distributions"><i class="fa fa-check"></i><b>0.0.3</b> Distributions</a></li>
-<li class="chapter" data-level="0.0.4" data-path="vignette-notation.html"><a href="vignette-notation.html#interactions-random-regression"><i class="fa fa-check"></i><b>0.0.4</b> Interactions / Random regression</a></li>
-<li class="chapter" data-level="0.0.5" data-path="vignette-notation.html"><a href="vignette-notation.html#multivariate"><i class="fa fa-check"></i><b>0.0.5</b> Multivariate</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models</a>
 <ul>
+<li class="chapter" data-level="" data-path="simulate_population-function-1.html"><a href="simulate_population-function-1.html"><i class="fa fa-check"></i><code>simulate_population</code> function</a></li>
 <li class="chapter" data-level="1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html"><i class="fa fa-check"></i><b>1.1</b> Simple Linear Model</a>
 <ul>
 <li class="chapter" data-level="1.1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.1.1</b> Adding more information about the predictors</a></li>
@@ -189,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random slopes</a></li>
 <li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Between- and within-group effects</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="vignette-notation.html"><a href="vignette-notation.html#multivariate"><i class="fa fa-check"></i><b>3</b> Multi-response Models</a>
+<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not</a></li>
 <li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions</a></li>
@@ -249,19 +242,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genetic-groups" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Genetic Groups<a href="4.8-genetic-groups.html#genetic-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Coming soon…</p>
-
+<div id="simulate_population-function-1" class="section level2 unnumbered hasAnchor">
+<h2><code>simulate_population</code> function<a href="simulate_population-function-1.html#simulate_population-function-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The heart of the {squidSim} R package is the <code>simulate_population()</code> function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below.</p>
+<p>The <code>simulate_population()</code> function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the <code>simulate_population()</code> function (along with their defaults) are:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="simulate_population-function-1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_population</span>(</span>
+<span id="cb3-2"><a href="simulate_population-function-1.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  data_structure, </span>
+<span id="cb3-3"><a href="simulate_population-function-1.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  n, </span>
+<span id="cb3-4"><a href="simulate_population-function-1.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  parameters, </span>
+<span id="cb3-5"><a href="simulate_population-function-1.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">1</span>, </span>
+<span id="cb3-6"><a href="simulate_population-function-1.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  response_names,</span>
+<span id="cb3-7"><a href="simulate_population-function-1.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb3-8"><a href="simulate_population-function-1.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">link=</span><span class="st">&quot;identity&quot;</span>, </span>
+<span id="cb3-9"><a href="simulate_population-function-1.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  model, </span>
+<span id="cb3-10"><a href="simulate_population-function-1.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  known_predictors, </span>
+<span id="cb3-11"><a href="simulate_population-function-1.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  pedigree, </span>
+<span id="cb3-12"><a href="simulate_population-function-1.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  pedigree_type, </span>
+<span id="cb3-13"><a href="simulate_population-function-1.html#cb3-13" aria-hidden="true" tabindex="-1"></a>  phylogeny, </span>
+<span id="cb3-14"><a href="simulate_population-function-1.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  phylogeny_type, </span>
+<span id="cb3-15"><a href="simulate_population-function-1.html#cb3-15" aria-hidden="true" tabindex="-1"></a>  cov_str, </span>
+<span id="cb3-16"><a href="simulate_population-function-1.html#cb3-16" aria-hidden="true" tabindex="-1"></a>  sample_type,</span>
+<span id="cb3-17"><a href="simulate_population-function-1.html#cb3-17" aria-hidden="true" tabindex="-1"></a>  sample_param,</span>
+<span id="cb3-18"><a href="simulate_population-function-1.html#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop=</span><span class="dv">1</span></span>
+<span id="cb3-19"><a href="simulate_population-function-1.html#cb3-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Each of these will be covered in more detail in the following sections. Briefly, <code>n</code> and <code>data_structure</code> refer to the size and structure of the data being simulated - <code>data_structure</code> is covered in more detail in Section <a href="2-hierarchical.html#hierarchical">2</a>. <code>parameters</code> is a list of parameters to be used in the simulation and is described in detail in the following parts of this section. <code>n_response</code> refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section <a href="3-multivariate.html#multivariate">3</a>). <code>response_names</code> controls what the simulated response variables are named, and is described in the following parts of this section and Section <a href="3-multivariate.html#multivariate">3</a>. <code>family</code> and <code>link</code> refer to simulating non Gaussian response variables and are covered in Section <a href="1.6-nonGaussian.html#nonGaussian">1.6</a>. <code>model</code> allows for the specification of more complex models and is covered in Section <a href="1.7-modeleq.html#modeleq">1.7</a>. <code>known_predictors</code> allows for existing data to be incorporated into the simulations and is covered in <a href="1.5-knownpreds.html#knownpreds">1.5</a>.</p>
+<p><code>pedigree</code> and <code>pedigree_type</code> relate to simulating genetic effects and are covered in Section <a href="4-animal.html#animal">4</a>, <code>phylogeny</code> and <code>phylogeny_type</code>, relate to simulating phylogenetic effects and are covered in Section <a href="5-phylogenetic.html#phylogenetic">5</a>and <code>cov_str</code> relates to simulating a general covariance structure and is covered in multiple sections, including <a href="4-animal.html#animal">4</a>, <a href="5-phylogenetic.html#phylogenetic">5</a>, <a href="6.3-temporalauto.html#temporalauto">6.3</a> and <a href="6.4-spatialauto.html#spatialauto">6.4</a>.</p>
+<p><code>sample_type</code> and <code>sample_param</code> relate to different sampling methods and are covered in Section <a href="7-sampling.html#sampling">7</a></p>
+<p><code>n_pop</code> relates to the number of populations, or datasets, that you want to simulate for each parameter set. This is covered in Section <a href="1.8-npop.html#npop">1.8</a>.</p>
+<p><br></p>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="4.7-inbreeding-depression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1-linearmod.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1.1-simple-linear-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

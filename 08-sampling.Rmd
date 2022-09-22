@@ -8,6 +8,7 @@ library(MCMCglmm)
 library(scales)
 library(squidSim)
 library(knitr)
+set.seed(25)
 ```
 To create different sampling schemes, we can use the sample arguments in the `simulate_population()` function, for example:
 ```{r, eval=FALSE}
