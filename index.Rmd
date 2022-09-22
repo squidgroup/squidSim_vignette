@@ -177,18 +177,18 @@ Each of these will be covered in more detail in the following sections. Briefly,
 
 We try to use a consistent notation in equations throughout the manuscript, which we try to explain as we go. For the sake of clarity we have outlined everything here.
 
-### General rules
+### General rules {-}
 Small letters (e.g. $x$) denote scalars
 
 Bold, small letters (e.g. $\boldsymbol{x}$) denote vectors
 
 Capital letters (e.g. $X$) denote matrices
 
-| <span style="display: inline-block; width:10px">Letter/Symbol </span>  |  Usage                              |
+| <span style="display: inline-block; width:120px">Letter/Symbol </span>  |  Usage                              |
 |:-----------------|:------------------------------------|
 |$\sigma$          | standard deviation                  |
 |$\Sigma$          | covariance matrix                   |
-|$\Sigma_{x_1x_2}$     | covariance between variables x and y|
+|$\sigma_{x_1x_2}$ | covariance between variables x1 and x2|
 |$\mu$             | mean                                |
 |$\epsilon$        | residual                            |
 |$\beta$           | slope                               |
@@ -197,7 +197,7 @@ Capital letters (e.g. $X$) denote matrices
 |                  |                                     |
 
 
-### Notation for a linear mixed model
+### Notation for a linear mixed model {-}
 
 There are several ways to write out an equation for a linear model. First we can write out all the different variables:
 
@@ -243,7 +243,7 @@ $y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \
 might work - individual intercepts at that level as well as predictors? Also 
  -->
 
-### Distributions
+### Distributions {-}
 
 We can write distribution equations as:
 
@@ -260,7 +260,7 @@ $\boldsymbol{x} \sim \mathcal{N}(\boldsymbol{\mu}_x, \boldsymbol{\sigma}_\x \tex
  -->
 
 
-### Interactions / Random regression
+### Interactions / Random regression {-}
 
 $y_{ij} = \beta_0 + \beta_1x_{i} + u_{1j} + x_{i}u_{2j} + \epsilon_{ij}$
 
@@ -271,7 +271,7 @@ $\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$
 $\epsilon_{i} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$
 
 
-### Multivariate
+### Multi-response {-}
 
 $\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}$
 

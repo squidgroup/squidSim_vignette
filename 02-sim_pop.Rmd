@@ -62,7 +62,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
 where $$
@@ -125,7 +125,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
  or in words:
 
@@ -172,11 +172,11 @@ $$
 \end{bmatrix}
 $$
 
-Note that the order of the names and betas has to match. We can then specify the residual variance, here as 1 (but can be anything). `vcov` refers to the variance-covariance matrix, which for the residuals is only a single variance until we have multiple response variables (Section \@ref(multivariate)).
+Note that the order of the names and betas has to match. We can then specify the residual variance, here as 0.8 (but can be anything). `vcov` refers to the variance-covariance matrix, which for the residuals is only a single variance until we have multiple response variables (Section \@ref(multivariate)).
 ```r
     residual = list(
-          vcov = 1
-        )
+      vcov = 0.8
+    )
 ```
 We can then put this all together: 
 
@@ -191,7 +191,7 @@ squid_data <- simulate_population(
       beta = c(0.5,-0.3, 0.4)    
     ),
     residual = list(
-      vcov = 1
+      vcov = 0.8
     )
   )
 )
@@ -207,7 +207,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
 ```{r, echo = FALSE}
@@ -219,7 +219,7 @@ decorate("buildcode1") %>%
       beta = c(0.5,-0.3, 0.4)    
     )',color = "blue") %>%
   flair('residual = list(
-      vcov = 1
+      vcov = 0.8
     )',color = "orange")
 ```
 
@@ -277,7 +277,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
 $$
@@ -416,7 +416,11 @@ Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE, diag=TRUE)
 
 </div>
 
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
 
+ -->
 
 Instead of specifying a variance-covariance matrix (`vcov`), we can also specify a variance-correlation matrix (variance on the diagonals and correlations on the off-diagonals), using `vcorr`
 
@@ -659,29 +663,27 @@ plot(body_mass~hatchdate,data)
 
 ## Non-Gaussian phenotypes {#nonGaussian}
 
-To simulate non-Gaussian data, we can specify a link function and a family as arguments to the simulate_population function. Underneath the predictors are being simulated as multivariate normal, and then the resulting phenotype is transformed.
+To simulate non-Gaussian data, we can specify a link function and a family as arguments to the simulate_population function. Underneath the predictors are being simulated as multivariate normal (on the latent scale), and then the resulting phenotype is transformed (onto the expected scale) and then binomial or Poisson sampling is applied (the observed scale).
 
-<!-- 
-Dave: worth pointing out that the bulk of the function is the same, but just need to add an instruction about the distribution.
 
-Anne: I would provide here also a bit more comments on the code provided, presently it’s very dry. E.g. how is the phenotype transformed?
+Here is an example to simulate POisson distributed data:
+<!-- <div class="alert alert-info">
  -->
+$$
+y_i \sim Poisson(\hat{y_i})
+$$
+$$
+\hat{y_i} = exp( \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_i )
+$$
+$$ 
+\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
+$$
+$$
+\epsilon_1 \sim \mathcal{N}(0,\sigma^2_\epsilon)
+$$
+<!-- </div> -->
 
-<div class="alert alert-info">
-
-$$
-y \sim Poisson(\hat{y})
-$$
-$$
-\hat{y} = exp( \beta_0 +  X \beta + \epsilon )
-$$
-$$ X \sim MVN(\mu_x,\Sigma_x)
-$$
-$$
-\epsilon \sim N(0,\sigma^2_\epsilon)
-$$
-</div>
-
+The only change in the code that is need is the addition of the link and family arguments.
 
 ```{r, 'non-gaussian',fig.width=6,fig.height=6}
 
@@ -710,8 +712,7 @@ glm(y ~ temperature + rainfall, data, family="poisson")
 
 ```
 
-
-
+Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'.
 
 
 ## Model equations {#modeleq}
@@ -829,11 +830,13 @@ By default `get_population_data` returns a data.frame, where the `squid_pop` col
 ```{r}
 data <- get_population_data(squid_data)
 head(data)
+tail(data)
 ```
 
 It can also be output as a list, which might be more useful for processing many iterations of a simulation. 
 ```{r}
 data <- get_population_data(squid_data, list=TRUE)
+length(data)
 ```
 
 

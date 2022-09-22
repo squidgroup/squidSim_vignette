@@ -262,35 +262,7 @@ lm( y ~ 0+factor(sex), data)
 
 We would recommend the former methods, as this makes things clearer if other factors are simulated.
 
-Finally We can also name the levels: 
-THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE
-
-
-Lets take the example of sex. Factors can be thought of as a hierarchical structure. First we can create a data structure using the 
-
-```{r,fig.width=6,fig.height=6}
-
-squid_data <- simulate_population(
-  data_structure = make_structure(structure = "sex(2)/individual(500)", repeat_obs=2),
-  parameters = list(
-    intercept= 10,
-    sex=list(
-      fixed=TRUE,
-      names=c("female","male"),
-      beta=c(0,0.5)
-    ),
-    residual = list(
-      vcov = 0.5
-    )
-  )
-)
-
-
-data <- get_population_data(squid_data)
-
-boxplot( y ~ factor(sex), data)
-lm( y ~ factor(sex), data)
-```
+<!-- THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE -->
 
 
 ### Fixed Factor Interactions
@@ -342,23 +314,21 @@ We have taken repeated measurements of adult body mass.
 </div> -->
 As well as simulating  continuous predictors at the level of the observation, we can also simulate predictors at different hierarchical levels. Lets take the example of a situation where we have repeated measures of individuals. The individuals have traits that are consistently expressed, whilst the environment varies between observations. We can describe variation at these different hierarchical levels as:
 
-<div class="alert alert-info">
 
 $$
-y_i = \beta_0 +  Z_j beta_Z +  X_i \beta_X + \epsilon_{i}
+y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + \epsilon_{ij}
 $$
 $$
- X \sim MVN(\mu_X,\Sigma_X)
+\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
- Z \sim MVN(\mu_Z,\Sigma_Z)
+\boldsymbol{u}_j \sim \mathcal{N}(\boldsymbol{\mu}_u, \Sigma_u)
 $$
 $$
-\epsilon \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
-</div>
 
-where $Z$ is a matrix of predictors that vary at the individual level (denoted by the subscript $j$), and $X$ is a matrix of predictors at the observation level (denoted by the index $i$).
+where $U$ is a matrix of predictors that vary at the individual level (denoted by the subscript $j$), and $X$ is a matrix of predictors at the observation level (denoted by the index $i$).
 
 In order to simulate from this model, we need a data structure and parameters for each of these levels. To do this, we can either specify a data structure generated using `make_structure` (outlined previously in Section \@ref(makestr)), or a pre-existing data structure, to the `simulate_population` function. We then add in a item to the parameter list, the name of which matches on of the grouping factors in the data structure, and specify the parameters for predictors that vary at that level in the same way as outlined in the previous section (\@ref(linearmod)). This is similar to the fixed factors above, but we are now assuming that the variable is drawn randomly from a distribution, rather than the effects at each level being fixed. 
 
@@ -389,7 +359,7 @@ coef(lm(behaviour ~ size + physiology + temperature + rainfall , data))
 
 ```
 
-Here, we have simulated 4 predictors, 'size' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
+Here, we have simulated 4 predictors, 'size' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list (here 'individual') needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
 
 ```{r}
 squid_data <- simulate_population(
@@ -423,18 +393,15 @@ It is also worth noting that predictors do not have to be simulated for every gr
 
 In essence, random effects (random intercepts) represent an unobserved/latent predictor (or group of predictors), which varies at a given hierarchical level. In a mixed effect model, the effect at each level of the grouping factor is unknown, and estimated by the model (and assumed to come from a normal distribution). When simulating this, however, we can simply simulate an additional predictor at a particular hierarchical level ($z$) with mean 0 and a given variance ($\sigma^2_z$). 
 
-<div class="alert alert-info">
-
 $$
-y_{i} = \beta_0 + z_j + \epsilon_{i}
+y_{ij} = \beta_0 + u_j + \epsilon_{ij}
 $$
 $$
-z \sim N(0,\sigma^2_z)
+u_j \sim \mathcal{N}(0,\sigma^2_u)
 $$
 $$
-\epsilon \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
-</div>
 
 For example we can simulate some between-individual variation as follows:
 
@@ -487,8 +454,7 @@ squid_data <- simulate_population(
 )
 
 data <- get_population_data(squid_data)
-data
-
+head(data)
 ```
 
 
@@ -506,28 +472,24 @@ mySumm2 <- function(.) {
 bootMer(mod,mySumm2,nsim = 100) -->
 
 
-## Random slopes {#randomslopes}
+## Random Regression {#randomslopes}
 
-Random slopes are essentially an interaction between predictors at different levels, with the random slopes being an unobserved, latent variable.
-
-<div class="alert alert-info">
+Random regression (or a random intercepts and slopes model) essentially represents an interaction (or product) between predictors at different levels, with the random slopes being an unobserved, latent variable ($u_2$).
 
 $$
-y_{i} = \beta_0 + \beta_1 x_{i} + z_{1,j} + z_{2,j}x_{i}  + \epsilon_{i}
+y_{ij} = \beta_0 + \beta_1x_{i} + u_{1j} + u_{2j}x_{i} + \epsilon_{ij}
 $$
 $$
-x \sim MVN(0,\sigma^2_{x})
+x_i \sim \mathcal{N}(0,\sigma^2_{x})
 $$
 $$
-Z \sim MVN(0,\Sigma_{Z})
+\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)
 $$
 $$
-\epsilon \sim N(0,\sigma^2_\epsilon)
+\epsilon \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
-</div>
-
-We can specify random slopes by simulating a slopes variable at the individual level (`ind_slope` - $z_{2,j}$). We can specify the mean environmental effect the slope of the environmental variable ($beta_1$). $z_{2,j}$ then represents the deviations from the mean slope (this is typically how it is modelling in a linear mixed effect model).
+We can specify random slopes by simulating a slopes variable at the individual level (`ind_slope` - $u_{2}$). We can specify the mean environmental effect the slope of the environmental variable ($beta_1$). $u_{2}$ then represents the deviations from the mean slope (this is typically how it is modelled in a linear mixed effect model).
 <!-- alternatively the mean environmental effect could be specified as the mean of the slopes variable with the environment slope as 0 -->
 Importantly the `beta` parameter associated with `ind_slope` is specified as 0 (there is no 'main effect' of the slopes, just the interaction), and the `beta` parameter associated with interaction is 1.
 
@@ -561,8 +523,59 @@ data <- get_population_data(squid_data)
 short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ```
 
+We can make the link between the code and the equation more explicit, by expanding out the equation:
 
-Here we have specified no correlation between intercepts and slopes. To simulate a correlation between intercepts and slopes, we can simply give the `vcov` argument a covariance matrix, instead of two variances:
+$$
+y_{ij} = \beta_0 + \beta_xx_{i} + \boldsymbol{u}_j \boldsymbol{\beta}_u + \beta_{ux}u_{2j}x_{i} + \epsilon_{ij}
+$$
+
+$$
+\color{CornflowerBlue}{\boldsymbol{\beta_u} = \begin{bmatrix}
+1 \\
+0 
+\end{bmatrix}}
+,
+\color{orange}{\beta_{ux}=1}
+$$
+
+```{r buildcode3, include=FALSE}
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(300)",repeat_obs=10),
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_slope"), 
+      beta = c(1,0),
+      vcov = c(1,0.5)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta = c(0.2)
+    ), 
+    residual = list(
+      vcov = c(0.5)
+    ),
+    interactions = list(
+      names = c("ind_slope:environment"),
+      beta = c(1)
+    )
+  )
+)
+```
+
+
+```{r, echo = FALSE}
+
+decorate("buildcode3") %>%
+  flair('names = c("ind_int","ind_slope"), 
+      beta = c(1,0),',color = "CornflowerBlue") %>%
+  flair('names = c("ind_slope:environment"),
+      beta = c(1)',color = "orange")
+```
+
+
+
+
+Here we have specified no correlation between intercepts and slopes. To simulate a covariance/correlation between intercepts and slopes, we can simply give the `vcov` argument a covariance matrix, instead of two variances:
 
 ```{r}
 
@@ -665,14 +678,14 @@ squid_data <- simulate_population(
 )  
 ```
 Now we want to add in some betas. If the effect of rainfall on body mass is causal, we would expect the beta to be the same at both levels - this results as a simple reorganisation of the model equation. We start with an effect of rainfall on body size
-$$ y_i = beta_0 + beta_1 (x_{1i,j}) + \epsilon_i $$
-where $x_{1ij}$ is rainfall varying at levels $i$ (observation) and $j$ (individual).
+$$ y_i = \beta_0 + \beta_1 (x_{ij}) + \epsilon_i $$
+where $x_{ij}$ is rainfall varying at levels $i$ (observation) and $j$ (individual).
 
-We can split rainfall up into within ($x_{1i}$) and between ($z_{1i}$) individual components:
+We can split rainfall up into within ($x_{1i}$) and between ($u_{1i}$) individual components:
 
-$$ y_i = beta_0 + beta_1 (z_1_j + x_1_i) + \epsilon_i $$
+$$ y_i = \beta_0 + \beta_1 (u_{j} + x_{i}) + \epsilon_i $$
 
-$$ y_i = beta_0 + beta_{1}z_1_j + beta_{1}*x_1_i + \epsilon_i $$
+$$ y_i = \beta_0 + \beta_1u_{j} + \beta_{1}x_{i} + \epsilon_i $$
 
 you see that the coefficients should be the same.
 

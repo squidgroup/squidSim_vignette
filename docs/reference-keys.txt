@@ -1,8 +1,3 @@
-general-rules
-notation-for-a-linear-mixed-model
-distributions
-interactions-random-regression
-multivariate
 linearmod
 simple-linear-model
 adding-more-information-about-the-predictors
@@ -30,6 +25,7 @@ simulating-random-effects
 incorporating-existing-data-structures
 randomslopes
 BetweenWithin
+multivariate
 one-response-repeatedly-measured-the-other-not
 different-distributions
 multivariate-random-slopes

@@ -52,7 +52,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
 where $$
@@ -115,7 +115,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
  or in words:
 
@@ -153,11 +153,11 @@ $$
 \end{bmatrix}
 $$
 
-Note that the order of the names and betas has to match. We can then specify the residual variance, here as 1 (but can be anything). `vcov` refers to the variance-covariance matrix, which for the residuals is only a single variance until we have multiple response variables (Section \@ref(multivariate)).
+Note that the order of the names and betas has to match. We can then specify the residual variance, here as 0.8 (but can be anything). `vcov` refers to the variance-covariance matrix, which for the residuals is only a single variance until we have multiple response variables (Section \@ref(multivariate)).
 ```r
     residual = list(
-          vcov = 1
-        )
+      vcov = 0.8
+    )
 ```
 We can then put this all together: 
 
@@ -173,7 +173,7 @@ squid_data <- simulate_population(
       beta = c(0.5,-0.3, 0.4)    
     ),
     residual = list(
-      vcov = 1
+      vcov = 0.8
     )
   )
 )
@@ -188,10 +188,11 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
 
+<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;n=2000,<br>&nbsp;&nbsp;response_name = "body_mass",<br>&nbsp;&nbsp;parameters = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">intercept=10</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">observation = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("temperature","rainfall", "wind"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beta = c(0.5,-0.3, 0.4) &nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">residual = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vcov = 0.8<br>&nbsp;&nbsp;&nbsp;&nbsp;)</span><br>&nbsp;&nbsp;)<br>)</code></code></pre>
 
 
 
@@ -234,12 +235,12 @@ head(data)
 
 ```
 ##   body_mass temperature   rainfall      wind   residual squid_pop
-## 1  7.573840  -0.2306292  0.3793662 -1.621588 -1.5484005         1
-## 2  7.651136  -0.8841745 -0.7383195 -0.787488 -1.8132771         1
-## 3 12.199631   0.9715341  0.5082774  1.591818  1.2296201         1
-## 4 10.786125   0.1834473 -0.1029349 -0.544928  0.8814921         1
-## 5 11.769145   1.6707325  2.0234161  1.895537  0.7825892         1
-## 6  8.987414  -2.2209488  0.8709182  1.206219 -0.1233233         1
+## 1  7.737309  -0.2306292  0.3793662 -1.621588 -1.3849315         1
+## 2  7.842569  -0.8841745 -0.7383195 -0.787488 -1.6218444         1
+## 3 12.069817   0.9715341  0.5082774  1.591818  1.0998057         1
+## 4 10.693063   0.1834473 -0.1029349 -0.544928  0.7884305         1
+## 5 11.686525   1.6707325  2.0234161  1.895537  0.6999690         1
+## 6  9.000434  -2.2209488  0.8709182  1.206219 -0.1103037         1
 ```
 
 Later on we will explore how to simulate data for multiple populations with the same parameters (Section \@ref(npop)). `squid_pop` is an identifier for the population number, but is not relevant here.
@@ -262,7 +263,7 @@ coef(lm(body_mass ~ temperature + rainfall + wind,data))
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.9608924   0.5259708  -0.3262004   0.3885865
+##   9.9650211   0.5232290  -0.3234344   0.3897914
 ```
 
 We can also check the means and variances of the predictors
@@ -310,7 +311,7 @@ $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_i \sim N(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
 $$
@@ -341,6 +342,7 @@ $$
 
 
 
+<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;n=2000,<br>&nbsp;&nbsp;response_name = "body_mass",<br>&nbsp;&nbsp;parameters=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">intercept = 10</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;observation=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("temperature","rainfall", "wind"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">mean = c(10,1,20)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:CornflowerBlue">vcov = c(1,0.1,2)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:purple">beta = c(0.5,-3,0.4)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;),<br>&nbsp;&nbsp;&nbsp;&nbsp;residual=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">vcov = 0.8</span><br>&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;&nbsp;)<br>)</code></code></pre>
 
 
 ```r
@@ -487,7 +489,11 @@ Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE, diag=TRUE)
 
 </div>
 
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
 
+ -->
 
 Instead of specifying a variance-covariance matrix (`vcov`), we can also specify a variance-correlation matrix (variance on the diagonals and correlations on the off-diagonals), using `vcorr`
 
@@ -840,29 +846,27 @@ plot(body_mass~hatchdate,data)
 
 ## Non-Gaussian phenotypes {#nonGaussian}
 
-To simulate non-Gaussian data, we can specify a link function and a family as arguments to the simulate_population function. Underneath the predictors are being simulated as multivariate normal, and then the resulting phenotype is transformed.
+To simulate non-Gaussian data, we can specify a link function and a family as arguments to the simulate_population function. Underneath the predictors are being simulated as multivariate normal (on the latent scale), and then the resulting phenotype is transformed (onto the expected scale) and then binomial or Poisson sampling is applied (the observed scale).
 
-<!-- 
-Dave: worth pointing out that the bulk of the function is the same, but just need to add an instruction about the distribution.
 
-Anne: I would provide here also a bit more comments on the code provided, presently it’s very dry. E.g. how is the phenotype transformed?
+Here is an example to simulate POisson distributed data:
+<!-- <div class="alert alert-info">
  -->
+$$
+y_i \sim Poisson(\hat{y_i})
+$$
+$$
+\hat{y_i} = exp( \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_i )
+$$
+$$ 
+\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
+$$
+$$
+\epsilon_1 \sim \mathcal{N}(0,\sigma^2_\epsilon)
+$$
+<!-- </div> -->
 
-<div class="alert alert-info">
-
-$$
-y \sim Poisson(\hat{y})
-$$
-$$
-\hat{y} = exp( \beta_0 +  X \beta + \epsilon )
-$$
-$$ X \sim MVN(\mu_x,\Sigma_x)
-$$
-$$
-\epsilon \sim N(0,\sigma^2_\epsilon)
-$$
-</div>
-
+The only change in the code that is need is the addition of the link and family arguments.
 
 
 ```r
@@ -920,8 +924,7 @@ glm(y ~ temperature + rainfall, data, family="poisson")
 ## Residual Deviance: 4537 	AIC: 11550
 ```
 
-
-
+Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'.
 
 
 ## Model equations {#modeleq}
@@ -1063,10 +1066,29 @@ head(data)
 ## 6 10.196599  0.68431346  0.65455707 -2.19404168  0.92842638         1
 ```
 
+```r
+tail(data)
+```
+
+```
+##       body_mass temperature   rainfall        wind      residual squid_pop
+## 9995   8.086665  -0.6214712 -0.8064454 -0.54186069 -1.6277892272         5
+## 9996  11.521081   0.2075812 -2.0356218 -0.01890323  0.8141651756         5
+## 9997  11.384367  -0.2871820 -1.1694008  0.59354828  0.9397186387         5
+## 9998  11.682527  -0.1509205 -0.9174626 -0.46858243  1.6701819257         5
+## 9999   9.570990  -1.4052158 -1.7697390 -0.97793190  0.1338485092         5
+## 10000  9.421060  -1.1131408 -1.4915844 -1.17264236 -0.0007877935         5
+```
+
 It can also be output as a list, which might be more useful for processing many iterations of a simulation. 
 
 ```r
 data <- get_population_data(squid_data, list=TRUE)
+length(data)
+```
+
+```
+## [1] 5
 ```
 
 
