@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-22" />
+<meta name="date" content="2022-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,14 +140,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population</code> function<span></span></a></li>
-<li><a href="vignette-notation.html#vignette-notation">Vignette Notation<span></span></a>
+<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
+<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
+<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
 <ul>
-<li><a href="vignette-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="vignette-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="vignette-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="vignette-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="vignette-notation.html#multi-response">Multi-response<span></span></a></li>
+<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
+<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
+<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
+<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
+<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
@@ -193,26 +194,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-predictors-affecting-multiple-responses.html"><a href="3.1-predictors-affecting-multiple-responses.html"><i class="fa fa-check"></i><b>3.1</b> Predictors affecting multiple responses<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-one-response-repeatedly-measured-the-other-not.html"><a href="3.2-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.2</b> One response repeatedly measured, the other not<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-different-distributions.html"><a href="3.3-different-distributions.html"><i class="fa fa-check"></i><b>3.3</b> Different distributions<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="3.4-multivariate-random-slopes.html"><a href="3.4-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.4</b> Multivariate Random Slopes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
-<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
-</ul></li>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
@@ -463,7 +451,7 @@ We can extract the parameters we used for the simulations
 <h3><span class="header-section-number">1.1.1</span> Adding more information about the predictors<a href="1.1-simple-linear-model.html#adding-more-information-about-the-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can also specify the predictors as having different means and variances. In the observation list, <code>mean</code> and <code>vcov</code> specify the means and covariance matrix of the predictors. If the predictors were uncorrelated, we can just specify the variances as a vector (the diagonal elements of the covariance matrix), and the function assumes the covariances are 0 (see section <a href="1.2-corpred.html#corpred">1.2</a> for correlated predictors). Below we have three predictors, temperature, rainfall and wind, with means 10, 1 and 20 respectively, variances 1, 0.1 and 2, respectively, and betas 0.5,-3 and 0.4, a residual variance 0.8 and a global intercept of 10:</p>
 <p><span class="math display">\[
-y_{i} = beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
+y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 \]</span>
 <span class="math display">\[
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
@@ -472,7 +460,7 @@ y_{i} = beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 \epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 \]</span></p>
 <p><span class="math display">\[
-\color{red}{\\beta_0=10}
+\color{red}{\beta_0=10}
 ,
 \color{blue}{\boldsymbol{\mu}_x = \begin{bmatrix}
 10 \\

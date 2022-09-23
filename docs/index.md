@@ -1,7 +1,7 @@
 --- 
 title: "The {squidSim} R Package Vignette"
 author: "Joel Pick"
-date: "2022-09-22"
+date: "2022-09-23"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -101,7 +101,7 @@ It would be great if you could report any suggestions, issues or bugs; [here](ht
 
 
 
-## `simulate_population` function {-}
+## `simulate_population()` function {-}
 
 The heart of the {squidSim} R package is the `simulate_population()` function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below. 
 
@@ -139,8 +139,20 @@ Each of these will be covered in more detail in the following sections. Briefly,
 
 <br>
 
+## Terminology and notation {-}
 
-## Vignette Notation {-}
+We try to be consistent as possible throughout the vignette with our terminology and notation. 
+
+
+{squidSim} refers to an R package
+
+`simulate_population()` refers to a function
+
+`parameters` refers more generally to code
+
+
+
+## Mathematical Notation {-}
 
 We try to use a consistent notation in equations throughout the manuscript, which we try to explain as we go. For the sake of clarity we have outlined everything here.
 

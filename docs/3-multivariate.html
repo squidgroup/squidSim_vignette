@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-22" />
+<meta name="date" content="2022-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="2.5-BetweenWithin.html"/>
-<link rel="next" href="3.1-one-response-repeatedly-measured-the-other-not.html"/>
+<link rel="next" href="3.1-predictors-affecting-multiple-responses.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -140,14 +140,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population</code> function<span></span></a></li>
-<li><a href="vignette-notation.html#vignette-notation">Vignette Notation<span></span></a>
+<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
+<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
+<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
 <ul>
-<li><a href="vignette-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="vignette-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="vignette-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="vignette-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="vignette-notation.html#multi-response">Multi-response<span></span></a></li>
+<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
+<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
+<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
+<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
+<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
@@ -193,26 +194,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-predictors-affecting-multiple-responses.html"><a href="3.1-predictors-affecting-multiple-responses.html"><i class="fa fa-check"></i><b>3.1</b> Predictors affecting multiple responses<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-one-response-repeatedly-measured-the-other-not.html"><a href="3.2-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.2</b> One response repeatedly measured, the other not<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-different-distributions.html"><a href="3.3-different-distributions.html"><i class="fa fa-check"></i><b>3.3</b> Different distributions<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="3.4-multivariate-random-slopes.html"><a href="3.4-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.4</b> Multivariate Random Slopes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
-<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
-</ul></li>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
@@ -253,19 +241,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="multivariate" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">3</span> Multi-response Models<a href="3-multivariate.html#multivariate" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We can simulate multiple response variables, that covary at different hierarchical levels. In the case of a simple random effects model, we can have a covariance matrix at each level,</p>
+<p>We can simulate multiple response variables, that covary at different hierarchical levels. For example, we might have two phenotypes, body mass and behaviour, that covary at the between individual and within individual (residual) levels. In the case of such a simple random effects model, we have a covariance matrix at each level:</p>
 <!-- Anne: perhaps add a short sentence of introduction here such as “We simulate here no longer one phenotype y varying across I individuals, but a number of phenotypes that (co)vary across individuals..”
  -->
-<!-- 
-$$
-\begin{bmatrix} 
-  y^{(1)} \\ 
-  y^{(2)} 
-\end{bmatrix}
-=   \beta_0 +  Z_j + \epsilon_{i,j}
-$$ 
--->
-<div class="alert alert-info">
 <p><span class="math display">\[
 \boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}
 \]</span>
@@ -274,12 +252,19 @@ $$
 \]</span>
 <span class="math display">\[
 \boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})
+\]</span>
+<span class="math display">\[
+\Sigma_u = \begin{bmatrix}
+\sigma^2_{u_1} &amp; \sigma_{u_1u_2} \\
+\sigma_{u_1u_2} &amp; \sigma^2_{u_2}
+\end{bmatrix}
+,
+\Sigma_{\epsilon} = \begin{bmatrix}
+\sigma^2_{\epsilon_1} &amp; \sigma_{\epsilon_1\epsilon_2} \\
+\sigma_{\epsilon_1\epsilon_2} &amp; \sigma^2_{\epsilon_2}
+\end{bmatrix}
 \]</span></p>
-</div>
-<p>We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use <code>n_response</code> in the parameter list, and specifying the covariance matrix (vcov) at each level. In this way we can simulate covariance at each level.</p>
-<!-- Anne: Should the blue background model not come after the first paragraph?
-  We probably just need an intro paragraph
- -->
+<p>We can indicate that there are multiple phenotypes within the parameter list using the <code>n_response</code> argument. If we have <span class="math inline">\(q\)</span> response variables, <code>vcov</code> now needs to either be a vector of length <span class="math inline">\(q\)</span> (the variances, if we assume the covariances are 0) or a <span class="math inline">\(q*q\)</span> covariance matrix. So below, we simulate 2 response variables, with a covariance between them at both individual and residual levels.</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="3-multivariate.html#cb143-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb143-2"><a href="3-multivariate.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
 <span id="cb143-3"><a href="3-multivariate.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
@@ -291,10 +276,10 @@ $$
 <span id="cb143-9"><a href="3-multivariate.html#cb143-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
 <span id="cb143-10"><a href="3-multivariate.html#cb143-10" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb143-11"><a href="3-multivariate.html#cb143-11" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb143-12"><a href="3-multivariate.html#cb143-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb143-13"><a href="3-multivariate.html#cb143-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb143-14"><a href="3-multivariate.html#cb143-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb143-15"><a href="3-multivariate.html#cb143-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<span id="cb143-12"><a href="3-multivariate.html#cb143-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We haven’t specified any names (of responses or predictors). By default, <code>simulate_population()</code> will add a number to the default name to indicate which reponse variable it refers to, so here we have <code>y1</code> and <code>y2</code> for the response variable, and <code>individual_effect1</code> and <code>individual_effect2</code> etc.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="3-multivariate.html#cb144-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb144-2"><a href="3-multivariate.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##          y1         y2 individual_effect1 individual_effect2  residual1
 ## 1 1.7154548 -0.3400219           1.917971          0.7785752 -0.2025162
 ## 2 0.5628202  0.3404365           1.917971          0.7785752 -1.3551508
@@ -309,27 +294,23 @@ $$
 ## 4  0.9387125          1         1
 ## 5 -0.4840553          1         1
 ## 6 -0.6971546          1         1</code></pre>
-<p>The formulation above (just random effects), can be simulated in a similar way with <code>beta</code> as an identity matrix (i.e. a predictor for each trait).
-<!-- I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
- --></p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="3-multivariate.html#cb145-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb145-2"><a href="3-multivariate.html#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
-<span id="cb145-3"><a href="3-multivariate.html#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb145-4"><a href="3-multivariate.html#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb145-5"><a href="3-multivariate.html#cb145-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb145-6"><a href="3-multivariate.html#cb145-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
-<span id="cb145-7"><a href="3-multivariate.html#cb145-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb145-8"><a href="3-multivariate.html#cb145-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb145-9"><a href="3-multivariate.html#cb145-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb145-10"><a href="3-multivariate.html#cb145-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
-<span id="cb145-11"><a href="3-multivariate.html#cb145-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb145-12"><a href="3-multivariate.html#cb145-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb145-13"><a href="3-multivariate.html#cb145-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb145-14"><a href="3-multivariate.html#cb145-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb145-15"><a href="3-multivariate.html#cb145-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb145-16"><a href="3-multivariate.html#cb145-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb145-17"><a href="3-multivariate.html#cb145-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##           y1         y2 individual_effect1 individual_effect2  residual1
+<p>We can name the response variables easily, by giving the <code>response_name</code> argument a vector of names</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="3-multivariate.html#cb146-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb146-2"><a href="3-multivariate.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
+<span id="cb146-3"><a href="3-multivariate.html#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb146-4"><a href="3-multivariate.html#cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="fu">c</span>(<span class="st">&quot;body_mass&quot;</span>,<span class="st">&quot;behaviour&quot;</span>),</span>
+<span id="cb146-5"><a href="3-multivariate.html#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb146-6"><a href="3-multivariate.html#cb146-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb146-7"><a href="3-multivariate.html#cb146-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb146-8"><a href="3-multivariate.html#cb146-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb146-9"><a href="3-multivariate.html#cb146-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb146-10"><a href="3-multivariate.html#cb146-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb146-11"><a href="3-multivariate.html#cb146-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb146-12"><a href="3-multivariate.html#cb146-12" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb146-13"><a href="3-multivariate.html#cb146-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb146-14"><a href="3-multivariate.html#cb146-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb146-15"><a href="3-multivariate.html#cb146-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##    body_mass  behaviour individual_effect1 individual_effect2  residual1
 ## 1 -1.7790297 -2.1313181         -0.2306292          0.2132262 -1.5484005
 ## 2  0.9989910  1.5914308         -0.2306292          0.2132262  1.2296201
 ## 3  0.5519600  0.4977197         -0.2306292          0.2132262  0.7825892
@@ -343,116 +324,6 @@ $$
 ## 4  0.7072251          1         1
 ## 5  0.6476722          1         1
 ## 6 -1.0821955          1         1</code></pre>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="3-multivariate.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
-<span id="cb147-2"><a href="3-multivariate.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
-<span id="cb147-3"><a href="3-multivariate.html#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
-<!-- 
-https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
-make little shiny app that allows you to enter diagonal and 
-
- -->
-<p>Second, we can build up predictors at each level that drive this covariance. Here we make <code>beta</code> into a matrix (<span class="math inline">\(B\)</span>), with predictors as rows, and responses as columns.</p>
-<div class="alert alert-info">
-<p><span class="math display">\[\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}\]</span></p>
-<p><span class="math display">\[\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)\]</span></p>
-<p><span class="math display">\[\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)\]</span></p>
-<p><span class="math display">\[\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})\]</span></p>
-</div>
-<p>Alternatively, you could also create multivariate phenotypes being affected by the same predictors. Here we have two phenotypes, affected by three predictors, and so we can create a 3x2 matrix of betas</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="3-multivariate.html#cb148-1" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb148-2"><a href="3-multivariate.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.5</span>, <span class="fl">0.1</span>,</span>
-<span id="cb148-3"><a href="3-multivariate.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.2</span>, <span class="fl">0.2</span>,</span>
-<span id="cb148-4"><a href="3-multivariate.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.3</span>, <span class="fl">0.1</span></span>
-<span id="cb148-5"><a href="3-multivariate.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  ),<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb148-6"><a href="3-multivariate.html#cb148-6" aria-hidden="true" tabindex="-1"></a>beta</span></code></pre></div>
-<pre><code>##      [,1] [,2]
-## [1,]  0.5  0.1
-## [2,]  0.2  0.2
-## [3,]  0.3  0.1</code></pre>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="3-multivariate.html#cb150-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb150-2"><a href="3-multivariate.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb150-3"><a href="3-multivariate.html#cb150-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb150-4"><a href="3-multivariate.html#cb150-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span> <span class="fu">list</span>(</span>
-<span id="cb150-5"><a href="3-multivariate.html#cb150-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb150-6"><a href="3-multivariate.html#cb150-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb150-7"><a href="3-multivariate.html#cb150-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb150-8"><a href="3-multivariate.html#cb150-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
-<span id="cb150-9"><a href="3-multivariate.html#cb150-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
-<span id="cb150-10"><a href="3-multivariate.html#cb150-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> beta</span>
-<span id="cb150-11"><a href="3-multivariate.html#cb150-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb150-12"><a href="3-multivariate.html#cb150-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb150-13"><a href="3-multivariate.html#cb150-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb150-14"><a href="3-multivariate.html#cb150-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb150-15"><a href="3-multivariate.html#cb150-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb150-16"><a href="3-multivariate.html#cb150-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb150-17"><a href="3-multivariate.html#cb150-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-18"><a href="3-multivariate.html#cb150-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb150-19"><a href="3-multivariate.html#cb150-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##           y1         y2 individual_effect1 individual_effect2 temperature
-## 1 1.22310660  0.5923479          0.3440492           0.579633   1.5166067
-## 2 1.41370650 -0.1014570          0.3440492           0.579633   1.4510438
-## 3 0.61015279 -0.4051245          0.3440492           0.579633   0.6377108
-## 4 0.52717455  1.4791758          0.3440492           0.579633  -0.4579670
-## 5 0.36549918  0.3292956          0.3440492           0.579633   0.3432748
-## 6 0.06027212 -0.4377444          0.3440492           0.579633   0.1036752
-##     rainfall        wind    residual1  residual2 individual squid_pop
-## 1  0.6364945 -0.00366005 -0.005446858 -0.2658786          1         1
-## 2  0.2034993  0.19014050  0.246393344 -0.8859082          1         1
-## 3 -2.3866566  0.05766300  0.407280601 -0.5769636          1         1
-## 4  0.1370347  1.41738837 -0.040514635  0.7761938          1         1
-## 5  0.5636609 -0.85833490 -0.005419163 -0.3115636          1         1
-## 6 -0.4653576  1.49089522 -0.689811760 -1.0837629          1         1</code></pre>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="3-multivariate.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
-<span id="cb152-2"><a href="3-multivariate.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
-<span id="cb152-3"><a href="3-multivariate.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="3-multivariate.html#cb153-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb153-2"><a href="3-multivariate.html#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb153-3"><a href="3-multivariate.html#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb153-4"><a href="3-multivariate.html#cb153-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb153-5"><a href="3-multivariate.html#cb153-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span> <span class="fu">list</span>(</span>
-<span id="cb153-6"><a href="3-multivariate.html#cb153-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb153-7"><a href="3-multivariate.html#cb153-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb153-8"><a href="3-multivariate.html#cb153-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb153-9"><a href="3-multivariate.html#cb153-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
-<span id="cb153-10"><a href="3-multivariate.html#cb153-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
-<span id="cb153-11"><a href="3-multivariate.html#cb153-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> beta</span>
-<span id="cb153-12"><a href="3-multivariate.html#cb153-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb153-13"><a href="3-multivariate.html#cb153-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
-<span id="cb153-14"><a href="3-multivariate.html#cb153-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature:rainfall&quot;</span>),</span>
-<span id="cb153-15"><a href="3-multivariate.html#cb153-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.3</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb153-16"><a href="3-multivariate.html#cb153-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb153-17"><a href="3-multivariate.html#cb153-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb153-18"><a href="3-multivariate.html#cb153-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb153-19"><a href="3-multivariate.html#cb153-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb153-20"><a href="3-multivariate.html#cb153-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb153-21"><a href="3-multivariate.html#cb153-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb153-22"><a href="3-multivariate.html#cb153-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-23"><a href="3-multivariate.html#cb153-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb153-24"><a href="3-multivariate.html#cb153-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##            y1           y2 individual_effect1 individual_effect2 temperature
-## 1  2.21050134  1.294281304          0.3738621          0.3130563   0.2474442
-## 2  0.30671985  0.767288962          0.3738621          0.3130563   0.6267361
-## 3 -0.08741854 -0.675319438          0.3738621          0.3130563   1.4255186
-## 4  0.98283306 -0.002284301          0.3738621          0.3130563   0.8091150
-## 5  2.78888855  1.180712862          0.3738621          0.3130563   0.1566717
-## 6  1.59693774  0.290589001          0.3738621          0.3130563   1.0819382
-##      rainfall        wind  residual1  residual2 temperature:rainfall individual
-## 1  0.07576161  1.40470231  1.2744794  0.8064820           0.01874677          1
-## 2  0.49027116 -0.02155445 -0.5028253  0.3878414           0.30727064          1
-## 3 -0.68348827 -0.56325151 -0.7709343 -1.2302024          -0.97432525          1
-## 4  0.92104163  0.76022751 -0.2823860 -0.4329146           0.74522861          1
-## 5 -1.25575415  1.41897367  2.1818234  0.9022205          -0.19674116          1
-## 6  0.95321639  2.08038728 -0.2357851 -0.2199468           1.03132125          1
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1</code></pre>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="3-multivariate.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
-<span id="cb155-2"><a href="3-multivariate.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
-<span id="cb155-3"><a href="3-multivariate.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 </div>
             </section>
 
@@ -460,7 +331,7 @@ make little shiny app that allows you to enter diagonal and
         </div>
       </div>
 <a href="2.5-BetweenWithin.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="3.1-one-response-repeatedly-measured-the-other-not.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="3.1-predictors-affecting-multiple-responses.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,236 @@
+# Genetic effects {#animal}
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+set.seed(25)
+```
+This vignette assumes that you are generally happy with how the `sim_population()` function works.
+
+## Additive genetics effects {#va}
+In order to simulate breeding values (additive genetic effects), we can provide the `simulate_population()` function with the relatedness structure in the population. The simplest way to do this is providing a pedigree using the the `pedigree` argument (a genetic relatedness matrix could also be given to the `cov_str` argument). The input to this argument needs to be a list, and the name of the pedigree in the list links it with the item in the parameter list.
+
+**NOTE** the `simulate_population` function has very little error checking of pedigree structure at the moment 
+
+When simulating breeding values, **all** individuals in pedigree need to be in the data_structure and *vice versa*. Having unsampled individuals (for example the base population) can be achieved in the sampling stage (not implemented yet). 
+
+Lets start by importing a pedigree
+```{r, eval=TRUE, message=FALSE,warning=FALSE}
+library(MCMCglmm)
+data(BTped)
+head(BTped)
+```
+
+We can use this pedigree as a data_structure
+```{r, eval=TRUE, cache=TRUE}
+squid_data <- simulate_population(
+  data_structure = BTped, 
+ 
+  pedigree = list(animal=BTped),
+  
+  parameters =list(
+    animal = list(
+      vcov = 0.2
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+# Ainv<-inverseA(BTped)$Ainv
+# mod <- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)
+# summary(mod)
+```
+
+
+
+We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.
+
+```{r, eval=TRUE, cache=TRUE}
+
+## make data structure with two observations per individual
+ds <- data.frame(individual=rep(BTped[,1], 2))
+
+squid_data <- simulate_population(
+  data_structure = ds, 
+  pedigree=list(animal=BTped),
+  parameters = list(
+    individual = list(
+      vcov = 0.3
+    ),
+    animal = list(
+      group="individual",
+      vcov = 0.2
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+# Ainv<-inverseA(BTped)$Ainv
+# data$animal_id <- data$individual
+# mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
+# summary(mod)
+
+```
+
+## Multivariate genetic effects
+
+We can simulate genetic effects affecting multiple phenotypes and the covariance between them, by specifying the number of response variables, and a covariance matrix, instead of only a variance.
+```{r, eval=TRUE, cache=TRUE}
+
+squid_data <- simulate_population(
+  data_structure = BTped,
+  pedigree = list(animal = BTped),
+  n_response=2,
+  parameters = list(
+    animal = list(
+      vcov = diag(2)
+
+    ),
+    residual = list(
+      vcov = diag(2)
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+
+# Ainv<-inverseA(BTped)$Ainv
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE,ginverse=list(animal=Ainv))
+# summary(mod)
+
+```
+
+<br>
+
+
+
+
+## Sex specific genetic variance and inter-sexual genetic correlations
+
+```{r,fig.width=10,fig.height=6}
+
+ds <- data.frame(animal=BTped[,"animal"],sex=sample(c("Female","Male"),nrow(BTped), replace=TRUE))
+
+squid_data <- simulate_population(
+  parameters = list(
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(-0.5,0.5)
+    ),
+    animal= list(
+      names = c("G_female","G_male"),
+      vcov =matrix(c(0.1,-0.1,-0.1,0.4), nrow=2, ncol=2 ,byrow=TRUE)
+      ),
+    residual = list(
+      names="residual",
+      vcov = 0.1
+    )
+  ),
+  data_structure = ds,
+  pedigree = list(animal=BTped),
+  model = "y = female + male + I(female)*G_female + I(male)*G_male + residual"
+)
+
+data <- get_population_data(squid_data)
+head(data)
+par(mfrow=c(1,2))
+boxplot(y~factor(sex),data)
+plot(G_female~G_male,data)
+
+```
+<br>
+
+## GxE
+```{r}
+
+squid_data <- simulate_population(
+  parameters = list(
+    animal = list(
+      names = c("G_int","G_slope"),
+      mean =c(0,0.2), 
+      vcov =matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2,byrow=TRUE)
+    ),
+    observation= list(
+      names = c("environment"),
+      vcov =c(1)
+    ), 
+    residual = list(
+      names = c("residual"),
+      vcov =c(0.5)
+    )
+  ),
+  data_structure=rbind(BTped,BTped,BTped,BTped,BTped),
+  pedigree = list(animal=BTped),
+  model="y = G_int + G_slope * environment + residual"
+)
+
+data <- get_population_data(squid_data)
+library(lme4)
+short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FALSE, ranef.comp = c("Variance"))
+
+short_summary(lmer(y ~ environment + (1+environment|animal),data))
+
+```
+
+## Indirect Genetic Effects
+Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
+
+```{r, eval=TRUE, cache=TRUE}
+squid_data <- simulate_population(
+  parameters=list(
+    animal = list(
+      names=c("direct","maternal"),
+      vcov = matrix(c(1,0.3,0.3,0.5),2,2)
+    ),
+    residual = list(
+      names="residual",
+      vcov = 0.5
+    )
+  ),
+  data_structure=BTped,
+  pedigree=list(animal=BTped),
+  model = "y = direct + maternal[dam] + residual"
+)
+
+data <- get_population_data(squid_data)
+
+head(data)
+
+```
+
+
+
+
+## Dominance
+Coming soon...
+<!--
+Here we can make use of the dominance relatedness matrices that can be generated in the `nadiv` package
+
+NOTE: not working fully yet!!! 
+ 
+ -->
+
+## Inbreeding depression
+Coming soon...
+
+
+## Genetic Groups
+Coming soon...
+

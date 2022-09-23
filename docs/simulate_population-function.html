@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>simulate_population function | The {squidSim} R Package Vignette</title>
+  <title>simulate_population() function | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="simulate_population function | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="simulate_population() function | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="simulate_population function | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="simulate_population() function | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-22" />
+<meta name="date" content="2022-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="vignette-notation.html"/>
+<link rel="next" href="terminology-and-notation.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -140,14 +140,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population</code> function<span></span></a></li>
-<li><a href="vignette-notation.html#vignette-notation">Vignette Notation<span></span></a>
+<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
+<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
+<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
 <ul>
-<li><a href="vignette-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="vignette-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="vignette-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="vignette-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="vignette-notation.html#multi-response">Multi-response<span></span></a></li>
+<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
+<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
+<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
+<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
+<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
@@ -193,26 +194,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-predictors-affecting-multiple-responses.html"><a href="3.1-predictors-affecting-multiple-responses.html"><i class="fa fa-check"></i><b>3.1</b> Predictors affecting multiple responses<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-one-response-repeatedly-measured-the-other-not.html"><a href="3.2-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.2</b> One response repeatedly measured, the other not<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-different-distributions.html"><a href="3.3-different-distributions.html"><i class="fa fa-check"></i><b>3.3</b> Different distributions<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="3.4-multivariate-random-slopes.html"><a href="3.4-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.4</b> Multivariate Random Slopes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
-<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
-</ul></li>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
@@ -252,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="simulate_population-function" class="section level2 unnumbered hasAnchor">
-<h2><code>simulate_population</code> function<a href="simulate_population-function.html#simulate_population-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><code>simulate_population()</code> function<a href="simulate_population-function.html#simulate_population-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The heart of the {squidSim} R package is the <code>simulate_population()</code> function, which we can use to simulate hierarchical, population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are listed below.</p>
 <p>The <code>simulate_population()</code> function simulates predictors at each hierarchical level, using provided mean and variance-covariance (vcov) parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response. The arguments that can be provided to the <code>simulate_population()</code> function (along with their defaults) are:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="simulate_population-function.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_population</span>(</span>
@@ -286,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="vignette-notation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="terminology-and-notation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

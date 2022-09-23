@@ -1,21 +1,10 @@
 
 # Multi-response Models {#multivariate}
 
-We can simulate multiple response variables, that covary at different hierarchical levels. In the case of a simple random effects model, we can have a covariance matrix at each level, 
+We can simulate multiple response variables, that covary at different hierarchical levels. For example, we might have two phenotypes, body mass and behaviour, that covary at the between individual and within individual (residual) levels. In the case of such a simple random effects model, we have a covariance matrix at each level:
 
 <!-- Anne: perhaps add a short sentence of introduction here such as “We simulate here no longer one phenotype y varying across I individuals, but a number of phenotypes that (co)vary across individuals..”
  -->
-
-<!-- 
-$$
-\begin{bmatrix} 
-  y^{(1)} \\ 
-  y^{(2)} 
-\end{bmatrix}
-=   \beta_0 +  Z_j + \epsilon_{i,j}
-$$ 
--->
-<div class="alert alert-info">
 
 $$
 \boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}
@@ -26,14 +15,19 @@ $$
 $$
 \boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})
 $$
+$$
+\Sigma_u = \begin{bmatrix}
+\sigma^2_{u_1} & \sigma_{u_1u_2} \\
+\sigma_{u_1u_2} & \sigma^2_{u_2}
+\end{bmatrix}
+,
+\Sigma_{\epsilon} = \begin{bmatrix}
+\sigma^2_{\epsilon_1} & \sigma_{\epsilon_1\epsilon_2} \\
+\sigma_{\epsilon_1\epsilon_2} & \sigma^2_{\epsilon_2}
+\end{bmatrix}
+$$
 
-</div>
-
-We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `n_response` in the parameter list, and specifying the covariance matrix (vcov) at each level. In this way we can simulate covariance at each level. 
-
-<!-- Anne: Should the blue background model not come after the first paragraph?
-  We probably just need an intro paragraph
- -->
+We can indicate that there are multiple phenotypes within the parameter list using the `n_response` argument. If we have $q$ response variables, `vcov` now needs to either be a vector of length $q$ (the variances, if we assume the covariances are 0) or a $q*q$ covariance matrix. So below, we simulate 2 response variables, with a covariance between them at both individual and residual levels. 
 
 
 ```r
@@ -49,7 +43,12 @@ squid_data <- simulate_population(
     )
   )  
 )
+```
 
+We haven't specified any names (of responses or predictors). By default, `simulate_population()` will add a number to the default name to indicate which reponse variable it refers to, so here we have `y1` and `y2` for the response variable, and `individual_effect1` and `individual_effect2` etc.
+
+
+```r
 data <- get_population_data(squid_data)
 head(data)
 ```
@@ -71,33 +70,29 @@ head(data)
 ## 6 -0.6971546          1         1
 ```
 
+We can name the response variables easily, by giving the `response_name` argument a vector of names
 
-The formulation above (just random effects), can be simulated in a similar way with `beta` as an identity matrix (i.e. a predictor for each trait).
-<!-- I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
- -->
 
 ```r
 squid_data <- simulate_population(
-  data_structure= make_structure(structure = "individual(100)",repeat_obs=10),
-  n_response=2,
+  data_structure=make_structure(structure = "individual(100)",repeat_obs=10),
+  n_response = 2,
+  response_name = c("body_mass","behaviour"),
   parameters=list(
     individual = list(
-      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
-      beta= diag(2)
+      vcov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
     ),
     residual = list(
-      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
-      beta= diag(2)
+      vcov = matrix(c(1,0.5,0.5,1),nrow = 2,ncol = 2,byrow=TRUE)
     )
-  )
+  )  
 )
-
 data <- get_population_data(squid_data)
 head(data)
 ```
 
 ```
-##           y1         y2 individual_effect1 individual_effect2  residual1
+##    body_mass  behaviour individual_effect1 individual_effect2  residual1
 ## 1 -1.7790297 -2.1313181         -0.2306292          0.2132262 -1.5484005
 ## 2  0.9989910  1.5914308         -0.2306292          0.2132262  1.2296201
 ## 3  0.5519600  0.4977197         -0.2306292          0.2132262  0.7825892
@@ -113,22 +108,48 @@ head(data)
 ## 6 -1.0821955          1         1
 ```
 
+
+## Predictors affecting multiple responses
+
+If we look a little at what `simulate_population()` assumes underneath with the formulation above (just random effects), we can understand more how we simulate predictors that affect multiple response variable. In the above code, we are essentially simulating a predictor for each trait (`individual_effect1` and `individual_effect2`) with some covariance between them.
+
+We can expand the equation above:
+
+$$\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{u}_j B_u + \boldsymbol{\epsilon}_{ij}B_{\epsilon}$$
+$$
+B_u = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+,
+B_{\epsilon} = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+$$
+
+to include matrices of $\beta$s, $B$, the columns of which refer to the response variable, and the rows predictors. In this case they are all identity matrices, which essentially controlling which predictors affects which response ($u_1$ affects $y_1$ but not $y_2$ and vice versa). Internally, `simulate_population()` does the same thing, and assigns `beta` as an identity matrix. 
+
+
 ```r
-# library(MCMCglmm)
-# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
-# summary(mod)
+squid_data <- simulate_population(
+  data_structure= make_structure(structure = "individual(100)",repeat_obs=10),
+  n_response=2,
+  response_name = c("body_mass","behaviour"),
+  parameters=list(
+    individual = list(
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
+      beta= diag(2)
+    ),
+    residual = list(
+      vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
+      beta= diag(2)
+    )
+  )
+)
 ```
 
-
-<!-- 
-https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
-make little shiny app that allows you to enter diagonal and 
-
- -->
-Second, we can build up predictors at each level that drive this covariance. Here we make `beta` into a matrix ($B$), with predictors as rows, and responses as columns. 
-
-<div class="alert alert-info">
-
+How is this helpful? Well now we could simulate one (or many) predictor(s) that both responses. In the form of an equation we could have
 
 $$\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}$$
 
@@ -138,26 +159,34 @@ $$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$$
 
 $$\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})$$
 
-</div>
+where $B$ is a $p*q$ matrix, where $p$ is number of predictors. So if we returned to our original example in Section \@ref(linearmod), we have three predictors at the observation level - temperature, rainfall and wind. So $B_x$ would be a `3*2` matrix, with 3 predictors and two responses. 
 
-Alternatively, you could also create multivariate phenotypes being affected by the same predictors. Here we have two phenotypes, affected by three predictors, and so we can create a 3x2 matrix of betas
+
+
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
+
+ -->
 
 
 ```r
-beta <- matrix(c(
-  0.5, 0.1,
-  0.2, 0.2,
-  0.3, 0.1
+Beta <- matrix(c(
+  0.5, -0.1,
+  0.2, -0.2,
+  0.3, -0.1
   ),nrow=3,ncol=2,byrow=TRUE)
-beta
+Beta
 ```
 
 ```
 ##      [,1] [,2]
-## [1,]  0.5  0.1
-## [2,]  0.2  0.2
-## [3,]  0.3  0.1
+## [1,]  0.5 -0.1
+## [2,]  0.2 -0.2
+## [3,]  0.3 -0.1
 ```
+
+So here, the environment variables all positively affect body mass (response 1) and negatively affect behaviour (response 2). This then slots easily into our code.
 
 
 ```r
@@ -170,7 +199,7 @@ squid_data <- simulate_population(
     ),
     observation = list(
       names = c("temperature", "rainfall", "wind"),
-      beta= beta
+      beta= Beta
     ),
     residual = list(
       vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
@@ -184,19 +213,19 @@ head(data)
 
 ```
 ##           y1         y2 individual_effect1 individual_effect2 temperature
-## 1 1.22310660  0.5923479          0.3440492           0.579633   1.5166067
-## 2 1.41370650 -0.1014570          0.3440492           0.579633   1.4510438
-## 3 0.61015279 -0.4051245          0.3440492           0.579633   0.6377108
-## 4 0.52717455  1.4791758          0.3440492           0.579633  -0.4579670
-## 5 0.36549918  0.3292956          0.3440492           0.579633   0.3432748
-## 6 0.06027212 -0.4377444          0.3440492           0.579633   0.1036752
-##     rainfall        wind    residual1  residual2 individual squid_pop
-## 1  0.6364945 -0.00366005 -0.005446858 -0.2658786          1         1
-## 2  0.2034993  0.19014050  0.246393344 -0.8859082          1         1
-## 3 -2.3866566  0.05766300  0.407280601 -0.5769636          1         1
-## 4  0.1370347  1.41738837 -0.040514635  0.7761938          1         1
-## 5  0.5636609 -0.85833490 -0.005419163 -0.3115636          1         1
-## 6 -0.4653576  1.49089522 -0.689811760 -1.0837629          1         1
+## 1  0.2629858 -0.0780353       -0.005446858         -0.2658786   0.3738621
+## 2  1.0829243  1.1550551       -0.005446858         -0.2658786  -0.8473002
+## 3 -0.2310409  0.3175489       -0.005446858         -0.2658786  -0.6371071
+## 4  1.7982021 -0.2832260       -0.005446858         -0.2658786   0.5207047
+## 5 -0.1813950  0.1731702       -0.005446858         -0.2658786   1.1298068
+## 6  1.5139838  0.8386942       -0.005446858         -0.2658786   1.5284323
+##     rainfall       wind  residual1 residual2 individual squid_pop
+## 1  0.1456369 -0.6502334  0.2474442 0.1893336          1         1
+## 2 -0.9514215  0.9920109  1.4047023 1.2451206          1         1
+## 3 -1.2060802 -0.5203187  0.4902712 0.2264689          1         1
+## 4  0.3514403  0.1582997  1.4255186 0.1208411          1         1
+## 5 -0.5530579 -0.2232949 -0.5632515 0.4190884          1         1
+## 6 -0.6243242 -0.1365409  0.9210416 1.1188972          1         1
 ```
 
 ```r
@@ -206,6 +235,7 @@ head(data)
 ```
 
 
+Equally if we want an interaction, we now have to expand the size of what we give to `beta`, with one $\beta$ for each response, in a matrix, with $q$ columns. 
 
 
 ```r
@@ -219,7 +249,7 @@ squid_data <- simulate_population(
     ),
     observation = list(
       names = c("temperature", "rainfall", "wind"),
-      beta= beta
+      beta= Beta
     ),
     interactions = list(
       names = c("temperature:rainfall"),
@@ -236,20 +266,20 @@ head(data)
 ```
 
 ```
-##            y1           y2 individual_effect1 individual_effect2 temperature
-## 1  2.21050134  1.294281304          0.3738621          0.3130563   0.2474442
-## 2  0.30671985  0.767288962          0.3738621          0.3130563   0.6267361
-## 3 -0.08741854 -0.675319438          0.3738621          0.3130563   1.4255186
-## 4  0.98283306 -0.002284301          0.3738621          0.3130563   0.8091150
-## 5  2.78888855  1.180712862          0.3738621          0.3130563   0.1566717
-## 6  1.59693774  0.290589001          0.3738621          0.3130563   1.0819382
+##           y1         y2 individual_effect1 individual_effect2 temperature
+## 1  2.8739089  2.7223659           1.274479           0.806482   2.5349210
+## 2 -0.2195532  0.4901810           1.274479           0.806482  -0.3163310
+## 3  2.1650067  0.2206076           1.274479           0.806482   0.3833268
+## 4 -0.7894193 -1.4047362           1.274479           0.806482  -0.9681842
+## 5  2.8398480  0.9040718           1.274479           0.806482  -0.1220015
+## 6  1.0100711  0.5755157           1.274479           0.806482  -0.9008461
 ##      rainfall        wind  residual1  residual2 temperature:rainfall individual
-## 1  0.07576161  1.40470231  1.2744794  0.8064820           0.01874677          1
-## 2  0.49027116 -0.02155445 -0.5028253  0.3878414           0.30727064          1
-## 3 -0.68348827 -0.56325151 -0.7709343 -1.2302024          -0.97432525          1
-## 4  0.92104163  0.76022751 -0.2823860 -0.4329146           0.74522861          1
-## 5 -1.25575415  1.41897367  2.1818234  0.9022205          -0.19674116          1
-## 6  0.95321639  2.08038728 -0.2357851 -0.2199468           1.03132125          1
+## 1 -0.49522796  2.29401469 -0.1316535  1.9231227          -1.25536379          1
+## 2 -1.19507319 -0.80430268 -0.8933655 -0.5539674           0.37803876          1
+## 3 -0.60617083  0.09328987  0.8153473 -0.7291554          -0.23236153          1
+## 4  0.05970686  0.66797804 -1.7863607 -2.2466396          -0.05780724          1
+## 5  1.32784401  1.37169437  0.9654921  0.4395282          -0.16199893          1
+## 6  2.65030643  0.06492591 -0.1247725 -0.5007525          -2.38751816          1
 ##   squid_pop
 ## 1         1
 ## 2         1
@@ -268,34 +298,25 @@ head(data)
 
 
 ## One response repeatedly measured, the other not
-set the beta values for the trait that is unmeasured at a particular level to 0
 
-The other way to do this is through sampling (link and example needed)
+In some circumstances we might want to simulate two responses, one that varies between measurements and one that doesn't. For example we might have one fixed measurement of body size for each individual, and repeated measurements of behaviour. We can simply set the variance of the singly measured variable to 0 at that particular level. So for this example:
 
 
 ```r
-individual <- list(
-  vcov = matrix(c(
-    1,0.5,
-    0.5,1
-    ),nrow=2,ncol=2,byrow=TRUE)
-)
-
-residual <- list(
-  vcov = matrix(c(
-    1,0.5,
-    0.5,1
-    ),nrow = 2,ncol = 2,byrow=TRUE),
-  beta = matrix(c(
-    1,0,
-    0,0
-    ),nrow = 2,ncol = 2,byrow=TRUE)
-)
-
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
   n_response = 2,
-  parameters=list(individual = individual, residual = residual)
+  parameters=list(
+    individual = list(
+      vcov = matrix(c(
+        1,0.5,
+        0.5,1
+        ),nrow=2,ncol=2,byrow=TRUE)
+      ), 
+    residual = list(
+      vcov = c(0.8,0)
+    )
+  )
 )
 
 data <- get_population_data(squid_data)
@@ -337,48 +358,48 @@ head(data,20)
 ```
 
 ```
-##            y1 y2 individual_effect1 individual_effect2  residual1   residual2
-## 1  -1.6706436  0          -1.085769          -1.809539 -0.5848745 -1.10098411
-## 2  -1.4666490  0          -1.085769          -1.809539 -0.3808800 -1.10359510
-## 3  -0.7798335  0          -1.085769          -1.809539  0.3059355  0.89906527
-## 4  -0.6755392  0          -1.085769          -1.809539  0.4102298  1.27144736
-## 5  -1.4314630  0          -1.085769          -1.809539 -0.3456940  1.47579179
-## 6  -2.0038855  0          -1.085769          -1.809539 -0.9181164 -1.71020015
-## 7   0.3282533  0          -1.085769          -1.809539  1.4140223 -1.38338556
-## 8  -0.8040910  0          -1.085769          -1.809539  0.2816781  1.12610799
-## 9  -2.4921780  0          -1.085769          -1.809539 -1.4064089 -0.83539112
-## 10  0.5833605  0          -1.085769          -1.809539  1.6691295  2.18371514
-## 11 -1.6705681  0          -1.085769          -1.809539 -0.5847991  0.44656648
-## 12 -2.0109248  0          -1.085769          -1.809539 -0.9251558 -1.22703322
-## 13  0.1975017  0          -1.085769          -1.809539  1.2832708  1.63331381
-## 14 -4.1406047  0          -1.085769          -1.809539 -3.0548357 -1.46211542
-## 15 -0.7559031  0          -1.085769          -1.809539  0.3298660 -1.24415539
-## 16 -0.1440253  0          -1.085769          -1.809539  0.9417437 -1.04997775
-## 17 -0.1195880  0          -1.085769          -1.809539  0.9661811  1.52189122
-## 18 -1.6872446  0          -1.085769          -1.809539 -0.6014755 -0.86684664
-## 19 -0.7503544  0          -1.085769          -1.809539  0.3354147  0.02700792
-## 20 -0.4113180  0          -1.085769          -1.809539  0.6744510  0.15798303
-##    individual squid_pop
-## 1           1         1
-## 2           1         1
-## 3           1         1
-## 4           1         1
-## 5           1         1
-## 6           1         1
-## 7           1         1
-## 8           1         1
-## 9           1         1
-## 10          1         1
-## 11          1         1
-## 12          1         1
-## 13          1         1
-## 14          1         1
-## 15          1         1
-## 16          1         1
-## 17          1         1
-## 18          1         1
-## 19          1         1
-## 20          1         1
+##            y1 y2 individual_effect1 individual_effect2     residual1
+## 1  0.80376835  1           1.933232           1.132927 -1.129464e+00
+## 2  0.11432330  1           1.933232           1.132927 -1.818909e+00
+## 3  2.04598297  1           1.933232           1.132927  1.127508e-01
+## 4  1.93333124  1           1.933232           1.132927  9.902713e-05
+## 5  1.95105609  1           1.933232           1.132927  1.782388e-02
+## 6  2.56116516  1           1.933232           1.132927  6.279329e-01
+## 7  3.32733216  1           1.933232           1.132927  1.394100e+00
+## 8  1.47309415  1           1.933232           1.132927 -4.601381e-01
+## 9  0.86767664  1           1.933232           1.132927 -1.065556e+00
+## 10 2.58031042  1           1.933232           1.132927  6.470782e-01
+## 11 2.71157185  1           1.933232           1.132927  7.783396e-01
+## 12 0.42173186  1           1.933232           1.132927 -1.511500e+00
+## 13 1.65539512  1           1.933232           1.132927 -2.778371e-01
+## 14 2.48173738  1           1.933232           1.132927  5.485052e-01
+## 15 0.07352694  0           1.933232           1.132927 -1.859705e+00
+## 16 0.27413919  1           1.933232           1.132927 -1.659093e+00
+## 17 2.31435706  1           1.933232           1.132927  3.811248e-01
+## 18 1.86984706  1           1.933232           1.132927 -6.338515e-02
+## 19 2.01284413  0           1.933232           1.132927  7.961192e-02
+## 20 2.26003535  1           1.933232           1.132927  3.268031e-01
+##      residual2 individual squid_pop
+## 1  -0.76705492          1         1
+## 2  -0.66569912          1         1
+## 3  -2.24392564          1         1
+## 4   0.64642188          1         1
+## 5  -0.17289871          1         1
+## 6  -0.22721373          1         1
+## 7   1.77025265          1         1
+## 8  -0.06036272          1         1
+## 9  -0.13107580          1         1
+## 10  0.51965440          1         1
+## 11 -0.94775391          1         1
+## 12  0.21561112          1         1
+## 13 -0.80144601          1         1
+## 14 -0.76227263          1         1
+## 15 -0.63847377          1         1
+## 16 -2.33136433          1         1
+## 17  0.10744440          1         1
+## 18  1.32416729          1         1
+## 19 -0.57956449          1         1
+## 20 -1.10879960          1         1
 ```
 
 ```r
@@ -446,48 +467,48 @@ head(data,20)
 ```
 
 ```
-##            y1          y2  ind_int1 ind_slope1  ind_int2 ind_slope2 environment
-## 1  -2.8929785 -1.80978534 0.0588518   1.085178 0.1617523  0.5981975 -0.99200736
-## 2  -1.3637066 -0.91976972 0.0588518   1.085178 0.1617523  0.5981975  0.41084465
-## 3   2.9575947 -0.26204801 0.0588518   1.085178 0.1617523  0.5981975  1.24627785
-## 4  -0.4513149 -0.36115761 0.0588518   1.085178 0.1617523  0.5981975 -0.07999263
-## 5   1.4708316  1.54949605 0.0588518   1.085178 0.1617523  0.5981975  0.60692362
-## 6   1.8250487 -0.18599499 0.0588518   1.085178 0.1617523  0.5981975  0.98080842
-## 7  -1.0226457 -0.47901527 0.0588518   1.085178 0.1617523  0.5981975 -0.11309214
-## 8   0.5126517  1.07530623 0.0588518   1.085178 0.1617523  0.5981975 -0.45103722
-## 9   1.3306505 -1.36650396 0.0588518   1.085178 0.1617523  0.5981975  0.71480299
-## 10 -2.3825997  0.05147684 0.0588518   1.085178 0.1617523  0.5981975 -2.54734658
-## 11  2.5459297  0.34937111 0.0588518   1.085178 0.1617523  0.5981975  1.39594598
-## 12  1.0908831 -1.83828245 0.0588518   1.085178 0.1617523  0.5981975  0.54874017
-## 13 -0.1222957 -0.13303389 0.0588518   1.085178 0.1617523  0.5981975 -0.02931245
-## 14  2.7255433  0.90984488 0.0588518   1.085178 0.1617523  0.5981975  1.82736314
-## 15  0.4693991 -0.35557207 0.0588518   1.085178 0.1617523  0.5981975  0.03022781
-## 16 -1.6923948  1.45885249 0.0588518   1.085178 0.1617523  0.5981975 -1.28777736
-## 17 -2.3801511 -1.96969000 0.0588518   1.085178 0.1617523  0.5981975 -1.18116780
-## 18  0.9086790  0.45014096 0.0588518   1.085178 0.1617523  0.5981975 -0.04292380
-## 19  0.6281504  0.43513773 0.0588518   1.085178 0.1617523  0.5981975 -0.23437953
-## 20  0.5003277  1.47204209 0.0588518   1.085178 0.1617523  0.5981975 -0.57500082
-##     residual1  residual2 ind_slope1:environment ind_slope2:environment
-## 1  -1.3793220 -1.6757235            -1.07650459            -0.59341631
-## 2  -2.0738203 -1.2040348             0.44583958             0.24576623
-## 3   0.9231706 -0.7954372             1.35243333             0.74552027
-## 4  -0.3833642 -0.4990563            -0.08680624            -0.04785139
-## 5   0.4498978  1.2067607             0.65862018             0.36306018
-## 6   0.2114410 -0.6402219             1.06435175             0.58671713
-## 7  -0.9022263 -0.6070438            -0.12272511            -0.06765143
-## 8   1.1687742  1.0480521            -0.48945568            -0.26980933
-## 9   0.1387087 -1.7414087             0.77568850             0.42759335
-## 10  1.5965463  0.6493369            -2.76432453            -1.52381630
-## 11  0.2742550 -0.2286488             1.51484990             0.83505137
-## 12  0.1621804 -2.1636677             0.59548078             0.32825499
-## 13 -0.1346820 -0.2860453            -0.03180923            -0.01753464
-## 14 -0.2300044  0.2031775             1.98301433             1.09312403
-## 15  0.3626309 -0.5263382             0.03280255             0.01808220
-## 16  0.2901097  1.6811122            -1.39746770            -0.77034518
-## 17 -0.5666417 -1.7792210            -1.28177734            -0.70657160
-## 18  0.9178691  0.3011884            -0.04657996            -0.02567691
-## 19  0.9408319  0.3432768            -0.25434351            -0.14020524
-## 20  1.3529545  1.4817536            -0.62397825            -0.34396404
+##             y1         y2  ind_int1 ind_slope1 ind_int2 ind_slope2 environment
+## 1  -1.07284118 -0.7063502 -1.379322  -1.675724 -2.07382 -0.6038441  0.27241358
+## 2  -2.73615771 -3.8998721 -1.379322  -1.675724 -2.07382 -0.6038441  1.88695292
+## 3   2.30907268 -0.1346602 -1.379322  -1.675724 -2.07382 -0.6038441 -2.48201511
+## 4  -0.59162679 -1.9301263 -1.379322  -1.675724 -2.07382 -0.6038441 -0.52459897
+## 5  -1.79334628 -1.7390556 -1.379322  -1.675724 -2.07382 -0.6038441  0.17781662
+## 6   0.37926761 -1.1070232 -1.379322  -1.675724 -2.07382 -0.6038441 -0.62796804
+## 7  -3.66798525 -3.1329732 -1.379322  -1.675724 -2.07382 -0.6038441  1.42127867
+## 8  -1.60121532 -3.5016071 -1.379322  -1.675724 -2.07382 -0.6038441  0.73788631
+## 9  -0.04876558 -0.9818298 -1.379322  -1.675724 -2.07382 -0.6038441  0.60326386
+## 10  0.15490674 -1.6868303 -1.379322  -1.675724 -2.07382 -0.6038441 -0.42497852
+## 11 -0.24363724  0.4803048 -1.379322  -1.675724 -2.07382 -0.6038441  0.20271543
+## 12 -0.82656505  1.7013557 -1.379322  -1.675724 -2.07382 -0.6038441 -0.32382136
+## 13  0.44331446 -0.4691145 -1.379322  -1.675724 -2.07382 -0.6038441 -1.15975731
+## 14  1.87942657  0.4287303 -1.379322  -1.675724 -2.07382 -0.6038441 -1.76811131
+## 15 -1.98410710 -2.4175230 -1.379322  -1.675724 -2.07382 -0.6038441  0.28958932
+## 16 -1.12883705 -0.6458835 -1.379322  -1.675724 -2.07382 -0.6038441 -0.11048588
+## 17 -2.10790515 -2.9632071 -1.379322  -1.675724 -2.07382 -0.6038441  1.15822172
+## 18  1.16587270 -0.9111980 -1.379322  -1.675724 -2.07382 -0.6038441 -1.37427364
+## 19 -0.87193964 -2.8776114 -1.379322  -1.675724 -2.07382 -0.6038441 -0.03008455
+## 20 -0.21801425 -2.0496166 -1.379322  -1.675724 -2.07382 -0.6038441 -0.10592694
+##     residual1    residual2 ind_slope1:environment ind_slope2:environment
+## 1   0.6267639  1.613689536            -0.45648984            -0.16449532
+## 2   0.8616993 -0.120540569            -3.16201141            -1.13942532
+## 3   0.7702311 -0.304194525             4.15917112             1.49875008
+## 4   0.1709119 -0.330461646             0.87908283             0.31677597
+## 5  -0.2049611  0.495483184            -0.29797150            -0.10737351
+## 6   1.0202728  0.399211998             1.05230082             0.37919477
+## 7  -0.6176324  0.225461374            -2.38167012            -0.85823069
+## 8   0.6456570 -0.760852634            -1.23649346            -0.44556827
+## 9   2.0398280  1.637247029            -1.01090344            -0.36427730
+## 10  1.0345715  0.002875761             0.71214650             0.25662075
+## 11  1.3740221  2.737348294            -0.33969501            -0.12240851
+## 12  0.1720326  3.482491999             0.54263507             0.19553761
+## 13  0.4590825  0.556466028             1.94343262             0.70031257
+## 14  1.1799385  0.904453719             2.96286573             1.06766351
+## 15 -0.2643081 -0.081959097            -0.48527165            -0.17486679
+## 16  0.1205841  1.328074778             0.18514379             0.06671624
+## 17  0.6331654  0.157465033            -1.94085938            -0.69938530
+## 18  0.9294289 -0.079506715             2.30290268             0.82984698
+## 19  0.4720113 -0.830982832             0.05041339             0.01816638
+## 20  1.0367670 -0.071537731             0.17750427             0.06396335
 ##    individual squid_pop
 ## 1           1         1
 ## 2           1         1

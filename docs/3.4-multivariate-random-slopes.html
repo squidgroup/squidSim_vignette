@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Genetic effects | The {squidSim} R Package Vignette</title>
+  <title>3.4 Multivariate Random Slopes | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Genetic effects | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="3.4 Multivariate Random Slopes | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Genetic effects | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="3.4 Multivariate Random Slopes | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="3.4-multivariate-random-slopes.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="3.3-different-distributions.html"/>
+<link rel="next" href="4-animal.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -239,18 +239,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="animal" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">4</span> Genetic effects<a href="4-animal.html#animal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Coming soon…</p>
+<div id="multivariate-random-slopes" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Multivariate Random Slopes<a href="3.4-multivariate-random-slopes.html#multivariate-random-slopes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before reading this it is worth checking out how to simulate univariate random slopes in Section <a href="2.4-randomslopes.html#randomslopes">2.4</a>.</p>
+<p>Here we have to think about the beta matrix. As we saw in an example above, in multivariate models beta can be thought of as switching on and off predictor variables for the response variables. We we can simulate 4 variables, an intercept and slope for each variable, and then use the beta matrix to tell <code>simulate_population</code> which response variable they link to</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="3.4-multivariate-random-slopes.html#cb161-1" aria-hidden="true" tabindex="-1"></a>individual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb161-2"><a href="3.4-multivariate-random-slopes.html#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int1&quot;</span>,<span class="st">&quot;ind_slope1&quot;</span>,<span class="st">&quot;ind_int2&quot;</span>,<span class="st">&quot;ind_slope2&quot;</span>),</span>
+<span id="cb161-3"><a href="3.4-multivariate-random-slopes.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb161-4"><a href="3.4-multivariate-random-slopes.html#cb161-4" aria-hidden="true" tabindex="-1"></a>     <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>,  <span class="dv">0</span>, </span>
+<span id="cb161-5"><a href="3.4-multivariate-random-slopes.html#cb161-5" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>, <span class="dv">1</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,</span>
+<span id="cb161-6"><a href="3.4-multivariate-random-slopes.html#cb161-6" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">1</span>, <span class="fl">0.2</span>,</span>
+<span id="cb161-7"><a href="3.4-multivariate-random-slopes.html#cb161-7" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>,  <span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">1</span></span>
+<span id="cb161-8"><a href="3.4-multivariate-random-slopes.html#cb161-8" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow=</span><span class="dv">4</span>,<span class="at">ncol=</span><span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
+<span id="cb161-9"><a href="3.4-multivariate-random-slopes.html#cb161-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb161-10"><a href="3.4-multivariate-random-slopes.html#cb161-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">0</span>,</span>
+<span id="cb161-11"><a href="3.4-multivariate-random-slopes.html#cb161-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb161-12"><a href="3.4-multivariate-random-slopes.html#cb161-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">1</span>,</span>
+<span id="cb161-13"><a href="3.4-multivariate-random-slopes.html#cb161-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb161-14"><a href="3.4-multivariate-random-slopes.html#cb161-14" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">4</span>,<span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb161-15"><a href="3.4-multivariate-random-slopes.html#cb161-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-16"><a href="3.4-multivariate-random-slopes.html#cb161-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-17"><a href="3.4-multivariate-random-slopes.html#cb161-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-18"><a href="3.4-multivariate-random-slopes.html#cb161-18" aria-hidden="true" tabindex="-1"></a>observation <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb161-19"><a href="3.4-multivariate-random-slopes.html#cb161-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">names=</span><span class="st">&quot;environment&quot;</span>,</span>
+<span id="cb161-20"><a href="3.4-multivariate-random-slopes.html#cb161-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="sc">-</span><span class="fl">0.3</span>), <span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb161-21"><a href="3.4-multivariate-random-slopes.html#cb161-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-22"><a href="3.4-multivariate-random-slopes.html#cb161-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-23"><a href="3.4-multivariate-random-slopes.html#cb161-23" aria-hidden="true" tabindex="-1"></a>residual <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb161-24"><a href="3.4-multivariate-random-slopes.html#cb161-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb161-25"><a href="3.4-multivariate-random-slopes.html#cb161-25" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
+<span id="cb161-26"><a href="3.4-multivariate-random-slopes.html#cb161-26" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.5</span>,<span class="dv">1</span></span>
+<span id="cb161-27"><a href="3.4-multivariate-random-slopes.html#cb161-27" aria-hidden="true" tabindex="-1"></a>    ),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb161-28"><a href="3.4-multivariate-random-slopes.html#cb161-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-29"><a href="3.4-multivariate-random-slopes.html#cb161-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-30"><a href="3.4-multivariate-random-slopes.html#cb161-30" aria-hidden="true" tabindex="-1"></a>interactions <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb161-31"><a href="3.4-multivariate-random-slopes.html#cb161-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;ind_slope1:environment&quot;</span>,<span class="st">&quot;ind_slope2:environment&quot;</span>),</span>
+<span id="cb161-32"><a href="3.4-multivariate-random-slopes.html#cb161-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb161-33"><a href="3.4-multivariate-random-slopes.html#cb161-33" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="dv">0</span>,</span>
+<span id="cb161-34"><a href="3.4-multivariate-random-slopes.html#cb161-34" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>,<span class="dv">1</span></span>
+<span id="cb161-35"><a href="3.4-multivariate-random-slopes.html#cb161-35" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb161-36"><a href="3.4-multivariate-random-slopes.html#cb161-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-37"><a href="3.4-multivariate-random-slopes.html#cb161-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-38"><a href="3.4-multivariate-random-slopes.html#cb161-38" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb161-39"><a href="3.4-multivariate-random-slopes.html#cb161-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb161-40"><a href="3.4-multivariate-random-slopes.html#cb161-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb161-41"><a href="3.4-multivariate-random-slopes.html#cb161-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb161-42"><a href="3.4-multivariate-random-slopes.html#cb161-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> individual, </span>
+<span id="cb161-43"><a href="3.4-multivariate-random-slopes.html#cb161-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> observation,</span>
+<span id="cb161-44"><a href="3.4-multivariate-random-slopes.html#cb161-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> residual, </span>
+<span id="cb161-45"><a href="3.4-multivariate-random-slopes.html#cb161-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> interactions</span>
+<span id="cb161-46"><a href="3.4-multivariate-random-slopes.html#cb161-46" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb161-47"><a href="3.4-multivariate-random-slopes.html#cb161-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-48"><a href="3.4-multivariate-random-slopes.html#cb161-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-49"><a href="3.4-multivariate-random-slopes.html#cb161-49" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb161-50"><a href="3.4-multivariate-random-slopes.html#cb161-50" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data,<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##             y1         y2  ind_int1 ind_slope1 ind_int2 ind_slope2 environment
+## 1  -1.07284118 -0.7063502 -1.379322  -1.675724 -2.07382 -0.6038441  0.27241358
+## 2  -2.73615771 -3.8998721 -1.379322  -1.675724 -2.07382 -0.6038441  1.88695292
+## 3   2.30907268 -0.1346602 -1.379322  -1.675724 -2.07382 -0.6038441 -2.48201511
+## 4  -0.59162679 -1.9301263 -1.379322  -1.675724 -2.07382 -0.6038441 -0.52459897
+## 5  -1.79334628 -1.7390556 -1.379322  -1.675724 -2.07382 -0.6038441  0.17781662
+## 6   0.37926761 -1.1070232 -1.379322  -1.675724 -2.07382 -0.6038441 -0.62796804
+## 7  -3.66798525 -3.1329732 -1.379322  -1.675724 -2.07382 -0.6038441  1.42127867
+## 8  -1.60121532 -3.5016071 -1.379322  -1.675724 -2.07382 -0.6038441  0.73788631
+## 9  -0.04876558 -0.9818298 -1.379322  -1.675724 -2.07382 -0.6038441  0.60326386
+## 10  0.15490674 -1.6868303 -1.379322  -1.675724 -2.07382 -0.6038441 -0.42497852
+## 11 -0.24363724  0.4803048 -1.379322  -1.675724 -2.07382 -0.6038441  0.20271543
+## 12 -0.82656505  1.7013557 -1.379322  -1.675724 -2.07382 -0.6038441 -0.32382136
+## 13  0.44331446 -0.4691145 -1.379322  -1.675724 -2.07382 -0.6038441 -1.15975731
+## 14  1.87942657  0.4287303 -1.379322  -1.675724 -2.07382 -0.6038441 -1.76811131
+## 15 -1.98410710 -2.4175230 -1.379322  -1.675724 -2.07382 -0.6038441  0.28958932
+## 16 -1.12883705 -0.6458835 -1.379322  -1.675724 -2.07382 -0.6038441 -0.11048588
+## 17 -2.10790515 -2.9632071 -1.379322  -1.675724 -2.07382 -0.6038441  1.15822172
+## 18  1.16587270 -0.9111980 -1.379322  -1.675724 -2.07382 -0.6038441 -1.37427364
+## 19 -0.87193964 -2.8776114 -1.379322  -1.675724 -2.07382 -0.6038441 -0.03008455
+## 20 -0.21801425 -2.0496166 -1.379322  -1.675724 -2.07382 -0.6038441 -0.10592694
+##     residual1    residual2 ind_slope1:environment ind_slope2:environment
+## 1   0.6267639  1.613689536            -0.45648984            -0.16449532
+## 2   0.8616993 -0.120540569            -3.16201141            -1.13942532
+## 3   0.7702311 -0.304194525             4.15917112             1.49875008
+## 4   0.1709119 -0.330461646             0.87908283             0.31677597
+## 5  -0.2049611  0.495483184            -0.29797150            -0.10737351
+## 6   1.0202728  0.399211998             1.05230082             0.37919477
+## 7  -0.6176324  0.225461374            -2.38167012            -0.85823069
+## 8   0.6456570 -0.760852634            -1.23649346            -0.44556827
+## 9   2.0398280  1.637247029            -1.01090344            -0.36427730
+## 10  1.0345715  0.002875761             0.71214650             0.25662075
+## 11  1.3740221  2.737348294            -0.33969501            -0.12240851
+## 12  0.1720326  3.482491999             0.54263507             0.19553761
+## 13  0.4590825  0.556466028             1.94343262             0.70031257
+## 14  1.1799385  0.904453719             2.96286573             1.06766351
+## 15 -0.2643081 -0.081959097            -0.48527165            -0.17486679
+## 16  0.1205841  1.328074778             0.18514379             0.06671624
+## 17  0.6331654  0.157465033            -1.94085938            -0.69938530
+## 18  0.9294289 -0.079506715             2.30290268             0.82984698
+## 19  0.4720113 -0.830982832             0.05041339             0.01816638
+## 20  1.0367670 -0.071537731             0.17750427             0.06396335
+##    individual squid_pop
+## 1           1         1
+## 2           1         1
+## 3           1         1
+## 4           1         1
+## 5           1         1
+## 6           1         1
+## 7           1         1
+## 8           1         1
+## 9           1         1
+## 10          1         1
+## 11          1         1
+## 12          1         1
+## 13          1         1
+## 14          1         1
+## 15          1         1
+## 16          1         1
+## 17          1         1
+## 18          1         1
+## 19          1         1
+## 20          1         1</code></pre>
 
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="3.4-multivariate-random-slopes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="3.3-different-distributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-animal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

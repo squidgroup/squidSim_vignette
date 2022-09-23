@@ -427,7 +427,7 @@ short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FA
 short_summary(lmer(y ~ 1 + (1|individual), data))
 ```
 
-Note that here we haven't specified any variable names. In this case the simulated predictors are named by the grouping factors (e.g. individual_effects).
+Note that here we haven't specified any variable names. In this case the simulated predictors are named by the grouping factors (e.g. individual_effect).
 
 ### Incorporating existing data structures
 

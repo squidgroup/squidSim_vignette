@@ -305,7 +305,7 @@ We can extract the parameters we used for the simulations
 We can also specify the predictors as having different means and variances. In the observation list, `mean` and `vcov` specify the means and covariance matrix of the predictors. If the predictors were uncorrelated, we can just specify the variances as a vector (the diagonal elements of the covariance matrix), and the function assumes the covariances are 0 (see section \@ref(corpred) for correlated predictors). Below we have three predictors, temperature, rainfall and wind, with means 10, 1 and 20 respectively, variances 1, 0.1 and 2, respectively, and betas 0.5,-3 and 0.4, a residual variance 0.8 and a global intercept of 10:
 
 $$
-y_{i} = beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
+y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 $$
 $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
@@ -315,7 +315,7 @@ $$
 $$
 
 $$
-\color{red}{\\beta_0=10}
+\color{red}{\beta_0=10}
 ,
 \color{blue}{\boldsymbol{\mu}_x = \begin{bmatrix}
 10 \\
@@ -599,7 +599,7 @@ We can also use this to induce measurement error in a predictor - we can simulat
 ### Interactions
 
 $$
-y_i = \beta_0 + \beta_1 * x_{1,i} + \beta_2 * x_{2,i} + \beta_3 * x_{1,i}* x_{2,i} + \epsilon_i
+y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \beta_3 x_{1,i}x_{2,i} + \epsilon_i
 $$
 
 We can specify the interaction between two predictors by adding an `interactions` list to the parameters list. Interactions can then be specified between two named variables using ":". Interactions can be between predictors at the same or different hierarchical level. 

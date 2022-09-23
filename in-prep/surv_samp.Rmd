@@ -1,0 +1,7 @@
+# Survival Sampling
+
+## survival data
+
+## Data with realistic lifespans
+
+## Selective appearance and disappearance

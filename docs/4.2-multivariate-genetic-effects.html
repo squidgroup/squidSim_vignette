@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-22" />
+<meta name="date" content="2022-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,14 +140,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population</code> function<span></span></a></li>
-<li><a href="vignette-notation.html#vignette-notation">Vignette Notation<span></span></a>
+<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
+<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
+<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
 <ul>
-<li><a href="vignette-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="vignette-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="vignette-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="vignette-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="vignette-notation.html#multi-response">Multi-response<span></span></a></li>
+<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
+<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
+<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
+<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
+<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
@@ -254,23 +255,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="multivariate-genetic-effects" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Multivariate genetic effects<a href="4.2-multivariate-genetic-effects.html#multivariate-genetic-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can simulate genetic effects affecting multiple phenotypes and the covariance between them, by specifying the number of response variables, and a covariance matrix, instead of only a variance.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="4.2-multivariate-genetic-effects.html#cb170-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb170-2"><a href="4.2-multivariate-genetic-effects.html#cb170-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> BTped,</span>
-<span id="cb170-3"><a href="4.2-multivariate-genetic-effects.html#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal =</span> BTped),</span>
-<span id="cb170-4"><a href="4.2-multivariate-genetic-effects.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb170-5"><a href="4.2-multivariate-genetic-effects.html#cb170-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb170-6"><a href="4.2-multivariate-genetic-effects.html#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb170-7"><a href="4.2-multivariate-genetic-effects.html#cb170-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb170-8"><a href="4.2-multivariate-genetic-effects.html#cb170-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-9"><a href="4.2-multivariate-genetic-effects.html#cb170-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb170-10"><a href="4.2-multivariate-genetic-effects.html#cb170-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb170-11"><a href="4.2-multivariate-genetic-effects.html#cb170-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb170-12"><a href="4.2-multivariate-genetic-effects.html#cb170-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb170-13"><a href="4.2-multivariate-genetic-effects.html#cb170-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb170-14"><a href="4.2-multivariate-genetic-effects.html#cb170-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb170-15"><a href="4.2-multivariate-genetic-effects.html#cb170-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-16"><a href="4.2-multivariate-genetic-effects.html#cb170-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb170-17"><a href="4.2-multivariate-genetic-effects.html#cb170-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="4.2-multivariate-genetic-effects.html#cb169-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb169-2"><a href="4.2-multivariate-genetic-effects.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> BTped,</span>
+<span id="cb169-3"><a href="4.2-multivariate-genetic-effects.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal =</span> BTped),</span>
+<span id="cb169-4"><a href="4.2-multivariate-genetic-effects.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb169-5"><a href="4.2-multivariate-genetic-effects.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb169-6"><a href="4.2-multivariate-genetic-effects.html#cb169-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb169-7"><a href="4.2-multivariate-genetic-effects.html#cb169-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb169-8"><a href="4.2-multivariate-genetic-effects.html#cb169-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-9"><a href="4.2-multivariate-genetic-effects.html#cb169-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb169-10"><a href="4.2-multivariate-genetic-effects.html#cb169-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb169-11"><a href="4.2-multivariate-genetic-effects.html#cb169-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb169-12"><a href="4.2-multivariate-genetic-effects.html#cb169-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb169-13"><a href="4.2-multivariate-genetic-effects.html#cb169-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb169-14"><a href="4.2-multivariate-genetic-effects.html#cb169-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb169-15"><a href="4.2-multivariate-genetic-effects.html#cb169-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-16"><a href="4.2-multivariate-genetic-effects.html#cb169-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb169-17"><a href="4.2-multivariate-genetic-effects.html#cb169-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##                 y1         y2 animal_effect1 animal_effect2  residual1
 ## R187557  0.2270163  0.7349977    -0.14996162     -0.9763782  0.3769779
 ## R187559  0.8121651  2.6809126    -0.20470701      1.8215682  1.0168721
@@ -285,9 +286,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## R187518 -1.2876332 R187518 &lt;NA&gt; &lt;NA&gt;         1
 ## R187528 -0.5736946 R187528 &lt;NA&gt; &lt;NA&gt;         1
 ## R187945 -1.2493935 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="4.2-multivariate-genetic-effects.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
-<span id="cb172-2"><a href="4.2-multivariate-genetic-effects.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE,ginverse=list(animal=Ainv))</span></span>
-<span id="cb172-3"><a href="4.2-multivariate-genetic-effects.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="4.2-multivariate-genetic-effects.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
+<span id="cb171-2"><a href="4.2-multivariate-genetic-effects.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE,ginverse=list(animal=Ainv))</span></span>
+<span id="cb171-3"><a href="4.2-multivariate-genetic-effects.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 <p><br></p>
 </div>
             </section>

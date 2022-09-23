@@ -11,21 +11,10 @@ library(squidSim)
 library(knitr)
 set.seed(25)
 ```
-We can simulate multiple response variables, that covary at different hierarchical levels. In the case of a simple random effects model, we can have a covariance matrix at each level, 
+We can simulate multiple response variables, that covary at different hierarchical levels. For example, we might have two phenotypes, body mass and behaviour, that covary at the between individual and within individual (residual) levels. In the case of such a simple random effects model, we have a covariance matrix at each level:
 
 <!-- Anne: perhaps add a short sentence of introduction here such as “We simulate here no longer one phenotype y varying across I individuals, but a number of phenotypes that (co)vary across individuals..”
  -->
-
-<!-- 
-$$
-\begin{bmatrix} 
-  y^{(1)} \\ 
-  y^{(2)} 
-\end{bmatrix}
-=   \beta_0 +  Z_j + \epsilon_{i,j}
-$$ 
--->
-<div class="alert alert-info">
 
 $$
 \boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}
@@ -36,14 +25,19 @@ $$
 $$
 \boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})
 $$
+$$
+\Sigma_u = \begin{bmatrix}
+\sigma^2_{u_1} & \sigma_{u_1u_2} \\
+\sigma_{u_1u_2} & \sigma^2_{u_2}
+\end{bmatrix}
+,
+\Sigma_{\epsilon} = \begin{bmatrix}
+\sigma^2_{\epsilon_1} & \sigma_{\epsilon_1\epsilon_2} \\
+\sigma_{\epsilon_1\epsilon_2} & \sigma^2_{\epsilon_2}
+\end{bmatrix}
+$$
 
-</div>
-
-We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `n_response` in the parameter list, and specifying the covariance matrix (vcov) at each level. In this way we can simulate covariance at each level. 
-
-<!-- Anne: Should the blue background model not come after the first paragraph?
-  We probably just need an intro paragraph
- -->
+We can indicate that there are multiple phenotypes within the parameter list using the `n_response` argument. If we have $q$ response variables, `vcov` now needs to either be a vector of length $q$ (the variances, if we assume the covariances are 0) or a $q*q$ covariance matrix. So below, we simulate 2 response variables, with a covariance between them at both individual and residual levels. 
 
 ```{r}
 squid_data <- simulate_population(
@@ -59,20 +53,63 @@ squid_data <- simulate_population(
   )  
 )
 
+```
+
+We haven't specified any names (of responses or predictors). By default, `simulate_population()` will add a number to the default name to indicate which reponse variable it refers to, so here we have `y1` and `y2` for the response variable, and `individual_effect1` and `individual_effect2` etc.
+
+```{r}
 data <- get_population_data(squid_data)
 head(data)
+```
 
+We can name the response variables easily, by giving the `response_name` argument a vector of names
+
+```{r}
+squid_data <- simulate_population(
+  data_structure=make_structure(structure = "individual(100)",repeat_obs=10),
+  n_response = 2,
+  response_name = c("body_mass","behaviour"),
+  parameters=list(
+    individual = list(
+      vcov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
+    ),
+    residual = list(
+      vcov = matrix(c(1,0.5,0.5,1),nrow = 2,ncol = 2,byrow=TRUE)
+    )
+  )  
+)
+data <- get_population_data(squid_data)
+head(data)
 ```
 
 
-The formulation above (just random effects), can be simulated in a similar way with `beta` as an identity matrix (i.e. a predictor for each trait).
-<!-- I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
- -->
-```{r, eval=TRUE}
+## Predictors affecting multiple responses
+
+If we look a little at what `simulate_population()` assumes underneath with the formulation above (just random effects), we can understand more how we simulate predictors that affect multiple response variable. In the above code, we are essentially simulating a predictor for each trait (`individual_effect1` and `individual_effect2`) with some covariance between them.
+
+We can expand the equation above:
+
+$$\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{u}_j B_u + \boldsymbol{\epsilon}_{ij}B_{\epsilon}$$
+$$
+B_u = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+,
+B_{\epsilon} = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+$$
+
+to include matrices of $\beta$s, $B$, the columns of which refer to the response variable, and the rows predictors. In this case they are all identity matrices, which essentially controlling which predictors affects which response ($u_1$ affects $y_1$ but not $y_2$ and vice versa). Internally, `simulate_population()` does the same thing, and assigns `beta` as an identity matrix. 
+
+```{r}
 
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=10),
   n_response=2,
+  response_name = c("body_mass","behaviour"),
   parameters=list(
     individual = list(
       vcov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE),
@@ -84,26 +121,9 @@ squid_data <- simulate_population(
     )
   )
 )
-
-data <- get_population_data(squid_data)
-head(data)
-
-# library(MCMCglmm)
-# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
-# summary(mod)
-
 ```
 
-
-<!-- 
-https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
-make little shiny app that allows you to enter diagonal and 
-
- -->
-Second, we can build up predictors at each level that drive this covariance. Here we make `beta` into a matrix ($B$), with predictors as rows, and responses as columns. 
-
-<div class="alert alert-info">
-
+How is this helpful? Well now we could simulate one (or many) predictor(s) that both responses. In the form of an equation we could have
 
 $$\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}$$
 
@@ -113,18 +133,26 @@ $$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$$
 
 $$\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})$$
 
-</div>
+where $B$ is a $p*q$ matrix, where $p$ is number of predictors. So if we returned to our original example in Section \@ref(linearmod), we have three predictors at the observation level - temperature, rainfall and wind. So $B_x$ would be a `3*2` matrix, with 3 predictors and two responses. 
 
-Alternatively, you could also create multivariate phenotypes being affected by the same predictors. Here we have two phenotypes, affected by three predictors, and so we can create a 3x2 matrix of betas
+
+
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
+
+ -->
 
 ```{r}
-beta <- matrix(c(
-  0.5, 0.1,
-  0.2, 0.2,
-  0.3, 0.1
+Beta <- matrix(c(
+  0.5, -0.1,
+  0.2, -0.2,
+  0.3, -0.1
   ),nrow=3,ncol=2,byrow=TRUE)
-beta
+Beta
 ```
+
+So here, the environment variables all positively affect body mass (response 1) and negatively affect behaviour (response 2). This then slots easily into our code.
 
 ```{r, eval=TRUE}
 
@@ -137,7 +165,7 @@ squid_data <- simulate_population(
     ),
     observation = list(
       names = c("temperature", "rainfall", "wind"),
-      beta= beta
+      beta= Beta
     ),
     residual = list(
       vcov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2,byrow=TRUE)
@@ -155,6 +183,7 @@ head(data)
 ```
 
 
+Equally if we want an interaction, we now have to expand the size of what we give to `beta`, with one $\beta$ for each response, in a matrix, with $q$ columns. 
 
 ```{r, eval=TRUE}
 
@@ -168,7 +197,7 @@ squid_data <- simulate_population(
     ),
     observation = list(
       names = c("temperature", "rainfall", "wind"),
-      beta= beta
+      beta= Beta
     ),
     interactions = list(
       names = c("temperature:rainfall"),
@@ -192,33 +221,26 @@ head(data)
 
 
 ## One response repeatedly measured, the other not
-set the beta values for the trait that is unmeasured at a particular level to 0
 
-The other way to do this is through sampling (link and example needed)
+In some circumstances we might want to simulate two responses, one that varies between measurements and one that doesn't. For example we might have one fixed measurement of body size for each individual, and repeated measurements of behaviour. We can simply set the variance of the singly measured variable to 0 at that particular level. So for this example:
 
 ```{r}
-individual <- list(
-  vcov = matrix(c(
-    1,0.5,
-    0.5,1
-    ),nrow=2,ncol=2,byrow=TRUE)
-)
 
-residual <- list(
-  vcov = matrix(c(
-    1,0.5,
-    0.5,1
-    ),nrow = 2,ncol = 2,byrow=TRUE),
-  beta = matrix(c(
-    1,0,
-    0,0
-    ),nrow = 2,ncol = 2,byrow=TRUE)
-)
 
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
   n_response = 2,
-  parameters=list(individual = individual, residual = residual)
+  parameters=list(
+    individual = list(
+      vcov = matrix(c(
+        1,0.5,
+        0.5,1
+        ),nrow=2,ncol=2,byrow=TRUE)
+      ), 
+    residual = list(
+      vcov = c(0.8,0)
+    )
+  )
 )
 
 data <- get_population_data(squid_data)

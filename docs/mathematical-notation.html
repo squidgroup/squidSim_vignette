@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Genetic effects | The {squidSim} R Package Vignette</title>
+  <title>Mathematical Notation | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Genetic effects | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="Mathematical Notation | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Genetic effects | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="Mathematical Notation | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="3.4-multivariate-random-slopes.html"/>
-<link rel="next" href="5-phylogenetic.html"/>
+<link rel="prev" href="terminology-and-notation.html"/>
+<link rel="next" href="1-linearmod.html"/>
 <script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -239,18 +239,128 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="animal" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">4</span> Genetic effects<a href="4-animal.html#animal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Coming soon…</p>
+<div id="mathematical-notation" class="section level2 unnumbered hasAnchor">
+<h2>Mathematical Notation<a href="mathematical-notation.html#mathematical-notation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We try to use a consistent notation in equations throughout the manuscript, which we try to explain as we go. For the sake of clarity we have outlined everything here.</p>
+<div id="general-rules" class="section level3 unnumbered hasAnchor">
+<h3>General rules<a href="mathematical-notation.html#general-rules" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Small letters (e.g. <span class="math inline">\(x\)</span>) denote scalars</p>
+<p>Bold, small letters (e.g. <span class="math inline">\(\boldsymbol{x}\)</span>) denote vectors</p>
+<p>Capital letters (e.g. <span class="math inline">\(X\)</span>) denote matrices</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span style="display: inline-block; width:120px">Letter/Symbol </span></th>
+<th align="left">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma\)</span></td>
+<td align="left">standard deviation</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\Sigma\)</span></td>
+<td align="left">covariance matrix</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma_{x_1x_2}\)</span></td>
+<td align="left">covariance between variables x1 and x2</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\mu\)</span></td>
+<td align="left">mean</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\epsilon\)</span></td>
+<td align="left">residual</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\beta\)</span></td>
+<td align="left">slope</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x\)</span></td>
+<td align="left">predictor variable</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(y\)</span></td>
+<td align="left">response variable</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="notation-for-a-linear-mixed-model" class="section level3 unnumbered hasAnchor">
+<h3>Notation for a linear mixed model<a href="mathematical-notation.html#notation-for-a-linear-mixed-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are several ways to write out an equation for a linear model. First we can write out all the different variables:</p>
+<p><span class="math inline">\(y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \beta_3 x_{3,i} + \epsilon_i\)</span></p>
+<p>where each observation (denoted by the index <span class="math inline">\(i\)</span>) of our response variable (<span class="math inline">\(y_i\)</span>) is the sum of an intercept (<span class="math inline">\(\beta_0\)</span>; value of the response when the predictor variables are all 0), the associated value of our predictor variables (<span class="math inline">\(x_{1i}\)</span>, <span class="math inline">\(x_{2i}\)</span>, <span class="math inline">\(x_{3i}\)</span>; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; <span class="math inline">\(\beta_1\)</span> etc), and some unexplained, residual variation (<span class="math inline">\(\epsilon_i\)</span>).</p>
+<p>We can also write this in matrix notation:</p>
+<p><span class="math inline">\(\boldsymbol{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon}\)</span></p>
+<p>where <span class="math inline">\(X\)</span> is a matrix of predictors and <span class="math inline">\(\boldsymbol{\beta}\)</span> is a (column) vector of slopes/effect sizes. This matrix notation is a bit more compact and relates most easily the structure of the <code>simulate_population()</code> function. However it becomes more complex when we have things varying at different levels, as we have to start getting design matrices for the random effects involved e.g.</p>
+<p><span class="math inline">\(\boldsymbol{y} = X\boldsymbol{\beta} + Z\boldsymbol{u} + \boldsymbol{\epsilon}\)</span></p>
+<p>which we would rather avoid here as it has little relation to the squidSim code.</p>
+<p>We can therefore combine the index and matrix notation. This is maybe a little more complex, but it’s compact and flexible and relates well to the <code>simulate_population()</code> function.</p>
+<p><span class="math inline">\(y_{i} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}\)</span></p>
+<p>where <span class="math inline">\(\boldsymbol{x}_{i}\)</span> is the <span class="math inline">\(i\)</span>th row of <span class="math inline">\(X\)</span>. I have deliberately separated the intercept (<span class="math inline">\(\beta_0\)</span>) out here, for the purpose of comparing with the structure of <code>simulate_population()</code>. Then for models that have predictors vary at different levels we can have</p>
+<p><span class="math inline">\(y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + \epsilon_{ij}\)</span></p>
+<!-- Its not completely clear to me if $\boldsymbol{x}_{i}$ should be $\boldsymbol{x}_{ij}$?  -->
+<p>Instead of having predictors at different levels, we might have ‘random effects’</p>
+<p><span class="math inline">\(y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + u_j + \epsilon_{ij}\)</span></p>
+<p>at multiple levels</p>
+<p><span class="math inline">\(y_{ijk} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + u_j + w_k + \epsilon_{ijk}\)</span></p>
+<!-- or a mixture of predictors and random effects
+
+$y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + w_j + \epsilon_{ij}$
+
+Having $u$ and $w$ varying at the same level to me implies that dont covary, which they could. So something like 
+
+$y_{ij} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta}_x + \boldsymbol{u}_j \boldsymbol{\beta}_u + u_{0j} + \epsilon_{ij}$
+
+might work - individual intercepts at that level as well as predictors? Also 
+ -->
+</div>
+<div id="distributions" class="section level3 unnumbered hasAnchor">
+<h3>Distributions<a href="mathematical-notation.html#distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can write distribution equations as:</p>
+<p><span class="math inline">\(x_{1i} \sim \mathcal{N}(\mu, \sigma^2)\)</span></p>
+<p>or</p>
+<p><span class="math inline">\(\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)\)</span></p>
+<!-- or
+
+$\boldsymbol{x} \sim \mathcal{N}(\boldsymbol{\mu}_x, \boldsymbol{\sigma}_\x \text{I})$
+
+ -->
+</div>
+<div id="interactions-random-regression" class="section level3 unnumbered hasAnchor">
+<h3>Interactions / Random regression<a href="mathematical-notation.html#interactions-random-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math inline">\(y_{ij} = \beta_0 + \beta_1x_{i} + u_{1j} + x_{i}u_{2j} + \epsilon_{ij}\)</span></p>
+<p><span class="math inline">\(x_{i} \sim \mathcal{N}(\mu_x, \sigma^2_x)\)</span></p>
+<p><span class="math inline">\(\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)\)</span></p>
+<p><span class="math inline">\(\epsilon_{i} \sim \mathcal{N}(0, \sigma^2_{\epsilon})\)</span></p>
+</div>
+<div id="multi-response" class="section level3 unnumbered hasAnchor">
+<h3>Multi-response<a href="mathematical-notation.html#multi-response" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math inline">\(\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}\)</span></p>
+<p><span class="math inline">\(\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)\)</span></p>
+<p><span class="math inline">\(\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)\)</span></p>
+<p><span class="math inline">\(\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})\)</span></p>
+<p>where <span class="math inline">\(\boldsymbol{\beta}_0\)</span> is a vector of intercepts of length q (number of responses) <span class="math inline">\(B\)</span> is a <span class="math inline">\(p*q\)</span> (p - number of predictors) matrix of <span class="math inline">\(\beta\)</span>s</p>
 
 </div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="3.4-multivariate-random-slopes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-phylogenetic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="terminology-and-notation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-linearmod.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

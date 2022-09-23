@@ -710,7 +710,7 @@ short_summary(lmer(y ~ 1 + (1|individual), data))
 ## (Intercept)  0.01823    0.03881    0.47
 ```
 
-Note that here we haven't specified any variable names. In this case the simulated predictors are named by the grouping factors (e.g. individual_effects).
+Note that here we haven't specified any variable names. In this case the simulated predictors are named by the grouping factors (e.g. individual_effect).
 
 ### Incorporating existing data structures
 

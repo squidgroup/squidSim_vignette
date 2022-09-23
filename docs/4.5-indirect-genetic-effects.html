@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-22" />
+<meta name="date" content="2022-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,14 +140,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
 <li><a href="index.html#installation">Installation<span></span></a></li>
 <li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population</code> function<span></span></a></li>
-<li><a href="vignette-notation.html#vignette-notation">Vignette Notation<span></span></a>
+<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
+<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
+<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
 <ul>
-<li><a href="vignette-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="vignette-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="vignette-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="vignette-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="vignette-notation.html#multi-response">Multi-response<span></span></a></li>
+<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
+<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
+<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
+<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
+<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
@@ -254,25 +255,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="indirect-genetic-effects" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Indirect Genetic Effects<a href="4.5-indirect-genetic-effects.html#indirect-genetic-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual’s phenotype, is that of its mother, not itself. Here we can use <code>[]</code> to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual’s phenotype from its own direct genetic effects, and its mother’s maternal genetic effect.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="4.5-indirect-genetic-effects.html#cb178-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb178-2"><a href="4.5-indirect-genetic-effects.html#cb178-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb178-3"><a href="4.5-indirect-genetic-effects.html#cb178-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb178-4"><a href="4.5-indirect-genetic-effects.html#cb178-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
-<span id="cb178-5"><a href="4.5-indirect-genetic-effects.html#cb178-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
-<span id="cb178-6"><a href="4.5-indirect-genetic-effects.html#cb178-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb178-7"><a href="4.5-indirect-genetic-effects.html#cb178-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb178-8"><a href="4.5-indirect-genetic-effects.html#cb178-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
-<span id="cb178-9"><a href="4.5-indirect-genetic-effects.html#cb178-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb178-10"><a href="4.5-indirect-genetic-effects.html#cb178-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb178-11"><a href="4.5-indirect-genetic-effects.html#cb178-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb178-12"><a href="4.5-indirect-genetic-effects.html#cb178-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>BTped,</span>
-<span id="cb178-13"><a href="4.5-indirect-genetic-effects.html#cb178-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb178-14"><a href="4.5-indirect-genetic-effects.html#cb178-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam] + residual&quot;</span></span>
-<span id="cb178-15"><a href="4.5-indirect-genetic-effects.html#cb178-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb178-16"><a href="4.5-indirect-genetic-effects.html#cb178-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-17"><a href="4.5-indirect-genetic-effects.html#cb178-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb178-18"><a href="4.5-indirect-genetic-effects.html#cb178-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-19"><a href="4.5-indirect-genetic-effects.html#cb178-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="4.5-indirect-genetic-effects.html#cb177-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb177-2"><a href="4.5-indirect-genetic-effects.html#cb177-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb177-3"><a href="4.5-indirect-genetic-effects.html#cb177-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb177-4"><a href="4.5-indirect-genetic-effects.html#cb177-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
+<span id="cb177-5"><a href="4.5-indirect-genetic-effects.html#cb177-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb177-6"><a href="4.5-indirect-genetic-effects.html#cb177-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb177-7"><a href="4.5-indirect-genetic-effects.html#cb177-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb177-8"><a href="4.5-indirect-genetic-effects.html#cb177-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
+<span id="cb177-9"><a href="4.5-indirect-genetic-effects.html#cb177-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb177-10"><a href="4.5-indirect-genetic-effects.html#cb177-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb177-11"><a href="4.5-indirect-genetic-effects.html#cb177-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb177-12"><a href="4.5-indirect-genetic-effects.html#cb177-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>BTped,</span>
+<span id="cb177-13"><a href="4.5-indirect-genetic-effects.html#cb177-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb177-14"><a href="4.5-indirect-genetic-effects.html#cb177-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam] + residual&quot;</span></span>
+<span id="cb177-15"><a href="4.5-indirect-genetic-effects.html#cb177-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb177-16"><a href="4.5-indirect-genetic-effects.html#cb177-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-17"><a href="4.5-indirect-genetic-effects.html#cb177-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb177-18"><a href="4.5-indirect-genetic-effects.html#cb177-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-19"><a href="4.5-indirect-genetic-effects.html#cb177-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##          y     direct    maternal   residual  animal  dam sire squid_pop
 ## R187557 NA  1.0057121  0.47221848 -0.8189544 R187557 &lt;NA&gt; &lt;NA&gt;         1
 ## R187559 NA -0.8595959 -1.01711203 -0.1827230 R187559 &lt;NA&gt; &lt;NA&gt;         1
