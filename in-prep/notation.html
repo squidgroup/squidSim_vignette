@@ -247,15 +247,15 @@ pre code {
 <h3>Random regression</h3>
 <p><span class="math inline">\(y_{ij} = \beta_0 + \beta_1x_{i} + u_{1j} + x_{i}u_{2j} + \epsilon_{ij}\)</span></p>
 <p><span class="math inline">\(x_{i} \sim \mathcal{N}(\mu_x, \sigma^2_x)\)</span></p>
-<p><span class="math inline">\(\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)\)</span></p>
-<p><span class="math inline">\(\epsilon_{i} \sim \mathcal{N}(0, \sigma^2_{\epsilon})\)</span></p>
+<p><span class="math inline">\(\boldsymbol{u}_j \sim \mathcal{N}(0, \Sigma_u)\)</span></p>
+<p><span class="math inline">\(\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2_{\epsilon})\)</span></p>
 </div>
 <div id="multivariate" class="section level3">
 <h3>Multivariate</h3>
 <p><span class="math inline">\(\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}\)</span></p>
 <p><span class="math inline">\(\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)\)</span></p>
-<p><span class="math inline">\(\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)\)</span></p>
-<p><span class="math inline">\(\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})\)</span></p>
+<p><span class="math inline">\(\boldsymbol{u}_j \sim \mathcal{N}(0, \Sigma_u)\)</span></p>
+<p><span class="math inline">\(\boldsymbol{\epsilon}_{ij} \sim \mathcal{N}(0, \Sigma_{\epsilon})\)</span></p>
 <p>where <span class="math inline">\(\boldsymbol{\beta}_0\)</span> is a vector of intercepts of length q (number of responses) <span class="math inline">\(B\)</span> is a <span class="math inline">\(p*q\)</span> (p - number of predictors) matrix of <span class="math inline">\(\beta\)</span>s</p>
 <pre><code class="language-r"><code>squid_data &lt;- simulate_population(<br>  n=2000,<br>  response_name = &quot;body_mass&quot;,<br>  parameters = list(<br>    <span style="background-color:#ffff7f">intercept</span>=10,<br>    observation = list(<br>      names = c(&quot;temperature&quot;,&quot;rainfall&quot;, &quot;wind&quot;),<br>      beta = c(0.5,-0.3, 0.4)    <br>    ),<br>    residual = list(<br>      vcov = 1<br>    )<br>  )<br>)</code></code></pre>
 </div>
