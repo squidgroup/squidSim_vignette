@@ -289,9 +289,9 @@ $\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymb
 
 $\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$
 
-$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$
+$\boldsymbol{u}_j \sim \mathcal{N}(0, \Sigma_u)$
 
-$\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})$
+$\boldsymbol{\epsilon}_{ij} \sim \mathcal{N}(0, \Sigma_{\epsilon})$
 
 where $\boldsymbol{\beta}_0$ is a vector of intercepts of length q (number of responses) $B$ is a $p*q$ (p - number of predictors) matrix of $\beta$s
 
