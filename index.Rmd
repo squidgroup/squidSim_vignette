@@ -46,9 +46,9 @@ Create population and then sample from it
  -->
 
 ### Why use {squidSim}? {-}
-For people confident with programming in R, simulating data doesn't provide a huge challenge. However, to those less confident with programming, or the process of data simulation more generally, starting with simulations can seem like a daunting task. The {squidSim} R package is designed to facilitate that transition, and to focus attention on the data structure and parameters needed for simulation, rather than the programming knowledge.
+Starting with simulations can seem like a daunting task. The {squidSim} R package is designed to facilitate that transition, and to focus attention on the data structure and parameters needed for simulation, rather than programming knowledge.
 
-{squidSim} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else's code) is that many people have very contrasting programming styles. Another motivation for the {squidSim} package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone's personal code. 
+{squidSim} also provides a useful tool for experienced programmers. One problematic aspect of collaborative coding (or reviewing someone else's code) is that many people have very contrasting programming styles. A major motivation for the {squidSim} package is that it provides a consistent framework for simulations, which can be interpreted by many people rather than having to decipher someone's personal code. 
 
 
 ### Using the vignette {-}
@@ -94,7 +94,7 @@ library(squidSim)
 ```
 
 ### Issues and bugs {-}
-It would be great if you could report any suggestions, issues or bugs; [here](https://github.com/squidgroup/squidSim/issues) for issues relating to the package, and [here](https://github.com/squidgroup/squidSim_vignette/issues)for issues relating to this vignette. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 
+It would be great if you could report any suggestions, issues or bugs; [here](https://github.com/squidgroup/squidSim/issues) for issues relating to the package, and [here](https://github.com/squidgroup/squidSim_vignette/issues) for issues relating to this vignette. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 
 
 
 
@@ -278,9 +278,9 @@ $y_{ij} = \beta_0 + \beta_1x_{i} + u_{1j} + x_{i}u_{2j} + \epsilon_{ij}$
 
 $x_{i} \sim \mathcal{N}(\mu_x, \sigma^2_x)$
 
-$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$
+$\boldsymbol{u}_j \sim \mathcal{N}(0, \Sigma_u)$
 
-$\epsilon_{i} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$
+$\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$
 
 
 ### Multi-response {-}
@@ -289,9 +289,9 @@ $\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymb
 
 $\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)$
 
-$\boldsymbol{u}_i \sim \mathcal{N}(0, \Sigma_u)$
+$\boldsymbol{u}_j \sim \mathcal{N}(0, \Sigma_u)$
 
-$\boldsymbol{\epsilon}_{i} \sim \mathcal{N}(0, \Sigma_{\epsilon})$
+$\boldsymbol{\epsilon}_{ij} \sim \mathcal{N}(0, \Sigma_{\epsilon})$
 
 where $\boldsymbol{\beta}_0$ is a vector of intercepts of length q (number of responses) $B$ is a $p*q$ (p - number of predictors) matrix of $\beta$s
 

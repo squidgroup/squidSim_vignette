@@ -102,7 +102,7 @@ head(ds)
 ```
 
 ### Naming factor levels
-Rather than just outputting 1 - N levels for the levels names of each factor, we might want to assign names. 
+Rather than just outputting 1 - N levels for the level names of each factor, we might want to assign names. 
 
 This can be done for all or some of the grouping factors, using the `level_names` argument. We can input a list, with an item in the list for each grouping factor we want to assign names, and then a vector of their names, which is the same length of the number of levels in that grouping factor. For example, below we just assign names to the two sexes:
 
@@ -201,8 +201,8 @@ squid_data <- simulate_population(
   data_structure = ds,
   parameters = list(
     intercept = ...,
-    anything = list(
-      group="sex,"
+    sex = list(
+      fixed=TRUE,
       ...
     ),
     observation = list(
@@ -312,7 +312,7 @@ lm( y ~ 0 + factor(sex)*environment, data)
 We have taken repeated measurements of adult body mass.  
 </div>
 </div> -->
-As well as simulating  continuous predictors at the level of the observation, we can also simulate predictors at different hierarchical levels. Lets take the example of a situation where we have repeated measures of individuals. The individuals have traits that are consistently expressed, whilst the environment varies between observations. We can describe variation at these different hierarchical levels as:
+As well as simulating  continuous predictors at the level of the observation, we can also simulate predictors at different hierarchical levels. Let's take the example of a situation where we have repeated measures of individuals. The individuals have traits that are consistently expressed, whilst the environment varies between observations. We can describe variation at these different hierarchical levels as:
 
 
 $$
@@ -330,7 +330,7 @@ $$
 
 where $U$ is a matrix of predictors that vary at the individual level (denoted by the subscript $j$), and $X$ is a matrix of predictors at the observation level (denoted by the index $i$).
 
-In order to simulate from this model, we need a data structure and parameters for each of these levels. To do this, we can either specify a data structure generated using `make_structure` (outlined previously in Section \@ref(makestr)), or a pre-existing data structure, to the `simulate_population` function. We then add in a item to the parameter list, the name of which matches on of the grouping factors in the data structure, and specify the parameters for predictors that vary at that level in the same way as outlined in the previous section (\@ref(linearmod)). This is similar to the fixed factors above, but we are now assuming that the variable is drawn randomly from a distribution, rather than the effects at each level being fixed. 
+In order to simulate from this model, we need a data structure and parameters for each of these levels. To do this, we can either specify a data structure generated using `make_structure` (outlined previously in Section \@ref(makestr)), or a pre-existing data structure, to the `simulate_population` function. We then add an item to the parameter list, the name of which matches on of the grouping factors in the data structure, and specify the parameters for predictors that vary at that level in the same way as outlined in the previous section (\@ref(linearmod)). This is similar to the fixed factors above, but we are now assuming that the variable is drawn randomly from a distribution, rather than the effects at each level being fixed. 
 
 
 Lets imagine that we simulate behaviour, that is a functions of an individual's size and physiology, and also varies in response to the environment, here temperature and rainfall:
@@ -403,7 +403,7 @@ $$
 \epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
-For example we can simulate some between-individual variation as follows:
+For example, we can simulate some among-individual variation as follows:
 
 ```{r}
 squid_data <- simulate_population(
@@ -489,7 +489,7 @@ $$
 \epsilon \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 
-We can specify random slopes by simulating a slopes variable at the individual level (`ind_slope` - $u_{2}$). We can specify the mean environmental effect the slope of the environmental variable ($beta_1$). $u_{2}$ then represents the deviations from the mean slope (this is typically how it is modelled in a linear mixed effect model).
+We can specify random slopes by simulating a slope variable at the individual level (`ind_slope` - $u_{2}$). We can specify the mean environmental effect the slope of the environmental variable ($beta_1$). $u_{2}$ then represents the deviations from the mean slope (this is typically how it is modelled in a linear mixed effect model).
 <!-- alternatively the mean environmental effect could be specified as the mean of the slopes variable with the environment slope as 0 -->
 Importantly the `beta` parameter associated with `ind_slope` is specified as 0 (there is no 'main effect' of the slopes, just the interaction), and the `beta` parameter associated with interaction is 1.
 
@@ -608,9 +608,9 @@ short_summary(lmer(y ~ environment + (1+environment|individual),data))
 
 
 
-## Between- and within-group effects {#BetweenWithin}
+## Among- and within-group effects {#BetweenWithin}
 
-We may want to simulate the case where a predictor variable varies both within and between groups - in other words it is repeatable at the group level. For example, if we are simulating body mass, we might expect that body mass is a function of an environmental variable, rainfall, and that differs systematically between individuals, as well as within, for example due to spatial variation in where individual lives. 
+We may want to simulate the case where a predictor variable varies both within and among groups - in other words it is repeatable at the group level. For example, if we are simulating body mass, we might expect that body mass is a function of an environmental variable, rainfall, and that differs systematically among individuals, as well as within, for example due to spatial variation in where individual lives. 
 
 The simplest way of simulating this is as two rainfall variables, one at the level of the individual and one at the level of the observation, something like:
 

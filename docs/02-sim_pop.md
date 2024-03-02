@@ -3,7 +3,7 @@
 
 
 
-In this section, we will look at simulating data simple data from linear models, to familiarise ourselves with how {squidSim} works.
+In this section, we will look at simulating simple data from linear models, to familiarise ourselves with how {squidSim} works.
 
 
 ## Simple Linear Model
@@ -23,7 +23,7 @@ $$
 y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \epsilon_i
 $$
 
-where each observation (denoted by the index $i$) of our response variable ($y_i$) is the sum of an intercept ($\beta_0$; value of the response when the predictor variables are all 0), the associated value of our predictor variables ($x_{1i}$, $x_{2i}$, $x_{3i}$; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; $\beta_1$ etc), and some unexplained, residual variation ($\epsilon_i$). 
+, where each observation (denoted by the index $i$) of our response variable ($y_i$) is the sum of an intercept ($\beta_0$; value of the response when the predictor variables are all 0), the associated value of our predictor variables ($x_{1i}$, $x_{2i}$, $x_{3i}$; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; $\beta_1$ etc), and some unexplained, residual variation ($\epsilon_i$). 
 
 We can write this in more compact notation, 
 $$
@@ -45,9 +45,9 @@ $$
 \end{bmatrix}
 $$
 
- We will use this notation in the vignette, as it is a bit more compact, relates most easily the structure of the `simulate_population()` function, and can incorporate the flexibility needed for the different model structures.
+ We will use this notation throughout the vignette, as it is a bit more compact, relates most easily the structure of the `simulate_population()` function, and can incorporate the flexibility needed for the different model structures.
 
-If we want to simulate from this model, we can assume that these predictor variables are multivariate normally distributed, with given means ($\mu$) and a covariance structure ($\Sigma_x$), and the residuals are normally distributed with a given variance ($\sigma^2_\epsilon$)
+We assume that these predictor variables are multivariate normally distributed, with given means ($\mu$) and a covariance structure ($\Sigma_x$), and the residuals are normally distributed with a given variance ($\sigma^2_\epsilon$)
 $$
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
@@ -76,17 +76,17 @@ $$
 
 </div>
  -->
-The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\boldsymbol{\beta}$, $\boldsymbol{\mu}_x$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section \@ref(interactions). Many of the components in the parameter list don't need to be specified and default values will be created.
+The key to simulating data using the `squidSim` package is correctly specifying the parameters (from the equations above that would be $\beta_0$, $\boldsymbol{\beta}$, $\boldsymbol{\mu}_x$, $\Sigma_x$, $\sigma^2_\epsilon$). These parameters are given to the `simulate_population` function as a nested *list*. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section \@ref(hierarchical) for examples with hierarchical structure). Parameters for the residual *must* be specified, all other levels are optional (they revert to defaults values; beta=1, mean=0, vcov=1. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section \@ref(interactions). Many of the components in the parameter list don't need to be specified and default values will be created.
 
 Let's simulate from the above model. 
-First we can specify a sample size or data_structure. As we don't have any hierarchical data structure yet (see Section \@ref(hierarchical)), we have to specify the sample size with the `n` argument to the `simulate_population` function (e.g. 2000).
+First, we can specify a sample size or data_structure. As we don't have any hierarchical data structure yet (see Section \@ref(hierarchical)), we have to specify the sample size with the `n` argument to the `simulate_population` function (e.g. 2000).
 ```r
 simulate_population(
   n=2000,
   ...
 )
 ```
-We can also give the response ($y$) variable a name, `body_mass` (this is not needed, and defaults to `y` if not specified).
+We can also give the response ($\boldsymbol{y}$) variable a name, `body_mass` (this is not needed, and defaults to `y` if not specified).
 ```r
 simulate_population(
   n=2000,
@@ -179,16 +179,16 @@ squid_data <- simulate_population(
 )
 ```
 
-Let's compare the code back to the model:
+Let's compare the code back to the model using colors to link equation to code:
 
 $$
 y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}} + \color{orange}{\epsilon_{i}}
 $$
 $$
-\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
+\color{blue}{\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)}
 $$
 $$
-\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
+\color{orange}{\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)}
 $$
 
 
@@ -291,7 +291,7 @@ cov(predictors)
 ```
 
 
-Its worth noting that these values are not *exactly* what we simulated. That is to be expected - simulation involves *randomly* generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
+It's worth noting that these values are not *exactly* what we simulated. That is to be expected - simulation involves *randomly* generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
 <!-- 
 We can extract the parameters we used for the simulations
 
@@ -474,7 +474,7 @@ div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 <div class = "blue">
 **Matrices in R**
 
-To code a matrix in R we use the `matrix` function (see `?matrix`). This takes a vector of values, and arranges then in a matrix, with dimensions specified with `nrow` and `ncol`. By default it fills the matrix by column, which can be changed by specifying `byrow=TRUE`. For big matrices this can be petty annoying. The`Tri2M()` function from the package `MCMCglmm` allows you to just give the lower or upper half of the matrix, and it will fill the rest out for you. For example, we can make a correlation matrix using:
+To code a matrix in R we use the `matrix` function (see `?matrix`). This takes a vector of values, and arranges then in a matrix, with dimensions specified with `nrow` and `ncol`. By default it fills the matrix by column, which can be changed to per row, by specifying `byrow=TRUE`. For big matrices this can be petty annoying. The`Tri2M()` function from the package `MCMCglmm` allows you to just give the lower or upper half of the matrix, and it will fill the rest out for you. For example, we can make a correlation matrix using:
 
 ```r
 Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE, diag=TRUE)
@@ -585,7 +585,7 @@ coef(lm(body_mass ~ temperature + rainfall + wind, data))
 ##  10.2631334   0.5509808  -3.0467600   0.3633353
 ```
 
-We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain affect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).
+We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain effect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).
 
 <!-- measurement error - correlated variable #ffe58f-->
 
@@ -599,10 +599,10 @@ We can also use this to induce measurement error in a predictor - we can simulat
 ### Interactions
 
 $$
-y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \beta_3 x_{1,i}x_{2,i} + \epsilon_i
+y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilon_i
 $$
 
-We can specify the interaction between two predictors by adding an `interactions` list to the parameters list. Interactions can then be specified between two named variables using ":". Interactions can be between predictors at the same or different hierarchical level. 
+We can specify the interaction between two predictors by adding an `interactions` list to the parameters list. Interactions can then be specified between two named variables using ":". Interactions can be specified between two predictors at the same level, or at different hierarchical levels. 
 
 
 ```r
@@ -692,7 +692,7 @@ coef(lm(body_mass ~ temperature + I(temperature^2), data))
 
 
 ## Transformations
-We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are scaled by the beta values. To do this we can provide the transformation function to the functions option of a given parameter list, as a character vector. The given function needs to be a known function in R. The below code will exponentiate rainfall (using the `exp` function), before it is scaled by its beta (here 2).
+We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are multiplied by the beta values. To do this we can provide the transformation function to the functions option of a given parameter list, as a character vector. The given function needs to be a known function in R. The below code will exponentiate rainfall (using the `exp` function), before it is scaled by its beta (here 2).
 
 
 ```r
@@ -726,7 +726,7 @@ head(data)
 ```
 
 ```r
-hist(data$rainfall, breaks=100)
+hist(data$rainfall, xlab="Rainfall",main="", breaks=100)
 ```
 
 <img src="02-sim_pop_files/figure-html/unnamed-chunk-14-1.png" width="672" />
@@ -767,14 +767,14 @@ cov(data$temperature,log(data$rainfall))
 ```
 ## [1] 0.6947967
 ```
-The simulate covariance can be recovered on the back-transformed predictor.
+The simulated covariance can be recovered on the back-transformed predictor.
 
 The `simulated_variance()` function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.
 
 
 ## Known Predictors {#knownpreds}
 
-We might have the situation where we don't want to simulate a predictor, rather use existing data to simulate a response variable from. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the `simulate_population()` function, using the `known_predictors` argument. This argument takes a list, with one item, called `predictors`, a matrix or dataframe of predictors and one item called `beta`, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.
+We might want to use existing predictors, rather than simulated ones, in our simulations. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the `simulate_population()` function, using the `known_predictors` argument. This argument takes a list, with one item, called `predictors`, a matrix or dataframe of predictors and one item called `beta`, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.
 
 
 ```r
@@ -846,27 +846,27 @@ plot(body_mass~hatchdate,data)
 
 ## Non-Gaussian phenotypes {#nonGaussian}
 
-To simulate non-Gaussian data, we can specify a link function and a family as arguments to the simulate_population function. Underneath the predictors are being simulated as multivariate normal (on the latent scale), and then the resulting phenotype is transformed (onto the expected scale) and then binomial or Poisson sampling is applied (the observed scale).
+To simulate non-Gaussian data, we can specify a link function and a family as arguments to `simulate_population()`. Underneath the predictors are being simulated as multivariate normal (on the latent scale), and then the resulting phenotype is transformed (onto the expected scale) and then binomial or Poisson sampling is applied (the observed scale).
 
 
-Here is an example to simulate POisson distributed data:
+Here is an example to simulate Poisson distributed data:
 <!-- <div class="alert alert-info">
  -->
 $$
-y_i \sim Poisson(\hat{y_i})
+y_i \sim Poisson(\lambda_i)
 $$
 $$
-\hat{y_i} = exp( \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_i )
+\lambda_i = exp( \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_i )
 $$
 $$ 
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 $$
 $$
-\epsilon_1 \sim \mathcal{N}(0,\sigma^2_\epsilon)
+\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
 $$
 <!-- </div> -->
 
-The only change in the code that is need is the addition of the link and family arguments.
+The only change in the code that is needed is the addition of the link and family arguments.
 
 
 ```r
@@ -929,14 +929,14 @@ Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'i
 
 ## Model equations {#modeleq}
 
-In all the examples so far, the predictors are simulated, scaled by their respective beta value, and then added together. We may want to prevent some of this behaviour or add in additional parameters, interactions or general complexity.  In isolation, the functionality outlined here might seem a bit redundant, but it becomes useful for more complex models. 
+In all the examples so far, the predictors are simulated, multiplied by their respective beta value, and then added together. When simulating more complex models, we may want to prevent some of this behaviour or add in additional parameters, interactions or general complexity.
 
  <!-- provide links to examples where this is used in vignette
  -IGE
  -cyclical temporal effects
   -->
 
-To introduce this increased complexity, we can specify a model formula. This explicitly tells the simulate_population function how to put the simulated predictors together to form the response variable. We can first demonstrate this with a simple linear model.
+To introduce this increased complexity, we can specify a model formula. This explicitly tells `simulate_population()` how to put the simulated predictors together to form the response variable. We can first demonstrate this with a simple linear model.
 
 
 ```r
@@ -965,7 +965,7 @@ coef(lm(y ~ temperature + rainfall, data))
 ## 0.004605396 0.506914670 0.288952532
 ```
 
-In the formula, we write out how the variables are added up. *Everything that you want exported needs to be defined and named* (e.g. `y=...`). By default they are all scaled by their beta values before this happens. Sometimes it is useful to prevent this (i.e. multiply two traits together without them being scaled by their respective beta) and we can do this by using `I()`.
+In the formula, we write out how the variables are added up. *Everything that you want exported needs to be defined and named* (e.g. `y=...`). By default, all predictors are multiplied by their respective beta values before this happens. Sometimes it is useful to prevent this multiplication (e.g. multiply two traits together without them being multiplied by their respective beta). We can do this by using `I()`.
 
 
 ```r
@@ -1095,9 +1095,9 @@ length(data)
 
 ## Parameter list summary
 
-The parameters list contains one (or more) list for each hierarchical level that you want to simulate at. A residual list is always need, specifying variances/covariances for the residual. Additionally, the parameter list can also be provided with an intercept vector and interactions list. 
+The parameters list contains one (or more) list for each hierarchical level that you want to simulate at. A residual list is always needed, specifying variances/covariances for the residual. Additionally, the parameter list can also be provided with an intercept vector and interactions list. 
 
-The simplest paramter list will look something like this:
+The simplest parameter list will look something like this:
 ```r
 parameters=list(
   residual=list(

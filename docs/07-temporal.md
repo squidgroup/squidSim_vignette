@@ -109,7 +109,7 @@ plot(y~year_cont,data)
 <br>
 
 ## Cyclical Temporal Effects
-`squidR` uses the sinusoidal equation to implement cyclical temporal effects
+The `squidR` function in the {squid} R package uses the sinusoidal equation to implement cyclical temporal effects:
 
 <div class="alert alert-info">
 
@@ -137,8 +137,7 @@ plot(cyclic_effect~time)
 
 <img src="07-temporal_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
-
-We can include this complexity into the model part of the `simulate_population`, adding the extra parameters for the cyclical effects into the year_cont part of the list.
+We can simulate this using the model part of the `simulate_population()`, adding the extra parameters for the cyclical effects into the year_cont part of the list.
 
 
 ```r
