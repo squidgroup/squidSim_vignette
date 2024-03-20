@@ -53,3 +53,8 @@ mcar
 mar
 mnar
 temporal-sampling
+other-model-types
+double-hierarchical-models-dhglms
+dhglm
+bivariate-dhglm
+zero-inflated-poisson

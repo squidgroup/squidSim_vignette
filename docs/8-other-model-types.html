@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette</title>
+  <title>8 Other model Types | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="8 Other model Types | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="8 Other model Types | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="3.1-predictors-affecting-multiple-responses.html"/>
-<link rel="next" href="3.3-different-distributions.html"/>
+<link rel="prev" href="7.3-temporal-sampling.html"/>
+<link rel="next" href="8.1-double-hierarchical-models-dhglms.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -260,34 +260,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="one-response-repeatedly-measured-the-other-not" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> One response repeatedly measured, the other not<a href="3.2-one-response-repeatedly-measured-the-other-not.html#one-response-repeatedly-measured-the-other-not" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In some circumstances we might want to simulate two responses, one that varies between measurements and one that doesn’t. For example we might have one fixed measurement of body size for each individual, and repeated measurements of behaviour. We can simply set the variance of the singly measured variable to 0 at that particular level. So for this example:</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb157-2"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb157-3"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
-<span id="cb157-4"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb157-5"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb157-6"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb157-7"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
-<span id="cb157-8"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-8" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.5</span>,<span class="dv">1</span></span>
-<span id="cb157-9"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-9" aria-hidden="true" tabindex="-1"></a>        ),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb157-10"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-10" aria-hidden="true" tabindex="-1"></a>      ), </span>
-<span id="cb157-11"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb157-12"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.8</span>,<span class="dv">0</span>)</span>
-<span id="cb157-13"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb157-14"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb157-15"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb157-16"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-17"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb157-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
+<div id="other-model-types" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Other model Types<a href="8-other-model-types.html#other-model-types" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="3.1-predictors-affecting-multiple-responses.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="3.3-different-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="7.3-temporal-sampling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8.1-double-hierarchical-models-dhglms.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
