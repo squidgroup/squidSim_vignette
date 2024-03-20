@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.1 Simple Linear Model | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.1 Simple Linear Model | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-23" />
+<meta name="date" content="2024-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="1-linearmod.html"/>
 <link rel="next" href="1.2-corpred.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -121,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -134,93 +136,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="index.html#intro">The {squidSim} R package<span></span></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
-<li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
-<li><a href="index.html#installation">Installation<span></span></a></li>
-<li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
-<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
-<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
+<li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
+<li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html"><i class="fa fa-check"></i>Mathematical Notation</a>
 <ul>
-<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#general-rules"><i class="fa fa-check"></i>General rules</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#notation-for-a-linear-mixed-model"><i class="fa fa-check"></i>Notation for a linear mixed model</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#distributions"><i class="fa fa-check"></i>Distributions</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#interactions-random-regression"><i class="fa fa-check"></i>Interactions / Random regression</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#multi-response"><i class="fa fa-check"></i>Multi-response</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html"><i class="fa fa-check"></i><b>1.1</b> Simple Linear Model<span></span></a>
+<li class="chapter" data-level="1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html"><i class="fa fa-check"></i><b>1.1</b> Simple Linear Model</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.1.1</b> Adding more information about the predictors<span></span></a></li>
+<li class="chapter" data-level="1.1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.1.1</b> Adding more information about the predictors</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="1.2-corpred.html"><a href="1.2-corpred.html"><i class="fa fa-check"></i><b>1.2</b> Correlated predictors<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="1.3-interactions.html"><a href="1.3-interactions.html"><i class="fa fa-check"></i><b>1.3</b> Interactions and non-linear effects<span></span></a>
+<li class="chapter" data-level="1.2" data-path="1.2-corpred.html"><a href="1.2-corpred.html"><i class="fa fa-check"></i><b>1.2</b> Correlated predictors</a></li>
+<li class="chapter" data-level="1.3" data-path="1.3-interactions.html"><a href="1.3-interactions.html"><i class="fa fa-check"></i><b>1.3</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="1.3-interactions.html"><a href="1.3-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.3.1</b> Interactions<span></span></a></li>
-<li class="chapter" data-level="1.3.2" data-path="1.3-interactions.html"><a href="1.3-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.3.2</b> Non-linear effects<span></span></a></li>
+<li class="chapter" data-level="1.3.1" data-path="1.3-interactions.html"><a href="1.3-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.3.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-interactions.html"><a href="1.3-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.3.2</b> Non-linear effects</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes<span></span></a></li>
-<li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations<span></span></a></li>
-<li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations<span></span></a></li>
-<li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
+<li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
+<li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure<span></span></a>
+<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure<span></span></a>
+<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor<span></span></a></li>
-<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors<span></span></a></li>
-<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors<span></span></a></li>
-<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure<span></span></a></li>
-<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels<span></span></a></li>
+<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure</a></li>
+<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors<span></span></a>
+<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions<span></span></a></li>
+<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels<span></span></a>
+<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects<span></span></a></li>
-<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures<span></span></a></li>
+<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random Regression<span></span></a></li>
-<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Between- and within-group effects<span></span></a></li>
+<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random Regression</a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Among- and within-group effects</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
+<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-predictors-affecting-multiple-responses.html"><a href="3.1-predictors-affecting-multiple-responses.html"><i class="fa fa-check"></i><b>3.1</b> Predictors affecting multiple responses<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-one-response-repeatedly-measured-the-other-not.html"><a href="3.2-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.2</b> One response repeatedly measured, the other not<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-different-distributions.html"><a href="3.3-different-distributions.html"><i class="fa fa-check"></i><b>3.3</b> Different distributions<span></span></a></li>
-<li class="chapter" data-level="3.4" data-path="3.4-multivariate-random-slopes.html"><a href="3.4-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.4</b> Multivariate Random Slopes<span></span></a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-predictors-affecting-multiple-responses.html"><a href="3.1-predictors-affecting-multiple-responses.html"><i class="fa fa-check"></i><b>3.1</b> Predictors affecting multiple responses</a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-one-response-repeatedly-measured-the-other-not.html"><a href="3.2-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.2</b> One response repeatedly measured, the other not</a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-different-distributions.html"><a href="3.3-different-distributions.html"><i class="fa fa-check"></i><b>3.3</b> Different distributions</a></li>
+<li class="chapter" data-level="3.4" data-path="3.4-multivariate-random-slopes.html"><a href="3.4-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.4</b> Multivariate Random Slopes</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a></li>
-<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects</a></li>
+<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects</a></li>
+<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations</a></li>
+<li class="chapter" data-level="4.4" data-path="4.4-indirect-genetic-effects.html"><a href="4.4-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.4</b> Indirect Genetic Effects</a></li>
+<li class="chapter" data-level="4.5" data-path="4.5-gxe.html"><a href="4.5-gxe.html"><i class="fa fa-check"></i><b>4.5</b> GxE</a></li>
+<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance</a></li>
+<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
+<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling<span></span></a>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1<span></span></a></li>
+<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data<span></span></a>
+<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR<span></span></a></li>
-<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR<span></span></a></li>
-<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR<span></span></a></li>
+<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling</a></li>
 </ul></li>
 </ul>
 
@@ -253,7 +265,7 @@ We are interested in how some environmental variables affect adult body mass.
 <p><span class="math display">\[
 y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \epsilon_i
 \]</span></p>
-<p>where each observation (denoted by the index <span class="math inline">\(i\)</span>) of our response variable (<span class="math inline">\(y_i\)</span>) is the sum of an intercept (<span class="math inline">\(\beta_0\)</span>; value of the response when the predictor variables are all 0), the associated value of our predictor variables (<span class="math inline">\(x_{1i}\)</span>, <span class="math inline">\(x_{2i}\)</span>, <span class="math inline">\(x_{3i}\)</span>; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; <span class="math inline">\(\beta_1\)</span> etc), and some unexplained, residual variation (<span class="math inline">\(\epsilon_i\)</span>).</p>
+<p>, where each observation (denoted by the index <span class="math inline">\(i\)</span>) of our response variable (<span class="math inline">\(y_i\)</span>) is the sum of an intercept (<span class="math inline">\(\beta_0\)</span>; value of the response when the predictor variables are all 0), the associated value of our predictor variables (<span class="math inline">\(x_{1i}\)</span>, <span class="math inline">\(x_{2i}\)</span>, <span class="math inline">\(x_{3i}\)</span>; which also vary at the level of the observation), each with a certain magnitude and direction of their effect (effect size or slope; <span class="math inline">\(\beta_1\)</span> etc), and some unexplained, residual variation (<span class="math inline">\(\epsilon_i\)</span>).</p>
 <p>We can write this in more compact notation,
 <span class="math display">\[
 y_{i} = \beta_0 + \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
@@ -272,8 +284,8 @@ and <span class="math inline">\(\boldsymbol{\beta}\)</span> is a (column) vector
 \beta_3 
 \end{bmatrix}
 \]</span></p>
-<p>We will use this notation in the vignette, as it is a bit more compact, relates most easily the structure of the <code>simulate_population()</code> function, and can incorporate the flexibility needed for the different model structures.</p>
-<p>If we want to simulate from this model, we can assume that these predictor variables are multivariate normally distributed, with given means (<span class="math inline">\(\mu\)</span>) and a covariance structure (<span class="math inline">\(\Sigma_x\)</span>), and the residuals are normally distributed with a given variance (<span class="math inline">\(\sigma^2_\epsilon\)</span>)
+<p>We will use this notation throughout the vignette, as it is a bit more compact, relates most easily the structure of the <code>simulate_population()</code> function, and can incorporate the flexibility needed for the different model structures.</p>
+<p>We assume that these predictor variables are multivariate normally distributed, with given means (<span class="math inline">\(\mu\)</span>) and a covariance structure (<span class="math inline">\(\Sigma_x\)</span>), and the residuals are normally distributed with a given variance (<span class="math inline">\(\sigma^2_\epsilon\)</span>)
 <span class="math display">\[
 \boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
 \]</span>
@@ -299,14 +311,14 @@ and <span class="math inline">\(\boldsymbol{\beta}\)</span> is a (column) vector
 
 </div>
  -->
-<p>The key to simulating data using the <code>squidSim</code> package is correctly specifying the parameters (from the equations above that would be <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\boldsymbol{\beta}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_x\)</span>, <span class="math inline">\(\Sigma_x\)</span>, <span class="math inline">\(\sigma^2_\epsilon\)</span>). These parameters are given to the <code>simulate_population</code> function as a nested <em>list</em>. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section <a href="2-hierarchical.html#hierarchical">2</a> for examples with hierarchical structure). Parameters for the residual <em>must</em> be specified, all other levels are optional. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section <a href="1.3-interactions.html#interactions">1.3</a>. Many of the components in the parameter list don’t need to be specified and default values will be created.</p>
+<p>The key to simulating data using the <code>squidSim</code> package is correctly specifying the parameters (from the equations above that would be <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\boldsymbol{\beta}\)</span>, <span class="math inline">\(\boldsymbol{\mu}_x\)</span>, <span class="math inline">\(\Sigma_x\)</span>, <span class="math inline">\(\sigma^2_\epsilon\)</span>). These parameters are given to the <code>simulate_population</code> function as a nested <em>list</em>. Within the main parameter list, there are named lists corresponding to different hierarchical levels, containing the parameters for the predictors at that level - here we are just focussing on the observation level (see Section <a href="2-hierarchical.html#hierarchical">2</a> for examples with hierarchical structure). Parameters for the residual <em>must</em> be specified, all other levels are optional (they revert to defaults values; beta=1, mean=0, vcov=1. In addition to the named lists relating to hierarchical levels, a vector for intercepts and a list for interactions can be added. Intercepts are demonstrated in the examples below, and interactions in Section <a href="1.3-interactions.html#interactions">1.3</a>. Many of the components in the parameter list don’t need to be specified and default values will be created.</p>
 <p>Let’s simulate from the above model.
-First we can specify a sample size or data_structure. As we don’t have any hierarchical data structure yet (see Section <a href="2-hierarchical.html#hierarchical">2</a>), we have to specify the sample size with the <code>n</code> argument to the <code>simulate_population</code> function (e.g. 2000).</p>
+First, we can specify a sample size or data_structure. As we don’t have any hierarchical data structure yet (see Section <a href="2-hierarchical.html#hierarchical">2</a>), we have to specify the sample size with the <code>n</code> argument to the <code>simulate_population</code> function (e.g. 2000).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="1.1-simple-linear-model.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_population</span>(</span>
 <span id="cb3-2"><a href="1.1-simple-linear-model.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
 <span id="cb3-3"><a href="1.1-simple-linear-model.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  ...</span>
 <span id="cb3-4"><a href="1.1-simple-linear-model.html#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>We can also give the response (<span class="math inline">\(y\)</span>) variable a name, <code>body_mass</code> (this is not needed, and defaults to <code>y</code> if not specified).</p>
+<p>We can also give the response (<span class="math inline">\(\boldsymbol{y}\)</span>) variable a name, <code>body_mass</code> (this is not needed, and defaults to <code>y</code> if not specified).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="1.1-simple-linear-model.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_population</span>(</span>
 <span id="cb4-2"><a href="1.1-simple-linear-model.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
 <span id="cb4-3"><a href="1.1-simple-linear-model.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
@@ -374,17 +386,16 @@ The global intercept (<span class="math inline">\(\beta_0\)</span>) is given by 
 <span id="cb9-12"><a href="1.1-simple-linear-model.html#cb9-12" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb9-13"><a href="1.1-simple-linear-model.html#cb9-13" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb9-14"><a href="1.1-simple-linear-model.html#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Let’s compare the code back to the model:</p>
+<p>Let’s compare the code back to the model using colors to link equation to code:</p>
 <p><span class="math display">\[
 y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}} + \color{orange}{\epsilon_{i}}
 \]</span>
 <span class="math display">\[
-\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)
+\color{blue}{\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)}
 \]</span>
 <span class="math display">\[
-\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)
+\color{orange}{\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)}
 \]</span></p>
-<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;n=2000,<br>&nbsp;&nbsp;response_name = "body_mass",<br>&nbsp;&nbsp;parameters = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">intercept=10</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">observation = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("temperature","rainfall", "wind"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beta = c(0.5,-0.3, 0.4) &nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">residual = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vcov = 0.8<br>&nbsp;&nbsp;&nbsp;&nbsp;)</span><br>&nbsp;&nbsp;)<br>)</code></code></pre>
 <p>This generates a squid object, which when run returns a friendly message:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="1.1-simple-linear-model.html#cb10-1" aria-hidden="true" tabindex="-1"></a>squid_data</span></code></pre></div>
 <pre><code>## Data simulated using squid 
@@ -439,7 +450,7 @@ y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}
 ## temperature 0.994203543  0.001712154  0.01044419
 ## rainfall    0.001712154  1.050196516 -0.01773955
 ## wind        0.010444186 -0.017739548  1.04555048</code></pre>
-<p>Its worth noting that these values are not <em>exactly</em> what we simulated. That is to be expected - simulation involves <em>randomly</em> generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
+<p>It’s worth noting that these values are not <em>exactly</em> what we simulated. That is to be expected - simulation involves <em>randomly</em> generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
 <!-- 
 We can extract the parameters we used for the simulations
 
@@ -482,7 +493,6 @@ y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 ,
 \color{orange}{\sigma^2_\epsilon=0.8}
 \]</span></p>
-<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;n=2000,<br>&nbsp;&nbsp;response_name = "body_mass",<br>&nbsp;&nbsp;parameters=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">intercept = 10</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;observation=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("temperature","rainfall", "wind"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">mean = c(10,1,20)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:CornflowerBlue">vcov = c(1,0.1,2)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:purple">beta = c(0.5,-3,0.4)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;),<br>&nbsp;&nbsp;&nbsp;&nbsp;residual=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">vcov = 0.8</span><br>&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;&nbsp;)<br>)</code></code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="1.1-simple-linear-model.html#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb21-2"><a href="1.1-simple-linear-model.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="1.1-simple-linear-model.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
@@ -592,7 +602,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

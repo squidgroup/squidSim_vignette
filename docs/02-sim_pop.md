@@ -192,7 +192,6 @@ $$
 $$
 
 
-<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;n=2000,<br>&nbsp;&nbsp;response_name = "body_mass",<br>&nbsp;&nbsp;parameters = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">intercept=10</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">observation = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("temperature","rainfall", "wind"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beta = c(0.5,-0.3, 0.4) &nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">residual = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vcov = 0.8<br>&nbsp;&nbsp;&nbsp;&nbsp;)</span><br>&nbsp;&nbsp;)<br>)</code></code></pre>
 
 
 
@@ -342,7 +341,6 @@ $$
 
 
 
-<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;n=2000,<br>&nbsp;&nbsp;response_name = "body_mass",<br>&nbsp;&nbsp;parameters=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">intercept = 10</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;observation=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("temperature","rainfall", "wind"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">mean = c(10,1,20)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:CornflowerBlue">vcov = c(1,0.1,2)</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:purple">beta = c(0.5,-3,0.4)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;),<br>&nbsp;&nbsp;&nbsp;&nbsp;residual=list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">vcov = 0.8</span><br>&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;&nbsp;)<br>)</code></code></pre>
 
 
 ```r

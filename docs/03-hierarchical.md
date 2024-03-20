@@ -844,9 +844,9 @@ short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ## REML criterion at convergence: 7970.8
 ## 
 ## Random effects:
-##  Groups     Name        Variance Corr
+##  Groups     Name        Variance Cov 
 ##  individual (Intercept) 1.0903       
-##             environment 0.4959   0.11
+##             environment 0.4959   0.08
 ##  Residual               0.4868       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
@@ -875,7 +875,6 @@ $$
 
 
 
-<pre><code class='language-r'><code>squid_data <- simulate_population(<br>&nbsp;&nbsp;data_structure=make_structure("individual(300)",repeat_obs=10),<br>&nbsp;&nbsp;parameters = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;individual = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:CornflowerBlue">names = c("ind_int","ind_slope"), <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beta = c(1,0),</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vcov = c(1,0.5)<br>&nbsp;&nbsp;&nbsp;&nbsp;),<br>&nbsp;&nbsp;&nbsp;&nbsp;observation= list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;names = c("environment"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beta = c(0.2)<br>&nbsp;&nbsp;&nbsp;&nbsp;), <br>&nbsp;&nbsp;&nbsp;&nbsp;residual = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vcov = c(0.5)<br>&nbsp;&nbsp;&nbsp;&nbsp;),<br>&nbsp;&nbsp;&nbsp;&nbsp;interactions = list(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:orange">names = c("ind_slope:environment"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;beta = c(1)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;&nbsp;)<br>)</code></code></pre>
 
 
 
@@ -919,9 +918,9 @@ short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ## REML criterion at convergence: 7758.2
 ## 
 ## Random effects:
-##  Groups     Name        Variance Corr
+##  Groups     Name        Variance Cov 
 ##  individual (Intercept) 0.9658       
-##             environment 0.5199   0.57
+##             environment 0.5199   0.40
 ##  Residual               0.4663       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
