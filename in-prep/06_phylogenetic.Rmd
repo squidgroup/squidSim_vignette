@@ -33,11 +33,12 @@ squid_dat <- simulate_population(
 
 pop_dat <- get_population_data(squid_dat)
 var(pop_dat$taxon_effect)
+var(pop_dat$y)
 
 ```
 
 
-```{r}
+```{r,cache=TRUE}
 library(MCMCglmm)
 Ainv<-inverseA(bird.families)$Ainv
 prior<-list(
@@ -52,6 +53,31 @@ model2<-MCMCglmm(y~1,
 	verbose=FALSE, nitt=13000, burnin=3000, thin=10)
 
 summary(model2)
+
+
+squid_dat <- simulate_population(
+	data_structure=data.frame(taxon=bird.families$tip.label),
+	parameters=list(
+		taxon=list(
+			vcov=1
+		),
+		residual=list(
+			vcov=1
+		)
+	),
+	phylogeny=list(taxon=bird.families),
+	n_pop=50
+)
+lapply(get_population_data(squid_dat,list=TRUE),function(pop_dat){
+model2<-MCMCglmm(y~1, 
+	random=~taxon, 
+	ginverse=list(taxon=Ainv),
+	data=pop_dat, 
+	prior=prior, 
+	verbose=FALSE, nitt=60000, burnin=10000, thin=50)
+
+c(summary(model2)$Gcov[1],summary(model2)$Rcov[1])
+})
 
 ```
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-03-20" />
+<meta name="date" content="2024-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects</a></li>
 <li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects</a></li>
 <li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations</a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-indirect-genetic-effects.html"><a href="4.4-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.4</b> Indirect Genetic Effects</a></li>
+<li class="chapter" data-level="4.4" data-path="4.4-IGE.html"><a href="4.4-IGE.html"><i class="fa fa-check"></i><b>4.4</b> Indirect Genetic Effects</a></li>
 <li class="chapter" data-level="4.5" data-path="4.5-gxe.html"><a href="4.5-gxe.html"><i class="fa fa-check"></i><b>4.5</b> GxE</a></li>
 <li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance</a></li>
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
@@ -289,34 +289,6 @@ Logistic function - probability of being sampled
 <p>Missing completely at random occurs when the probability of missingness is not dependent on anything. This can be implemented through a logistic regression, where only the intercept is specified:
 <span class="math display">\[ logit(p) = beta_0 \]</span></p>
 <p>Note this intercept is on the logit scale, so 0 is equivalent to 0.5.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="7.2-missing-data.html#cb199-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb199-2"><a href="7.2-missing-data.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">5</span>),</span>
-<span id="cb199-3"><a href="7.2-missing-data.html#cb199-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-4"><a href="7.2-missing-data.html#cb199-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb199-5"><a href="7.2-missing-data.html#cb199-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>( </span>
-<span id="cb199-6"><a href="7.2-missing-data.html#cb199-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.1</span></span>
-<span id="cb199-7"><a href="7.2-missing-data.html#cb199-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb199-8"><a href="7.2-missing-data.html#cb199-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
-<span id="cb199-9"><a href="7.2-missing-data.html#cb199-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
-<span id="cb199-10"><a href="7.2-missing-data.html#cb199-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb199-11"><a href="7.2-missing-data.html#cb199-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb199-12"><a href="7.2-missing-data.html#cb199-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb199-13"><a href="7.2-missing-data.html#cb199-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
-<span id="cb199-14"><a href="7.2-missing-data.html#cb199-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb199-15"><a href="7.2-missing-data.html#cb199-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb199-16"><a href="7.2-missing-data.html#cb199-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-17"><a href="7.2-missing-data.html#cb199-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;missing&quot;</span>, </span>
-<span id="cb199-18"><a href="7.2-missing-data.html#cb199-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="st">&quot;0&quot;</span></span>
-<span id="cb199-19"><a href="7.2-missing-data.html#cb199-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb199-20"><a href="7.2-missing-data.html#cb199-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-21"><a href="7.2-missing-data.html#cb199-21" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span>
-<span id="cb199-22"><a href="7.2-missing-data.html#cb199-22" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sample_data)</span></code></pre></div>
-<pre><code>## [1] 276</code></pre>
-</div>
-<div id="mar" class="section level3 hasAnchor" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> MAR<a href="7.2-missing-data.html#mar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Missing at random occurs when the probability of missingness is dependent on a predictor variable (or a variables correlated with y). This can be implemented through a logistic regression, where the predictor variable(s) is a predictor(s) of y:
-<span class="math display">\[ logit(p) = beta_0 + beta_1*environment \]</span></p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="7.2-missing-data.html#cb201-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb201-2"><a href="7.2-missing-data.html#cb201-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">5</span>),</span>
 <span id="cb201-3"><a href="7.2-missing-data.html#cb201-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -334,11 +306,39 @@ Logistic function - probability of being sampled
 <span id="cb201-15"><a href="7.2-missing-data.html#cb201-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
 <span id="cb201-16"><a href="7.2-missing-data.html#cb201-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb201-17"><a href="7.2-missing-data.html#cb201-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;missing&quot;</span>, </span>
-<span id="cb201-18"><a href="7.2-missing-data.html#cb201-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="st">&quot;0.5*environment&quot;</span></span>
+<span id="cb201-18"><a href="7.2-missing-data.html#cb201-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="st">&quot;0&quot;</span></span>
 <span id="cb201-19"><a href="7.2-missing-data.html#cb201-19" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb201-20"><a href="7.2-missing-data.html#cb201-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb201-21"><a href="7.2-missing-data.html#cb201-21" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span>
 <span id="cb201-22"><a href="7.2-missing-data.html#cb201-22" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sample_data)</span></code></pre></div>
+<pre><code>## [1] 276</code></pre>
+</div>
+<div id="mar" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> MAR<a href="7.2-missing-data.html#mar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Missing at random occurs when the probability of missingness is dependent on a predictor variable (or a variables correlated with y). This can be implemented through a logistic regression, where the predictor variable(s) is a predictor(s) of y:
+<span class="math display">\[ logit(p) = beta_0 + beta_1*environment \]</span></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="7.2-missing-data.html#cb203-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb203-2"><a href="7.2-missing-data.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">5</span>),</span>
+<span id="cb203-3"><a href="7.2-missing-data.html#cb203-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-4"><a href="7.2-missing-data.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb203-5"><a href="7.2-missing-data.html#cb203-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>( </span>
+<span id="cb203-6"><a href="7.2-missing-data.html#cb203-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.1</span></span>
+<span id="cb203-7"><a href="7.2-missing-data.html#cb203-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb203-8"><a href="7.2-missing-data.html#cb203-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
+<span id="cb203-9"><a href="7.2-missing-data.html#cb203-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
+<span id="cb203-10"><a href="7.2-missing-data.html#cb203-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.5</span>)</span>
+<span id="cb203-11"><a href="7.2-missing-data.html#cb203-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb203-12"><a href="7.2-missing-data.html#cb203-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb203-13"><a href="7.2-missing-data.html#cb203-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
+<span id="cb203-14"><a href="7.2-missing-data.html#cb203-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb203-15"><a href="7.2-missing-data.html#cb203-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb203-16"><a href="7.2-missing-data.html#cb203-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-17"><a href="7.2-missing-data.html#cb203-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;missing&quot;</span>, </span>
+<span id="cb203-18"><a href="7.2-missing-data.html#cb203-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="st">&quot;0.5*environment&quot;</span></span>
+<span id="cb203-19"><a href="7.2-missing-data.html#cb203-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb203-20"><a href="7.2-missing-data.html#cb203-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-21"><a href="7.2-missing-data.html#cb203-21" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span>
+<span id="cb203-22"><a href="7.2-missing-data.html#cb203-22" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sample_data)</span></code></pre></div>
 <pre><code>## [1] 247</code></pre>
 <p>The predictor variables are scaled (mean 0, variance 1), so the slopes are directly comparable across traits, and intercept represents the mean (on the logit scale).</p>
 </div>
@@ -347,35 +347,35 @@ Logistic function - probability of being sampled
 <p>Missing not at random occurs when the probability of missingness is dependent on the response variable itself variable (i.e. y). This can be implemented through a logistic regression, where the predictor variable is y:
 <span class="math display">\[ logit(p) = beta_0 + beta_1*y \]</span>
 Again y is scaled.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="7.2-missing-data.html#cb203-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb203-2"><a href="7.2-missing-data.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">5</span>),</span>
-<span id="cb203-3"><a href="7.2-missing-data.html#cb203-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-4"><a href="7.2-missing-data.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb203-5"><a href="7.2-missing-data.html#cb203-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>( </span>
-<span id="cb203-6"><a href="7.2-missing-data.html#cb203-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
-<span id="cb203-7"><a href="7.2-missing-data.html#cb203-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb203-8"><a href="7.2-missing-data.html#cb203-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
-<span id="cb203-9"><a href="7.2-missing-data.html#cb203-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
-<span id="cb203-10"><a href="7.2-missing-data.html#cb203-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.1</span>)</span>
-<span id="cb203-11"><a href="7.2-missing-data.html#cb203-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb203-12"><a href="7.2-missing-data.html#cb203-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb203-13"><a href="7.2-missing-data.html#cb203-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb203-14"><a href="7.2-missing-data.html#cb203-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb203-15"><a href="7.2-missing-data.html#cb203-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb203-16"><a href="7.2-missing-data.html#cb203-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-17"><a href="7.2-missing-data.html#cb203-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;missing&quot;</span>, </span>
-<span id="cb203-18"><a href="7.2-missing-data.html#cb203-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="st">&quot;0.5*y&quot;</span></span>
-<span id="cb203-19"><a href="7.2-missing-data.html#cb203-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb203-20"><a href="7.2-missing-data.html#cb203-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-21"><a href="7.2-missing-data.html#cb203-21" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span>
-<span id="cb203-22"><a href="7.2-missing-data.html#cb203-22" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sample_data)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="7.2-missing-data.html#cb205-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb205-2"><a href="7.2-missing-data.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">5</span>),</span>
+<span id="cb205-3"><a href="7.2-missing-data.html#cb205-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-4"><a href="7.2-missing-data.html#cb205-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb205-5"><a href="7.2-missing-data.html#cb205-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>( </span>
+<span id="cb205-6"><a href="7.2-missing-data.html#cb205-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
+<span id="cb205-7"><a href="7.2-missing-data.html#cb205-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb205-8"><a href="7.2-missing-data.html#cb205-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span> <span class="fu">list</span>(</span>
+<span id="cb205-9"><a href="7.2-missing-data.html#cb205-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;environment&quot;</span>),</span>
+<span id="cb205-10"><a href="7.2-missing-data.html#cb205-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.1</span>)</span>
+<span id="cb205-11"><a href="7.2-missing-data.html#cb205-11" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb205-12"><a href="7.2-missing-data.html#cb205-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb205-13"><a href="7.2-missing-data.html#cb205-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb205-14"><a href="7.2-missing-data.html#cb205-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb205-15"><a href="7.2-missing-data.html#cb205-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb205-16"><a href="7.2-missing-data.html#cb205-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-17"><a href="7.2-missing-data.html#cb205-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_type =</span> <span class="st">&quot;missing&quot;</span>, </span>
+<span id="cb205-18"><a href="7.2-missing-data.html#cb205-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_param =</span> <span class="st">&quot;0.5*y&quot;</span></span>
+<span id="cb205-19"><a href="7.2-missing-data.html#cb205-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb205-20"><a href="7.2-missing-data.html#cb205-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-21"><a href="7.2-missing-data.html#cb205-21" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">get_sample_data</span>(pop_data)</span>
+<span id="cb205-22"><a href="7.2-missing-data.html#cb205-22" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sample_data)</span></code></pre></div>
 <pre><code>## [1] 274</code></pre>
 <p>Lets try and visualise this. We know there is lots f between individual variation, and we know sampling is based on phenotype, so we would expect an association between number of observations and phenotype:</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="7.2-missing-data.html#cb205-1" aria-hidden="true" tabindex="-1"></a>ind_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb205-2"><a href="7.2-missing-data.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="fu">as.vector</span>(<span class="fu">table</span>(sample_data<span class="sc">$</span>individual)),</span>
-<span id="cb205-3"><a href="7.2-missing-data.html#cb205-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean=</span><span class="fu">tapply</span>(sample_data<span class="sc">$</span>y,sample_data<span class="sc">$</span>individual,mean)</span>
-<span id="cb205-4"><a href="7.2-missing-data.html#cb205-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb205-5"><a href="7.2-missing-data.html#cb205-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mean<span class="sc">~</span>n,ind_data)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="7.2-missing-data.html#cb207-1" aria-hidden="true" tabindex="-1"></a>ind_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb207-2"><a href="7.2-missing-data.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="fu">as.vector</span>(<span class="fu">table</span>(sample_data<span class="sc">$</span>individual)),</span>
+<span id="cb207-3"><a href="7.2-missing-data.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean=</span><span class="fu">tapply</span>(sample_data<span class="sc">$</span>y,sample_data<span class="sc">$</span>individual,mean)</span>
+<span id="cb207-4"><a href="7.2-missing-data.html#cb207-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb207-5"><a href="7.2-missing-data.html#cb207-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mean<span class="sc">~</span>n,ind_data)</span></code></pre></div>
 <p><img src="08-sampling_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <!-- example of variation in sampling between individuals, but not related to phenotype - create an individual level variable with beta=0 (doesn't affect phenotype, and then do sampling based on that) -->
 </div>

@@ -1022,7 +1022,7 @@ coef(lm(y ~ temperature + rainfall, data))
 ## -0.000221756  0.481460783  0.085752465
 ```
 
-Finally, we can use `[]` to index the levels of the random effects within the formula...
+Finally, we can use `[]` to index the levels of the random effects within the formula.. An example of this is given Section \@ref(IGE), along with use of the `index_link` argument.
 
 
 ## Simulating multiple populations {#npop}

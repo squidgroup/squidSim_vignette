@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Hierarchical structure | The {squidSim} R Package Vignette</title>
+  <title>4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Hierarchical structure | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Hierarchical structure | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="1.9-parameter-list-summary.html"/>
-<link rel="next" href="2.1-makestr.html"/>
+<link rel="prev" href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"/>
+<link rel="next" href="4.5-gxe.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -260,28 +260,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hierarchical" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">2</span> Hierarchical structure<a href="2-hierarchical.html#hierarchical" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>There are two parts to simulating hierarchical data. First you need to have a hierarchical data structure and second you need parameters at each of the different hierarchical levels. The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. Lets take the blue tit dataset we explored earlier:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="2-hierarchical.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTdata)</span>
-<span id="cb84-2"><a href="2-hierarchical.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTdata)</span></code></pre></div>
-<pre><code>##        tarsus       back  animal     dam fosternest  hatchdate  sex
-## 1 -1.89229718  1.1464212 R187142 R187557      F2102 -0.6874021  Fem
-## 2  1.13610981 -0.7596521 R187154 R187559      F1902 -0.6874021 Male
-## 3  0.98468946  0.1449373 R187341 R187568       A602 -0.4279814 Male
-## 4  0.37900806  0.2555847 R046169 R187518      A1302 -1.4656641 Male
-## 5 -0.07525299 -0.3006992 R046161 R187528      A2602 -1.4656641  Fem
-## 6 -1.13519543  1.5577219 R187409 R187945      C2302  0.3502805  Fem</code></pre>
-<p>Here <code>animal</code>, <code>dam</code>, <code>fosternest</code> and <code>sex</code> make up the data structure.</p>
-<p>In this Section, we will first demonstrate how to make a simple hierarchical structure using the <code>make_structure</code> function. <code>simulate_population</code> also allows pre-existing data structures to be incorporated into simulations. The remaining part of the section details how to simulate hierarchical data once you have a hierarchical data structure.</p>
+<div id="IGE" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Indirect Genetic Effects<a href="4.4-IGE.html#IGE" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual’s phenotype, is that of its mother, not itself. Here we can use <code>[]</code> to index the levels of the random effects within the formula. We need to be careful here as internally in <code>simulate_population()</code> the indexing of the factors in the data structure is done independently. We therefore need to generate a index for the mothers that links to the individual. We can do this using the <code>index_link</code> argument - in the code below we create a new factor to index with, called <code>dam_link</code>, that is the dam factor in our data structure, that has been indexed to match the animal factor.</p>
+<p>Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual’s phenotype from its own direct genetic effects, and its mother’s maternal genetic effect.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="4.4-IGE.html#cb177-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb177-2"><a href="4.4-IGE.html#cb177-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb177-3"><a href="4.4-IGE.html#cb177-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb177-4"><a href="4.4-IGE.html#cb177-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
+<span id="cb177-5"><a href="4.4-IGE.html#cb177-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb177-6"><a href="4.4-IGE.html#cb177-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb177-7"><a href="4.4-IGE.html#cb177-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb177-8"><a href="4.4-IGE.html#cb177-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
+<span id="cb177-9"><a href="4.4-IGE.html#cb177-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb177-10"><a href="4.4-IGE.html#cb177-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb177-11"><a href="4.4-IGE.html#cb177-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb177-12"><a href="4.4-IGE.html#cb177-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>BTped,</span>
+<span id="cb177-13"><a href="4.4-IGE.html#cb177-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb177-14"><a href="4.4-IGE.html#cb177-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index_link=</span><span class="fu">list</span>(<span class="at">dam_link=</span><span class="st">&quot;dam-animal&quot;</span>),</span>
+<span id="cb177-15"><a href="4.4-IGE.html#cb177-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam_link] + residual&quot;</span></span>
+<span id="cb177-16"><a href="4.4-IGE.html#cb177-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning in FUN(X[[i]], ...): Not all levels are of dam are present in animal
+## meaning that there will be NAs in the new grouping factor</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="4.4-IGE.html#cb179-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb179-2"><a href="4.4-IGE.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-3"><a href="4.4-IGE.html#cb179-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##    y     direct    maternal    residual  animal  dam sire squid_pop
+## 1 NA -1.1765364 -0.33246522  0.98593948 R187557 &lt;NA&gt; &lt;NA&gt;         1
+## 2 NA  1.0032654  0.17594714  0.46289797 R187559 &lt;NA&gt; &lt;NA&gt;         1
+## 3 NA -1.3823286 -0.43613248 -0.89167875 R187568 &lt;NA&gt; &lt;NA&gt;         1
+## 4 NA  0.3973638 -0.07201462  0.16249743 R187518 &lt;NA&gt; &lt;NA&gt;         1
+## 5 NA -1.2407912 -0.56117955 -0.01929683 R187528 &lt;NA&gt; &lt;NA&gt;         1
+## 6 NA  0.6117901  0.45613335  1.49005498 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="1.9-parameter-list-summary.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="2.1-makestr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4.5-gxe.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -34,7 +34,7 @@ animal
 va
 multivariate-genetic-effects
 sex-specific-genetic-variance-and-inter-sexual-genetic-correlations
-indirect-genetic-effects
+IGE
 gxe
 dominance
 inbreeding-depression

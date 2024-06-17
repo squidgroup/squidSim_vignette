@@ -228,8 +228,10 @@ plot(G_female~G_male,data)
 <img src="05-animal_files/figure-html/unnamed-chunk-6-1.png" width="960" />
 <br>
 
-## Indirect Genetic Effects
-Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
+## Indirect Genetic Effects {#IGE}
+Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. We need to be careful here as internally in `simulate_population()` the indexing of the factors in the data structure is done independently. We therefore need to generate a index for the mothers that links to the individual. We can do this using the `index_link` argument - in the code below we create a new factor to index with, called `dam_link`, that is the dam factor in our data structure, that has been indexed to match the animal factor.
+
+Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
 
 ```r
@@ -246,9 +248,17 @@ squid_data <- simulate_population(
   ),
   data_structure=BTped,
   pedigree=list(animal=BTped),
-  model = "y = direct + maternal[dam] + residual"
+  index_link=list(dam_link="dam-animal"),
+  model = "y = direct + maternal[dam_link] + residual"
 )
+```
 
+```
+## Warning in FUN(X[[i]], ...): Not all levels are of dam are present in animal
+## meaning that there will be NAs in the new grouping factor
+```
+
+```r
 data <- get_population_data(squid_data)
 
 head(data)
