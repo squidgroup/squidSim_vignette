@@ -623,7 +623,7 @@ The `simulated_variance()` function will also no longer be accurate, as the calc
 
 ## Known Predictors {#knownpreds}
 
-We might want to use existing predictors, rather than simulated ones, in our simulations. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the `simulate_population()` function, using the `known_predictors` argument. This argument takes a list, with one item, called `predictors`, a matrix or dataframe of predictors and one item called `beta`, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.
+We might want to use existing predictors, rather than simulated ones, in our simulations. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the `simulate_population()` function, using the `known_predictors` argument. This argument takes a list, with one item, called `predictors`, a matrix or dataframe of predictors (the column names of which are used as variable names), and one item called `beta`, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data, and the betas have to be in the same order as the predictors. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.
 
 ```{r}
 library(MCMCglmm)
