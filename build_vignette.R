@@ -1,3 +1,4 @@
+# devtools::install("github/squidSim")
 
 rm(list=ls())
 

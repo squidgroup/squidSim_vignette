@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -334,19 +334,19 @@ make little shiny app that allows you to enter diagonal and
 <span id="cb151-18"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb151-19"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##           y1         y2 individual_effect1 individual_effect2 temperature
-## 1  0.2629858 -0.0780353       -0.005446858         -0.2658786   0.3738621
-## 2  1.0829243  1.1550551       -0.005446858         -0.2658786  -0.8473002
-## 3 -0.2310409  0.3175489       -0.005446858         -0.2658786  -0.6371071
-## 4  1.7982021 -0.2832260       -0.005446858         -0.2658786   0.5207047
-## 5 -0.1813950  0.1731702       -0.005446858         -0.2658786   1.1298068
-## 6  1.5139838  0.8386942       -0.005446858         -0.2658786   1.5284323
-##     rainfall       wind  residual1 residual2 individual squid_pop
-## 1  0.1456369 -0.6502334  0.2474442 0.1893336          1         1
-## 2 -0.9514215  0.9920109  1.4047023 1.2451206          1         1
-## 3 -1.2060802 -0.5203187  0.4902712 0.2264689          1         1
-## 4  0.3514403  0.1582997  1.4255186 0.1208411          1         1
-## 5 -0.5530579 -0.2232949 -0.5632515 0.4190884          1         1
-## 6 -0.6243242 -0.1365409  0.9210416 1.1188972          1         1</code></pre>
+## 1  0.2981452 -1.3155845          -0.311252          -0.897568  -1.1453264
+## 2 -0.6873794 -0.6087159          -0.311252          -0.897568  -0.8578652
+## 3  0.5970893 -0.6079079          -0.311252          -0.897568  -0.2261574
+## 4 -1.4274647 -1.3401883          -0.311252          -0.897568   1.8213830
+## 5  1.5506350 -0.6644989          -0.311252          -0.897568   1.1993774
+## 6 -0.3039953 -1.9789316          -0.311252          -0.897568  -1.2945405
+##    rainfall       wind  residual1  residual2 individual squid_pop
+## 1 0.5882671  1.1457965  0.7206679 -0.3003161          1         1
+## 2 0.2144061 -0.5558841  0.1766892  0.1903584          1         1
+## 3 1.6741909  0.5743441  0.5142786  0.6593169          1         1
+## 4 0.2989377 -0.8591160 -1.8289570 -0.2866060          1         1
+## 5 0.4251985 -0.2197198  1.2430745  0.4160745          1         1
+## 6 1.1467957  1.0675309  0.1049086 -0.8747054          1         1</code></pre>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
 <span id="cb153-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
 <span id="cb153-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
@@ -375,20 +375,20 @@ make little shiny app that allows you to enter diagonal and
 <span id="cb154-22"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb154-23"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb154-24"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##           y1         y2 individual_effect1 individual_effect2 temperature
-## 1  2.8739089  2.7223659           1.274479           0.806482   2.5349210
-## 2 -0.2195532  0.4901810           1.274479           0.806482  -0.3163310
-## 3  2.1650067  0.2206076           1.274479           0.806482   0.3833268
-## 4 -0.7894193 -1.4047362           1.274479           0.806482  -0.9681842
-## 5  2.8398480  0.9040718           1.274479           0.806482  -0.1220015
-## 6  1.0100711  0.5755157           1.274479           0.806482  -0.9008461
-##      rainfall        wind  residual1  residual2 temperature:rainfall individual
-## 1 -0.49522796  2.29401469 -0.1316535  1.9231227          -1.25536379          1
-## 2 -1.19507319 -0.80430268 -0.8933655 -0.5539674           0.37803876          1
-## 3 -0.60617083  0.09328987  0.8153473 -0.7291554          -0.23236153          1
-## 4  0.05970686  0.66797804 -1.7863607 -2.2466396          -0.05780724          1
-## 5  1.32784401  1.37169437  0.9654921  0.4395282          -0.16199893          1
-## 6  2.65030643  0.06492591 -0.1247725 -0.5007525          -2.38751816          1
+<pre><code>##           y1          y2 individual_effect1 individual_effect2 temperature
+## 1 -1.4752163 -0.53377659         -0.2872822         -0.6655179  0.03214917
+## 2  0.1289671 -0.83203811         -0.2872822         -0.6655179 -0.08320398
+## 3  0.7591382 -0.04450337         -0.2872822         -0.6655179 -0.28697095
+## 4  2.1132225 -1.23146725         -0.2872822         -0.6655179  1.92678408
+## 5 -0.8876520 -1.06185793         -0.2872822         -0.6655179  0.40335533
+## 6  0.5234630 -0.94372291         -0.2872822         -0.6655179  0.55847261
+##     rainfall       wind  residual1   residual2 temperature:rainfall individual
+## 1 -0.4787747 -0.4815074 -0.9622622 -0.01356718          -0.01539221          1
+## 2  0.5679376  0.2375696  0.2777184 -0.05167259          -0.04725466          1
+## 3 -0.4349687 -0.8358394  1.5151691  0.45918672           0.12482338          1
+## 4 -0.1022663  0.1218843  1.4407051 -0.44064937          -0.19704515          1
+## 5  0.9295396 -0.7546885 -0.7990423 -0.13308504           0.37493476          1
+## 6 -1.2836502 -1.3774485  1.2731618 -0.83189771          -0.71688346          1
 ##   squid_pop
 ## 1         1
 ## 2         1

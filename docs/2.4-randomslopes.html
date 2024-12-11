@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,19 +307,19 @@ Importantly the <code>beta</code> parameter associated with <code>ind_slope</cod
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7970.8
+## REML criterion at convergence: 8075.9
 ## 
 ## Random effects:
 ##  Groups     Name        Variance Cov 
-##  individual (Intercept) 1.0903       
-##             environment 0.4959   0.08
-##  Residual               0.4868       
+##  individual (Intercept) 0.9964       
+##             environment 0.5520   0.04
+##  Residual               0.5060       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.08657    0.06175  -1.402
-## environment  0.26278    0.04335   6.062</code></pre>
+## (Intercept) -0.06715    0.05922  -1.134
+## environment  0.24393    0.04546   5.366</code></pre>
 <p>We can make the link between the code and the equation more explicit, by expanding out the equation:</p>
 <p><span class="math display">\[
 y_{ij} = \beta_0 + \beta_xx_{i} + \boldsymbol{u}_j \boldsymbol{\beta}_u + \beta_{ux}u_{2j}x_{i} + \epsilon_{ij}
@@ -362,19 +362,19 @@ y_{ij} = \beta_0 + \beta_xx_{i} + \boldsymbol{u}_j \boldsymbol{\beta}_u + \beta_
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7758.2
+## REML criterion at convergence: 8122.5
 ## 
 ## Random effects:
 ##  Groups     Name        Variance Cov 
-##  individual (Intercept) 0.9658       
-##             environment 0.5199   0.40
-##  Residual               0.4663       
+##  individual (Intercept) 1.1279       
+##             environment 0.4933   0.33
+##  Residual               0.5244       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)  0.03375    0.05824   0.580
-## environment  0.26242    0.04404   5.959</code></pre>
+## (Intercept) 0.009427   0.062869   0.150
+## environment 0.266923   0.043233   6.174</code></pre>
 </div>
             </section>
 

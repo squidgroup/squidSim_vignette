@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -432,13 +432,13 @@ y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}
 <p>and contains all our simulation parameters as well as the simulated data. At this point we want to be able to access the simulated data. There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using <code>get_population_data()</code> The generated response is returned, along with simulated predictors and the data structure (not relevant here).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="1.1-simple-linear-model.html#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb12-2"><a href="1.1-simple-linear-model.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature   rainfall      wind   residual squid_pop
-## 1  7.737309  -0.2306292  0.3793662 -1.621588 -1.3849315         1
-## 2  7.842569  -0.8841745 -0.7383195 -0.787488 -1.6218444         1
-## 3 12.069817   0.9715341  0.5082774  1.591818  1.0998057         1
-## 4 10.693063   0.1834473 -0.1029349 -0.544928  0.7884305         1
-## 5 11.686525   1.6707325  2.0234161  1.895537  0.6999690         1
-## 6  9.000434  -2.2209488  0.8709182  1.206219 -0.1103037         1</code></pre>
+<pre><code>##   body_mass temperature    rainfall       wind    residual squid_pop
+## 1  9.809451  -0.5478939  0.20508206  0.1508594  0.08457911         1
+## 2  6.726013   0.1829981  1.46962434 -1.2879690 -2.40941140         1
+## 3  9.811235  -0.8048619 -0.16589518  0.1486768  0.10442629         1
+## 4  7.985417  -1.9522468 -1.23337257 -1.8210313 -0.68005930         1
+## 5  8.161597   0.2863420  0.09892012 -0.3421751 -1.81502750         1
+## 6 10.372638   0.9476735  1.55338036  0.4065158  0.20220909         1</code></pre>
 <p>Later on we will explore how to simulate data for multiple populations with the same parameters (Section <a href="1.8-npop.html#npop">1.8</a>). <code>squid_pop</code> is an identifier for the population number, but is not relevant here.</p>
 <p>We can plot what we have simulated:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="1.1-simple-linear-model.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
@@ -448,17 +448,17 @@ y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}
 <p>and run a linear model to check that we get back the betas that we simulated:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="1.1-simple-linear-model.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind,data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##   9.9650211   0.5232290  -0.3234344   0.3897914</code></pre>
+##   9.9752151   0.4610888  -0.3071835   0.3824544</code></pre>
 <p>We can also check the means and variances of the predictors</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="1.1-simple-linear-model.html#cb17-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>,<span class="st">&quot;wind&quot;</span>)]</span>
 <span id="cb17-2"><a href="1.1-simple-linear-model.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(predictors)</span></code></pre></div>
-<pre><code>##  temperature     rainfall         wind 
-##  0.012155934  0.004824320 -0.004908366</code></pre>
+<pre><code>## temperature    rainfall        wind 
+## -0.02856731  0.01754939 -0.02920685</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="1.1-simple-linear-model.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(predictors)</span></code></pre></div>
-<pre><code>##             temperature     rainfall        wind
-## temperature 0.994203543  0.001712154  0.01044419
-## rainfall    0.001712154  1.050196516 -0.01773955
-## wind        0.010444186 -0.017739548  1.04555048</code></pre>
+<pre><code>##             temperature     rainfall         wind
+## temperature  0.97783176 -0.015722888  0.019196282
+## rainfall    -0.01572289  1.005007268 -0.007969993
+## wind         0.01919628 -0.007969993  0.959931783</code></pre>
 <p>It’s worth noting that these values are not <em>exactly</em> what we simulated. That is to be expected - simulation involves <em>randomly</em> generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
 <!-- 
 We can extract the parameters we used for the simulations
@@ -506,7 +506,7 @@ y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 <span id="cb21-2"><a href="1.1-simple-linear-model.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="1.1-simple-linear-model.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##  10.1958870   0.5141206  -3.1041906   0.3899635</code></pre>
+##   9.6936858   0.5277087  -3.0577425   0.4047932</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="1.1-simple-linear-model.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb23-2"><a href="1.1-simple-linear-model.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb23-3"><a href="1.1-simple-linear-model.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">col=</span><span class="fu">alpha</span>(<span class="dv">1</span>,<span class="fl">0.5</span>))</span></code></pre></div>
@@ -515,12 +515,12 @@ y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="1.1-simple-linear-model.html#cb24-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>,<span class="st">&quot;wind&quot;</span>)]</span>
 <span id="cb24-2"><a href="1.1-simple-linear-model.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(predictors)</span></code></pre></div>
 <pre><code>## temperature    rainfall        wind 
-##  10.0376901   0.9913311  19.9980632</code></pre>
+##    10.00240     1.00085    20.01790</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="1.1-simple-linear-model.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(predictors)</span></code></pre></div>
-<pre><code>##             temperature    rainfall       wind
-## temperature 1.000964250 0.007210948 0.01717880
-## rainfall    0.007210948 0.098615850 0.01599828
-## wind        0.017178798 0.015998285 2.06563781</code></pre>
+<pre><code>##              temperature     rainfall        wind
+## temperature  0.990823966 -0.006253787  0.03013589
+## rainfall    -0.006253787  0.098287391 -0.01134461
+## wind         0.030135886 -0.011344607  2.08443275</code></pre>
 <p>It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the <code>simulated_variance()</code> function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and hierarchical levels to the these.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="1.1-simple-linear-model.html#cb28-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">simulated_variance</span>(squid_data)</span></code></pre></div>
 <pre><code>## Contribution of the simulated predictors to the mean and variance in the response

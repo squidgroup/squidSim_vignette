@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -322,24 +322,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb110-14"><a href="2.2-factors.html#cb110-14" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb110-15"><a href="2.2-factors.html#cb110-15" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb110-16"><a href="2.2-factors.html#cb110-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of <code>lm(body_mass~sex)</code>, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline).</p>
+<p>We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of <code>lm(body_mass~sex)</code>, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline). Note that, as of version 0.2.4, if the levels for this grouping factor in the data structure have names (in this case “male” and “female”), then the same names have to be specified in the parameter list.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="2.2-factors.html#cb111-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb111-2"><a href="2.2-factors.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
 <span id="cb111-3"><a href="2.2-factors.html#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
 <span id="cb111-4"><a href="2.2-factors.html#cb111-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept=</span> <span class="dv">10</span>,</span>
 <span id="cb111-5"><a href="2.2-factors.html#cb111-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex=</span><span class="fu">list</span>(</span>
 <span id="cb111-6"><a href="2.2-factors.html#cb111-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fixed=</span><span class="cn">TRUE</span>,</span>
-<span id="cb111-7"><a href="2.2-factors.html#cb111-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>)</span>
-<span id="cb111-8"><a href="2.2-factors.html#cb111-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb111-9"><a href="2.2-factors.html#cb111-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb111-10"><a href="2.2-factors.html#cb111-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb111-11"><a href="2.2-factors.html#cb111-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb111-12"><a href="2.2-factors.html#cb111-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb111-13"><a href="2.2-factors.html#cb111-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb111-14"><a href="2.2-factors.html#cb111-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-15"><a href="2.2-factors.html#cb111-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb111-16"><a href="2.2-factors.html#cb111-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-17"><a href="2.2-factors.html#cb111-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>( y <span class="sc">~</span> <span class="fu">factor</span>(sex), data)</span></code></pre></div>
+<span id="cb111-7"><a href="2.2-factors.html#cb111-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb111-8"><a href="2.2-factors.html#cb111-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;female&quot;</span>,<span class="st">&quot;male&quot;</span>)</span>
+<span id="cb111-9"><a href="2.2-factors.html#cb111-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb111-10"><a href="2.2-factors.html#cb111-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb111-11"><a href="2.2-factors.html#cb111-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb111-12"><a href="2.2-factors.html#cb111-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb111-13"><a href="2.2-factors.html#cb111-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb111-14"><a href="2.2-factors.html#cb111-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb111-15"><a href="2.2-factors.html#cb111-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-16"><a href="2.2-factors.html#cb111-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb111-17"><a href="2.2-factors.html#cb111-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-18"><a href="2.2-factors.html#cb111-18" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>( y <span class="sc">~</span> <span class="fu">factor</span>(sex), data)</span></code></pre></div>
 <p><img src="03-hierarchical_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="2.2-factors.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>( y <span class="sc">~</span> <span class="fu">factor</span>(sex), data)</span></code></pre></div>
 <pre><code>## 
@@ -348,24 +349,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##     (Intercept)  factor(sex)male  
-##         10.0947           0.4615</code></pre>
+##          10.176            0.377</code></pre>
 <p>Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas( equivalent to <code>lm(body_mass~0+sex)</code>):</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="2.2-factors.html#cb114-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb114-2"><a href="2.2-factors.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
 <span id="cb114-3"><a href="2.2-factors.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
 <span id="cb114-4"><a href="2.2-factors.html#cb114-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex=</span><span class="fu">list</span>(</span>
 <span id="cb114-5"><a href="2.2-factors.html#cb114-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">fixed=</span><span class="cn">TRUE</span>,</span>
-<span id="cb114-6"><a href="2.2-factors.html#cb114-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="fl">10.5</span>)</span>
-<span id="cb114-7"><a href="2.2-factors.html#cb114-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb114-8"><a href="2.2-factors.html#cb114-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb114-9"><a href="2.2-factors.html#cb114-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb114-10"><a href="2.2-factors.html#cb114-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb114-11"><a href="2.2-factors.html#cb114-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb114-12"><a href="2.2-factors.html#cb114-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb114-13"><a href="2.2-factors.html#cb114-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-14"><a href="2.2-factors.html#cb114-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb114-15"><a href="2.2-factors.html#cb114-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-16"><a href="2.2-factors.html#cb114-16" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>( y <span class="sc">~</span> <span class="fu">factor</span>(sex), data)</span></code></pre></div>
+<span id="cb114-6"><a href="2.2-factors.html#cb114-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="fl">10.5</span>),</span>
+<span id="cb114-7"><a href="2.2-factors.html#cb114-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;female&quot;</span>,<span class="st">&quot;male&quot;</span>)</span>
+<span id="cb114-8"><a href="2.2-factors.html#cb114-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb114-9"><a href="2.2-factors.html#cb114-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb114-10"><a href="2.2-factors.html#cb114-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb114-11"><a href="2.2-factors.html#cb114-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb114-12"><a href="2.2-factors.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb114-13"><a href="2.2-factors.html#cb114-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb114-14"><a href="2.2-factors.html#cb114-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-15"><a href="2.2-factors.html#cb114-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb114-16"><a href="2.2-factors.html#cb114-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-17"><a href="2.2-factors.html#cb114-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>( y <span class="sc">~</span> <span class="fu">factor</span>(sex), data)</span></code></pre></div>
 <p><img src="03-hierarchical_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="2.2-factors.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>( y <span class="sc">~</span> <span class="fu">factor</span>(sex), data)</span></code></pre></div>
 <pre><code>## 
@@ -374,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##     (Intercept)  factor(sex)male  
-##          10.100            0.521</code></pre>
+##          10.132            0.409</code></pre>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="2.2-factors.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>( y <span class="sc">~</span> <span class="dv">0</span><span class="sc">+</span><span class="fu">factor</span>(sex), data)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -382,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ## factor(sex)female    factor(sex)male  
-##             10.10              10.62</code></pre>
+##             10.13              10.54</code></pre>
 <p>We would recommend the former methods, as this makes things clearer if other factors are simulated.</p>
 <!-- THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE -->
 <div id="fixed-factor-interactions" class="section level3 hasAnchor" number="2.2.1">
@@ -414,13 +416,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb119-24"><a href="2.2-factors.html#cb119-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb119-25"><a href="2.2-factors.html#cb119-25" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb119-26"><a href="2.2-factors.html#cb119-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##           y female male environment    residual environment:male sex squid_pop
-## 1  9.464227      1    0  -0.2306292 -0.48964724                0   1         1
-## 2  9.502465      1    0   0.3793662 -0.57340858                0   1         1
-## 3 10.064522      1    0  -1.6215884  0.38884003                0   1         1
-## 4 10.101917      1    0  -0.8841745  0.27875227                0   1         1
-## 5 10.099813      1    0  -0.7383195  0.24747643                0   1         1
-## 6  9.803504      1    0  -0.7874880 -0.03899826                0   1         1</code></pre>
+<pre><code>##           y female male environment     residual environment:male sex squid_pop
+## 1  9.750474      1    0 -1.25796735  0.002067288                0   1         1
+## 2 10.456740      1    0 -0.92214063  0.641167781                0   1         1
+## 3 10.327966      1    0  0.67783250  0.192399695                0   1         1
+## 4  9.976236      1    0  0.71095086 -0.165954375                0   1         1
+## 5  9.984801      1    0 -0.08647446  0.002095792                0   1         1
+## 6 10.295880      1    0  2.87982801 -0.280085298                0   1         1</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="2.2-factors.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>environment,data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span>scales<span class="sc">::</span><span class="fu">alpha</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="fl">0.5</span>)[<span class="fu">factor</span>(data<span class="sc">$</span>sex)])</span></code></pre></div>
 <p><img src="03-hierarchical_files/figure-html/unnamed-chunk-19-1.png" width="576" /></p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="2.2-factors.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>( y <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">factor</span>(sex)<span class="sc">*</span>environment, data)</span></code></pre></div>
@@ -430,9 +432,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Coefficients:
 ##             factor(sex)1              factor(sex)2               environment  
-##                   9.9879                   10.4875                    0.1967  
+##                  10.0031                   10.4872                    0.2023  
 ## factor(sex)2:environment  
-##                   0.4015</code></pre>
+##                   0.3867</code></pre>
 </div>
 </div>
             </section>

@@ -386,7 +386,7 @@ squid_data <- simulate_population(
 )
 ```
 
-We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of `lm(body_mass~sex)`, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline).
+We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of `lm(body_mass~sex)`, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline). Note that, as of version 0.2.4, if the levels for this grouping factor in the data structure have names (in this case "male" and "female"), then the same names have to be specified in the parameter list.
 
 
 ```r
@@ -396,7 +396,8 @@ squid_data <- simulate_population(
     intercept= 10,
     sex=list(
       fixed=TRUE,
-      beta=c(0,0.5)
+      beta=c(0,0.5),
+      names = c("female","male")
     ),
     residual = list(
       vcov = 0.5
@@ -422,7 +423,7 @@ lm( y ~ factor(sex), data)
 ## 
 ## Coefficients:
 ##     (Intercept)  factor(sex)male  
-##         10.0947           0.4615
+##          10.176            0.377
 ```
 
 Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas( equivalent to `lm(body_mass~0+sex)`):
@@ -433,7 +434,8 @@ squid_data <- simulate_population(
   parameters = list(
     sex=list(
       fixed=TRUE,
-      beta=c(10,10.5)
+      beta=c(10,10.5),
+      names = c("female","male")
     ),
     residual = list(
       vcov = 0.5
@@ -459,7 +461,7 @@ lm( y ~ factor(sex), data)
 ## 
 ## Coefficients:
 ##     (Intercept)  factor(sex)male  
-##          10.100            0.521
+##          10.132            0.409
 ```
 
 ```r
@@ -473,7 +475,7 @@ lm( y ~ 0+factor(sex), data)
 ## 
 ## Coefficients:
 ## factor(sex)female    factor(sex)male  
-##             10.10              10.62
+##             10.13              10.54
 ```
 
 We would recommend the former methods, as this makes things clearer if other factors are simulated.
@@ -517,13 +519,13 @@ head(data)
 ```
 
 ```
-##           y female male environment    residual environment:male sex squid_pop
-## 1  9.464227      1    0  -0.2306292 -0.48964724                0   1         1
-## 2  9.502465      1    0   0.3793662 -0.57340858                0   1         1
-## 3 10.064522      1    0  -1.6215884  0.38884003                0   1         1
-## 4 10.101917      1    0  -0.8841745  0.27875227                0   1         1
-## 5 10.099813      1    0  -0.7383195  0.24747643                0   1         1
-## 6  9.803504      1    0  -0.7874880 -0.03899826                0   1         1
+##           y female male environment     residual environment:male sex squid_pop
+## 1  9.750474      1    0 -1.25796735  0.002067288                0   1         1
+## 2 10.456740      1    0 -0.92214063  0.641167781                0   1         1
+## 3 10.327966      1    0  0.67783250  0.192399695                0   1         1
+## 4  9.976236      1    0  0.71095086 -0.165954375                0   1         1
+## 5  9.984801      1    0 -0.08647446  0.002095792                0   1         1
+## 6 10.295880      1    0  2.87982801 -0.280085298                0   1         1
 ```
 
 ```r
@@ -543,9 +545,9 @@ lm( y ~ 0 + factor(sex)*environment, data)
 ## 
 ## Coefficients:
 ##             factor(sex)1              factor(sex)2               environment  
-##                   9.9879                   10.4875                    0.1967  
+##                  10.0031                   10.4872                    0.2023  
 ## factor(sex)2:environment  
-##                   0.4015
+##                   0.3867
 ```
 
 
@@ -607,7 +609,7 @@ coef(lm(behaviour ~ size + physiology + temperature + rainfall , data))
 
 ```
 ## (Intercept)        size  physiology temperature    rainfall 
-##  0.04239715  0.08633998  0.18335983  0.20147836 -0.08308933
+## -0.03402370  0.07313193  0.17416616  0.24872731 -0.11561841
 ```
 
 Here, we have simulated 4 predictors, 'size' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list (here 'individual') needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
@@ -676,13 +678,13 @@ head(data)
 ```
 
 ```
-##             y individual_effect   residual individual squid_pop
-## 1 -0.86084775       -0.09309309 -0.7677547          1         1
-## 2 -1.12731207       -0.09309309 -1.0342190          1         1
-## 3  1.75527564        1.62397047  0.1313052          2         1
-## 4  1.88106328        1.62397047  0.2570928          2         1
-## 5  0.08515369       -0.63170479  0.7168585          3         1
-## 6 -1.01588408       -0.63170479 -0.3841793          3         1
+##              y individual_effect   residual individual squid_pop
+## 1  0.602356146         0.1594673  0.4428889          1         1
+## 2  1.204485552         0.1594673  1.0450183          1         1
+## 3 -0.681867088        -0.3816181 -0.3002490          2         1
+## 4 -1.436016418        -0.3816181 -1.0543983          2         1
+## 5  0.006081218         0.7306521 -0.7245709          3         1
+## 6  0.177797638         0.7306521 -0.5528544          3         1
 ```
 
 ```r
@@ -697,17 +699,17 @@ short_summary(lmer(y ~ 1 + (1|individual), data))
 ## Formula: y ~ 1 + (1 | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 2662.7
+## REML criterion at convergence: 2694
 ## 
 ## Random effects:
 ##  Groups     Name        Variance
-##  individual (Intercept) 0.5209  
-##  Residual               0.4643  
+##  individual (Intercept) 0.4741  
+##  Residual               0.5103  
 ## Number of obs: 1000, groups:  individual, 500
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)  0.01823    0.03881    0.47
+## (Intercept)  0.03428    0.03819   0.898
 ```
 
 Note that here we haven't specified any variable names. In this case the simulated predictors are named by the grouping factors (e.g. individual_effect).
@@ -754,13 +756,13 @@ head(data)
 ```
 
 ```
-##            y  dam_effect fosternest_effect    residual     dam fosternest
-## 1 -0.9961429  0.32127788        -0.5187692 -0.79865156 R187557      F2102
-## 2  0.4241295 -0.25097001         0.8402955 -0.16519603 R187559      F1902
-## 3 -1.3080452  0.14237053        -0.1642529 -1.28616283 R187568       A602
-## 4 -0.5971299 -0.07265687        -0.7234984  0.19902540 R187518      A1302
-## 5 -1.4897618 -0.93654434        -0.6329443  0.07972682 R187528      A2602
-## 6 -1.3758694  0.02953667         0.4727818 -1.87818792 R187945      C2302
+##            y    dam_effect fosternest_effect    residual     dam fosternest
+## 1  0.3414224  0.0004465141        0.26993761  0.07103831 R187557      F2102
+## 2  0.4892094  0.0512931487       -0.13437510  0.57229137 R187559      F1902
+## 3  1.6103895  0.0428057278        0.69045892  0.87712480 R187568       A602
+## 4 -1.3354583 -0.2351044549       -0.61425069 -0.48610310 R187518      A1302
+## 5 -0.1467267  0.9155448975       -0.44713888 -0.61513276 R187528      A2602
+## 6  1.3456794  0.5799862495        0.02555989  0.74013326 R187945      C2302
 ##   squid_pop
 ## 1         1
 ## 2         1
@@ -841,19 +843,19 @@ short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7970.8
+## REML criterion at convergence: 8075.9
 ## 
 ## Random effects:
 ##  Groups     Name        Variance Cov 
-##  individual (Intercept) 1.0903       
-##             environment 0.4959   0.08
-##  Residual               0.4868       
+##  individual (Intercept) 0.9964       
+##             environment 0.5520   0.04
+##  Residual               0.5060       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept) -0.08657    0.06175  -1.402
-## environment  0.26278    0.04335   6.062
+## (Intercept) -0.06715    0.05922  -1.134
+## environment  0.24393    0.04546   5.366
 ```
 
 We can make the link between the code and the equation more explicit, by expanding out the equation:
@@ -915,19 +917,19 @@ short_summary(lmer(y ~ environment + (1+environment|individual),data))
 ## Formula: y ~ environment + (1 + environment | individual)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7758.2
+## REML criterion at convergence: 8122.5
 ## 
 ## Random effects:
 ##  Groups     Name        Variance Cov 
-##  individual (Intercept) 0.9658       
-##             environment 0.5199   0.40
-##  Residual               0.4663       
+##  individual (Intercept) 1.1279       
+##             environment 0.4933   0.33
+##  Residual               0.5244       
 ## Number of obs: 3000, groups:  individual, 300
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)  0.03375    0.05824   0.580
-## environment  0.26242    0.04404   5.959
+## (Intercept) 0.009427   0.062869   0.150
+## environment 0.266923   0.043233   6.174
 ```
 
 

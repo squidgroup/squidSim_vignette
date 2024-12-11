@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -280,13 +280,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-15"><a href="1.4-transformations.html#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-16"><a href="1.4-transformations.html#cb49-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb49-17"><a href="1.4-transformations.html#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature  rainfall   residual squid_pop
-## 1 0.8808384   0.9661316 1.7834867 -0.1372734         1
-## 2 0.2263617  -0.3593466 1.8415211 -0.1464213         1
-## 3 0.3550851   1.5984683 0.2318093 -0.5136918         1
-## 4 1.4382651  -1.5338100 4.4990114  0.8554666         1
-## 5 0.6630719   2.1241124 0.9072182 -0.6711498         1
-## 6 0.6877911  -0.9466144 0.9671257  0.8709606         1</code></pre>
+<pre><code>##     body_mass temperature  rainfall   residual squid_pop
+## 1  0.17389503  -0.7657209 3.6142011 -0.5275048         1
+## 2  0.31171085  -0.9411953 2.2069842  0.1202132         1
+## 3  0.21164317  -0.8870048 1.0539333  0.3389656         1
+## 4 -0.05429141   0.5958834 0.4053547 -0.4738395         1
+## 5  0.63219255   1.7752999 1.4155625 -0.6801262         1
+## 6  2.36817352   0.2084304 7.3877935  0.0476203         1</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="1.4-transformations.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>rainfall, <span class="at">xlab=</span><span class="st">&quot;Rainfall&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">breaks=</span><span class="dv">100</span>)</span></code></pre></div>
 <p><img src="02-sim_pop_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>If a covariance between variables is specified, this covariance is on the untransformed (Gaussian) scale (as the variables are simulated as multivariate normal), NOT on the transformed scale, so care should be taken with this. For example:</p>
@@ -309,9 +309,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-17"><a href="1.4-transformations.html#cb52-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb52-18"><a href="1.4-transformations.html#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-19"><a href="1.4-transformations.html#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,data<span class="sc">$</span>rainfall)</span></code></pre></div>
-<pre><code>## [1] 1.132242</code></pre>
+<pre><code>## [1] 1.167142</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="1.4-transformations.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,<span class="fu">log</span>(data<span class="sc">$</span>rainfall))</span></code></pre></div>
-<pre><code>## [1] 0.6947967</code></pre>
+<pre><code>## [1] 0.6892072</code></pre>
 <p>The simulated covariance can be recovered on the back-transformed predictor.</p>
 <p>The <code>simulated_variance()</code> function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.</p>
 </div>

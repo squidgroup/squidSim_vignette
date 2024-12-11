@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -301,20 +301,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We haven’t specified any names (of responses or predictors). By default, <code>simulate_population()</code> will add a number to the default name to indicate which reponse variable it refers to, so here we have <code>y1</code> and <code>y2</code> for the response variable, and <code>individual_effect1</code> and <code>individual_effect2</code> etc.</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="3-multivariate.html#cb144-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb144-2"><a href="3-multivariate.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##          y1         y2 individual_effect1 individual_effect2  residual1
-## 1 1.7154548 -0.3400219           1.917971          0.7785752 -0.2025162
-## 2 0.5628202  0.3404365           1.917971          0.7785752 -1.3551508
-## 3 2.2598837  0.1039745           1.917971          0.7785752  0.3419127
-## 4 1.2400569  1.7172877           1.917971          0.7785752 -0.6779141
-## 5 0.8401039  0.2945199           1.917971          0.7785752 -1.0778671
-## 6 2.6972366  0.0814206           1.917971          0.7785752  0.7792656
+<pre><code>##          y1        y2 individual_effect1 individual_effect2   residual1
+## 1 1.1054644 1.4127080           2.480034           1.634281 -1.37456980
+## 2 4.1766734 0.8345915           2.480034           1.634281  1.69663917
+## 3 1.7790364 0.5872531           2.480034           1.634281 -0.70099782
+## 4 0.7353167 0.5515726           2.480034           1.634281 -1.74471750
+## 5 2.4911567 0.9464126           2.480034           1.634281  0.01112246
+## 6 5.1880032 3.3071899           2.480034           1.634281  2.70796900
 ##    residual2 individual squid_pop
-## 1 -1.1185971          1         1
-## 2 -0.4381387          1         1
-## 3 -0.6746007          1         1
-## 4  0.9387125          1         1
-## 5 -0.4840553          1         1
-## 6 -0.6971546          1         1</code></pre>
+## 1 -0.2215732          1         1
+## 2 -0.7996898          1         1
+## 3 -1.0470282          1         1
+## 4 -1.0827086          1         1
+## 5 -0.6878687          1         1
+## 6  1.6729086          1         1</code></pre>
 <p>We can name the response variables easily, by giving the <code>response_name</code> argument a vector of names</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="3-multivariate.html#cb146-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb146-2"><a href="3-multivariate.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
@@ -331,20 +331,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb146-13"><a href="3-multivariate.html#cb146-13" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb146-14"><a href="3-multivariate.html#cb146-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb146-15"><a href="3-multivariate.html#cb146-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##    body_mass  behaviour individual_effect1 individual_effect2  residual1
-## 1 -1.7790297 -2.1313181         -0.2306292          0.2132262 -1.5484005
-## 2  0.9989910  1.5914308         -0.2306292          0.2132262  1.2296201
-## 3  0.5519600  0.4977197         -0.2306292          0.2132262  0.7825892
-## 4  0.8959494  0.9204513         -0.2306292          0.2132262  1.1265785
-## 5  0.5997486  0.8608984         -0.2306292          0.2132262  0.8303778
-## 6 -1.4619544 -0.8689692         -0.2306292          0.2132262 -1.2313253
-##    residual2 individual squid_pop
-## 1 -2.3445443          1         1
-## 2  1.3782046          1         1
-## 3  0.2844935          1         1
-## 4  0.7072251          1         1
-## 5  0.6476722          1         1
-## 6 -1.0821955          1         1</code></pre>
+<pre><code>##     body_mass  behaviour individual_effect1 individual_effect2   residual1
+## 1 -0.45333155 -2.3819621         -0.5478939        -0.09634067  0.09456232
+## 2 -0.43114173 -0.6964292         -0.5478939        -0.09634067  0.11675214
+## 3 -2.57715631 -0.9151838         -0.5478939        -0.09634067 -2.02926243
+## 4 -0.09299664 -0.1446033         -0.5478939        -0.09634067  0.45489723
+## 5 -0.92695565  1.2149131         -0.5478939        -0.09634067 -0.37906178
+## 6 -1.99656829 -0.6476084         -0.5478939        -0.09634067 -1.44867441
+##     residual2 individual squid_pop
+## 1 -2.28562139          1         1
+## 2 -0.60008852          1         1
+## 3 -0.81884311          1         1
+## 4 -0.04826266          1         1
+## 5  1.31125377          1         1
+## 6 -0.55126775          1         1</code></pre>
 </div>
             </section>
 

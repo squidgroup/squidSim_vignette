@@ -1,7 +1,7 @@
 --- 
 title: "The {squidSim} R Package Vignette"
 author: "Joel Pick"
-date: "2024-06-17"
+date: "2024-12-11"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

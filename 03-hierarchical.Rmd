@@ -215,7 +215,7 @@ squid_data <- simulate_population(
 )
 ```
 
-We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of `lm(body_mass~sex)`, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline).
+We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of `lm(body_mass~sex)`, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline). Note that, as of version 0.2.4, if the levels for this grouping factor in the data structure have names (in this case "male" and "female"), then the same names have to be specified in the parameter list.
 
 ```{r}
 squid_data <- simulate_population(
@@ -224,7 +224,8 @@ squid_data <- simulate_population(
     intercept= 10,
     sex=list(
       fixed=TRUE,
-      beta=c(0,0.5)
+      beta=c(0,0.5),
+      names = c("female","male")
     ),
     residual = list(
       vcov = 0.5
@@ -245,7 +246,8 @@ squid_data <- simulate_population(
   parameters = list(
     sex=list(
       fixed=TRUE,
-      beta=c(10,10.5)
+      beta=c(10,10.5),
+      names = c("female","male")
     ),
     residual = list(
       vcov = 0.5

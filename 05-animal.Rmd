@@ -131,7 +131,7 @@ squid_data <- simulate_population(
   parameters = list(
     sex=list(
       fixed=TRUE,
-      names=c("female","male"),
+      names=c("Female","Male"),
       beta=c(-0.5,0.5)
     ),
     animal= list(
@@ -145,7 +145,7 @@ squid_data <- simulate_population(
   ),
   data_structure = ds,
   pedigree = list(animal=BTped),
-  model = "y = female + male + I(female)*G_female + I(male)*G_male + residual"
+  model = "y = Female + Male + I(Female)*G_female + I(Male)*G_male + residual"
 )
 
 data <- get_population_data(squid_data)

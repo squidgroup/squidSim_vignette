@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -298,13 +298,13 @@ y_i \sim Poisson(\lambda_i)
 <span id="cb61-16"><a href="1.6-nonGaussian.html#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-17"><a href="1.6-nonGaussian.html#cb61-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb61-18"><a href="1.6-nonGaussian.html#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   y temperature    rainfall  residual squid_pop
-## 1 0   0.2490819  0.18108147 0.8249614         1
-## 2 3  -0.3059614 -0.01854387 1.0974162         1
-## 3 3  -1.9080617 -0.10657783 1.4348215         1
-## 4 5  -0.3827834 -0.63354609 2.0413375         1
-## 5 5   2.1639215  0.02263793 0.8399427         1
-## 6 4  -0.2962397 -0.14766836 1.6809449         1</code></pre>
+<pre><code>##    y temperature   rainfall residual squid_pop
+## 1  2  -0.5092091 -0.5464299 1.152254         1
+## 2  8  -0.2682265  0.6459884 2.084300         1
+## 3  4  -1.0337567 -0.1713375 1.579655         1
+## 4  7   0.6838892  0.4909524 1.517778         1
+## 5 16   1.0748364  0.4885968 2.185156         1
+## 6 11  -0.9866906  0.1611376 1.788293         1</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="1.6-nonGaussian.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">table</span>(data<span class="sc">$</span>y), <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;z&quot;</span>)</span></code></pre></div>
 <p><img src="02-sim_pop_files/figure-html/non-gaussian-1.png" width="576" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.6-nonGaussian.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
@@ -314,11 +314,11 @@ y_i \sim Poisson(\lambda_i)
 ## 
 ## Coefficients:
 ## (Intercept)  temperature     rainfall  
-##      1.8545       0.1857       0.1124  
+##      1.8464       0.1895       0.1207  
 ## 
 ## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
-## Null Deviance:       5169 
-## Residual Deviance: 4537  AIC: 11550</code></pre>
+## Null Deviance:       5448 
+## Residual Deviance: 4759  AIC: 11780</code></pre>
 <p>Available families are ‘gaussian’, ‘poisson’ or ‘binomial’ and link functions ‘identity’, ‘log’, ‘inverse’, ‘sqrt’, ‘logit’, ‘probit’.</p>
 </div>
             </section>

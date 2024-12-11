@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -292,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="02-sim_pop_files/figure-html/lm3-1.png" width="960" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="1.2-corpred.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##   9.7745865   0.4847876  -2.9889811   0.4172907</code></pre>
+##  10.1035658   0.4516304  -3.0698659   0.4221429</code></pre>
 <style>
 div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 </style>
@@ -336,9 +336,9 @@ make little shiny app that allows you to enter diagonal and
 <span id="cb35-23"><a href="1.2-corpred.html#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-24"><a href="1.2-corpred.html#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>)])</span></code></pre></div>
 <pre><code>##             temperature   rainfall      wind
-## temperature   1.0000000 -0.1812635 0.5176010
-## rainfall     -0.1812635  1.0000000 0.2617843
-## wind          0.5176010  0.2617843 1.0000000</code></pre>
+## temperature   1.0000000 -0.2118314 0.5082047
+## rainfall     -0.2118314  1.0000000 0.2690873
+## wind          0.5082047  0.2690873 1.0000000</code></pre>
 <p>Through simulating correlated predictors, we can also simulate more interesting phenomena. For example, we may want to simulate the effect of a correlated missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="1.2-corpred.html#cb37-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb37-2"><a href="1.2-corpred.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
@@ -369,10 +369,10 @@ make little shiny app that allows you to enter diagonal and
 <p><img src="02-sim_pop_files/figure-html/lm5-1.png" width="960" /></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="1.2-corpred.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall 
-##  13.8936511   0.9148843  -3.0592937</code></pre>
+##   13.944305    0.913508   -3.088825</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="1.2-corpred.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##  10.2631334   0.5509808  -3.0467600   0.3633353</code></pre>
+##   9.7004101   0.4747701  -3.0718309   0.4308823</code></pre>
 <p>We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain effect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).</p>
 <!-- measurement error - correlated variable #ffe58f-->
 </div>

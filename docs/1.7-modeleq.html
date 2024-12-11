@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -287,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb66-17"><a href="1.7-modeleq.html#cb66-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-18"><a href="1.7-modeleq.html#cb66-18" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall 
-## 0.004605396 0.506914670 0.288952532</code></pre>
+##  0.01438998  0.54824742  0.31448835</code></pre>
 <p>In the formula, we write out how the variables are added up. <em>Everything that you want exported needs to be defined and named</em> (e.g. <code>y=...</code>). By default, all predictors are multiplied by their respective beta values before this happens. Sometimes it is useful to prevent this multiplication (e.g. multiply two traits together without them being multiplied by their respective beta). We can do this by using <code>I()</code>.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="1.7-modeleq.html#cb68-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb68-2"><a href="1.7-modeleq.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
@@ -307,8 +307,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb68-16"><a href="1.7-modeleq.html#cb68-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb68-17"><a href="1.7-modeleq.html#cb68-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb68-18"><a href="1.7-modeleq.html#cb68-18" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
-<pre><code>##  (Intercept)  temperature     rainfall 
-## -0.004985291  0.495841550  0.960772034</code></pre>
+<pre><code>## (Intercept) temperature    rainfall 
+##  0.02271624  0.49949825  0.98793882</code></pre>
 <p>We can also add extra parameters to the parameter list, which we can call from within the function. In combination with <code>I()</code> we can then customise the model formula a bit</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="1.7-modeleq.html#cb70-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb70-2"><a href="1.7-modeleq.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
@@ -329,8 +329,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-17"><a href="1.7-modeleq.html#cb70-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb70-18"><a href="1.7-modeleq.html#cb70-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-19"><a href="1.7-modeleq.html#cb70-19" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data))</span></code></pre></div>
-<pre><code>##  (Intercept)  temperature     rainfall 
-## -0.000221756  0.481460783  0.085752465</code></pre>
+<pre><code>## (Intercept) temperature    rainfall 
+##  0.02018766  0.51125796  0.10202578</code></pre>
 <p>Finally, we can use <code>[]</code> to index the levels of the random effects within the formula.. An example of this is given Section <a href="4.4-IGE.html#IGE">4.4</a>, along with use of the <code>index_link</code> argument.</p>
 </div>
             </section>

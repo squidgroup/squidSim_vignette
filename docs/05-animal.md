@@ -181,7 +181,7 @@ squid_data <- simulate_population(
   parameters = list(
     sex=list(
       fixed=TRUE,
-      names=c("female","male"),
+      names=c("Female","Male"),
       beta=c(-0.5,0.5)
     ),
     animal= list(
@@ -195,7 +195,7 @@ squid_data <- simulate_population(
   ),
   data_structure = ds,
   pedigree = list(animal=BTped),
-  model = "y = female + male + I(female)*G_female + I(male)*G_male + residual"
+  model = "y = Female + Male + I(Female)*G_female + I(Male)*G_male + residual"
 )
 
 data <- get_population_data(squid_data)
@@ -203,13 +203,13 @@ head(data)
 ```
 
 ```
-##            y female male   G_female       G_male     residual  animal    sex
-## 1 -0.6170325      0    1  0.2464809 -1.098901182 -0.018131357 R187557   Male
-## 2  0.2126651      0    1  0.3753270 -0.132978126 -0.154356766 R187559   Male
-## 3 -0.3887086      1    0  0.2620467  0.531475188 -0.150755220 R187568 Female
-## 4 -1.0722142      1    0 -0.1760677  1.799807824 -0.396146496 R187518 Female
-## 5  0.3466036      0    1  0.4672305 -0.003029647 -0.150366787 R187528   Male
-## 6 -0.8563174      1    0 -0.3623897  0.317785707  0.006072329 R187945 Female
+##            y Female Male    G_female      G_male    residual  animal    sex
+## 1  0.2055466      0    1  0.47080769 -0.73545126  0.44099788 R187557   Male
+## 2  0.4324628      0    1 -0.62078654 -0.01386573 -0.05367147 R187559   Male
+## 3 -0.5981933      1    0 -0.14154068  0.15570322  0.04334741 R187568 Female
+## 4 -0.8820294      1    0 -0.09385028 -0.33749998 -0.28817915 R187518 Female
+## 5 -0.5110713      0    1  0.31509524 -0.70944997 -0.30162129 R187528   Male
+## 6 -0.1480012      1    0  0.07452335  0.34664838  0.27747548 R187945 Female
 ##   squid_pop
 ## 1         1
 ## 2         1

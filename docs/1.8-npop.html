@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -281,21 +281,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By default <code>get_population_data</code> returns a data.frame, where the <code>squid_pop</code> column indicates the population</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="1.8-npop.html#cb73-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb73-2"><a href="1.8-npop.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature    rainfall        wind    residual squid_pop
-## 1  9.963488 -0.87042429  0.08123816 -1.46160423  1.00771338         1
-## 2 11.679887  0.54596251 -1.35020676  0.44824010  0.82254729         1
-## 3 10.205083  0.05409334 -0.59114054  0.30053533 -0.11952024         1
-## 4  9.957851 -1.73773422 -0.62630133 -0.38115588  0.79129050         1
-## 5 10.547339  1.61947126  0.76155388 -0.05519906 -0.01185064         1
-## 6 10.196599  0.68431346  0.65455707 -2.19404168  0.92842638         1</code></pre>
+<pre><code>##   body_mass temperature    rainfall        wind   residual squid_pop
+## 1  9.369764  -1.1830537 -0.46893722  0.88840715 -0.5347529         1
+## 2  8.499772  -1.7192827 -0.05694062 -0.01411928 -0.6520216         1
+## 3 11.151019  -0.3770438 -0.15465879 -0.81390605  1.6187058         1
+## 4 10.592297  -1.1760859  0.55469813  1.31959453  0.8189114         1
+## 5 11.541493  -0.5370830 -2.66897280 -0.42429615  1.1790607         1
+## 6 10.155592  -0.2426915  0.05478356  0.04630962  0.2748485         1</code></pre>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="1.8-npop.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data)</span></code></pre></div>
-<pre><code>##       body_mass temperature   rainfall        wind      residual squid_pop
-## 9995   8.086665  -0.6214712 -0.8064454 -0.54186069 -1.6277892272         5
-## 9996  11.521081   0.2075812 -2.0356218 -0.01890323  0.8141651756         5
-## 9997  11.384367  -0.2871820 -1.1694008  0.59354828  0.9397186387         5
-## 9998  11.682527  -0.1509205 -0.9174626 -0.46858243  1.6701819257         5
-## 9999   9.570990  -1.4052158 -1.7697390 -0.97793190  0.1338485092         5
-## 10000  9.421060  -1.1131408 -1.4915844 -1.17264236 -0.0007877935         5</code></pre>
+<pre><code>##       body_mass temperature   rainfall       wind   residual squid_pop
+## 9995  10.116462  -1.0543945 -1.8597309 -0.8617747  0.4304499         5
+## 9996   9.121754   0.6501680  0.3395459  0.3824208 -1.2544341         5
+## 9997   9.142314  -0.3360826  0.8804852 -0.7172734 -0.1385899         5
+## 9998   7.694607  -0.3669761  3.2124110 -0.0745173 -1.1283751         5
+## 9999   9.306256   1.1088145 -1.6084340 -2.2160486 -0.8442623         5
+## 10000  8.276687   0.5646602  0.6777146 -1.2828554 -1.2891862         5</code></pre>
 <p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="1.8-npop.html#cb77-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span>
 <span id="cb77-2"><a href="1.8-npop.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data)</span></code></pre></div>
