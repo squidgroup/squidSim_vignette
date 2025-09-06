@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette</title>
+  <title>1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -288,18 +290,25 @@ y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilo
 <span id="cb42-18"><a href="1.3-interactions.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-19"><a href="1.3-interactions.html#cb42-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb42-20"><a href="1.3-interactions.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##     body_mass temperature   rainfall    residual temperature:rainfall squid_pop
-## 1 -0.75306930  -1.7993007  0.1797179  0.06032903          -0.32336662         1
-## 2  1.10189574   1.4074719 -0.3185415  0.44888842          -0.44833826         1
-## 3  0.38025544  -0.2554504 -0.8691029  0.79091279           0.22201270         1
-## 4 -0.50416601  -1.3475335  0.9115643 -0.22670489          -1.22836340         1
-## 5 -0.02845418   2.3573010 -0.3703654 -1.18330134          -0.87306263         1
-## 6  0.35353883  -0.1211901  0.7102531  0.19245041          -0.08607567         1</code></pre>
+<pre><code>##     body_mass temperature     rainfall   residual temperature:rainfall
+## 1  0.10157809 -0.52578806 -0.900467583 0.68195791          0.473455102
+## 2  1.27037941  0.15685679  0.008508931 1.18953180          0.001334684
+## 3  1.09260136  1.43214672 -0.599461006 0.47051469         -0.858516115
+## 4  0.88371868  0.95614001 -1.155390758 0.64179436         -1.104715333
+## 5 -0.04515612  0.05988423 -0.439114402 0.05400648         -0.026296028
+## 6  2.11519536  2.73482346 -0.855646194 0.77047337         -2.340041281
+##   squid_pop
+## 1         1
+## 2         1
+## 3         1
+## 4         1
+## 5         1
+## 6         1</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="1.3-interactions.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
 <pre><code>##          (Intercept)          temperature             rainfall 
-##           0.01766038           0.48214243           0.32101602 
+##         -0.003407952          0.494634096          0.321720430 
 ## temperature:rainfall 
-##          -0.08422462</code></pre>
+##         -0.101798139</code></pre>
 </div>
 <div id="non-linear-effects" class="section level3 hasAnchor" number="1.3.2">
 <h3><span class="header-section-number">1.3.2</span> Non-linear effects<a href="1.3-interactions.html#non-linear-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -327,7 +336,7 @@ y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilo
 <p><img src="02-sim_pop_files/figure-html/non-linear-1.png" width="576" /></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="1.3-interactions.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
 <pre><code>##      (Intercept)      temperature I(temperature^2) 
-##      -0.02261543       0.50498361      -0.30214780</code></pre>
+##       0.01706406       0.49566769      -0.29948675</code></pre>
 <p><br></p>
 </div>
 </div>
@@ -351,42 +360,42 @@ y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilo
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

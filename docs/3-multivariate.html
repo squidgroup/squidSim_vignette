@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Multi-response Models | The {squidSim} R Package Vignette</title>
+  <title>3 Multi-response Models | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Multi-response Models | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="3 Multi-response Models | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Multi-response Models | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="3 Multi-response Models | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -286,21 +288,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \end{bmatrix}
 \]</span></p>
 <p>We can indicate that there are multiple phenotypes within the parameter list using the <code>n_response</code> argument. If we have <span class="math inline">\(q\)</span> response variables, <code>vcov</code> now needs to either be a vector of length <span class="math inline">\(q\)</span> (the variances, if we assume the covariances are 0) or a <span class="math inline">\(q*q\)</span> covariance matrix. So below, we simulate 2 response variables, with a covariance between them at both individual and residual levels.</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="3-multivariate.html#cb143-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb143-2"><a href="3-multivariate.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
-<span id="cb143-3"><a href="3-multivariate.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
-<span id="cb143-4"><a href="3-multivariate.html#cb143-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb143-5"><a href="3-multivariate.html#cb143-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb143-6"><a href="3-multivariate.html#cb143-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb143-7"><a href="3-multivariate.html#cb143-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb143-8"><a href="3-multivariate.html#cb143-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb143-9"><a href="3-multivariate.html#cb143-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb143-10"><a href="3-multivariate.html#cb143-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb143-11"><a href="3-multivariate.html#cb143-11" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb143-12"><a href="3-multivariate.html#cb143-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="3-multivariate.html#cb144-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb144-2"><a href="3-multivariate.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
+<span id="cb144-3"><a href="3-multivariate.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb144-4"><a href="3-multivariate.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb144-5"><a href="3-multivariate.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb144-6"><a href="3-multivariate.html#cb144-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb144-7"><a href="3-multivariate.html#cb144-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb144-8"><a href="3-multivariate.html#cb144-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb144-9"><a href="3-multivariate.html#cb144-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb144-10"><a href="3-multivariate.html#cb144-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb144-11"><a href="3-multivariate.html#cb144-11" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb144-12"><a href="3-multivariate.html#cb144-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>We haven’t specified any names (of responses or predictors). By default, <code>simulate_population()</code> will add a number to the default name to indicate which reponse variable it refers to, so here we have <code>y1</code> and <code>y2</code> for the response variable, and <code>individual_effect1</code> and <code>individual_effect2</code> etc.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="3-multivariate.html#cb144-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb144-2"><a href="3-multivariate.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="3-multivariate.html#cb145-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb145-2"><a href="3-multivariate.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##          y1        y2 individual_effect1 individual_effect2   residual1
 ## 1 1.1054644 1.4127080           2.480034           1.634281 -1.37456980
 ## 2 4.1766734 0.8345915           2.480034           1.634281  1.69663917
@@ -316,21 +318,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 -0.6878687          1         1
 ## 6  1.6729086          1         1</code></pre>
 <p>We can name the response variables easily, by giving the <code>response_name</code> argument a vector of names</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="3-multivariate.html#cb146-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb146-2"><a href="3-multivariate.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
-<span id="cb146-3"><a href="3-multivariate.html#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
-<span id="cb146-4"><a href="3-multivariate.html#cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="fu">c</span>(<span class="st">&quot;body_mass&quot;</span>,<span class="st">&quot;behaviour&quot;</span>),</span>
-<span id="cb146-5"><a href="3-multivariate.html#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb146-6"><a href="3-multivariate.html#cb146-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb146-7"><a href="3-multivariate.html#cb146-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb146-8"><a href="3-multivariate.html#cb146-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb146-9"><a href="3-multivariate.html#cb146-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb146-10"><a href="3-multivariate.html#cb146-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb146-11"><a href="3-multivariate.html#cb146-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb146-12"><a href="3-multivariate.html#cb146-12" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb146-13"><a href="3-multivariate.html#cb146-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb146-14"><a href="3-multivariate.html#cb146-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb146-15"><a href="3-multivariate.html#cb146-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="3-multivariate.html#cb147-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb147-2"><a href="3-multivariate.html#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
+<span id="cb147-3"><a href="3-multivariate.html#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb147-4"><a href="3-multivariate.html#cb147-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="fu">c</span>(<span class="st">&quot;body_mass&quot;</span>,<span class="st">&quot;behaviour&quot;</span>),</span>
+<span id="cb147-5"><a href="3-multivariate.html#cb147-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb147-6"><a href="3-multivariate.html#cb147-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb147-7"><a href="3-multivariate.html#cb147-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb147-8"><a href="3-multivariate.html#cb147-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb147-9"><a href="3-multivariate.html#cb147-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb147-10"><a href="3-multivariate.html#cb147-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow =</span> <span class="dv">2</span>,<span class="at">ncol =</span> <span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb147-11"><a href="3-multivariate.html#cb147-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb147-12"><a href="3-multivariate.html#cb147-12" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb147-13"><a href="3-multivariate.html#cb147-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb147-14"><a href="3-multivariate.html#cb147-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb147-15"><a href="3-multivariate.html#cb147-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##     body_mass  behaviour individual_effect1 individual_effect2   residual1
 ## 1 -0.45333155 -2.3819621         -0.5478939        -0.09634067  0.09456232
 ## 2 -0.43114173 -0.6964292         -0.5478939        -0.09634067  0.11675214
@@ -366,42 +368,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

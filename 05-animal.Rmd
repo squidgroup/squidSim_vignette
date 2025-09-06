@@ -51,14 +51,24 @@ head(data)
 # summary(mod)
 ```
 
+We might want to simulate repeated measurements to allow estimation of permanent environment effects. The simplest way to do this is to create a duplicated column in the data structure of the individual IDs. Permanent environment effects that are not linked to the pedigree can then be simulated.
 
-
+<!-- 
 We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.
+ -->
+
+:::: {.blackbox data-latex=""}
+::: {.center data-latex=""}
+**NOTICE!**
+:::
+The instructions given for simulating permanent environment effects using squidSim were incorrect in the vignette prior to version 0.2.0 (updated in September 2025). 
+::::
+
 
 ```{r, eval=TRUE, cache=TRUE}
 
-## make data structure with two observations per individual
-ds <- data.frame(individual=rep(BTped[,1], 2))
+## make data structure with two observations per individual, with ID duplicated in two columns, animal and individual, and link the animal column in the data structure to the pedigree
+ds <- data.frame(animal=rep(BTped[,1], 2),individual=rep(BTped[,1], 2))
 
 squid_data <- simulate_population(
   data_structure = ds, 
@@ -68,7 +78,6 @@ squid_data <- simulate_population(
       vcov = 0.3
     ),
     animal = list(
-      group="individual",
       vcov = 0.2
     ),
     residual = list(
@@ -80,12 +89,14 @@ squid_data <- simulate_population(
 data <- get_population_data(squid_data)
 head(data)
 
+
 # Ainv<-inverseA(BTped)$Ainv
 # data$animal_id <- data$individual
 # mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
 # summary(mod)
 
 ```
+
 
 ## Multivariate genetic effects
 

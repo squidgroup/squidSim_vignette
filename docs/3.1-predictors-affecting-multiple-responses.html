@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 Predictors affecting multiple responses | The {squidSim} R Package Vignette</title>
+  <title>3.1 Predictors affecting multiple responses | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 Predictors affecting multiple responses | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="3.1 Predictors affecting multiple responses | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 Predictors affecting multiple responses | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="3.1 Predictors affecting multiple responses | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -277,21 +279,21 @@ B_{\epsilon} = \begin{bmatrix}
 \end{bmatrix}
 \]</span></p>
 <p>to include matrices of <span class="math inline">\(\beta\)</span>s, <span class="math inline">\(B\)</span>, the columns of which refer to the response variable, and the rows predictors. In this case they are all identity matrices, which essentially controlling which predictors affects which response (<span class="math inline">\(u_1\)</span> affects <span class="math inline">\(y_1\)</span> but not <span class="math inline">\(y_2\)</span> and vice versa). Internally, <code>simulate_population()</code> does the same thing, and assigns <code>beta</code> as an identity matrix.</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb148-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
-<span id="cb148-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb148-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="fu">c</span>(<span class="st">&quot;body_mass&quot;</span>,<span class="st">&quot;behaviour&quot;</span>),</span>
-<span id="cb148-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb148-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb148-7"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
-<span id="cb148-8"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb148-9"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb148-10"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb148-11"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
-<span id="cb148-12"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb148-13"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb148-14"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb148-15"><a href="3.1-predictors-affecting-multiple-responses.html#cb148-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb149-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">10</span>),</span>
+<span id="cb149-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb149-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="fu">c</span>(<span class="st">&quot;body_mass&quot;</span>,<span class="st">&quot;behaviour&quot;</span>),</span>
+<span id="cb149-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb149-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb149-7"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
+<span id="cb149-8"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb149-9"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb149-10"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb149-11"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>),</span>
+<span id="cb149-12"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb149-13"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb149-14"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb149-15"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>How is this helpful? Well now we could simulate one (or many) predictor(s) that both responses. In the form of an equation we could have</p>
 <p><span class="math display">\[\boldsymbol{y}_{ij} = \boldsymbol{\beta}_0 + \boldsymbol{x}_{i} B_x + \boldsymbol{u}_j + \boldsymbol{\epsilon}_{ij}\]</span></p>
 <p><span class="math display">\[\boldsymbol{x}_i \sim \mathcal{N}(\boldsymbol{\mu}_x, \Sigma_x)\]</span></p>
@@ -303,36 +305,36 @@ https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in
 make little shiny app that allows you to enter diagonal and 
 
  -->
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-1" aria-hidden="true" tabindex="-1"></a>Beta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb149-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.1</span>,</span>
-<span id="cb149-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.2</span>,</span>
-<span id="cb149-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.3</span>, <span class="sc">-</span><span class="fl">0.1</span></span>
-<span id="cb149-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-5" aria-hidden="true" tabindex="-1"></a>  ),<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb149-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb149-6" aria-hidden="true" tabindex="-1"></a>Beta</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb150-1" aria-hidden="true" tabindex="-1"></a>Beta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb150-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.1</span>,</span>
+<span id="cb150-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb150-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.2</span>,</span>
+<span id="cb150-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb150-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.3</span>, <span class="sc">-</span><span class="fl">0.1</span></span>
+<span id="cb150-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb150-5" aria-hidden="true" tabindex="-1"></a>  ),<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb150-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb150-6" aria-hidden="true" tabindex="-1"></a>Beta</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  0.5 -0.1
 ## [2,]  0.2 -0.2
 ## [3,]  0.3 -0.1</code></pre>
 <p>So here, the environment variables all positively affect body mass (response 1) and negatively affect behaviour (response 2). This then slots easily into our code.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb151-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb151-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb151-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span> <span class="fu">list</span>(</span>
-<span id="cb151-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb151-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb151-7"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb151-8"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
-<span id="cb151-9"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
-<span id="cb151-10"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> Beta</span>
-<span id="cb151-11"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb151-12"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb151-13"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb151-14"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb151-15"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb151-16"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb151-17"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-18"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb151-19"><a href="3.1-predictors-affecting-multiple-responses.html#cb151-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb152-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb152-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb152-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span> <span class="fu">list</span>(</span>
+<span id="cb152-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb152-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb152-7"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb152-8"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
+<span id="cb152-9"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
+<span id="cb152-10"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> Beta</span>
+<span id="cb152-11"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb152-12"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb152-13"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb152-14"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb152-15"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb152-16"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb152-17"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-18"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb152-19"><a href="3.1-predictors-affecting-multiple-responses.html#cb152-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##           y1         y2 individual_effect1 individual_effect2 temperature
 ## 1  0.2981452 -1.3155845          -0.311252          -0.897568  -1.1453264
 ## 2 -0.6873794 -0.6087159          -0.311252          -0.897568  -0.8578652
@@ -347,34 +349,34 @@ make little shiny app that allows you to enter diagonal and
 ## 4 0.2989377 -0.8591160 -1.8289570 -0.2866060          1         1
 ## 5 0.4251985 -0.2197198  1.2430745  0.4160745          1         1
 ## 6 1.1467957  1.0675309  0.1049086 -0.8747054          1         1</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
-<span id="cb153-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
-<span id="cb153-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
+<span id="cb154-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
+<span id="cb154-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 <p>Equally if we want an interaction, we now have to expand the size of what we give to <code>beta</code>, with one <span class="math inline">\(\beta\)</span> for each response, in a matrix, with <span class="math inline">\(q\)</span> columns.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb154-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb154-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb154-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb154-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span> <span class="fu">list</span>(</span>
-<span id="cb154-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb154-7"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb154-8"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb154-9"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
-<span id="cb154-10"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
-<span id="cb154-11"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> Beta</span>
-<span id="cb154-12"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb154-13"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
-<span id="cb154-14"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature:rainfall&quot;</span>),</span>
-<span id="cb154-15"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.3</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb154-16"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb154-17"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb154-18"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb154-19"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb154-20"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb154-21"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb154-22"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb154-23"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb154-24"><a href="3.1-predictors-affecting-multiple-responses.html#cb154-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb155-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb155-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb155-4"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb155-5"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span> <span class="fu">list</span>(</span>
+<span id="cb155-6"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb155-7"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb155-8"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb155-9"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
+<span id="cb155-10"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
+<span id="cb155-11"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span> Beta</span>
+<span id="cb155-12"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb155-13"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
+<span id="cb155-14"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature:rainfall&quot;</span>),</span>
+<span id="cb155-15"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.3</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb155-16"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb155-17"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb155-18"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb155-19"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb155-20"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb155-21"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb155-22"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-23"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb155-24"><a href="3.1-predictors-affecting-multiple-responses.html#cb155-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##           y1          y2 individual_effect1 individual_effect2 temperature
 ## 1 -1.4752163 -0.53377659         -0.2872822         -0.6655179  0.03214917
 ## 2  0.1289671 -0.83203811         -0.2872822         -0.6655179 -0.08320398
@@ -396,9 +398,9 @@ make little shiny app that allows you to enter diagonal and
 ## 4         1
 ## 5         1
 ## 6         1</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
-<span id="cb156-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
-<span id="cb156-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="3.1-predictors-affecting-multiple-responses.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(MCMCglmm)</span></span>
+<span id="cb157-2"><a href="3.1-predictors-affecting-multiple-responses.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep(&quot;gaussian&quot;,2),verbose=FALSE)</span></span>
+<span id="cb157-3"><a href="3.1-predictors-affecting-multiple-responses.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 </div>
             </section>
 
@@ -420,42 +422,42 @@ make little shiny app that allows you to enter diagonal and
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

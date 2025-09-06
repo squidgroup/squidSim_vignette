@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette</title>
+  <title>1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -298,13 +300,13 @@ y_i \sim Poisson(\lambda_i)
 <span id="cb61-16"><a href="1.6-nonGaussian.html#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-17"><a href="1.6-nonGaussian.html#cb61-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb61-18"><a href="1.6-nonGaussian.html#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##    y temperature   rainfall residual squid_pop
-## 1  2  -0.5092091 -0.5464299 1.152254         1
-## 2  8  -0.2682265  0.6459884 2.084300         1
-## 3  4  -1.0337567 -0.1713375 1.579655         1
-## 4  7   0.6838892  0.4909524 1.517778         1
-## 5 16   1.0748364  0.4885968 2.185156         1
-## 6 11  -0.9866906  0.1611376 1.788293         1</code></pre>
+<pre><code>##    y temperature    rainfall residual squid_pop
+## 1  5  0.80122572  1.51171175 1.740107         1
+## 2 11  0.19315205 -0.09121688 2.305221         1
+## 3  7 -0.05978012  0.27519677 1.591893         1
+## 4  2 -1.94741262  0.79497686 1.162317         1
+## 5  9 -0.62235194  1.65578543 1.862235         1
+## 6  8  0.07763423 -0.65812238 1.840078         1</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="1.6-nonGaussian.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">table</span>(data<span class="sc">$</span>y), <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;z&quot;</span>)</span></code></pre></div>
 <p><img src="02-sim_pop_files/figure-html/non-gaussian-1.png" width="576" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.6-nonGaussian.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
@@ -314,11 +316,11 @@ y_i \sim Poisson(\lambda_i)
 ## 
 ## Coefficients:
 ## (Intercept)  temperature     rainfall  
-##      1.8464       0.1895       0.1207  
+##      1.8627       0.1947       0.1189  
 ## 
 ## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
-## Null Deviance:       5448 
-## Residual Deviance: 4759  AIC: 11780</code></pre>
+## Null Deviance:       5409 
+## Residual Deviance: 4692  AIC: 11730</code></pre>
 <p>Available families are ‘gaussian’, ‘poisson’ or ‘binomial’ and link functions ‘identity’, ‘log’, ‘inverse’, ‘sqrt’, ‘logit’, ‘probit’.</p>
 </div>
             </section>
@@ -341,42 +343,42 @@ y_i \sim Poisson(\lambda_i)
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

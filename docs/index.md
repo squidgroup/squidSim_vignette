@@ -1,17 +1,22 @@
 --- 
-title: "The {squidSim} R Package Vignette"
+title: "The {squidSim} R Package Vignette <br> Version 0.2.0"
 author: "Joel Pick"
-date: "2024-12-11"
+date: "2025-09-06"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  bookdown::gitbook:
+    config:
+      download:
+        - ["book.pdf", "PDF"]
+  bookdown::pdf_book:
+css: style.css
 documentclass: book
 biblio-style: apalike
 link-citations: yes
 github-repo: squidgroup/squidSim
+url: 'https://squidgroup.org/squidSim_vignette/'
 description: "This is a vignette for using the squidSim R package."
 ---
-
-
 # The {squidSim} R package {.unnumbered #intro}
 
 The {squidSim} R package is designed to simplify data simulation from a highly flexible set of models, including:
@@ -92,6 +97,14 @@ The {squidSim} package is currently only available on github:
 devtools::install_github("squidgroup/squidSim")
 library(squidSim)
 ```
+
+### Citing {squidSim} {-}
+
+R packages take a lot of investment to create and maintain. We would therefore appreciate it if you cited squidSim when you used it. 
+
+Please cite our pre-print:
+
+
 
 ### Issues and bugs {-}
 It would be great if you could report any suggestions, issues or bugs; [here](https://github.com/squidgroup/squidSim/issues) for issues relating to the package, and [here](https://github.com/squidgroup/squidSim_vignette/issues) for issues relating to this vignette. It is worth checking to see if anyone else has a similar problem first, and adding comments to their issue, before starting a new one. 

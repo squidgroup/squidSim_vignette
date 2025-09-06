@@ -540,7 +540,7 @@ $$
 \color{orange}{\beta_{ux}=1}
 $$
 
-```{r buildcode3, include=FALSE}
+```{r buildcode3}
 squid_data <- simulate_population(
   data_structure=make_structure("individual(300)",repeat_obs=10),
   parameters = list(

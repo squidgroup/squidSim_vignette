@@ -11,7 +11,7 @@ When simulating breeding values, **all** individuals in pedigree need to be in t
 
 Lets start by importing a pedigree
 
-```r
+``` r
 library(MCMCglmm)
 data(BTped)
 head(BTped)
@@ -50,13 +50,13 @@ head(data)
 ```
 
 ```
-##                  y animal_effect   residual  animal  dam sire squid_pop
-## R187557 -0.7104031    -0.1749195 -0.5354836 R187557 <NA> <NA>         1
-## R187559  1.2892857     0.6665992  0.6226864 R187559 <NA> <NA>         1
-## R187568  1.6393384     0.6900526  0.9492857 R187568 <NA> <NA>         1
-## R187518  1.2545103     0.3999815  0.8545287 R187518 <NA> <NA>         1
-## R187528 -0.4945722    -0.3827869 -0.1117853 R187528 <NA> <NA>         1
-## R187945  0.1780773    -0.3703026  0.5483799 R187945 <NA> <NA>         1
+##                    y animal_effect   residual  animal  dam sire squid_pop
+## R187557  0.001049242     0.2717576 -0.2707083 R187557 <NA> <NA>         1
+## R187559  0.337915749     0.6864674 -0.3485517 R187559 <NA> <NA>         1
+## R187568 -0.733484258    -0.1971984 -0.5362859 R187568 <NA> <NA>         1
+## R187518  0.780509757     0.2115614  0.5689484 R187518 <NA> <NA>         1
+## R187528  0.198435519     0.3475518 -0.1491163 R187528 <NA> <NA>         1
+## R187945 -0.854447851    -0.2441706 -0.6102772 R187945 <NA> <NA>         1
 ```
 
 ```r
@@ -65,14 +65,24 @@ head(data)
 # summary(mod)
 ```
 
+We might want to simulate repeated measurements to allow estimation of permanent environment effects. The simplest way to do this is to create a duplicated column in the data structure of the individual IDs. Permanent environment effects that are not linked to the pedigree can then be simulated.
 
-
+<!-- 
 We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.
+ -->
+
+:::: {.blackbox data-latex=""}
+::: {.center data-latex=""}
+**NOTICE!**
+:::
+The instructions given for simulating permanent environment effects using squidSim were incorrect in the vignette prior to version 0.2.0 (updated in September 2025). 
+::::
 
 
-```r
-## make data structure with two observations per individual
-ds <- data.frame(individual=rep(BTped[,1], 2))
+
+``` r
+## make data structure with two observations per individual, with ID duplicated in two columns, animal and individual, and link the animal column in the data structure to the pedigree
+ds <- data.frame(animal=rep(BTped[,1], 2),individual=rep(BTped[,1], 2))
 
 squid_data <- simulate_population(
   data_structure = ds, 
@@ -82,7 +92,6 @@ squid_data <- simulate_population(
       vcov = 0.3
     ),
     animal = list(
-      group="individual",
       vcov = 0.2
     ),
     residual = list(
@@ -96,28 +105,29 @@ head(data)
 ```
 
 ```
-##                   y individual_effect animal_effect   residual individual
-## R187888 -0.29800108        -0.3030617    -0.2605827  0.2656433    R187557
-## R187646  0.17464214         0.3344371    -0.5309132  0.3711182    R187559
-## R187330  1.17443051         0.7872808     0.9885985 -0.6014488    R187568
-## R187374 -0.88713844        -0.4727921    -0.1421482 -0.2721982    R187518
-## R187225 -0.06469935        -0.2399442     0.5130975 -0.3378527    R187528
-## R187133  1.72913172         0.5764696     0.7417825  0.4108797    R187945
-##         squid_pop
-## R187888         1
-## R187646         1
-## R187330         1
-## R187374         1
-## R187225         1
-## R187133         1
+##            y individual_effect animal_effect    residual  animal individual
+## 1 -0.1819649       -0.33421503   -0.19202089  0.34427104 R187557    R187557
+## 2  0.2310721        0.59969478   -0.07796869 -0.29065395 R187559    R187559
+## 3 -0.3916378        0.10109372   -0.13579773 -0.35693382 R187568    R187568
+## 4  0.1983046        0.59248696   -0.38724498 -0.00693742 R187518    R187518
+## 5 -0.2105813        0.23900807   -0.67656193  0.22697260 R187528    R187528
+## 6  0.2974375       -0.09572865    0.07892767  0.31423850 R187945    R187945
+##   squid_pop
+## 1         1
+## 2         1
+## 3         1
+## 4         1
+## 5         1
+## 6         1
 ```
 
-```r
+``` r
 # Ainv<-inverseA(BTped)$Ainv
 # data$animal_id <- data$individual
 # mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
 # summary(mod)
 ```
+
 
 ## Multivariate genetic effects
 
@@ -145,19 +155,19 @@ head(data)
 
 ```
 ##                 y1         y2 animal_effect1 animal_effect2  residual1
-## R187557 -0.8385548  0.1841058      0.6786441     -0.3935136 -1.5171990
-## R187559 -0.4701207  1.0400757     -1.4113157      1.0666325  0.9411949
-## R187568 -0.1846425  0.3584195      1.0712568      0.3008260 -1.2558993
-## R187518 -0.9746306  1.1945939     -2.3299460      0.7226137  1.3553154
-## R187528 -0.8318896  0.2290793      0.3754430      0.3256557 -1.2073326
-## R187945  1.8103155 -1.2127095      2.1203028     -1.2159118 -0.3099873
-##            residual2  animal  dam sire squid_pop
-## R187557  0.577619380 R187557 <NA> <NA>         1
-## R187559 -0.026556865 R187559 <NA> <NA>         1
-## R187568  0.057593543 R187568 <NA> <NA>         1
-## R187518  0.471980260 R187518 <NA> <NA>         1
-## R187528 -0.096576413 R187528 <NA> <NA>         1
-## R187945  0.003202301 R187945 <NA> <NA>         1
+## R187557  0.2270163  0.7349977    -0.14996162     -0.9763782  0.3769779
+## R187559  0.8121651  2.6809126    -0.20470701      1.8215682  1.0168721
+## R187568 -2.3218758 -1.3770079    -1.83531039      0.2799440 -0.4865654
+## R187518 -1.5891070 -1.5192159    -0.23712091     -0.2315827 -1.3519861
+## R187528  0.6954574 -2.1002711     0.05902919     -1.5265765  0.6364282
+## R187945 -2.9368649 -0.3194446    -1.38312923      0.9299490 -1.5537356
+##          residual2  animal  dam sire squid_pop
+## R187557  1.7113759 R187557 <NA> <NA>         1
+## R187559  0.8593444 R187559 <NA> <NA>         1
+## R187568 -1.6569519 R187568 <NA> <NA>         1
+## R187518 -1.2876332 R187518 <NA> <NA>         1
+## R187528 -0.5736946 R187528 <NA> <NA>         1
+## R187945 -1.2493935 R187945 <NA> <NA>         1
 ```
 
 ```r
@@ -174,7 +184,7 @@ head(data)
 ## Sex specific genetic variance and inter-sexual genetic correlations
 
 
-```r
+``` r
 ds <- data.frame(animal=BTped[,"animal"],sex=sample(c("Female","Male"),nrow(BTped), replace=TRUE))
 
 squid_data <- simulate_population(
@@ -204,12 +214,12 @@ head(data)
 
 ```
 ##            y Female Male    G_female      G_male    residual  animal    sex
-## 1  0.2055466      0    1  0.47080769 -0.73545126  0.44099788 R187557   Male
-## 2  0.4324628      0    1 -0.62078654 -0.01386573 -0.05367147 R187559   Male
-## 3 -0.5981933      1    0 -0.14154068  0.15570322  0.04334741 R187568 Female
-## 4 -0.8820294      1    0 -0.09385028 -0.33749998 -0.28817915 R187518 Female
-## 5 -0.5110713      0    1  0.31509524 -0.70944997 -0.30162129 R187528   Male
-## 6 -0.1480012      1    0  0.07452335  0.34664838  0.27747548 R187945 Female
+## 1 -0.2529123      1    0 -0.03100451 -0.04841182  0.27809218 R187557 Female
+## 2 -0.3205604      0    1 -0.33966106 -0.66849369 -0.15206674 R187559   Male
+## 3  0.1583027      0    1  0.23986200 -0.26773808 -0.07395921 R187568   Male
+## 4  0.9643963      0    1 -0.10503600  0.41074154  0.05365477 R187518   Male
+## 5  0.5121345      0    1  0.31946969 -0.11387147  0.12600596 R187528   Male
+## 6  1.2310101      0    1  0.11330433  0.47106512  0.25994496 R187945   Male
 ##   squid_pop
 ## 1         1
 ## 2         1
@@ -219,7 +229,7 @@ head(data)
 ## 6         1
 ```
 
-```r
+``` r
 par(mfrow=c(1,2))
 boxplot(y~factor(sex),data)
 plot(G_female~G_male,data)
@@ -234,7 +244,7 @@ Indirect genetic effects are a bit more difficult to code. Lets take the example
 Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   parameters=list(
     animal = list(
@@ -254,24 +264,24 @@ squid_data <- simulate_population(
 ```
 
 ```
-## Warning in FUN(X[[i]], ...): Not all levels are of dam are present in animal
-## meaning that there will be NAs in the new grouping factor
+## Warning: Not all levels are of dam are present in animal meaning that there
+## will be NAs in the new grouping factor
 ```
 
-```r
+``` r
 data <- get_population_data(squid_data)
 
 head(data)
 ```
 
 ```
-##    y     direct    maternal    residual  animal  dam sire squid_pop
-## 1 NA -1.1765364 -0.33246522  0.98593948 R187557 <NA> <NA>         1
-## 2 NA  1.0032654  0.17594714  0.46289797 R187559 <NA> <NA>         1
-## 3 NA -1.3823286 -0.43613248 -0.89167875 R187568 <NA> <NA>         1
-## 4 NA  0.3973638 -0.07201462  0.16249743 R187518 <NA> <NA>         1
-## 5 NA -1.2407912 -0.56117955 -0.01929683 R187528 <NA> <NA>         1
-## 6 NA  0.6117901  0.45613335  1.49005498 R187945 <NA> <NA>         1
+##    y     direct   maternal    residual  animal  dam sire squid_pop
+## 1 NA  1.4774524  0.6386346 -1.40513270 R187557 <NA> <NA>         1
+## 2 NA  0.4613623  0.7334137  0.39278836 R187559 <NA> <NA>         1
+## 3 NA -1.7555338 -0.6943673 -1.11469969 R187568 <NA> <NA>         1
+## 4 NA  0.2308076 -0.1172376 -1.22054447 R187518 <NA> <NA>         1
+## 5 NA -0.6111666 -0.5457180  0.03596706 R187528 <NA> <NA>         1
+## 6 NA  0.3943155  0.2788443  0.29346050 R187945 <NA> <NA>         1
 ```
 
 

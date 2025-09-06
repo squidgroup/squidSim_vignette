@@ -30,7 +30,7 @@ $$
 We can indicate that there are multiple phenotypes within the parameter list using the `n_response` argument. If we have $q$ response variables, `vcov` now needs to either be a vector of length $q$ (the variances, if we assume the covariances are 0) or a $q*q$ covariance matrix. So below, we simulate 2 response variables, with a covariance between them at both individual and residual levels. 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure=make_structure(structure = "individual(100)",repeat_obs=10),
   n_response = 2,
@@ -48,7 +48,7 @@ squid_data <- simulate_population(
 We haven't specified any names (of responses or predictors). By default, `simulate_population()` will add a number to the default name to indicate which reponse variable it refers to, so here we have `y1` and `y2` for the response variable, and `individual_effect1` and `individual_effect2` etc.
 
 
-```r
+``` r
 data <- get_population_data(squid_data)
 head(data)
 ```
@@ -73,7 +73,7 @@ head(data)
 We can name the response variables easily, by giving the `response_name` argument a vector of names
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure=make_structure(structure = "individual(100)",repeat_obs=10),
   n_response = 2,
@@ -131,7 +131,7 @@ $$
 to include matrices of $\beta$s, $B$, the columns of which refer to the response variable, and the rows predictors. In this case they are all identity matrices, which essentially controlling which predictors affects which response ($u_1$ affects $y_1$ but not $y_2$ and vice versa). Internally, `simulate_population()` does the same thing, and assigns `beta` as an identity matrix. 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=10),
   n_response=2,
@@ -170,7 +170,7 @@ make little shiny app that allows you to enter diagonal and
  -->
 
 
-```r
+``` r
 Beta <- matrix(c(
   0.5, -0.1,
   0.2, -0.2,
@@ -189,7 +189,7 @@ Beta
 So here, the environment variables all positively affect body mass (response 1) and negatively affect behaviour (response 2). This then slots easily into our code.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
   n_response=2,
@@ -228,7 +228,7 @@ head(data)
 ## 6 1.1467957  1.0675309  0.1049086 -0.8747054          1         1
 ```
 
-```r
+``` r
 # library(MCMCglmm)
 # mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
 # summary(mod)
@@ -238,7 +238,7 @@ head(data)
 Equally if we want an interaction, we now have to expand the size of what we give to `beta`, with one $\beta$ for each response, in a matrix, with $q$ columns. 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
   n_response=2,
@@ -289,7 +289,7 @@ head(data)
 ## 6         1
 ```
 
-```r
+``` r
 # library(MCMCglmm)
 # mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
 # summary(mod)
@@ -302,7 +302,7 @@ head(data)
 In some circumstances we might want to simulate two responses, one that varies between measurements and one that doesn't. For example we might have one fixed measurement of body size for each individual, and repeated measurements of behaviour. We can simply set the variance of the singly measured variable to 0 at that particular level. So for this example:
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "individual(100)",repeat_obs=20),
   n_response = 2,
@@ -326,7 +326,7 @@ data <- get_population_data(squid_data)
 ## Different distributions
 
 
-```r
+``` r
 individual <- list(
   vcov = matrix(c(
     1,0.5,
@@ -402,7 +402,7 @@ head(data,20)
 ## 20          1         1
 ```
 
-```r
+``` r
 data <- get_population_data(squid_data)
 ```
 
@@ -413,7 +413,7 @@ Before reading this it is worth checking out how to simulate univariate random s
 Here we have to think about the beta matrix. As we saw in an example above, in multivariate models beta can be thought of as switching on and off predictor variables for the response variables. We we can simulate 4 variables, an intercept and slope for each variable, and then use the beta matrix to tell `simulate_population` which response variable they link to 
 
 
-```r
+``` r
 individual <- list(
   names = c("ind_int1","ind_slope1","ind_int2","ind_slope2"),
   vcov = matrix(c(

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.1 Simple Linear Model | The {squidSim} R Package Vignette</title>
+  <title>1.1 Simple Linear Model | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.1 Simple Linear Model | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.1 Simple Linear Model | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.1 Simple Linear Model | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.1 Simple Linear Model | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -405,6 +407,18 @@ y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}
 <span class="math display">\[
 \color{orange}{\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)}
 \]</span></p>
+<p><span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+parameters = list(<br />
+   <span style="color: red;">intercept = 10</span>,<br />
+   <span style="color: blue;">observation = list(</span><br />
+     <span style="color: blue;">names = c(“temperature”,“rainfall”, “wind”),</span><br />
+     <span style="color: blue;">beta = c(0.5,-0.3, 0.4)</span><br />
+   <span style="color: blue;">)</span>,<br />
+   <span style="color: orange;">residual = list(</span><br />
+     <span style="color: orange;">vcov = 0.8</span><br />
+   <span style="color: orange;">)</span><br />
+)
+</span></p>
 <p>This generates a squid object, which when run returns a friendly message:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="1.1-simple-linear-model.html#cb10-1" aria-hidden="true" tabindex="-1"></a>squid_data</span></code></pre></div>
 <pre><code>## Data simulated using squid 
@@ -432,13 +446,13 @@ y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}
 <p>and contains all our simulation parameters as well as the simulated data. At this point we want to be able to access the simulated data. There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using <code>get_population_data()</code> The generated response is returned, along with simulated predictors and the data structure (not relevant here).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="1.1-simple-linear-model.html#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb12-2"><a href="1.1-simple-linear-model.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature    rainfall       wind    residual squid_pop
-## 1  9.809451  -0.5478939  0.20508206  0.1508594  0.08457911         1
-## 2  6.726013   0.1829981  1.46962434 -1.2879690 -2.40941140         1
-## 3  9.811235  -0.8048619 -0.16589518  0.1486768  0.10442629         1
-## 4  7.985417  -1.9522468 -1.23337257 -1.8210313 -0.68005930         1
-## 5  8.161597   0.2863420  0.09892012 -0.3421751 -1.81502750         1
-## 6 10.372638   0.9476735  1.55338036  0.4065158  0.20220909         1</code></pre>
+<pre><code>##   body_mass temperature     rainfall       wind   residual squid_pop
+## 1 10.187011   2.4800342  0.455257003  0.7825594 -1.2294526         1
+## 2 10.949223  -0.2569207 -1.474704317  0.3857166  0.4809849         1
+## 3 10.845240   0.2189803  1.463922216 -0.8564840  1.5175202         1
+## 4  9.916527   0.7198543 -1.037817017  2.3682777 -1.7020568         1
+## 5 10.216552   1.7756108 -0.003199892 -0.1130542 -0.6269915         1
+## 6 10.054326   1.2120665  0.558004447  0.8376667 -0.7193723         1</code></pre>
 <p>Later on we will explore how to simulate data for multiple populations with the same parameters (Section <a href="1.8-npop.html#npop">1.8</a>). <code>squid_pop</code> is an identifier for the population number, but is not relevant here.</p>
 <p>We can plot what we have simulated:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="1.1-simple-linear-model.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
@@ -448,22 +462,22 @@ y_{i} = \color{red}{\beta_0}+ \color{blue}{\boldsymbol{x}_{i} \boldsymbol{\beta}
 <p>and run a linear model to check that we get back the betas that we simulated:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="1.1-simple-linear-model.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind,data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##   9.9752151   0.4610888  -0.3071835   0.3824544</code></pre>
+##   9.9898809   0.4891688  -0.3473308   0.3994893</code></pre>
 <p>We can also check the means and variances of the predictors</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="1.1-simple-linear-model.html#cb17-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>,<span class="st">&quot;wind&quot;</span>)]</span>
 <span id="cb17-2"><a href="1.1-simple-linear-model.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(predictors)</span></code></pre></div>
 <pre><code>## temperature    rainfall        wind 
-## -0.02856731  0.01754939 -0.02920685</code></pre>
+##  0.02084866 -0.02319050  0.04471757</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="1.1-simple-linear-model.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(predictors)</span></code></pre></div>
 <pre><code>##             temperature     rainfall         wind
-## temperature  0.97783176 -0.015722888  0.019196282
-## rainfall    -0.01572289  1.005007268 -0.007969993
-## wind         0.01919628 -0.007969993  0.959931783</code></pre>
+## temperature  1.03670554 -0.035961509 -0.028953762
+## rainfall    -0.03596151  0.978340502 -0.003275084
+## wind        -0.02895376 -0.003275084  1.017055449</code></pre>
 <p>It’s worth noting that these values are not <em>exactly</em> what we simulated. That is to be expected - simulation involves <em>randomly</em> generating data, which means that here will be stochasticity in the simulated sample, and in our estimates of the underlying parameters.
 <!-- 
 We can extract the parameters we used for the simulations
 
-```r
+``` r
 # get_parameters(squid_data)
 ```
  --></p>
@@ -502,11 +516,30 @@ y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 ,
 \color{orange}{\sigma^2_\epsilon=0.8}
 \]</span></p>
+<p><br><br>
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+   squid_data &lt;- simulate_population(<br />
+     n=2000,<br />
+     response_name = “body_mass”,<br />
+     parameters = list(<br />
+       <span style="color: red;">intercept = 10</span>,<br />
+       <span style="color: blue;">observation = list(</span><br />
+         <span style="color: blue;">names = c(“temperature”,“rainfall”, “wind”),</span><br />
+         <span style="color: blue;">mean = c(10,1,20),</span><br />
+         <span style="color: CornflowerBlue;">vcov = c(1,0.1,2),</span><br />
+         <span style="color: purple;">beta = c(0.5,-0.3, 0.4)</span><br />
+       <span style="color: blue;">)</span>,<br />
+       <span style="color: orange;">residual = list(</span><br />
+         <span style="color: orange;">vcov = 0.8</span><br />
+       <span style="color: orange;">)</span><br />
+     )<br />
+   )
+</span></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="1.1-simple-linear-model.html#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb21-2"><a href="1.1-simple-linear-model.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="1.1-simple-linear-model.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data))</span></code></pre></div>
 <pre><code>## (Intercept) temperature    rainfall        wind 
-##   9.6936858   0.5277087  -3.0577425   0.4047932</code></pre>
+##   9.8151163   0.5078401  -3.0425996   0.4088486</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="1.1-simple-linear-model.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb23-2"><a href="1.1-simple-linear-model.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb23-3"><a href="1.1-simple-linear-model.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> rainfall <span class="sc">+</span> wind, data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">col=</span><span class="fu">alpha</span>(<span class="dv">1</span>,<span class="fl">0.5</span>))</span></code></pre></div>
@@ -515,12 +548,12 @@ y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="1.1-simple-linear-model.html#cb24-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> data[,<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>,<span class="st">&quot;wind&quot;</span>)]</span>
 <span id="cb24-2"><a href="1.1-simple-linear-model.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(predictors)</span></code></pre></div>
 <pre><code>## temperature    rainfall        wind 
-##    10.00240     1.00085    20.01790</code></pre>
+##   10.026389    0.984711   19.972831</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="1.1-simple-linear-model.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(predictors)</span></code></pre></div>
-<pre><code>##              temperature     rainfall        wind
-## temperature  0.990823966 -0.006253787  0.03013589
-## rainfall    -0.006253787  0.098287391 -0.01134461
-## wind         0.030135886 -0.011344607  2.08443275</code></pre>
+<pre><code>##             temperature   rainfall        wind
+## temperature 1.022800759 0.01207170 0.008560134
+## rainfall    0.012071704 0.10157462 0.019360030
+## wind        0.008560134 0.01936003 1.988802856</code></pre>
 <p>It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the <code>simulated_variance()</code> function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and hierarchical levels to the these.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="1.1-simple-linear-model.html#cb28-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">simulated_variance</span>(squid_data)</span></code></pre></div>
 <pre><code>## Contribution of the simulated predictors to the mean and variance in the response
@@ -565,42 +598,42 @@ y_{i} = \beta_0+ \boldsymbol{x}_{i} \boldsymbol{\beta} + \epsilon_{i}
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

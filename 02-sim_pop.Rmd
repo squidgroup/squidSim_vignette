@@ -1,6 +1,6 @@
 # Simulating from linear models {#linearmod}
 
-```{r, echo=FALSE, message=FALSE,warning=FALSE}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 rm(list=ls())
 library(dplyr)
 library(flair)
@@ -138,6 +138,13 @@ colorize <- function(x, color) {
       x)
   } else x
 }
+indent <- function(n) {
+  if (knitr::is_latex_output()) {
+    # sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    paste(rep("&nbsp;&nbsp;",n),collapse="")
+  } else x
+}
 ```
 
 `r colorize("intercept", "red")` + `r colorize("observation", "blue")` level predictors + `r colorize("residual", "orange")`
@@ -210,18 +217,20 @@ $$
 \color{orange}{\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)}
 $$
 
-```{r, echo = FALSE}
 
-decorate("buildcode1") %>%
-  flair("intercept=10",color = "red") %>%
-  flair('observation = list(
-      names = c("temperature","rainfall", "wind"),
-      beta = c(0.5,-0.3, 0.4)    
-    )',color = "blue") %>%
-  flair('residual = list(
-      vcov = 0.8
-    )',color = "orange")
-```
+
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+parameters = list(  
+`r indent(1)` `r colorize("intercept = 10", "red")`,  
+`r indent(1)` `r colorize("observation = list(", "blue")`  
+`r indent(2)` `r colorize("names = c(\"temperature\",\"rainfall\", \"wind\"),", "blue")`  
+`r indent(2)` `r colorize("beta = c(0.5,-0.3, 0.4)" , "blue")`   
+`r indent(1)` `r colorize( ")", "blue")`,  
+`r indent(1)` `r colorize("residual = list(", "orange")`  
+`r indent(2)` `r colorize("vcov = 0.8", "orange")`  
+`r indent(1)` `r colorize(")", "orange")`  
+)
+</span>
 
 
 
@@ -323,6 +332,25 @@ squid_data <- simulate_population(
   )
 )
 ```
+<br><br>
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+`r indent(1)` squid_data <- simulate_population(  
+`r indent(2)` n=2000,  
+`r indent(2)` response_name = "body_mass",  
+`r indent(2)`  parameters = list(  
+`r indent(3)` `r colorize("intercept = 10", "red")`,  
+`r indent(3)` `r colorize("observation = list(", "blue")`  
+`r indent(4)` `r colorize("names = c(\"temperature\",\"rainfall\", \"wind\"),", "blue")`  
+`r indent(4)` `r colorize("mean = c(10,1,20)," , "blue")`   
+`r indent(4)` `r colorize("vcov = c(1,0.1,2)," , "CornflowerBlue")`   
+`r indent(4)` `r colorize("beta = c(0.5,-0.3, 0.4)" , "purple")`   
+`r indent(3)` `r colorize( ")", "blue")`,  
+`r indent(3)` `r colorize("residual = list(", "orange")`  
+`r indent(4)` `r colorize("vcov = 0.8", "orange")`  
+`r indent(3)` `r colorize(")", "orange")`  
+`r indent(2)` )  
+`r indent(1)` )
+</span>
 
 
 ```{r, echo = FALSE}

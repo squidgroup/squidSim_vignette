@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.4 Transformations | The {squidSim} R Package Vignette</title>
+  <title>1.4 Transformations | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.4 Transformations | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.4 Transformations | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.4 Transformations | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.4 Transformations | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -280,15 +282,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-15"><a href="1.4-transformations.html#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-16"><a href="1.4-transformations.html#cb49-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb49-17"><a href="1.4-transformations.html#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##     body_mass temperature  rainfall   residual squid_pop
-## 1  0.17389503  -0.7657209 3.6142011 -0.5275048         1
-## 2  0.31171085  -0.9411953 2.2069842  0.1202132         1
-## 3  0.21164317  -0.8870048 1.0539333  0.3389656         1
-## 4 -0.05429141   0.5958834 0.4053547 -0.4738395         1
-## 5  0.63219255   1.7752999 1.4155625 -0.6801262         1
-## 6  2.36817352   0.2084304 7.3877935  0.0476203         1</code></pre>
+<pre><code>##     body_mass temperature   rainfall    residual squid_pop
+## 1  2.23414000   0.4636584 6.43472266  0.07189402         1
+## 2  3.21999448   0.4212297 8.48891935  0.46270384         1
+## 3  0.41133202  -1.0239810 1.11223174  0.58965301         1
+## 4  0.21987152   0.6901097 0.08942481 -0.15201079         1
+## 5  0.95848362   0.3854402 3.50801476 -0.28664089         1
+## 6 -0.01932124  -0.2807366 0.63155389 -0.06841912         1</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="1.4-transformations.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>rainfall, <span class="at">xlab=</span><span class="st">&quot;Rainfall&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">breaks=</span><span class="dv">100</span>)</span></code></pre></div>
-<p><img src="02-sim_pop_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="02-sim_pop_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>If a covariance between variables is specified, this covariance is on the untransformed (Gaussian) scale (as the variables are simulated as multivariate normal), NOT on the transformed scale, so care should be taken with this. For example:</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="1.4-transformations.html#cb52-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb52-2"><a href="1.4-transformations.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
@@ -309,9 +311,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-17"><a href="1.4-transformations.html#cb52-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb52-18"><a href="1.4-transformations.html#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-19"><a href="1.4-transformations.html#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,data<span class="sc">$</span>rainfall)</span></code></pre></div>
-<pre><code>## [1] 1.167142</code></pre>
+<pre><code>## [1] 1.150717</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="1.4-transformations.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(data<span class="sc">$</span>temperature,<span class="fu">log</span>(data<span class="sc">$</span>rainfall))</span></code></pre></div>
-<pre><code>## [1] 0.6892072</code></pre>
+<pre><code>## [1] 0.6853024</code></pre>
 <p>The simulated covariance can be recovered on the back-transformed predictor.</p>
 <p>The <code>simulated_variance()</code> function will also no longer be accurate, as the calculations are based on variables on the untransformed scale.</p>
 </div>
@@ -335,42 +337,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

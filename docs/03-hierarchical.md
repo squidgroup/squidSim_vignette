@@ -3,7 +3,7 @@
 There are two parts to simulating hierarchical data. First you need to have a hierarchical data structure and second you need parameters at each of the different hierarchical levels. The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. Lets take the blue tit dataset we explored earlier:
 
 
-```r
+``` r
 data(BTdata)
 head(BTdata)
 ```
@@ -33,7 +33,7 @@ We can use the `make_structure` function to create nested and crossed hierarchic
 
 Simplest structure - one grouping factor with multiple observations. Here we create a structure with 2 repeated observations of 5 individuals (small number are used here simply for illustration purposes). The `structure` contains the name of the grouping factors and their sample sizes, and `repeat_obs` is the number of repeated observations.
 
-```r
+``` r
 make_structure(structure="individual(5)", repeat_obs=2)
 ```
 
@@ -55,7 +55,7 @@ make_structure(structure="individual(5)", repeat_obs=2)
 ### Nested factors
 If we want to have nested factors, so different hierarchical groups, where levels of one group only exist in one higher group then we can use the `/` symbol in the `structure` argument. For example, here we have 2 sexes, each with 5 individuals, with 2 repeated measurements each. 
 
-```r
+``` r
 make_structure(structure="sex(2)/individual(5)", repeat_obs=2)
 ```
 
@@ -89,7 +89,7 @@ Note that in the nesting, the sample size for the lower group now represents the
 
 We can nest as much as we want:
 
-```r
+``` r
 make_structure(structure="species(2)/population(2)/individual(2)", repeat_obs=2)
 ```
 
@@ -119,7 +119,7 @@ make_structure(structure="species(2)/population(2)/individual(2)", repeat_obs=2)
 ### Crossed factors
 We can create completely crossed factors - every combination of levels exists - using the `+` symbol in the `structure` argument
 
-```r
+``` r
 make_structure(structure="treatment(2) + individual(5)", repeat_obs=1)
 ```
 
@@ -139,7 +139,7 @@ make_structure(structure="treatment(2) + individual(5)", repeat_obs=1)
 
 We can combine crossed and nested structures:
 
-```r
+``` r
 make_structure(structure="treatment(2) + sex(2)/individual(5)", repeat_obs=1)
 ```
 
@@ -169,7 +169,7 @@ make_structure(structure="treatment(2) + sex(2)/individual(5)", repeat_obs=1)
 
 We can also output the crossed and nested using `:`
 
-```r
+``` r
 make_structure(structure="treatment(2) + individual(5) + treatment:individual", repeat_obs=1)
 ```
 
@@ -190,7 +190,7 @@ make_structure(structure="treatment(2) + individual(5) + treatment:individual", 
 
 ### Temporal structure
 
-```r
+``` r
 ds <- make_structure(structure="year(2)/month(12)/day(30)", repeat_obs=1)
 head(ds)
 ```
@@ -206,7 +206,7 @@ head(ds)
 ```
 
 
-```r
+``` r
 ds <- make_structure(structure="year(2) + month(12) + day(30) + year:month:day", repeat_obs=1)
 head(ds)
 ```
@@ -227,7 +227,7 @@ Rather than just outputting 1 - N levels for the level names of each factor, we 
 This can be done for all or some of the grouping factors, using the `level_names` argument. We can input a list, with an item in the list for each grouping factor we want to assign names, and then a vector of their names, which is the same length of the number of levels in that grouping factor. For example, below we just assign names to the two sexes:
 
 
-```r
+``` r
 make_structure(structure="sex(2)/individual(5)", repeat_obs=2,  level_names=list(sex=c("female","male")))
 ```
 
@@ -257,7 +257,7 @@ make_structure(structure="sex(2)/individual(5)", repeat_obs=2,  level_names=list
 
 And then to the individuals and the sexes
 
-```r
+``` r
 make_structure(structure="sex(2)/individual(5)", repeat_obs=2,  level_names=list(sex=c("female","male"),individual=paste0("ind_",1:10)))
 ```
 
@@ -309,7 +309,7 @@ In the first sections, we just simulated continuous predictors, varying at the l
 The first thing we want to do is specify a simple data structure, for example 100 observations for each of two sexes: 
 
 
-```r
+``` r
 ds <- make_structure(structure="sex(2)", repeat_obs=100,  level_names=list(sex=c("female","male")))
 ```
 
@@ -389,7 +389,7 @@ squid_data <- simulate_population(
 We can then give a beta for all the different levels of that group. Note that there are two ways to specify this, as there also is in linear models in R. First, we can specify an intercept, and contrasts, equivalent to the output of `lm(body_mass~sex)`, which involves specifying the beta for the first level as 0 to make it the baseline level (or any other level that you would like to be the baseline). Note that, as of version 0.2.4, if the levels for this grouping factor in the data structure have names (in this case "male" and "female"), then the same names have to be specified in the parameter list.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = ds,
   parameters = list(
@@ -412,7 +412,7 @@ boxplot( y ~ factor(sex), data)
 
 <img src="03-hierarchical_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
-```r
+``` r
 lm( y ~ factor(sex), data)
 ```
 
@@ -428,7 +428,7 @@ lm( y ~ factor(sex), data)
 
 Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas( equivalent to `lm(body_mass~0+sex)`):
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = ds,
   parameters = list(
@@ -450,7 +450,7 @@ boxplot( y ~ factor(sex), data)
 
 <img src="03-hierarchical_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
-```r
+``` r
 lm( y ~ factor(sex), data)
 ```
 
@@ -464,7 +464,7 @@ lm( y ~ factor(sex), data)
 ##          10.132            0.409
 ```
 
-```r
+``` r
 lm( y ~ 0+factor(sex), data)
 ```
 
@@ -489,7 +489,7 @@ We might want to simulate an interaction between a continuous predictor and a fa
 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = make_structure(structure = "sex(2)", repeat_obs=1000),
   parameters = list(
@@ -528,13 +528,13 @@ head(data)
 ## 6 10.295880      1    0  2.87982801 -0.280085298                0   1         1
 ```
 
-```r
+``` r
 plot(y~environment,data, pch=19, col=scales::alpha(c(1,2),0.5)[factor(data$sex)])
 ```
 
 <img src="03-hierarchical_files/figure-html/unnamed-chunk-19-1.png" width="576" />
 
-```r
+``` r
 lm( y ~ 0 + factor(sex)*environment, data)
 ```
 
@@ -583,7 +583,7 @@ In order to simulate from this model, we need a data structure and parameters fo
 
 Lets imagine that we simulate behaviour, that is a functions of an individual's size and physiology, and also varies in response to the environment, here temperature and rainfall:
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = make_structure(structure = "individual(500)", repeat_obs=2),
   parameters = list(
@@ -615,7 +615,7 @@ coef(lm(behaviour ~ size + physiology + temperature + rainfall , data))
 Here, we have simulated 4 predictors, 'size' and 'physiology' that vary at the level of the individual, and 'temperature' and 'rainfall' that vary at the level of the observation. To keep things simple, we will simulate them all as unit normal variables (mean=0 and variance=1). Note, **the names of the different grouping factors in the parameter list (here 'individual') needs to exactly match those in the data structure**. The order does not, however, have to be the same. There are circumstances in which we may want to simulate two sets of effects at the same hierarchical level (for example see permanent environment effects in Section \@ref(va)), in this case we can call them different things in the parameter list, but link them back to the grouping factor, by providing a `group` name. For example the following will produce the same simulation as above:
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = make_structure(structure = "individual(500)", repeat_obs=2),
   parameters = list(
@@ -660,7 +660,7 @@ $$
 For example, we can simulate some among-individual variation as follows:
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = make_structure(structure = "individual(500)", repeat_obs=2),
   parameters = list(
@@ -687,7 +687,7 @@ head(data)
 ## 6  0.177797638         0.7306521 -0.5528544          3         1
 ```
 
-```r
+``` r
 library(lme4)
 short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FALSE, ranef.comp = c("Variance"))
 
@@ -719,7 +719,7 @@ Note that here we haven't specified any variable names. In this case the simulat
 We could also use an existing data structure, taking the grouping factors and levels from an existing dataset and input them to `simulate_population`. To demonstrate this, we can use the [blue tit dataset](https://rdrr.io/cran/MCMCglmm/man/BTdata.html) provided with the MCMCglmm package. This is a dataset with some continuous variables (tarsus, back (coloration) and hatchdate), and some grouping factors (animal, dam, fosternest and sex), the latter providing a data structure from which to simulate.
 
 
-```r
+``` r
 library(MCMCglmm)
 data(BTdata)
 head(BTdata)
@@ -735,7 +735,7 @@ head(BTdata)
 ## 6 -1.13519543  1.5577219 R187409 R187945      C2302  0.3502805  Fem
 ```
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = BTdata[,c("dam","fosternest")],
   parameters = list(
@@ -810,7 +810,7 @@ Importantly the `beta` parameter associated with `ind_slope` is specified as 0 (
 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure=make_structure("individual(300)",repeat_obs=10),
   parameters = list(
@@ -874,6 +874,29 @@ $$
 $$
 
 
+``` r
+squid_data <- simulate_population(
+  data_structure=make_structure("individual(300)",repeat_obs=10),
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_slope"), 
+      beta = c(1,0),
+      vcov = c(1,0.5)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta = c(0.2)
+    ), 
+    residual = list(
+      vcov = c(0.5)
+    ),
+    interactions = list(
+      names = c("ind_slope:environment"),
+      beta = c(1)
+    )
+  )
+)
+```
 
 
 
@@ -884,7 +907,7 @@ $$
 Here we have specified no correlation between intercepts and slopes. To simulate a covariance/correlation between intercepts and slopes, we can simply give the `vcov` argument a covariance matrix, instead of two variances:
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure=make_structure("individual(300)",repeat_obs=10),
   parameters = list(
@@ -1017,7 +1040,7 @@ you see that the coefficients should be the same.
 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure=make_structure("individual(100)", repeat_obs=5),
   parameters = list(

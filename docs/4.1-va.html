@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.1 Additive genetics effects | The {squidSim} R Package Vignette</title>
+  <title>4.1 Additive genetics effects | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.1 Additive genetics effects | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="4.1 Additive genetics effects | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.1 Additive genetics effects | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="4.1 Additive genetics effects | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -266,9 +268,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>NOTE</strong> the <code>simulate_population</code> function has very little error checking of pedigree structure at the moment</p>
 <p>When simulating breeding values, <strong>all</strong> individuals in pedigree need to be in the data_structure and <em>vice versa</em>. Having unsampled individuals (for example the base population) can be achieved in the sampling stage (not implemented yet).</p>
 <p>Lets start by importing a pedigree</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="4.1-va.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
-<span id="cb163-2"><a href="4.1-va.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTped)</span>
-<span id="cb163-3"><a href="4.1-va.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTped)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="4.1-va.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
+<span id="cb164-2"><a href="4.1-va.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BTped)</span>
+<span id="cb164-3"><a href="4.1-va.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(BTped)</span></code></pre></div>
 <pre><code>##    animal  dam sire
 ## 1 R187557 &lt;NA&gt; &lt;NA&gt;
 ## 2 R187559 &lt;NA&gt; &lt;NA&gt;
@@ -277,74 +279,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 R187528 &lt;NA&gt; &lt;NA&gt;
 ## 6 R187945 &lt;NA&gt; &lt;NA&gt;</code></pre>
 <p>We can use this pedigree as a data_structure</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="4.1-va.html#cb165-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb165-2"><a href="4.1-va.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> BTped, </span>
-<span id="cb165-3"><a href="4.1-va.html#cb165-3" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb165-4"><a href="4.1-va.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb165-5"><a href="4.1-va.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb165-6"><a href="4.1-va.html#cb165-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span><span class="fu">list</span>(</span>
-<span id="cb165-7"><a href="4.1-va.html#cb165-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb165-8"><a href="4.1-va.html#cb165-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
-<span id="cb165-9"><a href="4.1-va.html#cb165-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb165-10"><a href="4.1-va.html#cb165-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb165-11"><a href="4.1-va.html#cb165-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb165-12"><a href="4.1-va.html#cb165-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb165-13"><a href="4.1-va.html#cb165-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb165-14"><a href="4.1-va.html#cb165-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb165-15"><a href="4.1-va.html#cb165-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb165-16"><a href="4.1-va.html#cb165-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb165-17"><a href="4.1-va.html#cb165-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##                  y animal_effect   residual  animal  dam sire squid_pop
-## R187557 -0.7104031    -0.1749195 -0.5354836 R187557 &lt;NA&gt; &lt;NA&gt;         1
-## R187559  1.2892857     0.6665992  0.6226864 R187559 &lt;NA&gt; &lt;NA&gt;         1
-## R187568  1.6393384     0.6900526  0.9492857 R187568 &lt;NA&gt; &lt;NA&gt;         1
-## R187518  1.2545103     0.3999815  0.8545287 R187518 &lt;NA&gt; &lt;NA&gt;         1
-## R187528 -0.4945722    -0.3827869 -0.1117853 R187528 &lt;NA&gt; &lt;NA&gt;         1
-## R187945  0.1780773    -0.3703026  0.5483799 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="4.1-va.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
-<span id="cb167-2"><a href="4.1-va.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)</span></span>
-<span id="cb167-3"><a href="4.1-va.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
-<p>We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="4.1-va.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="do">## make data structure with two observations per individual</span></span>
-<span id="cb168-2"><a href="4.1-va.html#cb168-2" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">individual=</span><span class="fu">rep</span>(BTped[,<span class="dv">1</span>], <span class="dv">2</span>))</span>
-<span id="cb168-3"><a href="4.1-va.html#cb168-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb168-4"><a href="4.1-va.html#cb168-4" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb168-5"><a href="4.1-va.html#cb168-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds, </span>
-<span id="cb168-6"><a href="4.1-va.html#cb168-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb168-7"><a href="4.1-va.html#cb168-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb168-8"><a href="4.1-va.html#cb168-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb168-9"><a href="4.1-va.html#cb168-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
-<span id="cb168-10"><a href="4.1-va.html#cb168-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb168-11"><a href="4.1-va.html#cb168-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb168-12"><a href="4.1-va.html#cb168-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;individual&quot;</span>,</span>
-<span id="cb168-13"><a href="4.1-va.html#cb168-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
-<span id="cb168-14"><a href="4.1-va.html#cb168-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb168-15"><a href="4.1-va.html#cb168-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb168-16"><a href="4.1-va.html#cb168-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb168-17"><a href="4.1-va.html#cb168-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb168-18"><a href="4.1-va.html#cb168-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb168-19"><a href="4.1-va.html#cb168-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb168-20"><a href="4.1-va.html#cb168-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb168-21"><a href="4.1-va.html#cb168-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb168-22"><a href="4.1-va.html#cb168-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##                   y individual_effect animal_effect   residual individual
-## R187888 -0.29800108        -0.3030617    -0.2605827  0.2656433    R187557
-## R187646  0.17464214         0.3344371    -0.5309132  0.3711182    R187559
-## R187330  1.17443051         0.7872808     0.9885985 -0.6014488    R187568
-## R187374 -0.88713844        -0.4727921    -0.1421482 -0.2721982    R187518
-## R187225 -0.06469935        -0.2399442     0.5130975 -0.3378527    R187528
-## R187133  1.72913172         0.5764696     0.7417825  0.4108797    R187945
-##         squid_pop
-## R187888         1
-## R187646         1
-## R187330         1
-## R187374         1
-## R187225         1
-## R187133         1</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="4.1-va.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
-<span id="cb170-2"><a href="4.1-va.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data$animal_id &lt;- data$individual</span></span>
-<span id="cb170-3"><a href="4.1-va.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)</span></span>
-<span id="cb170-4"><a href="4.1-va.html#cb170-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="4.1-va.html#cb166-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb166-2"><a href="4.1-va.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> BTped, </span>
+<span id="cb166-3"><a href="4.1-va.html#cb166-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb166-4"><a href="4.1-va.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb166-5"><a href="4.1-va.html#cb166-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb166-6"><a href="4.1-va.html#cb166-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span><span class="fu">list</span>(</span>
+<span id="cb166-7"><a href="4.1-va.html#cb166-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb166-8"><a href="4.1-va.html#cb166-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb166-9"><a href="4.1-va.html#cb166-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb166-10"><a href="4.1-va.html#cb166-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb166-11"><a href="4.1-va.html#cb166-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb166-12"><a href="4.1-va.html#cb166-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb166-13"><a href="4.1-va.html#cb166-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb166-14"><a href="4.1-va.html#cb166-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb166-15"><a href="4.1-va.html#cb166-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-16"><a href="4.1-va.html#cb166-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb166-17"><a href="4.1-va.html#cb166-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##                    y animal_effect   residual  animal  dam sire squid_pop
+## R187557  0.001049242     0.2717576 -0.2707083 R187557 &lt;NA&gt; &lt;NA&gt;         1
+## R187559  0.337915749     0.6864674 -0.3485517 R187559 &lt;NA&gt; &lt;NA&gt;         1
+## R187568 -0.733484258    -0.1971984 -0.5362859 R187568 &lt;NA&gt; &lt;NA&gt;         1
+## R187518  0.780509757     0.2115614  0.5689484 R187518 &lt;NA&gt; &lt;NA&gt;         1
+## R187528  0.198435519     0.3475518 -0.1491163 R187528 &lt;NA&gt; &lt;NA&gt;         1
+## R187945 -0.854447851    -0.2441706 -0.6102772 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="4.1-va.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
+<span id="cb168-2"><a href="4.1-va.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)</span></span>
+<span id="cb168-3"><a href="4.1-va.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
+<p>We might want to simulate repeated measurements to allow estimation of permanent environment effects. The simplest way to do this is to create a duplicated column in the data structure of the individual IDs. Permanent environment effects that are not linked to the pedigree can then be simulated.</p>
+<!-- 
+We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.
+ -->
+<div class="blackbox">
+<div class="center">
+<p><strong>NOTICE!</strong></p>
+</div>
+<p>The instructions given for simulating permanent environment effects using squidSim were incorrect in the vignette prior to version 0.2.0 (updated in September 2025).</p>
+</div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="4.1-va.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="do">## make data structure with two observations per individual, with ID duplicated in two columns, animal and individual, and link the animal column in the data structure to the pedigree</span></span>
+<span id="cb169-2"><a href="4.1-va.html#cb169-2" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">animal=</span><span class="fu">rep</span>(BTped[,<span class="dv">1</span>], <span class="dv">2</span>),<span class="at">individual=</span><span class="fu">rep</span>(BTped[,<span class="dv">1</span>], <span class="dv">2</span>))</span>
+<span id="cb169-3"><a href="4.1-va.html#cb169-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-4"><a href="4.1-va.html#cb169-4" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb169-5"><a href="4.1-va.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds, </span>
+<span id="cb169-6"><a href="4.1-va.html#cb169-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb169-7"><a href="4.1-va.html#cb169-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb169-8"><a href="4.1-va.html#cb169-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb169-9"><a href="4.1-va.html#cb169-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
+<span id="cb169-10"><a href="4.1-va.html#cb169-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb169-11"><a href="4.1-va.html#cb169-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb169-12"><a href="4.1-va.html#cb169-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb169-13"><a href="4.1-va.html#cb169-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb169-14"><a href="4.1-va.html#cb169-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb169-15"><a href="4.1-va.html#cb169-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb169-16"><a href="4.1-va.html#cb169-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb169-17"><a href="4.1-va.html#cb169-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb169-18"><a href="4.1-va.html#cb169-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb169-19"><a href="4.1-va.html#cb169-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-20"><a href="4.1-va.html#cb169-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb169-21"><a href="4.1-va.html#cb169-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##            y individual_effect animal_effect    residual  animal individual
+## 1 -0.1819649       -0.33421503   -0.19202089  0.34427104 R187557    R187557
+## 2  0.2310721        0.59969478   -0.07796869 -0.29065395 R187559    R187559
+## 3 -0.3916378        0.10109372   -0.13579773 -0.35693382 R187568    R187568
+## 4  0.1983046        0.59248696   -0.38724498 -0.00693742 R187518    R187518
+## 5 -0.2105813        0.23900807   -0.67656193  0.22697260 R187528    R187528
+## 6  0.2974375       -0.09572865    0.07892767  0.31423850 R187945    R187945
+##   squid_pop
+## 1         1
+## 2         1
+## 3         1
+## 4         1
+## 5         1
+## 6         1</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="4.1-va.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ainv&lt;-inverseA(BTped)$Ainv</span></span>
+<span id="cb171-2"><a href="4.1-va.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data$animal_id &lt;- data$individual</span></span>
+<span id="cb171-3"><a href="4.1-va.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mod &lt;- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)</span></span>
+<span id="cb171-4"><a href="4.1-va.html#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mod)</span></span></code></pre></div>
 </div>
             </section>
 
@@ -366,42 +376,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

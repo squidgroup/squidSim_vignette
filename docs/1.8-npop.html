@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.8 Simulating multiple populations | The {squidSim} R Package Vignette</title>
+  <title>1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -281,21 +283,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By default <code>get_population_data</code> returns a data.frame, where the <code>squid_pop</code> column indicates the population</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="1.8-npop.html#cb73-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb73-2"><a href="1.8-npop.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature    rainfall        wind   residual squid_pop
-## 1  9.369764  -1.1830537 -0.46893722  0.88840715 -0.5347529         1
-## 2  8.499772  -1.7192827 -0.05694062 -0.01411928 -0.6520216         1
-## 3 11.151019  -0.3770438 -0.15465879 -0.81390605  1.6187058         1
-## 4 10.592297  -1.1760859  0.55469813  1.31959453  0.8189114         1
-## 5 11.541493  -0.5370830 -2.66897280 -0.42429615  1.1790607         1
-## 6 10.155592  -0.2426915  0.05478356  0.04630962  0.2748485         1</code></pre>
+<pre><code>##   body_mass temperature   rainfall       wind   residual squid_pop
+## 1 10.921833  0.03412972 -2.0548008 -1.0763371  0.7188623         1
+## 2  9.921862 -0.66423687 -1.6451355 -0.3360938 -0.1051222         1
+## 3  9.442225 -0.48162008  0.4539319  1.3382828 -0.7160984         1
+## 4 11.115669  0.90624534 -0.1722184  1.1004806  0.1706887         1
+## 5  8.740476  0.16277561 -0.2004541 -1.0966191 -0.9624000         1
+## 6 11.421073 -1.41108847 -0.1704255  0.2707587  1.9671857         1</code></pre>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="1.8-npop.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data)</span></code></pre></div>
-<pre><code>##       body_mass temperature   rainfall       wind   residual squid_pop
-## 9995  10.116462  -1.0543945 -1.8597309 -0.8617747  0.4304499         5
-## 9996   9.121754   0.6501680  0.3395459  0.3824208 -1.2544341         5
-## 9997   9.142314  -0.3360826  0.8804852 -0.7172734 -0.1385899         5
-## 9998   7.694607  -0.3669761  3.2124110 -0.0745173 -1.1283751         5
-## 9999   9.306256   1.1088145 -1.6084340 -2.2160486 -0.8442623         5
-## 10000  8.276687   0.5646602  0.6777146 -1.2828554 -1.2891862         5</code></pre>
+<pre><code>##       body_mass temperature    rainfall       wind   residual squid_pop
+## 9995   9.501884  -1.1234245 -0.05451985 -0.5504112  0.2674048         5
+## 9996  13.092948   2.2483063  0.42160714  1.1797648  1.6233708         5
+## 9997  12.887221   0.8984944  0.38350915  0.5141224  2.3473781         5
+## 9998  10.852584   0.1505941 -0.35872461 -1.4976799  1.2687413         5
+## 9999   9.383400   0.8633709  0.96195042  0.1154628 -0.8058853         5
+## 10000 10.476865   0.3959651 -0.96231949 -1.5006255  0.5904368         5</code></pre>
 <p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="1.8-npop.html#cb77-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span>
 <span id="cb77-2"><a href="1.8-npop.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data)</span></code></pre></div>
@@ -321,42 +323,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

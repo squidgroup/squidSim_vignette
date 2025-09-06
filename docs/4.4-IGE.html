@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette</title>
+  <title>4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.0</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.0" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.0" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -252,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
           </h1>
         </div>
 
@@ -264,34 +266,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.4</span> Indirect Genetic Effects<a href="4.4-IGE.html#IGE" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual’s phenotype, is that of its mother, not itself. Here we can use <code>[]</code> to index the levels of the random effects within the formula. We need to be careful here as internally in <code>simulate_population()</code> the indexing of the factors in the data structure is done independently. We therefore need to generate a index for the mothers that links to the individual. We can do this using the <code>index_link</code> argument - in the code below we create a new factor to index with, called <code>dam_link</code>, that is the dam factor in our data structure, that has been indexed to match the animal factor.</p>
 <p>Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual’s phenotype from its own direct genetic effects, and its mother’s maternal genetic effect.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="4.4-IGE.html#cb177-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb177-2"><a href="4.4-IGE.html#cb177-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb177-3"><a href="4.4-IGE.html#cb177-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb177-4"><a href="4.4-IGE.html#cb177-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
-<span id="cb177-5"><a href="4.4-IGE.html#cb177-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
-<span id="cb177-6"><a href="4.4-IGE.html#cb177-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb177-7"><a href="4.4-IGE.html#cb177-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb177-8"><a href="4.4-IGE.html#cb177-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
-<span id="cb177-9"><a href="4.4-IGE.html#cb177-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb177-10"><a href="4.4-IGE.html#cb177-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb177-11"><a href="4.4-IGE.html#cb177-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb177-12"><a href="4.4-IGE.html#cb177-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>BTped,</span>
-<span id="cb177-13"><a href="4.4-IGE.html#cb177-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb177-14"><a href="4.4-IGE.html#cb177-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index_link=</span><span class="fu">list</span>(<span class="at">dam_link=</span><span class="st">&quot;dam-animal&quot;</span>),</span>
-<span id="cb177-15"><a href="4.4-IGE.html#cb177-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam_link] + residual&quot;</span></span>
-<span id="cb177-16"><a href="4.4-IGE.html#cb177-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Warning in FUN(X[[i]], ...): Not all levels are of dam are present in animal
-## meaning that there will be NAs in the new grouping factor</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="4.4-IGE.html#cb179-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb179-2"><a href="4.4-IGE.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb179-3"><a href="4.4-IGE.html#cb179-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##    y     direct    maternal    residual  animal  dam sire squid_pop
-## 1 NA -1.1765364 -0.33246522  0.98593948 R187557 &lt;NA&gt; &lt;NA&gt;         1
-## 2 NA  1.0032654  0.17594714  0.46289797 R187559 &lt;NA&gt; &lt;NA&gt;         1
-## 3 NA -1.3823286 -0.43613248 -0.89167875 R187568 &lt;NA&gt; &lt;NA&gt;         1
-## 4 NA  0.3973638 -0.07201462  0.16249743 R187518 &lt;NA&gt; &lt;NA&gt;         1
-## 5 NA -1.2407912 -0.56117955 -0.01929683 R187528 &lt;NA&gt; &lt;NA&gt;         1
-## 6 NA  0.6117901  0.45613335  1.49005498 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="4.4-IGE.html#cb178-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb178-2"><a href="4.4-IGE.html#cb178-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb178-3"><a href="4.4-IGE.html#cb178-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb178-4"><a href="4.4-IGE.html#cb178-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
+<span id="cb178-5"><a href="4.4-IGE.html#cb178-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb178-6"><a href="4.4-IGE.html#cb178-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb178-7"><a href="4.4-IGE.html#cb178-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb178-8"><a href="4.4-IGE.html#cb178-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
+<span id="cb178-9"><a href="4.4-IGE.html#cb178-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb178-10"><a href="4.4-IGE.html#cb178-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb178-11"><a href="4.4-IGE.html#cb178-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb178-12"><a href="4.4-IGE.html#cb178-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>BTped,</span>
+<span id="cb178-13"><a href="4.4-IGE.html#cb178-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb178-14"><a href="4.4-IGE.html#cb178-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index_link=</span><span class="fu">list</span>(<span class="at">dam_link=</span><span class="st">&quot;dam-animal&quot;</span>),</span>
+<span id="cb178-15"><a href="4.4-IGE.html#cb178-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam_link] + residual&quot;</span></span>
+<span id="cb178-16"><a href="4.4-IGE.html#cb178-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning: Not all levels are of dam are present in animal meaning that there
+## will be NAs in the new grouping factor</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="4.4-IGE.html#cb180-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb180-2"><a href="4.4-IGE.html#cb180-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-3"><a href="4.4-IGE.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##    y     direct   maternal    residual  animal  dam sire squid_pop
+## 1 NA  1.4774524  0.6386346 -1.40513270 R187557 &lt;NA&gt; &lt;NA&gt;         1
+## 2 NA  0.4613623  0.7334137  0.39278836 R187559 &lt;NA&gt; &lt;NA&gt;         1
+## 3 NA -1.7555338 -0.6943673 -1.11469969 R187568 &lt;NA&gt; &lt;NA&gt;         1
+## 4 NA  0.2308076 -0.1172376 -1.22054447 R187518 &lt;NA&gt; &lt;NA&gt;         1
+## 5 NA -0.6111666 -0.5457180  0.03596706 R187528 &lt;NA&gt; &lt;NA&gt;         1
+## 6 NA  0.3943155  0.2788443  0.29346050 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
 </div>
             </section>
 
@@ -313,42 +315,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

@@ -6,7 +6,7 @@ We might have measured a variable over the course of a certain time period (e.g.
 
 To treat a grouping factor as continuous, we use `covariate=TRUE` in the parameter list. In this way we can simulate a linear effect of year:
 
-```r
+``` r
 squid_data <- simulate_population( 
   data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",repeat_obs=20),
   parameters=list(
@@ -30,7 +30,7 @@ note we have specified `group` in the parameter list. This enables us to link a 
 
 
 
-```r
+``` r
 data <- get_population_data(squid_data)
 head(data)
 ```
@@ -45,7 +45,7 @@ head(data)
 ## 6 1.7139274         1     2.21821 -0.8042827    1   1          1         1
 ```
 
-```r
+``` r
 plot(y ~ year_cont, data)
 ```
 
@@ -54,7 +54,7 @@ plot(y ~ year_cont, data)
 
 Here we can see there is within year variation, year to year variation, as well as a linear directional year effect.
 
-```r
+``` r
 lmer(y ~ year_cont + (1|year), data)
 ```
 
@@ -76,7 +76,7 @@ lmer(y ~ year_cont + (1|year), data)
 In a similar way we can also simulate a quadratic effect of time.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure = make_structure(structure = "year(20) + sex(2)/individual(50)",repeat_obs=20),
   parameters=list(
@@ -121,7 +121,7 @@ $$
  where A is the amplitude, $B/2\pi$ is the period $C/B$ is the horizontal shift and D is the vertical shift. We can visualise this
 
 
-```r
+``` r
 time <- 1:20
 
 amplitude <- 10       # |A| = the amplitude
@@ -140,7 +140,7 @@ plot(cyclic_effect~time)
 We can simulate this using the model part of the `simulate_population()`, adding the extra parameters for the cyclical effects into the year_cont part of the list.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",repeat_obs=1),
 

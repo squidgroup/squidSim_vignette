@@ -2,7 +2,7 @@
 
 To create different sampling schemes, we can use the sample arguments in the `simulate_population()` function, for example:
 
-```r
+``` r
   sample_type = "nested", 
   sample_param = cbind(individual=c(10, 15),observation=c(10, 5)),
 ```
@@ -17,7 +17,7 @@ The sample arguments create different datasets for each population that has been
 Nested sampling assumes that you have a nested structure, and allows you to sample different numbers at each hierarchical level. The `param` input is a matrix with (named) columns.  The rows of this matrix represent different sampling sets. This is most easily put together using the `cbind()` (column bind) function, specifying the names. The number of repeat observations for a higher level can be specified using name 'observation' (this doesn't have to exist in the data structure). For example
 
 
-```r
+``` r
 cbind(individual=c(10, 15),observation=c(10, 5))
 ```
 
@@ -34,12 +34,12 @@ Note this sampling procedure only produces balanced sampling designs. For unbala
 We want to see how the number of repeat measurements on individuals affects power. In order to vary the number of observations of an individual, we could specify:
 
 
-```r
+``` r
 param <- cbind(nest=10,individual=10,observation=c(20, 10, 5, 2))
 ```
 
 
-```r
+``` r
 pop_data <- simulate_population(
   data_structure = make_structure("nest(10)/individual(20)",repeat_obs=20),
 
@@ -64,7 +64,7 @@ pop_data <- simulate_population(
 To extract the sampled data we can then use `get_sample_data()` specifying which sample set we want, for example the second set 10 nests, each with 10 individuals with 10 observations:
 
 
-```r
+``` r
 sample_data <- get_sample_data(pop_data, sample_set=2)
 length(unique(sample_data$nest))
 ```
@@ -73,7 +73,7 @@ length(unique(sample_data$nest))
 ## [1] 10
 ```
 
-```r
+``` r
 length(unique(sample_data$individual))
 ```
 
@@ -81,7 +81,7 @@ length(unique(sample_data$individual))
 ## [1] 100
 ```
 
-```r
+``` r
 nrow(sample_data)
 ```
 
@@ -115,7 +115,7 @@ $$ logit(p) = beta_0 $$
 Note this intercept is on the logit scale, so 0 is equivalent to 0.5.
 
 
-```r
+``` r
 pop_data <- simulate_population(
   data_structure = make_structure("individual(100)",repeat_obs=5),
 
@@ -148,7 +148,7 @@ nrow(sample_data)
 Missing  at random occurs when the probability of missingness is dependent on a predictor variable (or a variables correlated with y). This can be implemented through a logistic regression, where the predictor variable(s) is a predictor(s) of y:
 $$ logit(p) = beta_0 + beta_1*environment $$ 
 
-```r
+``` r
 pop_data <- simulate_population(
   data_structure = make_structure("individual(100)",repeat_obs=5),
 
@@ -184,7 +184,7 @@ $$ logit(p) = beta_0 + beta_1*y $$
 Again y is scaled.
 
 
-```r
+``` r
 pop_data <- simulate_population(
   data_structure = make_structure("individual(100)",repeat_obs=5),
 
@@ -215,7 +215,7 @@ nrow(sample_data)
 
 Lets try and visualise this. We know there is lots f between individual variation, and we know sampling is based on phenotype, so we would expect an association between number of observations and phenotype:
 
-```r
+``` r
 ind_data <- data.frame(
   n=as.vector(table(sample_data$individual)),
   mean=tapply(sample_data$y,sample_data$individual,mean)
@@ -232,7 +232,7 @@ boxplot(mean~n,ind_data)
 
 In the parameters we specify a list, with the temporal variable `time`, the grouping variable with which the temporal sampling occurs `group`, the between group variance (as a proportion) in sampling times `variance` and the within group sample size `n`:
 
-```r
+``` r
 pop_data <- simulate_population(
   data_structure = make_structure("day(100) + individual(100)",repeat_obs=1),
 
