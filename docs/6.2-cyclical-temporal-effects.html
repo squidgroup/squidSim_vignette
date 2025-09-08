@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.2 Cyclical Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.0</title>
+  <title>6.2 Cyclical Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.1</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.2 Cyclical Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta property="og:title" content="6.2 Cyclical Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.1" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.2 Cyclical Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta name="twitter:title" content="6.2 Cyclical Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.1" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-06" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
 <li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
@@ -245,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -254,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
           </h1>
         </div>
 
@@ -271,49 +275,49 @@ y = A sin(B(x - C)) + D
 \]</span></p>
 </div>
 <p>where A is the amplitude, <span class="math inline">\(B/2\pi\)</span> is the period <span class="math inline">\(C/B\)</span> is the horizontal shift and D is the vertical shift. We can visualise this</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="6.2-cyclical-temporal-effects.html#cb189-1" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb189-2"><a href="6.2-cyclical-temporal-effects.html#cb189-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb189-3"><a href="6.2-cyclical-temporal-effects.html#cb189-3" aria-hidden="true" tabindex="-1"></a>amplitude <span class="ot">&lt;-</span> <span class="dv">10</span>       <span class="co"># |A| = the amplitude</span></span>
-<span id="cb189-4"><a href="6.2-cyclical-temporal-effects.html#cb189-4" aria-hidden="true" tabindex="-1"></a>period <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb189-5"><a href="6.2-cyclical-temporal-effects.html#cb189-5" aria-hidden="true" tabindex="-1"></a>h_shift <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb189-6"><a href="6.2-cyclical-temporal-effects.html#cb189-6" aria-hidden="true" tabindex="-1"></a>v_shift <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb189-7"><a href="6.2-cyclical-temporal-effects.html#cb189-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb189-8"><a href="6.2-cyclical-temporal-effects.html#cb189-8" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> (<span class="dv">2</span><span class="sc">*</span>pi) <span class="sc">/</span> <span class="fu">abs</span>(period) <span class="co"># 2pi/|B| = the period </span></span>
-<span id="cb189-9"><a href="6.2-cyclical-temporal-effects.html#cb189-9" aria-hidden="true" tabindex="-1"></a>cyclic_effect <span class="ot">&lt;-</span> amplitude<span class="sc">*</span><span class="fu">sin</span>(B<span class="sc">*</span>time <span class="sc">-</span> B<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>h_shift ) <span class="sc">+</span> v_shift</span>
-<span id="cb189-10"><a href="6.2-cyclical-temporal-effects.html#cb189-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb189-11"><a href="6.2-cyclical-temporal-effects.html#cb189-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cyclic_effect<span class="sc">~</span>time)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="6.2-cyclical-temporal-effects.html#cb195-1" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb195-2"><a href="6.2-cyclical-temporal-effects.html#cb195-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-3"><a href="6.2-cyclical-temporal-effects.html#cb195-3" aria-hidden="true" tabindex="-1"></a>amplitude <span class="ot">&lt;-</span> <span class="dv">10</span>       <span class="co"># |A| = the amplitude</span></span>
+<span id="cb195-4"><a href="6.2-cyclical-temporal-effects.html#cb195-4" aria-hidden="true" tabindex="-1"></a>period <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb195-5"><a href="6.2-cyclical-temporal-effects.html#cb195-5" aria-hidden="true" tabindex="-1"></a>h_shift <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb195-6"><a href="6.2-cyclical-temporal-effects.html#cb195-6" aria-hidden="true" tabindex="-1"></a>v_shift <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb195-7"><a href="6.2-cyclical-temporal-effects.html#cb195-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-8"><a href="6.2-cyclical-temporal-effects.html#cb195-8" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> (<span class="dv">2</span><span class="sc">*</span>pi) <span class="sc">/</span> <span class="fu">abs</span>(period) <span class="co"># 2pi/|B| = the period </span></span>
+<span id="cb195-9"><a href="6.2-cyclical-temporal-effects.html#cb195-9" aria-hidden="true" tabindex="-1"></a>cyclic_effect <span class="ot">&lt;-</span> amplitude<span class="sc">*</span><span class="fu">sin</span>(B<span class="sc">*</span>time <span class="sc">-</span> B<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>h_shift ) <span class="sc">+</span> v_shift</span>
+<span id="cb195-10"><a href="6.2-cyclical-temporal-effects.html#cb195-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-11"><a href="6.2-cyclical-temporal-effects.html#cb195-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cyclic_effect<span class="sc">~</span>time)</span></code></pre></div>
 <p><img src="07-temporal_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>We can simulate this using the model part of the <code>simulate_population()</code>, adding the extra parameters for the cyclical effects into the year_cont part of the list.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="6.2-cyclical-temporal-effects.html#cb190-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb190-2"><a href="6.2-cyclical-temporal-effects.html#cb190-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">1</span>),</span>
-<span id="cb190-3"><a href="6.2-cyclical-temporal-effects.html#cb190-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-4"><a href="6.2-cyclical-temporal-effects.html#cb190-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb190-5"><a href="6.2-cyclical-temporal-effects.html#cb190-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_cont =</span> <span class="fu">list</span>(</span>
-<span id="cb190-6"><a href="6.2-cyclical-temporal-effects.html#cb190-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;year&quot;</span>,</span>
-<span id="cb190-7"><a href="6.2-cyclical-temporal-effects.html#cb190-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="st">&quot;linear_effect&quot;</span>,</span>
-<span id="cb190-8"><a href="6.2-cyclical-temporal-effects.html#cb190-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">covariate=</span><span class="cn">TRUE</span>,</span>
-<span id="cb190-9"><a href="6.2-cyclical-temporal-effects.html#cb190-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fl">0.3</span>,</span>
-<span id="cb190-10"><a href="6.2-cyclical-temporal-effects.html#cb190-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">amplitude =</span> <span class="dv">2</span>,       <span class="co"># |A| = the amplitude</span></span>
-<span id="cb190-11"><a href="6.2-cyclical-temporal-effects.html#cb190-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">period =</span> <span class="dv">10</span>,</span>
-<span id="cb190-12"><a href="6.2-cyclical-temporal-effects.html#cb190-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">h_shift =</span> <span class="dv">3</span>,</span>
-<span id="cb190-13"><a href="6.2-cyclical-temporal-effects.html#cb190-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">v_shift =</span> <span class="dv">5</span></span>
-<span id="cb190-14"><a href="6.2-cyclical-temporal-effects.html#cb190-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb190-15"><a href="6.2-cyclical-temporal-effects.html#cb190-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
-<span id="cb190-16"><a href="6.2-cyclical-temporal-effects.html#cb190-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">1.2</span></span>
-<span id="cb190-17"><a href="6.2-cyclical-temporal-effects.html#cb190-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb190-18"><a href="6.2-cyclical-temporal-effects.html#cb190-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb190-19"><a href="6.2-cyclical-temporal-effects.html#cb190-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span></span>
-<span id="cb190-20"><a href="6.2-cyclical-temporal-effects.html#cb190-20" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb190-21"><a href="6.2-cyclical-temporal-effects.html#cb190-21" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb190-22"><a href="6.2-cyclical-temporal-effects.html#cb190-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-23"><a href="6.2-cyclical-temporal-effects.html#cb190-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">model=</span><span class="st">&quot; B =(2*pi) / abs(period);</span></span>
-<span id="cb190-24"><a href="6.2-cyclical-temporal-effects.html#cb190-24" aria-hidden="true" tabindex="-1"></a><span class="st">          cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;</span></span>
-<span id="cb190-25"><a href="6.2-cyclical-temporal-effects.html#cb190-25" aria-hidden="true" tabindex="-1"></a><span class="st">          y = linear_effect + cyclic_effect + year_effect + residual&quot;</span></span>
-<span id="cb190-26"><a href="6.2-cyclical-temporal-effects.html#cb190-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb190-27"><a href="6.2-cyclical-temporal-effects.html#cb190-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-28"><a href="6.2-cyclical-temporal-effects.html#cb190-28" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb190-29"><a href="6.2-cyclical-temporal-effects.html#cb190-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-30"><a href="6.2-cyclical-temporal-effects.html#cb190-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>year,data)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="6.2-cyclical-temporal-effects.html#cb196-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb196-2"><a href="6.2-cyclical-temporal-effects.html#cb196-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">1</span>),</span>
+<span id="cb196-3"><a href="6.2-cyclical-temporal-effects.html#cb196-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-4"><a href="6.2-cyclical-temporal-effects.html#cb196-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb196-5"><a href="6.2-cyclical-temporal-effects.html#cb196-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_cont =</span> <span class="fu">list</span>(</span>
+<span id="cb196-6"><a href="6.2-cyclical-temporal-effects.html#cb196-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;year&quot;</span>,</span>
+<span id="cb196-7"><a href="6.2-cyclical-temporal-effects.html#cb196-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="st">&quot;linear_effect&quot;</span>,</span>
+<span id="cb196-8"><a href="6.2-cyclical-temporal-effects.html#cb196-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">covariate=</span><span class="cn">TRUE</span>,</span>
+<span id="cb196-9"><a href="6.2-cyclical-temporal-effects.html#cb196-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fl">0.3</span>,</span>
+<span id="cb196-10"><a href="6.2-cyclical-temporal-effects.html#cb196-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">amplitude =</span> <span class="dv">2</span>,       <span class="co"># |A| = the amplitude</span></span>
+<span id="cb196-11"><a href="6.2-cyclical-temporal-effects.html#cb196-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">period =</span> <span class="dv">10</span>,</span>
+<span id="cb196-12"><a href="6.2-cyclical-temporal-effects.html#cb196-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">h_shift =</span> <span class="dv">3</span>,</span>
+<span id="cb196-13"><a href="6.2-cyclical-temporal-effects.html#cb196-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">v_shift =</span> <span class="dv">5</span></span>
+<span id="cb196-14"><a href="6.2-cyclical-temporal-effects.html#cb196-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb196-15"><a href="6.2-cyclical-temporal-effects.html#cb196-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
+<span id="cb196-16"><a href="6.2-cyclical-temporal-effects.html#cb196-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">1.2</span></span>
+<span id="cb196-17"><a href="6.2-cyclical-temporal-effects.html#cb196-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb196-18"><a href="6.2-cyclical-temporal-effects.html#cb196-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb196-19"><a href="6.2-cyclical-temporal-effects.html#cb196-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span></span>
+<span id="cb196-20"><a href="6.2-cyclical-temporal-effects.html#cb196-20" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb196-21"><a href="6.2-cyclical-temporal-effects.html#cb196-21" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb196-22"><a href="6.2-cyclical-temporal-effects.html#cb196-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-23"><a href="6.2-cyclical-temporal-effects.html#cb196-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">model=</span><span class="st">&quot; B =(2*pi) / abs(period);</span></span>
+<span id="cb196-24"><a href="6.2-cyclical-temporal-effects.html#cb196-24" aria-hidden="true" tabindex="-1"></a><span class="st">          cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;</span></span>
+<span id="cb196-25"><a href="6.2-cyclical-temporal-effects.html#cb196-25" aria-hidden="true" tabindex="-1"></a><span class="st">          y = linear_effect + cyclic_effect + year_effect + residual&quot;</span></span>
+<span id="cb196-26"><a href="6.2-cyclical-temporal-effects.html#cb196-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb196-27"><a href="6.2-cyclical-temporal-effects.html#cb196-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-28"><a href="6.2-cyclical-temporal-effects.html#cb196-28" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb196-29"><a href="6.2-cyclical-temporal-effects.html#cb196-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-30"><a href="6.2-cyclical-temporal-effects.html#cb196-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>year,data)</span></code></pre></div>
 <p><img src="07-temporal_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
             </section>

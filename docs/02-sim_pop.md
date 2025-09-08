@@ -909,12 +909,12 @@ The only change in the code that is needed is the addition of the link and famil
 ``` r
 squid_data <- simulate_population(
   parameters = list(
+    intercept = 1.75,
     observation = list(
       names = c("temperature","rainfall"),
       beta = c(0.2,0.1)
     ),
     residual = list(
-      mean = 1.75,
       vcov = 0.2
     )
   ),
@@ -928,13 +928,13 @@ head(data)
 ```
 
 ```
-##    y temperature    rainfall residual squid_pop
-## 1  5  0.80122572  1.51171175 1.740107         1
-## 2 11  0.19315205 -0.09121688 2.305221         1
-## 3  7 -0.05978012  0.27519677 1.591893         1
-## 4  2 -1.94741262  0.79497686 1.162317         1
-## 5  9 -0.62235194  1.65578543 1.862235         1
-## 6  8  0.07763423 -0.65812238 1.840078         1
+##    y temperature    rainfall     residual squid_pop
+## 1  5  0.80122572  1.51171175 -0.009892707         1
+## 2 11  0.19315205 -0.09121688  0.555220760         1
+## 3  7 -0.05978012  0.27519677 -0.158106894         1
+## 4  2 -1.94741262  0.79497686 -0.587682748         1
+## 5  9 -0.62235194  1.65578543  0.112234603         1
+## 6  8  0.07763423 -0.65812238  0.090078300         1
 ```
 
 ``` r
@@ -961,7 +961,68 @@ glm(y ~ temperature + rainfall, data, family="poisson")
 ## Residual Deviance: 4692 	AIC: 11730
 ```
 
-Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'.
+Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit' and 'cloglog'.
+
+
+### Transforming across scales
+
+It can be difficult to simulate data with a certain mean and variance on the 'observed' scale when using parameters on the 'latent' scale. {squidSim} provides two functions `lat2exp()` and `exp2lat()` that help do with the log transformation. `lat2exp()` transforms means and (co)variances from the latent (normal) scale to the expected (log-normal) scale, whilst `exp2lat()` does the reverse. 
+
+
+Let us take an example. We want to simulate some count data that has a mean of 6 and variance 15. In a Poisson distribution, the mean is equal to the variance. This means that a variance of 6 will be added on to the expected scale variation through the stochastic Poisson sampling process. This means that we want to simulate data on the expected scale with a variance of 9. We can use the `exp2lat()` function to work out the mean and variance on the latent scale that will give us what we want on the expected scale. 
+
+
+``` r
+latent_params <- exp2lat(mean=6, cov=9)
+latent_params
+```
+
+```
+## $mean
+## [1] 1.680188
+## 
+## $cov
+##           [,1]
+## [1,] 0.2231436
+```
+
+This gives us a list of parameters with which we can simulate:
+
+
+``` r
+squid_data <- simulate_population(
+  parameters = list(
+    intercept = latent_params[["mean"]],
+    residual = list(
+      vcov = latent_params[["cov"]]
+    )
+  ),
+  n = 2000,
+  family = "poisson", 
+  link = "log"
+)
+
+data <- get_population_data(squid_data)
+
+mean(data$y)
+```
+
+```
+## [1] 5.896
+```
+
+``` r
+var(data$y)
+```
+
+```
+## [1] 15.13175
+```
+
+As you can see, we retrieve very similar values to those we were after. 
+
+
+We can do with with other transformation. Another one with a simple transformation across scales is the probit. The probit transformation is simply the cumulative distribution function of a normal distribution, and so we can use the functions `pnorm()` and `qnorm()` to transform between latent and expected. 
 
 
 ## Model equations {#modeleq}
@@ -999,7 +1060,7 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-## -0.02547878  0.48519850  0.27138776
+## -0.02072982  0.51421066  0.30970403
 ```
 
 In the formula, we write out how the variables are added up. *Everything that you want exported needs to be defined and named* (e.g. `y=...`). By default, all predictors are multiplied by their respective beta values before this happens. Sometimes it is useful to prevent this multiplication (e.g. multiply two traits together without them being multiplied by their respective beta). We can do this by using `I()`.
@@ -1028,7 +1089,7 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ##  (Intercept)  temperature     rainfall 
-## -0.005720219  0.506231328  1.019545326
+## -0.001082762  0.473551969  1.000847611
 ```
 
 We can also add extra parameters to the parameter list, which we can call from within the function. In combination with `I()` we can then customise the model formula a bit
@@ -1058,7 +1119,7 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-##  0.02020098  0.50462621  0.11562427
+##  0.03913471  0.49214594  0.08060627
 ```
 
 Finally, we can use `[]` to index the levels of the random effects within the formula.. An example of this is given Section \@ref(IGE), along with use of the `index_link` argument.
@@ -1094,13 +1155,13 @@ head(data)
 ```
 
 ```
-##   body_mass temperature   rainfall       wind   residual squid_pop
-## 1 10.921833  0.03412972 -2.0548008 -1.0763371  0.7188623         1
-## 2  9.921862 -0.66423687 -1.6451355 -0.3360938 -0.1051222         1
-## 3  9.442225 -0.48162008  0.4539319  1.3382828 -0.7160984         1
-## 4 11.115669  0.90624534 -0.1722184  1.1004806  0.1706887         1
-## 5  8.740476  0.16277561 -0.2004541 -1.0966191 -0.9624000         1
-## 6 11.421073 -1.41108847 -0.1704255  0.2707587  1.9671857         1
+##   body_mass temperature   rainfall       wind    residual squid_pop
+## 1 11.005226  -1.8727163 -1.4047080 -0.7400397  1.81618743         1
+## 2  9.036770  -0.5297638  0.7530046  1.1945503 -0.95026697         1
+## 3  9.458323  -0.1054163 -0.5120713  0.7014982 -0.92318933         1
+## 4 10.013197   0.3494991 -0.1389098 -0.7104103  0.08093893         1
+## 5  8.339910   0.2269021  1.5342122  0.3712021 -1.46175871         1
+## 6  9.538418  -0.8228852 -0.1279289  0.9499106 -0.46848205         1
 ```
 
 ``` r
@@ -1108,13 +1169,13 @@ tail(data)
 ```
 
 ```
-##       body_mass temperature    rainfall       wind   residual squid_pop
-## 9995   9.501884  -1.1234245 -0.05451985 -0.5504112  0.2674048         5
-## 9996  13.092948   2.2483063  0.42160714  1.1797648  1.6233708         5
-## 9997  12.887221   0.8984944  0.38350915  0.5141224  2.3473781         5
-## 9998  10.852584   0.1505941 -0.35872461 -1.4976799  1.2687413         5
-## 9999   9.383400   0.8633709  0.96195042  0.1154628 -0.8058853         5
-## 10000 10.476865   0.3959651 -0.96231949 -1.5006255  0.5904368         5
+##       body_mass temperature   rainfall         wind    residual squid_pop
+## 9995   9.432963 -0.24449153  1.4748153 -0.740536096  0.29386791         5
+## 9996  11.619580  0.27952629 -0.4021390 -0.008896803  1.36273375         5
+## 9997  10.799467  0.27860645 -0.8437127 -0.788461164  0.72243480         5
+## 9998   9.488702 -2.66231456  1.3492665  0.650127585  0.96458811         5
+## 9999   9.948296  0.08454109  0.1613247 -0.352362135  0.09536773         5
+## 10000  8.940678 -1.26133105 -0.1903078  0.516066626 -0.69217548         5
 ```
 
 It can also be output as a list, which might be more useful for processing many iterations of a simulation. 

@@ -8,6 +8,7 @@ non-linear-effects
 transformations
 knownpreds
 nonGaussian
+transforming-across-scales
 modeleq
 npop
 parameter-list-summary
@@ -58,3 +59,4 @@ double-hierarchical-models-dhglms
 dhglm
 bivariate-dhglm
 zero-inflated-poisson
+power

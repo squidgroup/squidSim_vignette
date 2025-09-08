@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.3 Sex specific genetic variance and inter-sexual genetic correlations | The {squidSim} R Package Vignette   Version 0.2.0</title>
+  <title>4.3 Sex specific genetic variance and inter-sexual genetic correlations | The {squidSim} R Package Vignette   Version 0.2.1</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.3 Sex specific genetic variance and inter-sexual genetic correlations | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta property="og:title" content="4.3 Sex specific genetic variance and inter-sexual genetic correlations | The {squidSim} R Package Vignette   Version 0.2.1" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.3 Sex specific genetic variance and inter-sexual genetic correlations | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta name="twitter:title" content="4.3 Sex specific genetic variance and inter-sexual genetic correlations | The {squidSim} R Package Vignette   Version 0.2.1" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-06" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
 <li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
@@ -245,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -254,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
           </h1>
         </div>
 
@@ -264,31 +268,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sex-specific-genetic-variance-and-inter-sexual-genetic-correlations" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Sex specific genetic variance and inter-sexual genetic correlations<a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#sex-specific-genetic-variance-and-inter-sexual-genetic-correlations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">animal=</span>BTped[,<span class="st">&quot;animal&quot;</span>],<span class="at">sex=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>),<span class="fu">nrow</span>(BTped), <span class="at">replace=</span><span class="cn">TRUE</span>))</span>
-<span id="cb175-2"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb175-3"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-3" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb175-4"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb175-5"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex=</span><span class="fu">list</span>(</span>
-<span id="cb175-6"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fixed=</span><span class="cn">TRUE</span>,</span>
-<span id="cb175-7"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>),</span>
-<span id="cb175-8"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>)</span>
-<span id="cb175-9"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb175-10"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal=</span> <span class="fu">list</span>(</span>
-<span id="cb175-11"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;G_female&quot;</span>,<span class="st">&quot;G_male&quot;</span>),</span>
-<span id="cb175-12"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.4</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span> ,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb175-13"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-13" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb175-14"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb175-15"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
-<span id="cb175-16"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.1</span></span>
-<span id="cb175-17"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb175-18"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb175-19"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
-<span id="cb175-20"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb175-21"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = Female + Male + I(Female)*G_female + I(Male)*G_male + residual&quot;</span></span>
-<span id="cb175-22"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb175-23"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb175-24"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb175-25"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb175-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">animal=</span>BTped[,<span class="st">&quot;animal&quot;</span>],<span class="at">sex=</span><span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>),<span class="fu">nrow</span>(BTped), <span class="at">replace=</span><span class="cn">TRUE</span>))</span>
+<span id="cb181-2"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-3"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-3" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb181-4"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb181-5"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex=</span><span class="fu">list</span>(</span>
+<span id="cb181-6"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fixed=</span><span class="cn">TRUE</span>,</span>
+<span id="cb181-7"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb181-8"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>)</span>
+<span id="cb181-9"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb181-10"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal=</span> <span class="fu">list</span>(</span>
+<span id="cb181-11"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;G_female&quot;</span>,<span class="st">&quot;G_male&quot;</span>),</span>
+<span id="cb181-12"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.1</span>,<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.4</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span> ,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb181-13"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-13" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb181-14"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb181-15"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
+<span id="cb181-16"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.1</span></span>
+<span id="cb181-17"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb181-18"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb181-19"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb181-20"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
+<span id="cb181-21"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = Female + Male + I(Female)*G_female + I(Male)*G_male + residual&quot;</span></span>
+<span id="cb181-22"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb181-23"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-24"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb181-25"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb181-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##            y Female Male    G_female      G_male    residual  animal    sex
 ## 1 -0.2529123      1    0 -0.03100451 -0.04841182  0.27809218 R187557 Female
 ## 2 -0.3205604      0    1 -0.33966106 -0.66849369 -0.15206674 R187559   Male
@@ -303,9 +307,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4         1
 ## 5         1
 ## 6         1</code></pre>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb177-2"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y<span class="sc">~</span><span class="fu">factor</span>(sex),data)</span>
-<span id="cb177-3"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(G_female<span class="sc">~</span>G_male,data)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb183-2"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y<span class="sc">~</span><span class="fu">factor</span>(sex),data)</span>
+<span id="cb183-3"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(G_female<span class="sc">~</span>G_male,data)</span></code></pre></div>
 <p><img src="05-animal_files/figure-html/unnamed-chunk-6-1.png" width="960" />
 <br></p>
 </div>

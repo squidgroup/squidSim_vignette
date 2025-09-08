@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.0</title>
+  <title>1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.1</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta property="og:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.1" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta name="twitter:title" content="1.8 Simulating multiple populations | The {squidSim} R Package Vignette   Version 0.2.1" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-06" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
 <li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
@@ -245,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -254,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
           </h1>
         </div>
 
@@ -265,42 +269,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="npop" class="section level2 hasAnchor" number="1.8">
 <h2><span class="header-section-number">1.8</span> Simulating multiple populations<a href="1.8-npop.html#npop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use the <code>simulate_population()</code> function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the <code>n_pop</code> argument in <code>simulate_population()</code>. This defaults to 1.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="1.8-npop.html#cb72-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb72-2"><a href="1.8-npop.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
-<span id="cb72-3"><a href="1.8-npop.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
-<span id="cb72-4"><a href="1.8-npop.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb72-5"><a href="1.8-npop.html#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept=</span><span class="dv">10</span>,</span>
-<span id="cb72-6"><a href="1.8-npop.html#cb72-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb72-7"><a href="1.8-npop.html#cb72-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
-<span id="cb72-8"><a href="1.8-npop.html#cb72-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="sc">-</span><span class="fl">0.3</span>,<span class="fl">0.4</span>)</span>
-<span id="cb72-9"><a href="1.8-npop.html#cb72-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb72-10"><a href="1.8-npop.html#cb72-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb72-11"><a href="1.8-npop.html#cb72-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.8</span></span>
-<span id="cb72-12"><a href="1.8-npop.html#cb72-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb72-13"><a href="1.8-npop.html#cb72-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb72-14"><a href="1.8-npop.html#cb72-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop=</span><span class="dv">5</span></span>
-<span id="cb72-15"><a href="1.8-npop.html#cb72-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="1.8-npop.html#cb78-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb78-2"><a href="1.8-npop.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
+<span id="cb78-3"><a href="1.8-npop.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
+<span id="cb78-4"><a href="1.8-npop.html#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb78-5"><a href="1.8-npop.html#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept=</span><span class="dv">10</span>,</span>
+<span id="cb78-6"><a href="1.8-npop.html#cb78-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
+<span id="cb78-7"><a href="1.8-npop.html#cb78-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>, <span class="st">&quot;wind&quot;</span>),</span>
+<span id="cb78-8"><a href="1.8-npop.html#cb78-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="sc">-</span><span class="fl">0.3</span>,<span class="fl">0.4</span>)</span>
+<span id="cb78-9"><a href="1.8-npop.html#cb78-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb78-10"><a href="1.8-npop.html#cb78-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb78-11"><a href="1.8-npop.html#cb78-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.8</span></span>
+<span id="cb78-12"><a href="1.8-npop.html#cb78-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb78-13"><a href="1.8-npop.html#cb78-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb78-14"><a href="1.8-npop.html#cb78-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop=</span><span class="dv">5</span></span>
+<span id="cb78-15"><a href="1.8-npop.html#cb78-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>By default <code>get_population_data</code> returns a data.frame, where the <code>squid_pop</code> column indicates the population</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="1.8-npop.html#cb73-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb73-2"><a href="1.8-npop.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##   body_mass temperature   rainfall       wind   residual squid_pop
-## 1 10.921833  0.03412972 -2.0548008 -1.0763371  0.7188623         1
-## 2  9.921862 -0.66423687 -1.6451355 -0.3360938 -0.1051222         1
-## 3  9.442225 -0.48162008  0.4539319  1.3382828 -0.7160984         1
-## 4 11.115669  0.90624534 -0.1722184  1.1004806  0.1706887         1
-## 5  8.740476  0.16277561 -0.2004541 -1.0966191 -0.9624000         1
-## 6 11.421073 -1.41108847 -0.1704255  0.2707587  1.9671857         1</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="1.8-npop.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data)</span></code></pre></div>
-<pre><code>##       body_mass temperature    rainfall       wind   residual squid_pop
-## 9995   9.501884  -1.1234245 -0.05451985 -0.5504112  0.2674048         5
-## 9996  13.092948   2.2483063  0.42160714  1.1797648  1.6233708         5
-## 9997  12.887221   0.8984944  0.38350915  0.5141224  2.3473781         5
-## 9998  10.852584   0.1505941 -0.35872461 -1.4976799  1.2687413         5
-## 9999   9.383400   0.8633709  0.96195042  0.1154628 -0.8058853         5
-## 10000 10.476865   0.3959651 -0.96231949 -1.5006255  0.5904368         5</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="1.8-npop.html#cb79-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb79-2"><a href="1.8-npop.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##   body_mass temperature   rainfall       wind    residual squid_pop
+## 1 11.005226  -1.8727163 -1.4047080 -0.7400397  1.81618743         1
+## 2  9.036770  -0.5297638  0.7530046  1.1945503 -0.95026697         1
+## 3  9.458323  -0.1054163 -0.5120713  0.7014982 -0.92318933         1
+## 4 10.013197   0.3494991 -0.1389098 -0.7104103  0.08093893         1
+## 5  8.339910   0.2269021  1.5342122  0.3712021 -1.46175871         1
+## 6  9.538418  -0.8228852 -0.1279289  0.9499106 -0.46848205         1</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="1.8-npop.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data)</span></code></pre></div>
+<pre><code>##       body_mass temperature   rainfall         wind    residual squid_pop
+## 9995   9.432963 -0.24449153  1.4748153 -0.740536096  0.29386791         5
+## 9996  11.619580  0.27952629 -0.4021390 -0.008896803  1.36273375         5
+## 9997  10.799467  0.27860645 -0.8437127 -0.788461164  0.72243480         5
+## 9998   9.488702 -2.66231456  1.3492665  0.650127585  0.96458811         5
+## 9999   9.948296  0.08454109  0.1613247 -0.352362135  0.09536773         5
+## 10000  8.940678 -1.26133105 -0.1903078  0.516066626 -0.69217548         5</code></pre>
 <p>It can also be output as a list, which might be more useful for processing many iterations of a simulation.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="1.8-npop.html#cb77-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span>
-<span id="cb77-2"><a href="1.8-npop.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="1.8-npop.html#cb83-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span>
+<span id="cb83-2"><a href="1.8-npop.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
             </section>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.0</title>
+  <title>1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.1</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta property="og:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.1" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta name="twitter:title" content="1.6 Non-Gaussian phenotypes | The {squidSim} R Package Vignette   Version 0.2.1" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-06" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
 <li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
@@ -245,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -254,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
           </h1>
         </div>
 
@@ -284,12 +288,12 @@ y_i \sim Poisson(\lambda_i)
 <p>The only change in the code that is needed is the addition of the link and family arguments.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="1.6-nonGaussian.html#cb61-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
 <span id="cb61-2"><a href="1.6-nonGaussian.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb61-3"><a href="1.6-nonGaussian.html#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
-<span id="cb61-4"><a href="1.6-nonGaussian.html#cb61-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
-<span id="cb61-5"><a href="1.6-nonGaussian.html#cb61-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.1</span>)</span>
-<span id="cb61-6"><a href="1.6-nonGaussian.html#cb61-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb61-7"><a href="1.6-nonGaussian.html#cb61-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb61-8"><a href="1.6-nonGaussian.html#cb61-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fl">1.75</span>,</span>
+<span id="cb61-3"><a href="1.6-nonGaussian.html#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept =</span> <span class="fl">1.75</span>,</span>
+<span id="cb61-4"><a href="1.6-nonGaussian.html#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">list</span>(</span>
+<span id="cb61-5"><a href="1.6-nonGaussian.html#cb61-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
+<span id="cb61-6"><a href="1.6-nonGaussian.html#cb61-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.1</span>)</span>
+<span id="cb61-7"><a href="1.6-nonGaussian.html#cb61-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb61-8"><a href="1.6-nonGaussian.html#cb61-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
 <span id="cb61-9"><a href="1.6-nonGaussian.html#cb61-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
 <span id="cb61-10"><a href="1.6-nonGaussian.html#cb61-10" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb61-11"><a href="1.6-nonGaussian.html#cb61-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
@@ -300,13 +304,13 @@ y_i \sim Poisson(\lambda_i)
 <span id="cb61-16"><a href="1.6-nonGaussian.html#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-17"><a href="1.6-nonGaussian.html#cb61-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb61-18"><a href="1.6-nonGaussian.html#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##    y temperature    rainfall residual squid_pop
-## 1  5  0.80122572  1.51171175 1.740107         1
-## 2 11  0.19315205 -0.09121688 2.305221         1
-## 3  7 -0.05978012  0.27519677 1.591893         1
-## 4  2 -1.94741262  0.79497686 1.162317         1
-## 5  9 -0.62235194  1.65578543 1.862235         1
-## 6  8  0.07763423 -0.65812238 1.840078         1</code></pre>
+<pre><code>##    y temperature    rainfall     residual squid_pop
+## 1  5  0.80122572  1.51171175 -0.009892707         1
+## 2 11  0.19315205 -0.09121688  0.555220760         1
+## 3  7 -0.05978012  0.27519677 -0.158106894         1
+## 4  2 -1.94741262  0.79497686 -0.587682748         1
+## 5  9 -0.62235194  1.65578543  0.112234603         1
+## 6  8  0.07763423 -0.65812238  0.090078300         1</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="1.6-nonGaussian.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">table</span>(data<span class="sc">$</span>y), <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;z&quot;</span>)</span></code></pre></div>
 <p><img src="02-sim_pop_files/figure-html/non-gaussian-1.png" width="576" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="1.6-nonGaussian.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> temperature <span class="sc">+</span> rainfall, data, <span class="at">family=</span><span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
@@ -321,7 +325,41 @@ y_i \sim Poisson(\lambda_i)
 ## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
 ## Null Deviance:       5409 
 ## Residual Deviance: 4692  AIC: 11730</code></pre>
-<p>Available families are ‘gaussian’, ‘poisson’ or ‘binomial’ and link functions ‘identity’, ‘log’, ‘inverse’, ‘sqrt’, ‘logit’, ‘probit’.</p>
+<p>Available families are ‘gaussian’, ‘poisson’ or ‘binomial’ and link functions ‘identity’, ‘log’, ‘inverse’, ‘sqrt’, ‘logit’, ‘probit’ and ‘cloglog’.</p>
+<div id="transforming-across-scales" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Transforming across scales<a href="1.6-nonGaussian.html#transforming-across-scales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It can be difficult to simulate data with a certain mean and variance on the ‘observed’ scale when using parameters on the ‘latent’ scale. {squidSim} provides two functions <code>lat2exp()</code> and <code>exp2lat()</code> that help do with the log transformation. <code>lat2exp()</code> transforms means and (co)variances from the latent (normal) scale to the expected (log-normal) scale, whilst <code>exp2lat()</code> does the reverse.</p>
+<p>Let us take an example. We want to simulate some count data that has a mean of 6 and variance 15. In a Poisson distribution, the mean is equal to the variance. This means that a variance of 6 will be added on to the expected scale variation through the stochastic Poisson sampling process. This means that we want to simulate data on the expected scale with a variance of 9. We can use the <code>exp2lat()</code> function to work out the mean and variance on the latent scale that will give us what we want on the expected scale.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="1.6-nonGaussian.html#cb66-1" aria-hidden="true" tabindex="-1"></a>latent_params <span class="ot">&lt;-</span> <span class="fu">exp2lat</span>(<span class="at">mean=</span><span class="dv">6</span>, <span class="at">cov=</span><span class="dv">9</span>)</span>
+<span id="cb66-2"><a href="1.6-nonGaussian.html#cb66-2" aria-hidden="true" tabindex="-1"></a>latent_params</span></code></pre></div>
+<pre><code>## $mean
+## [1] 1.680188
+## 
+## $cov
+##           [,1]
+## [1,] 0.2231436</code></pre>
+<p>This gives us a list of parameters with which we can simulate:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="1.6-nonGaussian.html#cb68-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb68-2"><a href="1.6-nonGaussian.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb68-3"><a href="1.6-nonGaussian.html#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept =</span> latent_params[[<span class="st">&quot;mean&quot;</span>]],</span>
+<span id="cb68-4"><a href="1.6-nonGaussian.html#cb68-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb68-5"><a href="1.6-nonGaussian.html#cb68-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> latent_params[[<span class="st">&quot;cov&quot;</span>]]</span>
+<span id="cb68-6"><a href="1.6-nonGaussian.html#cb68-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb68-7"><a href="1.6-nonGaussian.html#cb68-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb68-8"><a href="1.6-nonGaussian.html#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">2000</span>,</span>
+<span id="cb68-9"><a href="1.6-nonGaussian.html#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>, </span>
+<span id="cb68-10"><a href="1.6-nonGaussian.html#cb68-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">link =</span> <span class="st">&quot;log&quot;</span></span>
+<span id="cb68-11"><a href="1.6-nonGaussian.html#cb68-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb68-12"><a href="1.6-nonGaussian.html#cb68-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-13"><a href="1.6-nonGaussian.html#cb68-13" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb68-14"><a href="1.6-nonGaussian.html#cb68-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-15"><a href="1.6-nonGaussian.html#cb68-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data<span class="sc">$</span>y)</span></code></pre></div>
+<pre><code>## [1] 5.896</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="1.6-nonGaussian.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(data<span class="sc">$</span>y)</span></code></pre></div>
+<pre><code>## [1] 15.13175</code></pre>
+<p>As you can see, we retrieve very similar values to those we were after.</p>
+<p>We can do with with other transformation. Another one with a simple transformation across scales is the probit. The probit transformation is simply the cumulative distribution function of a normal distribution, and so we can use the functions <code>pnorm()</code> and <code>qnorm()</code> to transform between latent and expected.</p>
+</div>
 </div>
             </section>
 

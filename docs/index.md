@@ -1,10 +1,11 @@
 --- 
-title: "The {squidSim} R Package Vignette <br> Version 0.2.0"
+title: "The {squidSim} R Package Vignette <br> Version 0.2.1"
 author: "Joel Pick"
-date: "2025-09-06"
+date: "2025-09-08"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
+    split_by: "section+number"
     config:
       download:
         - ["book.pdf", "PDF"]

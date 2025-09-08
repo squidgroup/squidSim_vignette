@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette   Version 0.2.0</title>
+  <title>3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette   Version 0.2.1</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta property="og:title" content="3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette   Version 0.2.1" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette   Version 0.2.0" />
+  <meta name="twitter:title" content="3.2 One response repeatedly measured, the other not | The {squidSim} R Package Vignette   Version 0.2.1" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-06" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,7 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
 <li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
@@ -245,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -254,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.0</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
           </h1>
         </div>
 
@@ -265,23 +269,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="one-response-repeatedly-measured-the-other-not" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> One response repeatedly measured, the other not<a href="3.2-one-response-repeatedly-measured-the-other-not.html#one-response-repeatedly-measured-the-other-not" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In some circumstances we might want to simulate two responses, one that varies between measurements and one that doesn’t. For example we might have one fixed measurement of body size for each individual, and repeated measurements of behaviour. We can simply set the variance of the singly measured variable to 0 at that particular level. So for this example:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb158-2"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb158-3"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
-<span id="cb158-4"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb158-5"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb158-6"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb158-7"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
-<span id="cb158-8"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-8" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.5</span>,<span class="dv">1</span></span>
-<span id="cb158-9"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-9" aria-hidden="true" tabindex="-1"></a>        ),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb158-10"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-10" aria-hidden="true" tabindex="-1"></a>      ), </span>
-<span id="cb158-11"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb158-12"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.8</span>,<span class="dv">0</span>)</span>
-<span id="cb158-13"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb158-14"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb158-15"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb158-16"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-17"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb158-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb164-2"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;individual(100)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb164-3"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response =</span> <span class="dv">2</span>,</span>
+<span id="cb164-4"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb164-5"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb164-6"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb164-7"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,<span class="fl">0.5</span>,</span>
+<span id="cb164-8"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-8" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.5</span>,<span class="dv">1</span></span>
+<span id="cb164-9"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-9" aria-hidden="true" tabindex="-1"></a>        ),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb164-10"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-10" aria-hidden="true" tabindex="-1"></a>      ), </span>
+<span id="cb164-11"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb164-12"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.8</span>,<span class="dv">0</span>)</span>
+<span id="cb164-13"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb164-14"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb164-15"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb164-16"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-17"><a href="3.2-one-response-repeatedly-measured-the-other-not.html#cb164-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
 </div>
             </section>
 

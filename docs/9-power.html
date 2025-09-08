@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.1</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.1" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.1" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="1.2-corpred.html"/>
-<link rel="next" href="1.4-transformations.html"/>
+<link rel="prev" href="8.2-zero-inflated-poisson.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -266,91 +266,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interactions" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Interactions and non-linear effects<a href="1.3-interactions.html#interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="interactions-1" class="section level3 hasAnchor" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Interactions<a href="1.3-interactions.html#interactions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><span class="math display">\[
-y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilon_i
-\]</span></p>
-<p>We can specify the interaction between two predictors by adding an <code>interactions</code> list to the parameters list. Interactions can then be specified between two named variables using “:”. Interactions can be specified between two predictors at the same level, or at different hierarchical levels.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="1.3-interactions.html#cb42-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb42-2"><a href="1.3-interactions.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
-<span id="cb42-3"><a href="1.3-interactions.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
-<span id="cb42-4"><a href="1.3-interactions.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb42-5"><a href="1.3-interactions.html#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb42-6"><a href="1.3-interactions.html#cb42-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>,<span class="st">&quot;rainfall&quot;</span>),</span>
-<span id="cb42-7"><a href="1.3-interactions.html#cb42-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.3</span>)</span>
-<span id="cb42-8"><a href="1.3-interactions.html#cb42-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb42-9"><a href="1.3-interactions.html#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb42-10"><a href="1.3-interactions.html#cb42-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
-<span id="cb42-11"><a href="1.3-interactions.html#cb42-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb42-12"><a href="1.3-interactions.html#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
-<span id="cb42-13"><a href="1.3-interactions.html#cb42-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature:rainfall&quot;</span>),</span>
-<span id="cb42-14"><a href="1.3-interactions.html#cb42-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>)</span>
-<span id="cb42-15"><a href="1.3-interactions.html#cb42-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb42-16"><a href="1.3-interactions.html#cb42-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb42-17"><a href="1.3-interactions.html#cb42-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-18"><a href="1.3-interactions.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-19"><a href="1.3-interactions.html#cb42-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb42-20"><a href="1.3-interactions.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##     body_mass temperature     rainfall   residual temperature:rainfall
-## 1  0.10157809 -0.52578806 -0.900467583 0.68195791          0.473455102
-## 2  1.27037941  0.15685679  0.008508931 1.18953180          0.001334684
-## 3  1.09260136  1.43214672 -0.599461006 0.47051469         -0.858516115
-## 4  0.88371868  0.95614001 -1.155390758 0.64179436         -1.104715333
-## 5 -0.04515612  0.05988423 -0.439114402 0.05400648         -0.026296028
-## 6  2.11519536  2.73482346 -0.855646194 0.77047337         -2.340041281
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="1.3-interactions.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
-<pre><code>##          (Intercept)          temperature             rainfall 
-##         -0.003407952          0.494634096          0.321720430 
-## temperature:rainfall 
-##         -0.101798139</code></pre>
-</div>
-<div id="non-linear-effects" class="section level3 hasAnchor" number="1.3.2">
-<h3><span class="header-section-number">1.3.2</span> Non-linear effects<a href="1.3-interactions.html#non-linear-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Polynomial (quadratic, cubic, etc) functions are essentially interactions with the same predictor. They can therefore be specified in the same way:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="1.3-interactions.html#cb46-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb46-2"><a href="1.3-interactions.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">2000</span>,</span>
-<span id="cb46-3"><a href="1.3-interactions.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_name =</span> <span class="st">&quot;body_mass&quot;</span>,</span>
-<span id="cb46-4"><a href="1.3-interactions.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb46-5"><a href="1.3-interactions.html#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation=</span><span class="fu">list</span>(</span>
-<span id="cb46-6"><a href="1.3-interactions.html#cb46-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>),</span>
-<span id="cb46-7"><a href="1.3-interactions.html#cb46-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>)</span>
-<span id="cb46-8"><a href="1.3-interactions.html#cb46-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb46-9"><a href="1.3-interactions.html#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
-<span id="cb46-10"><a href="1.3-interactions.html#cb46-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;temperature:temperature&quot;</span>),</span>
-<span id="cb46-11"><a href="1.3-interactions.html#cb46-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>)</span>
-<span id="cb46-12"><a href="1.3-interactions.html#cb46-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb46-13"><a href="1.3-interactions.html#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb46-14"><a href="1.3-interactions.html#cb46-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov=</span><span class="fl">0.3</span></span>
-<span id="cb46-15"><a href="1.3-interactions.html#cb46-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb46-16"><a href="1.3-interactions.html#cb46-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb46-17"><a href="1.3-interactions.html#cb46-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb46-18"><a href="1.3-interactions.html#cb46-18" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb46-19"><a href="1.3-interactions.html#cb46-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-20"><a href="1.3-interactions.html#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass <span class="sc">~</span> temperature, data, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">col=</span><span class="fu">alpha</span>(<span class="dv">1</span>,<span class="fl">0.5</span>))</span></code></pre></div>
-<p><img src="02-sim_pop_files/figure-html/non-linear-1.png" width="576" /></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="1.3-interactions.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
-<pre><code>##      (Intercept)      temperature I(temperature^2) 
-##       0.01706406       0.49566769      -0.29948675</code></pre>
-<p><br></p>
-</div>
+<div id="power" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Conducting a power analysis using squidSim<a href="9-power.html#power" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Simulations are useful for many reasons. For more complex models they may well be used to conduct power analyses, as it is difficult to derive the sampling distribution of a given parameter analytically. Here, we provide a simple example of a power analysis. {squidSim} doesn’t perform power analyses as part of the package, but the simulated datasets can easily be used for this.</p>
+<p>There are may stages to a power analysis, and the first ones relates to working out how the data should be structured, and what parameters are of interest, and what effect sizes are of interest, and so how a simulation should be parametrised. We do not cover this here, simply we provide a worked example of doing a power analysis, once we have worked those things out.</p>
+<p>Here we take a fictional example, where we are interested in working out the power to detect a repeatability (proportion of total variance) among individuals of 0.2. We have a data structure that includes repeated measures of individual across years.</p>
+<p>The first step in the simulation procedure is to simulate many datasets. We can easily to this using the <code>n_pop</code> argument in <code>simulate_population()</code>:</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="9-power.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(squidSim)</span>
+<span id="cb221-2"><a href="9-power.html#cb221-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-3"><a href="9-power.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generate a data structure, here 100 individuals measured in each of 10 years</span></span>
+<span id="cb221-4"><a href="9-power.html#cb221-4" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(20) + year(10)&quot;</span>)</span>
+<span id="cb221-5"><a href="9-power.html#cb221-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-6"><a href="9-power.html#cb221-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-7"><a href="9-power.html#cb221-7" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb221-8"><a href="9-power.html#cb221-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb221-9"><a href="9-power.html#cb221-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb221-10"><a href="9-power.html#cb221-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb221-11"><a href="9-power.html#cb221-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span> <span class="do">## effect size of interest</span></span>
+<span id="cb221-12"><a href="9-power.html#cb221-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb221-13"><a href="9-power.html#cb221-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
+<span id="cb221-14"><a href="9-power.html#cb221-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
+<span id="cb221-15"><a href="9-power.html#cb221-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb221-16"><a href="9-power.html#cb221-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb221-17"><a href="9-power.html#cb221-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb221-18"><a href="9-power.html#cb221-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb221-19"><a href="9-power.html#cb221-19" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb221-20"><a href="9-power.html#cb221-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop =</span> <span class="dv">1000</span></span>
+<span id="cb221-21"><a href="9-power.html#cb221-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We can then extract our individual datasets as a list for more easy processing:</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="9-power.html#cb222-1" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>We can then run our model or models of interest across each of the datasets and then extract the parameter of interest. With a power analysis, typically this is a p-value for a given parameter, but might be another parameter such as a variance, if building a sampling distribution. Here, I will use a likelihood ratio test to derive a p-value between a model that does estimate among individual variance and ones that does not. To efficiently run the models across all datasets, we need a little more coding. You can use loops, here I will use the <code>*apply</code> functions. <code>sapply</code> applies a function to each element of the list (here I call that element <code>dat</code>), and then returns a vector or matrix of the output of each (here the p-value from the likelihood ratio test).</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="9-power.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dat&lt;-sim_data[[1]]</span></span>
+<span id="cb223-2"><a href="9-power.html#cb223-2" aria-hidden="true" tabindex="-1"></a>models_out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(sim_data, <span class="cf">function</span>(dat){</span>
+<span id="cb223-3"><a href="9-power.html#cb223-3" aria-hidden="true" tabindex="-1"></a>    mod1 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>individual), dat,<span class="at">REML=</span><span class="cn">FALSE</span>)</span>
+<span id="cb223-4"><a href="9-power.html#cb223-4" aria-hidden="true" tabindex="-1"></a>    mod2 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year) , dat,<span class="at">REML=</span><span class="cn">FALSE</span>)</span>
+<span id="cb223-5"><a href="9-power.html#cb223-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anova</span>(mod1,mod2)[<span class="st">&quot;Pr(&gt;Chisq)&quot;</span>][[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb223-6"><a href="9-power.html#cb223-6" aria-hidden="true" tabindex="-1"></a>})  </span></code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00226498 (tol = 0.002, component 1)</code></pre>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00228789 (tol = 0.002, component 1)</code></pre>
+<pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
+<p>With this vector of p-values, I can then calculate the power. Power is defined as the probability of finding a significant results when there is a true effect. To estimate this, we can look at the proportion of the tests that give a p-value of &lt;0.05:</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="9-power.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(models_out<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.997</code></pre>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="1.2-corpred.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="1.4-transformations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="8.2-zero-inflated-poisson.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
