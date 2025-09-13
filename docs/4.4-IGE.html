@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="4.4 Indirect Genetic Effects | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -270,34 +276,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.4</span> Indirect Genetic Effects<a href="4.4-IGE.html#IGE" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Indirect genetic effects are a bit more difficult to code. Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual’s phenotype, is that of its mother, not itself. Here we can use <code>[]</code> to index the levels of the random effects within the formula. We need to be careful here as internally in <code>simulate_population()</code> the indexing of the factors in the data structure is done independently. We therefore need to generate a index for the mothers that links to the individual. We can do this using the <code>index_link</code> argument - in the code below we create a new factor to index with, called <code>dam_link</code>, that is the dam factor in our data structure, that has been indexed to match the animal factor.</p>
 <p>Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual’s phenotype from its own direct genetic effects, and its mother’s maternal genetic effect.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="4.4-IGE.html#cb184-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb184-2"><a href="4.4-IGE.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb184-3"><a href="4.4-IGE.html#cb184-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
-<span id="cb184-4"><a href="4.4-IGE.html#cb184-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
-<span id="cb184-5"><a href="4.4-IGE.html#cb184-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
-<span id="cb184-6"><a href="4.4-IGE.html#cb184-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb184-7"><a href="4.4-IGE.html#cb184-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb184-8"><a href="4.4-IGE.html#cb184-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
-<span id="cb184-9"><a href="4.4-IGE.html#cb184-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb184-10"><a href="4.4-IGE.html#cb184-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb184-11"><a href="4.4-IGE.html#cb184-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb184-12"><a href="4.4-IGE.html#cb184-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>BTped,</span>
-<span id="cb184-13"><a href="4.4-IGE.html#cb184-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>BTped),</span>
-<span id="cb184-14"><a href="4.4-IGE.html#cb184-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index_link=</span><span class="fu">list</span>(<span class="at">dam_link=</span><span class="st">&quot;dam-animal&quot;</span>),</span>
-<span id="cb184-15"><a href="4.4-IGE.html#cb184-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam_link] + residual&quot;</span></span>
-<span id="cb184-16"><a href="4.4-IGE.html#cb184-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="4.4-IGE.html#cb202-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb202-2"><a href="4.4-IGE.html#cb202-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb202-3"><a href="4.4-IGE.html#cb202-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb202-4"><a href="4.4-IGE.html#cb202-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="fu">c</span>(<span class="st">&quot;direct&quot;</span>,<span class="st">&quot;maternal&quot;</span>),</span>
+<span id="cb202-5"><a href="4.4-IGE.html#cb202-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb202-6"><a href="4.4-IGE.html#cb202-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb202-7"><a href="4.4-IGE.html#cb202-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb202-8"><a href="4.4-IGE.html#cb202-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;residual&quot;</span>,</span>
+<span id="cb202-9"><a href="4.4-IGE.html#cb202-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb202-10"><a href="4.4-IGE.html#cb202-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb202-11"><a href="4.4-IGE.html#cb202-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb202-12"><a href="4.4-IGE.html#cb202-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span>ped,</span>
+<span id="cb202-13"><a href="4.4-IGE.html#cb202-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree=</span><span class="fu">list</span>(<span class="at">animal=</span>ped),</span>
+<span id="cb202-14"><a href="4.4-IGE.html#cb202-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index_link=</span><span class="fu">list</span>(<span class="at">dam_link=</span><span class="st">&quot;dam-animal&quot;</span>),</span>
+<span id="cb202-15"><a href="4.4-IGE.html#cb202-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;y = direct + maternal[dam_link] + residual&quot;</span></span>
+<span id="cb202-16"><a href="4.4-IGE.html#cb202-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Warning: Not all levels are of dam are present in animal meaning that there
 ## will be NAs in the new grouping factor</code></pre>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="4.4-IGE.html#cb186-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb186-2"><a href="4.4-IGE.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb186-3"><a href="4.4-IGE.html#cb186-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##    y     direct   maternal    residual  animal  dam sire squid_pop
-## 1 NA  1.4774524  0.6386346 -1.40513270 R187557 &lt;NA&gt; &lt;NA&gt;         1
-## 2 NA  0.4613623  0.7334137  0.39278836 R187559 &lt;NA&gt; &lt;NA&gt;         1
-## 3 NA -1.7555338 -0.6943673 -1.11469969 R187568 &lt;NA&gt; &lt;NA&gt;         1
-## 4 NA  0.2308076 -0.1172376 -1.22054447 R187518 &lt;NA&gt; &lt;NA&gt;         1
-## 5 NA -0.6111666 -0.5457180  0.03596706 R187528 &lt;NA&gt; &lt;NA&gt;         1
-## 6 NA  0.3943155  0.2788443  0.29346050 R187945 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="4.4-IGE.html#cb204-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb204-2"><a href="4.4-IGE.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-3"><a href="4.4-IGE.html#cb204-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##    y     direct     maternal    residual animal  dam sire squid_pop
+## 1 NA -1.3868139 -0.958645316 -0.53517980    204 &lt;NA&gt; &lt;NA&gt;         1
+## 2 NA -0.3557084 -0.020020959 -0.05060699    205 &lt;NA&gt; &lt;NA&gt;         1
+## 3 NA -1.6063940 -0.008095092  0.44336246    206 &lt;NA&gt; &lt;NA&gt;         1
+## 4 NA -0.5702206  1.481172744 -0.31267001    207 &lt;NA&gt; &lt;NA&gt;         1
+## 5 NA -0.6878199  1.331302491 -0.68215405    208 &lt;NA&gt; &lt;NA&gt;         1
+## 6 NA -0.4438793  0.168884393 -0.70437684    209 &lt;NA&gt; &lt;NA&gt;         1</code></pre>
 </div>
             </section>
 

@@ -9,6 +9,7 @@ wd <- "/Users/joelpick/github/squid_vignette"
 ## compile
 bookdown::render_book(wd, bookdown::gitbook(split_by = "section+number"),new_session = TRUE)
 
+# bookdown::render_book(wd, bookdown::pdf_book(),new_session = TRUE)
 # update.packages(ask = FALSE, checkBuilt = TRUE) 
 
 # setwd("/Users/joelpick/github/squid_vignette")

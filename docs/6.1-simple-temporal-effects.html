@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.1 Simple Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>6.1 Simple Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.1 Simple Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="6.1 Simple Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.1 Simple Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="6.1 Simple Temporal Effects | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -270,26 +276,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.1</span> Simple Temporal Effects<a href="6.1-simple-temporal-effects.html#simple-temporal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We might have measured a variable over the course of a certain time period (e.g. 20 years). We might expect that there is stochastic year-to-year variation, which we can simulate already. However we might also want to simulate patterns in that temporal data. We can treat the levels associated with a particular grouping factor (e.g. year) as both a factor and continuous.</p>
 <p>To treat a grouping factor as continuous, we use <code>covariate=TRUE</code> in the parameter list. In this way we can simulate a linear effect of year:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="6.1-simple-temporal-effects.html#cb188-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>( </span>
-<span id="cb188-2"><a href="6.1-simple-temporal-effects.html#cb188-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb188-3"><a href="6.1-simple-temporal-effects.html#cb188-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb188-4"><a href="6.1-simple-temporal-effects.html#cb188-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_cont =</span> <span class="fu">list</span>(</span>
-<span id="cb188-5"><a href="6.1-simple-temporal-effects.html#cb188-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;year&quot;</span>,</span>
-<span id="cb188-6"><a href="6.1-simple-temporal-effects.html#cb188-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="st">&quot;year_cont&quot;</span>,</span>
-<span id="cb188-7"><a href="6.1-simple-temporal-effects.html#cb188-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">covariate=</span><span class="cn">TRUE</span>,</span>
-<span id="cb188-8"><a href="6.1-simple-temporal-effects.html#cb188-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fl">0.3</span></span>
-<span id="cb188-9"><a href="6.1-simple-temporal-effects.html#cb188-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb188-10"><a href="6.1-simple-temporal-effects.html#cb188-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
-<span id="cb188-11"><a href="6.1-simple-temporal-effects.html#cb188-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
-<span id="cb188-12"><a href="6.1-simple-temporal-effects.html#cb188-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb188-13"><a href="6.1-simple-temporal-effects.html#cb188-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb188-14"><a href="6.1-simple-temporal-effects.html#cb188-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span></span>
-<span id="cb188-15"><a href="6.1-simple-temporal-effects.html#cb188-15" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb188-16"><a href="6.1-simple-temporal-effects.html#cb188-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb188-17"><a href="6.1-simple-temporal-effects.html#cb188-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="6.1-simple-temporal-effects.html#cb219-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>( </span>
+<span id="cb219-2"><a href="6.1-simple-temporal-effects.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb219-3"><a href="6.1-simple-temporal-effects.html#cb219-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb219-4"><a href="6.1-simple-temporal-effects.html#cb219-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_cont =</span> <span class="fu">list</span>(</span>
+<span id="cb219-5"><a href="6.1-simple-temporal-effects.html#cb219-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;year&quot;</span>,</span>
+<span id="cb219-6"><a href="6.1-simple-temporal-effects.html#cb219-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="st">&quot;year_cont&quot;</span>,</span>
+<span id="cb219-7"><a href="6.1-simple-temporal-effects.html#cb219-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">covariate=</span><span class="cn">TRUE</span>,</span>
+<span id="cb219-8"><a href="6.1-simple-temporal-effects.html#cb219-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fl">0.3</span></span>
+<span id="cb219-9"><a href="6.1-simple-temporal-effects.html#cb219-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb219-10"><a href="6.1-simple-temporal-effects.html#cb219-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
+<span id="cb219-11"><a href="6.1-simple-temporal-effects.html#cb219-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
+<span id="cb219-12"><a href="6.1-simple-temporal-effects.html#cb219-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb219-13"><a href="6.1-simple-temporal-effects.html#cb219-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb219-14"><a href="6.1-simple-temporal-effects.html#cb219-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span></span>
+<span id="cb219-15"><a href="6.1-simple-temporal-effects.html#cb219-15" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb219-16"><a href="6.1-simple-temporal-effects.html#cb219-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb219-17"><a href="6.1-simple-temporal-effects.html#cb219-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>note we have specified <code>group</code> in the parameter list. This enables us to link a set of parameters to the grouping factor in the data structure. This doesn’t have to be specified and defaults to the name of the list item.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="6.1-simple-temporal-effects.html#cb189-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb189-2"><a href="6.1-simple-temporal-effects.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="6.1-simple-temporal-effects.html#cb220-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb220-2"><a href="6.1-simple-temporal-effects.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##           y year_cont year_effect   residual year sex individual squid_pop
 ## 1 1.1436403         1     2.21821 -1.3745698    1   1          1         1
 ## 2 3.0559676         1     2.21821  0.5377575    1   1          1         1
@@ -297,10 +303,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 0.6152528         1     2.21821 -1.9029573    1   1          1         1
 ## 5 1.8172122         1     2.21821 -0.7009978    1   1          1         1
 ## 6 1.7139274         1     2.21821 -0.8042827    1   1          1         1</code></pre>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="6.1-simple-temporal-effects.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> year_cont, data)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="6.1-simple-temporal-effects.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> year_cont, data)</span></code></pre></div>
 <p><img src="07-temporal_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
 <p>Here we can see there is within year variation, year to year variation, as well as a linear directional year effect.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="6.1-simple-temporal-effects.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lmer</span>(y <span class="sc">~</span> year_cont <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year), data)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="6.1-simple-temporal-effects.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lmer</span>(y <span class="sc">~</span> year_cont <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year), data)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ year_cont + (1 | year)
 ##    Data: data
@@ -314,31 +320,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## (Intercept)    year_cont  
 ##      0.5669       0.2838</code></pre>
 <p>In a similar way we can also simulate a quadratic effect of time.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="6.1-simple-temporal-effects.html#cb194-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb194-2"><a href="6.1-simple-temporal-effects.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
-<span id="cb194-3"><a href="6.1-simple-temporal-effects.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb194-4"><a href="6.1-simple-temporal-effects.html#cb194-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_cont =</span> <span class="fu">list</span>(</span>
-<span id="cb194-5"><a href="6.1-simple-temporal-effects.html#cb194-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;year&quot;</span>,</span>
-<span id="cb194-6"><a href="6.1-simple-temporal-effects.html#cb194-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="fu">c</span>(<span class="st">&quot;year_cont&quot;</span>),</span>
-<span id="cb194-7"><a href="6.1-simple-temporal-effects.html#cb194-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">covariate=</span><span class="cn">TRUE</span>,</span>
-<span id="cb194-8"><a href="6.1-simple-temporal-effects.html#cb194-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="fl">0.3</span>)</span>
-<span id="cb194-9"><a href="6.1-simple-temporal-effects.html#cb194-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb194-10"><a href="6.1-simple-temporal-effects.html#cb194-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
-<span id="cb194-11"><a href="6.1-simple-temporal-effects.html#cb194-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="fu">c</span>(<span class="st">&quot;year_cont:year_cont&quot;</span>),</span>
-<span id="cb194-12"><a href="6.1-simple-temporal-effects.html#cb194-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>)</span>
-<span id="cb194-13"><a href="6.1-simple-temporal-effects.html#cb194-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb194-14"><a href="6.1-simple-temporal-effects.html#cb194-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
-<span id="cb194-15"><a href="6.1-simple-temporal-effects.html#cb194-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span></span>
-<span id="cb194-16"><a href="6.1-simple-temporal-effects.html#cb194-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb194-17"><a href="6.1-simple-temporal-effects.html#cb194-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb194-18"><a href="6.1-simple-temporal-effects.html#cb194-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
-<span id="cb194-19"><a href="6.1-simple-temporal-effects.html#cb194-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb194-20"><a href="6.1-simple-temporal-effects.html#cb194-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb194-21"><a href="6.1-simple-temporal-effects.html#cb194-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb194-22"><a href="6.1-simple-temporal-effects.html#cb194-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-23"><a href="6.1-simple-temporal-effects.html#cb194-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
-<span id="cb194-24"><a href="6.1-simple-temporal-effects.html#cb194-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-25"><a href="6.1-simple-temporal-effects.html#cb194-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>year_cont,data)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="6.1-simple-temporal-effects.html#cb225-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb225-2"><a href="6.1-simple-temporal-effects.html#cb225-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> <span class="fu">make_structure</span>(<span class="at">structure =</span> <span class="st">&quot;year(20) + sex(2)/individual(50)&quot;</span>,<span class="at">repeat_obs=</span><span class="dv">20</span>),</span>
+<span id="cb225-3"><a href="6.1-simple-temporal-effects.html#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb225-4"><a href="6.1-simple-temporal-effects.html#cb225-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_cont =</span> <span class="fu">list</span>(</span>
+<span id="cb225-5"><a href="6.1-simple-temporal-effects.html#cb225-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">group=</span><span class="st">&quot;year&quot;</span>,</span>
+<span id="cb225-6"><a href="6.1-simple-temporal-effects.html#cb225-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="fu">c</span>(<span class="st">&quot;year_cont&quot;</span>),</span>
+<span id="cb225-7"><a href="6.1-simple-temporal-effects.html#cb225-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">covariate=</span><span class="cn">TRUE</span>,</span>
+<span id="cb225-8"><a href="6.1-simple-temporal-effects.html#cb225-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="fl">0.3</span>)</span>
+<span id="cb225-9"><a href="6.1-simple-temporal-effects.html#cb225-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb225-10"><a href="6.1-simple-temporal-effects.html#cb225-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions=</span><span class="fu">list</span>(</span>
+<span id="cb225-11"><a href="6.1-simple-temporal-effects.html#cb225-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span> <span class="fu">c</span>(<span class="st">&quot;year_cont:year_cont&quot;</span>),</span>
+<span id="cb225-12"><a href="6.1-simple-temporal-effects.html#cb225-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>)</span>
+<span id="cb225-13"><a href="6.1-simple-temporal-effects.html#cb225-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb225-14"><a href="6.1-simple-temporal-effects.html#cb225-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
+<span id="cb225-15"><a href="6.1-simple-temporal-effects.html#cb225-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span></span>
+<span id="cb225-16"><a href="6.1-simple-temporal-effects.html#cb225-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb225-17"><a href="6.1-simple-temporal-effects.html#cb225-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb225-18"><a href="6.1-simple-temporal-effects.html#cb225-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.8</span></span>
+<span id="cb225-19"><a href="6.1-simple-temporal-effects.html#cb225-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb225-20"><a href="6.1-simple-temporal-effects.html#cb225-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb225-21"><a href="6.1-simple-temporal-effects.html#cb225-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb225-22"><a href="6.1-simple-temporal-effects.html#cb225-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb225-23"><a href="6.1-simple-temporal-effects.html#cb225-23" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
+<span id="cb225-24"><a href="6.1-simple-temporal-effects.html#cb225-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb225-25"><a href="6.1-simple-temporal-effects.html#cb225-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>year_cont,data)</span></code></pre></div>
 <p><img src="07-temporal_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
 <p><br></p>
 </div>

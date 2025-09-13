@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.3 Temporal Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>6.3 Temporal Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.3 Temporal Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="6.3 Temporal Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.3 Temporal Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="6.3 Temporal Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -268,6 +274,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="temporalauto" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Temporal Autocorrelation<a href="6.3-temporalauto.html#temporalauto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="6.3-temporalauto.html#cb228-1" aria-hidden="true" tabindex="-1"></a>ar1_cor <span class="ot">&lt;-</span> <span class="cf">function</span>(n, rho) {</span>
+<span id="cb228-2"><a href="6.3-temporalauto.html#cb228-2" aria-hidden="true" tabindex="-1"></a>  exponent <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span>n <span class="sc">-</span> <span class="dv">1</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n, <span class="at">byrow =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> </span>
+<span id="cb228-3"><a href="6.3-temporalauto.html#cb228-3" aria-hidden="true" tabindex="-1"></a>      (<span class="dv">1</span><span class="sc">:</span>n <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb228-4"><a href="6.3-temporalauto.html#cb228-4" aria-hidden="true" tabindex="-1"></a>  rho<span class="sc">^</span>exponent</span>
+<span id="cb228-5"><a href="6.3-temporalauto.html#cb228-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb228-6"><a href="6.3-temporalauto.html#cb228-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-7"><a href="6.3-temporalauto.html#cb228-7" aria-hidden="true" tabindex="-1"></a>temp_mat<span class="ot">&lt;-</span><span class="fu">ar1_cor</span>(<span class="at">n=</span><span class="dv">100</span>,<span class="at">rho=</span><span class="fl">0.9</span>)</span>
+<span id="cb228-8"><a href="6.3-temporalauto.html#cb228-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(temp_mat)<span class="ot">&lt;-</span><span class="fu">rownames</span>(temp_mat)<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb228-9"><a href="6.3-temporalauto.html#cb228-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-10"><a href="6.3-temporalauto.html#cb228-10" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">day=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb228-11"><a href="6.3-temporalauto.html#cb228-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-12"><a href="6.3-temporalauto.html#cb228-12" aria-hidden="true" tabindex="-1"></a>sim_dat_ta<span class="ot">&lt;-</span><span class="fu">simulate_population</span>(</span>
+<span id="cb228-13"><a href="6.3-temporalauto.html#cb228-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">25</span>,</span>
+<span id="cb228-14"><a href="6.3-temporalauto.html#cb228-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb228-15"><a href="6.3-temporalauto.html#cb228-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb228-16"><a href="6.3-temporalauto.html#cb228-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">day =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">4</span>),</span>
+<span id="cb228-17"><a href="6.3-temporalauto.html#cb228-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">1</span>)</span>
+<span id="cb228-18"><a href="6.3-temporalauto.html#cb228-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb228-19"><a href="6.3-temporalauto.html#cb228-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">cov_str =</span> <span class="fu">list</span>(<span class="at">day=</span>temp_mat)</span>
+<span id="cb228-20"><a href="6.3-temporalauto.html#cb228-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb228-21"><a href="6.3-temporalauto.html#cb228-21" aria-hidden="true" tabindex="-1"></a>dat_ta<span class="ot">&lt;-</span><span class="fu">get_population_data</span>(sim_dat_ta)</span>
+<span id="cb228-22"><a href="6.3-temporalauto.html#cb228-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_ta)</span></code></pre></div>
+<pre><code>##           y day_effect   residual day squid_pop
+## 1 3.6334258   3.835942 -0.2025162   1         1
+## 2 2.0960169   3.270739 -1.1747219   2         1
+## 3 0.6243599   1.979511 -1.3551508   3         1
+## 4 1.5844086   1.307931  0.2764777   4         1
+## 5 1.4873109   1.145398  0.3419127   5         1
+## 6 1.0725710   2.048936 -0.9763652   6         1</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="6.3-temporalauto.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">unique</span>(ds<span class="sc">$</span>day) <span class="sc">%in%</span> <span class="fu">rownames</span>(temp_mat))</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="6.3-temporalauto.html#cb232-1" aria-hidden="true" tabindex="-1"></a>sim_dat_no_ta<span class="ot">&lt;-</span><span class="fu">simulate_population</span>(</span>
+<span id="cb232-2"><a href="6.3-temporalauto.html#cb232-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">23</span>,</span>
+<span id="cb232-3"><a href="6.3-temporalauto.html#cb232-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb232-4"><a href="6.3-temporalauto.html#cb232-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb232-5"><a href="6.3-temporalauto.html#cb232-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">day =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">4</span>),</span>
+<span id="cb232-6"><a href="6.3-temporalauto.html#cb232-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">1</span>)</span>
+<span id="cb232-7"><a href="6.3-temporalauto.html#cb232-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb232-8"><a href="6.3-temporalauto.html#cb232-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb232-9"><a href="6.3-temporalauto.html#cb232-9" aria-hidden="true" tabindex="-1"></a>dat_no_ta<span class="ot">&lt;-</span><span class="fu">get_population_data</span>(sim_dat_no_ta)</span>
+<span id="cb232-10"><a href="6.3-temporalauto.html#cb232-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-11"><a href="6.3-temporalauto.html#cb232-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-12"><a href="6.3-temporalauto.html#cb232-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb232-13"><a href="6.3-temporalauto.html#cb232-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>day,dat_ta, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">main=</span><span class="st">&quot;Temporal Autocorrelation&quot;</span>)</span>
+<span id="cb232-14"><a href="6.3-temporalauto.html#cb232-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>day,dat_no_ta, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">main=</span><span class="st">&quot;No Autocorrelation&quot;</span>)</span></code></pre></div>
+<p><img src="07-temporal_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
             </section>
 

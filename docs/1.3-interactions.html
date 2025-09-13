@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="1.3 Interactions and non-linear effects | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -294,25 +300,18 @@ y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilo
 <span id="cb42-18"><a href="1.3-interactions.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-19"><a href="1.3-interactions.html#cb42-19" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span>
 <span id="cb42-20"><a href="1.3-interactions.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##     body_mass temperature     rainfall   residual temperature:rainfall
-## 1  0.10157809 -0.52578806 -0.900467583 0.68195791          0.473455102
-## 2  1.27037941  0.15685679  0.008508931 1.18953180          0.001334684
-## 3  1.09260136  1.43214672 -0.599461006 0.47051469         -0.858516115
-## 4  0.88371868  0.95614001 -1.155390758 0.64179436         -1.104715333
-## 5 -0.04515612  0.05988423 -0.439114402 0.05400648         -0.026296028
-## 6  2.11519536  2.73482346 -0.855646194 0.77047337         -2.340041281
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1</code></pre>
+<pre><code>##    body_mass temperature   rainfall   residual temperature:rainfall squid_pop
+## 1 -0.1950863   0.6545190  1.5577734 -0.8877186            1.0195922         1
+## 2 -0.8352969  -1.3405423  0.3989025 -0.3381711           -0.5347457         1
+## 3 -0.2615434  -1.2677241 -0.2484353  0.4783440            0.3149474         1
+## 4  0.8427175   0.8669511  0.1360867  0.3802140            0.1179805         1
+## 5 -0.8451921  -1.8557505  0.8777406 -0.3435258           -1.6288676         1
+## 6  0.7969244  -0.2192104  0.8250010  0.6409444           -0.1808488         1</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="1.3-interactions.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">*</span> rainfall, data))</span></code></pre></div>
 <pre><code>##          (Intercept)          temperature             rainfall 
-##         -0.003407952          0.494634096          0.321720430 
+##          0.006055206          0.487910683          0.284464667 
 ## temperature:rainfall 
-##         -0.101798139</code></pre>
+##         -0.084342268</code></pre>
 </div>
 <div id="non-linear-effects" class="section level3 hasAnchor" number="1.3.2">
 <h3><span class="header-section-number">1.3.2</span> Non-linear effects<a href="1.3-interactions.html#non-linear-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -340,7 +339,7 @@ y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{1i}x_{2i} + \epsilo
 <p><img src="02-sim_pop_files/figure-html/non-linear-1.png" width="576" /></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="1.3-interactions.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(body_mass <span class="sc">~</span> temperature <span class="sc">+</span> <span class="fu">I</span>(temperature<span class="sc">^</span><span class="dv">2</span>), data))</span></code></pre></div>
 <pre><code>##      (Intercept)      temperature I(temperature^2) 
-##       0.01706406       0.49566769      -0.29948675</code></pre>
+##     -0.003753765      0.510987516     -0.299719778</code></pre>
 <p><br></p>
 </div>
 </div>

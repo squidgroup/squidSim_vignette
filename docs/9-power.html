@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="9 Conducting a power analysis using squidSim | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -272,43 +278,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are may stages to a power analysis, and the first ones relates to working out how the data should be structured, and what parameters are of interest, and what effect sizes are of interest, and so how a simulation should be parametrised. We do not cover this here, simply we provide a worked example of doing a power analysis, once we have worked those things out.</p>
 <p>Here we take a fictional example, where we are interested in working out the power to detect a repeatability (proportion of total variance) among individuals of 0.2. We have a data structure that includes repeated measures of individual across years.</p>
 <p>The first step in the simulation procedure is to simulate many datasets. We can easily to this using the <code>n_pop</code> argument in <code>simulate_population()</code>:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="9-power.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(squidSim)</span>
-<span id="cb221-2"><a href="9-power.html#cb221-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-3"><a href="9-power.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generate a data structure, here 100 individuals measured in each of 10 years</span></span>
-<span id="cb221-4"><a href="9-power.html#cb221-4" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(20) + year(10)&quot;</span>)</span>
-<span id="cb221-5"><a href="9-power.html#cb221-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-6"><a href="9-power.html#cb221-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb221-7"><a href="9-power.html#cb221-7" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb221-8"><a href="9-power.html#cb221-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
-<span id="cb221-9"><a href="9-power.html#cb221-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb221-10"><a href="9-power.html#cb221-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb221-11"><a href="9-power.html#cb221-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span> <span class="do">## effect size of interest</span></span>
-<span id="cb221-12"><a href="9-power.html#cb221-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb221-13"><a href="9-power.html#cb221-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
-<span id="cb221-14"><a href="9-power.html#cb221-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
-<span id="cb221-15"><a href="9-power.html#cb221-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb221-16"><a href="9-power.html#cb221-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb221-17"><a href="9-power.html#cb221-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
-<span id="cb221-18"><a href="9-power.html#cb221-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb221-19"><a href="9-power.html#cb221-19" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb221-20"><a href="9-power.html#cb221-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop =</span> <span class="dv">1000</span></span>
-<span id="cb221-21"><a href="9-power.html#cb221-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="9-power.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(squidSim)</span>
+<span id="cb269-2"><a href="9-power.html#cb269-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-3"><a href="9-power.html#cb269-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generate a data structure, here 100 individuals measured in each of 10 years</span></span>
+<span id="cb269-4"><a href="9-power.html#cb269-4" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">make_structure</span>(<span class="st">&quot;individual(20) + year(10)&quot;</span>)</span>
+<span id="cb269-5"><a href="9-power.html#cb269-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-6"><a href="9-power.html#cb269-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-7"><a href="9-power.html#cb269-7" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb269-8"><a href="9-power.html#cb269-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb269-9"><a href="9-power.html#cb269-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb269-10"><a href="9-power.html#cb269-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb269-11"><a href="9-power.html#cb269-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span> <span class="do">## effect size of interest</span></span>
+<span id="cb269-12"><a href="9-power.html#cb269-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb269-13"><a href="9-power.html#cb269-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">list</span>(</span>
+<span id="cb269-14"><a href="9-power.html#cb269-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.3</span></span>
+<span id="cb269-15"><a href="9-power.html#cb269-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb269-16"><a href="9-power.html#cb269-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb269-17"><a href="9-power.html#cb269-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb269-18"><a href="9-power.html#cb269-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb269-19"><a href="9-power.html#cb269-19" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb269-20"><a href="9-power.html#cb269-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_pop =</span> <span class="dv">1000</span></span>
+<span id="cb269-21"><a href="9-power.html#cb269-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>We can then extract our individual datasets as a list for more easy processing:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="9-power.html#cb222-1" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="9-power.html#cb270-1" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data, <span class="at">list=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>We can then run our model or models of interest across each of the datasets and then extract the parameter of interest. With a power analysis, typically this is a p-value for a given parameter, but might be another parameter such as a variance, if building a sampling distribution. Here, I will use a likelihood ratio test to derive a p-value between a model that does estimate among individual variance and ones that does not. To efficiently run the models across all datasets, we need a little more coding. You can use loops, here I will use the <code>*apply</code> functions. <code>sapply</code> applies a function to each element of the list (here I call that element <code>dat</code>), and then returns a vector or matrix of the output of each (here the p-value from the likelihood ratio test).</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="9-power.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dat&lt;-sim_data[[1]]</span></span>
-<span id="cb223-2"><a href="9-power.html#cb223-2" aria-hidden="true" tabindex="-1"></a>models_out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(sim_data, <span class="cf">function</span>(dat){</span>
-<span id="cb223-3"><a href="9-power.html#cb223-3" aria-hidden="true" tabindex="-1"></a>    mod1 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>individual), dat,<span class="at">REML=</span><span class="cn">FALSE</span>)</span>
-<span id="cb223-4"><a href="9-power.html#cb223-4" aria-hidden="true" tabindex="-1"></a>    mod2 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year) , dat,<span class="at">REML=</span><span class="cn">FALSE</span>)</span>
-<span id="cb223-5"><a href="9-power.html#cb223-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anova</span>(mod1,mod2)[<span class="st">&quot;Pr(&gt;Chisq)&quot;</span>][[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb223-6"><a href="9-power.html#cb223-6" aria-hidden="true" tabindex="-1"></a>})  </span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="9-power.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dat&lt;-sim_data[[1]]</span></span>
+<span id="cb271-2"><a href="9-power.html#cb271-2" aria-hidden="true" tabindex="-1"></a>models_out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(sim_data, <span class="cf">function</span>(dat){</span>
+<span id="cb271-3"><a href="9-power.html#cb271-3" aria-hidden="true" tabindex="-1"></a>    mod1 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>individual), dat,<span class="at">REML=</span><span class="cn">FALSE</span>)</span>
+<span id="cb271-4"><a href="9-power.html#cb271-4" aria-hidden="true" tabindex="-1"></a>    mod2 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>year) , dat,<span class="at">REML=</span><span class="cn">FALSE</span>)</span>
+<span id="cb271-5"><a href="9-power.html#cb271-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anova</span>(mod1,mod2)[<span class="st">&quot;Pr(&gt;Chisq)&quot;</span>][[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb271-6"><a href="9-power.html#cb271-6" aria-hidden="true" tabindex="-1"></a>})  </span></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
 ## Model failed to converge with max|grad| = 0.00226498 (tol = 0.002, component 1)</code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
 ## Model failed to converge with max|grad| = 0.00228789 (tol = 0.002, component 1)</code></pre>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <p>With this vector of p-values, I can then calculate the power. Power is defined as the probability of finding a significant results when there is a true effect. To estimate this, we can look at the proportion of the tests that give a p-value of &lt;0.05:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="9-power.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(models_out<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="9-power.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(models_out<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 0.997</code></pre>
 
 </div>

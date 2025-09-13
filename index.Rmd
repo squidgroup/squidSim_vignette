@@ -1,5 +1,5 @@
 --- 
-title: "The {squidSim} R Package Vignette <br> Version 0.2.1"
+title: "The {squidSim} R Package Vignette <br> Version 0.2.2"
 author: "Joel Pick"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

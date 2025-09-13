@@ -87,6 +87,7 @@ make_structure(structure="sex(2)/individual(5)", repeat_obs=2)
 <!-- In this case we have created a nested structure with 2000 observations - 2 observations for each of 1000 individuals, 500 for each of 2 sexes. We can then use this to simulate variation at different levels. Note that sample sizes are extracted from the data structure and so we do not need to specify `N` in the `simulate_population` function as above.
  -->
 <img src="03-hierarchical_files/figure-html/unnamed-chunk-6-1.png" width="576" />
+
 Note that in the nesting, the sample size for the lower group now represents the number within each level of the higher, rather than the total sample size, so overall there is 10 individuals. 
 
 We can nest as much as we want:
@@ -428,7 +429,7 @@ lm( y ~ factor(sex), data)
 ##          10.176            0.377
 ```
 
-Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas( equivalent to `lm(body_mass~0+sex)`):
+Alternately, we can specify no intercept (which defaults to 0), and the means for the two levels as betas (equivalent to `lm(body_mass~0+sex)`):
 
 ``` r
 squid_data <- simulate_population(
@@ -480,7 +481,7 @@ lm( y ~ 0+factor(sex), data)
 ##             10.13              10.54
 ```
 
-We would recommend the former methods, as this makes things clearer if other factors are simulated.
+We would recommend the former method, as this makes things clearer if other factors are simulated.
 
 <!-- THIS SECTION NEEDS TO BE COMPLETED AS THERE IS A POTENTIAL BUG HERE -->
 

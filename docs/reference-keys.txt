@@ -41,11 +41,13 @@ dominance
 inbreeding-depression
 genetic-groups
 phylogenetic
+brownian-motion
 temporal-and-spatial-effects
 simple-temporal-effects
 cyclical-temporal-effects
 temporalauto
 spatialauto
+example-species-occurrence-data-with-spatial-autocorrelation
 sampling
 nested
 worked-example-1

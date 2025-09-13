@@ -343,7 +343,7 @@ squid_data <- simulate_population(
 `r indent(4)` `r colorize("names = c(\"temperature\",\"rainfall\", \"wind\"),", "blue")`  
 `r indent(4)` `r colorize("mean = c(10,1,20)," , "blue")`   
 `r indent(4)` `r colorize("vcov = c(1,0.1,2)," , "CornflowerBlue")`   
-`r indent(4)` `r colorize("beta = c(0.5,-0.3, 0.4)" , "purple")`   
+`r indent(4)` `r colorize("beta = c(0.5,-3, 0.4)" , "purple")`   
 `r indent(3)` `r colorize( ")", "blue")`,  
 `r indent(3)` `r colorize("residual = list(", "orange")`  
 `r indent(4)` `r colorize("vcov = 0.8", "orange")`  
@@ -352,16 +352,6 @@ squid_data <- simulate_population(
 `r indent(1)` )
 </span>
 
-
-```{r, echo = FALSE}
-
-decorate("buildcode2") %>%
-  flair("intercept = 10",color = "red") %>%
-  flair('mean = c(10,1,20)',color = "blue")%>% 
-  flair('vcov = c(1,0.1,2)',color = "CornflowerBlue") %>%
-  flair('beta = c(0.5,-3,0.4)',color = "purple") %>%
-  flair('vcov = 0.8',color = "orange")
-```
 
 ```{r, 'lm2',fig.width=10,fig.height=4}
 

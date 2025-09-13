@@ -1,7 +1,7 @@
 --- 
-title: "The {squidSim} R Package Vignette <br> Version 0.2.1"
+title: "The {squidSim} R Package Vignette <br> Version 0.2.2"
 author: "Joel Pick"
-date: "2025-09-08"
+date: "2025-09-13"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
@@ -58,7 +58,7 @@ Starting with simulations can seem like a daunting task. The {squidSim} R packag
 
 
 ### Using the vignette {-}
-If you are new to using the {squidSim} package, we recommend that you read Sections \@ref(linearmod) and \@ref(hierarchical) to familiarise yourself with the {squidSim} package before moving onto the more advanced topics. The later sections assume an certain level of understanding of how the functions work. 
+If you are new to using the {squidSim} package, we recommend that you read Sections \@ref(linearmod) and \@ref(hierarchical) to familiarise yourself with the {squidSim} package before moving onto the more advanced topics. The later sections assume a certain level of understanding of how the functions work. 
 
 The vignette assumes that you have a working knowledge of R, in particular being comfortable using vectors, matrices and lists.
 
@@ -145,7 +145,7 @@ simulate_population(
 
 Each of these will be covered in more detail in the following sections. Briefly, `n` and `data_structure` refer to the size and structure of the data being simulated - `data_structure` is covered in more detail in Section \@ref(hierarchical). `parameters` is a list of parameters to be used in the simulation and is described in detail in Section \@ref(linearmod). `n_response` refers the number of response variable to be simulated and is covered in detail in the section on multivariate models (Section \@ref(multivariate)). `response_names` controls what the simulated response variables are named, and is described in Sections \@ref(linearmod) and \@ref(multivariate). `family` and `link` refer to simulating non Gaussian response variables and are covered in Section \@ref(nonGaussian). `model` allows for the specification of more complex models and is covered in Section \@ref(modeleq). `known_predictors` allows for existing data to be incorporated into the simulations and is covered in \@ref(knownpreds).
 
-`pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type`, relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic) and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
+`pedigree` and `pedigree_type` relate to simulating genetic effects and are covered in Section \@ref(animal), `phylogeny` and `phylogeny_type` relate to simulating phylogenetic effects and are covered in Section \@ref(phylogenetic) and `cov_str` relates to simulating a general covariance structure and is covered in multiple sections, including \@ref(animal), \@ref(phylogenetic), \@ref(temporalauto) and \@ref(spatialauto).
 
 `sample_type` and `sample_param` relate to different sampling methods and are covered in Section \@ref(sampling)
 
@@ -192,7 +192,7 @@ Capital letters (e.g. $X$) denote matrices
 
 ### Notation for a linear mixed model {-}
 
-There are several ways to write out an equation for a linear model. First we can write out all the different variables:
+There are several ways to write out an equation for a linear model. First, we can write out all the different variables:
 
 $y_i = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \beta_3 x_{3,i} + \epsilon_i$
 

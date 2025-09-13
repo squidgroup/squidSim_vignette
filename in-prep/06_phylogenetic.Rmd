@@ -15,7 +15,7 @@ set.seed(25)
 
 ```{r}
 library(ape)
-
+library(squidSim)
 data(bird.families)
 
 squid_dat <- simulate_population(
@@ -35,6 +35,41 @@ pop_dat <- get_population_data(squid_dat)
 var(pop_dat$taxon_effect)
 var(pop_dat$y)
 
+phylo_vcv <- ape::vcv(bird.families, corr = TRUE)
+cv <- chol(phylo_vcv)
+#methods::as(cv, "dgCMatrix")
+
+cc<-replicate(200,{
+e <- rnorm(n=nrow(cv), 0, sqrt(0.5))
+y <- rnorm(n=nrow(cv), 0, sqrt(0.5))
+y <- methods::as(Matrix::crossprod(cv,y),"matrix")
+dat_y <- data.frame(y=y[,1]+e,taxon=rownames(y))
+model3<-MCMCglmm(y~1, 
+	random=~taxon, 
+	ginverse=list(taxon=Ainv),
+	data=dat_y, 
+	prior=prior, 
+	verbose=FALSE, nitt=13000, burnin=3000, thin=10)
+summary(model3)
+
+e <- rnorm(n=nrow(cv), 0, sqrt(0.5))
+x <- MCMCglmm::rbv(bird.families,0.5,nodes="TIPS")
+dat_x <- data.frame(y=x[,1]+e,taxon=rownames(x))
+
+model2<-MCMCglmm(y~1, 
+	random=~taxon, 
+	ginverse=list(taxon=Ainv),
+	data=dat_x, 
+	prior=prior, 
+	verbose=FALSE, nitt=13000, burnin=3000, thin=10)
+
+c(summary(model2)$Gcov[1],summary(model3)$Gcov[1])
+})
+
+par(mfrow=c(1,2))
+hist(cc[1,])   
+hist(cc[2,])   
+rowMeans(cc)
 ```
 
 
@@ -48,11 +83,18 @@ prior<-list(
 model2<-MCMCglmm(y~1, 
 	random=~taxon, 
 	ginverse=list(taxon=Ainv),
-	data=pop_dat, 
+	data=dat_x, 
 	prior=prior, 
 	verbose=FALSE, nitt=13000, burnin=3000, thin=10)
-
 summary(model2)
+
+model3<-MCMCglmm(y~1, 
+	random=~taxon, 
+	ginverse=list(taxon=Ainv),
+	data=dat_y, 
+	prior=prior, 
+	verbose=FALSE, nitt=13000, burnin=3000, thin=10)
+summary(model3)
 
 
 squid_dat <- simulate_population(

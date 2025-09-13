@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.6 Dominance | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>4.6 Dominance | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.6 Dominance | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="4.6 Dominance | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.6 Dominance | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="4.6 Dominance | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -268,13 +274,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="dominance" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Dominance<a href="4.6-dominance.html#dominance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Coming soon…
-<!--
-Here we can make use of the dominance relatedness matrices that can be generated in the `nadiv` package
-
-NOTE: not working fully yet!!! 
- 
- --></p>
+<p>Here we can make use of the dominance relatedness matrices that can be generated in the <code>nadiv</code> package</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="4.6-dominance.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(warcolak)</span>
+<span id="cb208-2"><a href="4.6-dominance.html#cb208-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-3"><a href="4.6-dominance.html#cb208-3" aria-hidden="true" tabindex="-1"></a>pedD <span class="ot">&lt;-</span> warcolak[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb208-4"><a href="4.6-dominance.html#cb208-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-5"><a href="4.6-dominance.html#cb208-5" aria-hidden="true" tabindex="-1"></a>Dmats <span class="ot">&lt;-</span> <span class="fu">makeD</span>(pedD)</span></code></pre></div>
+<pre><code>## starting to make D....done 
+## starting to invert D....done</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="4.6-dominance.html#cb210-1" aria-hidden="true" tabindex="-1"></a>Dmat <span class="ot">&lt;-</span> Dmats<span class="sc">$</span>D</span></code></pre></div>
+<p>We can input this into <code>simulate_population()</code> with the <code>cov_str</code> argument:</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="4.6-dominance.html#cb211-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">animal =</span> pedD[,<span class="dv">1</span>], <span class="at">animalD =</span> pedD[,<span class="dv">1</span>])</span>
+<span id="cb211-2"><a href="4.6-dominance.html#cb211-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-3"><a href="4.6-dominance.html#cb211-3" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb211-4"><a href="4.6-dominance.html#cb211-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds, </span>
+<span id="cb211-5"><a href="4.6-dominance.html#cb211-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb211-6"><a href="4.6-dominance.html#cb211-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pedigree =</span> <span class="fu">list</span>(<span class="at">animal=</span>pedD[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]),</span>
+<span id="cb211-7"><a href="4.6-dominance.html#cb211-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">cov_str =</span> <span class="fu">list</span>(<span class="at">animalD=</span>Dmat),</span>
+<span id="cb211-8"><a href="4.6-dominance.html#cb211-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-9"><a href="4.6-dominance.html#cb211-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span><span class="fu">list</span>(</span>
+<span id="cb211-10"><a href="4.6-dominance.html#cb211-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">animal =</span> <span class="fu">list</span>(</span>
+<span id="cb211-11"><a href="4.6-dominance.html#cb211-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb211-12"><a href="4.6-dominance.html#cb211-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb211-13"><a href="4.6-dominance.html#cb211-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">animalD =</span> <span class="fu">list</span>(</span>
+<span id="cb211-14"><a href="4.6-dominance.html#cb211-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.2</span></span>
+<span id="cb211-15"><a href="4.6-dominance.html#cb211-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb211-16"><a href="4.6-dominance.html#cb211-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb211-17"><a href="4.6-dominance.html#cb211-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fl">0.5</span></span>
+<span id="cb211-18"><a href="4.6-dominance.html#cb211-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb211-19"><a href="4.6-dominance.html#cb211-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb211-20"><a href="4.6-dominance.html#cb211-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb211-21"><a href="4.6-dominance.html#cb211-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-22"><a href="4.6-dominance.html#cb211-22" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_data)</span></code></pre></div>
+<p>We can then run a model to check the simulation, using {gremlin}, with inverse A and D matrices:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="4.6-dominance.html#cb212-1" aria-hidden="true" tabindex="-1"></a>Dinv <span class="ot">&lt;-</span> Dmats<span class="sc">$</span>Dinv</span>
+<span id="cb212-2"><a href="4.6-dominance.html#cb212-2" aria-hidden="true" tabindex="-1"></a>Ainv_dom <span class="ot">&lt;-</span> <span class="fu">makeAinv</span>(pedD)<span class="sc">$</span>Ainv</span>
+<span id="cb212-3"><a href="4.6-dominance.html#cb212-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb212-4"><a href="4.6-dominance.html#cb212-4" aria-hidden="true" tabindex="-1"></a>mod_dom <span class="ot">&lt;-</span> <span class="fu">gremlin</span>(y<span class="sc">~</span><span class="dv">1</span>, <span class="at">random=</span><span class="sc">~</span> animal <span class="sc">+</span> animalD,<span class="at">data=</span>data,<span class="at">ginverse=</span><span class="fu">list</span>(<span class="at">animal=</span>Ainv_dom,<span class="at">animalD=</span>Dinv))</span></code></pre></div>
+<pre><code>## gremlin started:      11:24:45 
+##   1 of max 20        lL:-5762.227161     took 0.0061 sec.
+##   2 of max 20        lL:-2494.762867     took 0.0049 sec.
+##   3 of max 20        lL:-2312.124280     took 0.0049 sec.
+##   4 of max 20        lL:-2299.455179     took 0.0048 sec.
+##   5 of max 20        lL:-2299.355390     took 0.0048 sec.
+##   6 of max 20        lL:-2299.355382     took 0.0048 sec.
+##   7 of max 20        lL:-2299.355382     took 0.0048 sec.
+## 
+## ***  REML converged  ***
+## 
+## gremlin ended:        11:24:45</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="4.6-dominance.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_dom)</span></code></pre></div>
+<pre><code>## 
+##  Linear mixed model fit by REML [&#39; gremlin &#39;]
+##  REML log-likelihood: -2299.355 
+##   lambda: FALSE 
+## 
+##  elapsed time for model: 0.0863 
+## 
+##  Scaled residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.92188 -0.54659  0.02061  0.55849  3.09950 
+## 
+##  (co)variance parameters: ~animal + animalD 
+##          rcov: ~units 
+##           Estimate Std. Error
+## G.animal    0.2068    0.02422
+## G.animalD   0.1588    0.04980
+## ResVar1     0.5437    0.04572
+## 
+##  (co)variance parameter sampling correlations:
+##           G.animal G.animalD  ResVar1
+## G.animal   1.00000   -0.2807 -0.01946
+## G.animalD -0.28069    1.0000 -0.89553
+## ResVar1   -0.01946   -0.8955  1.00000
+## 
+##  Fixed effects: y ~ 1 
+##             Estimate Std. Error z value
+## (Intercept) -0.02196    0.02418 -0.9084</code></pre>
 </div>
             </section>
 

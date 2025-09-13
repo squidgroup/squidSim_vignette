@@ -1,13 +1,12 @@
 # Genetic effects {#animal}
 ```{r, echo=FALSE, message=FALSE,warning=FALSE}
 rm(list=ls())
-library(dplyr)
-library(flair)
-library(lme4)
-library(MCMCglmm)
-library(scales)
-library(squidSim)
-library(knitr)
+# library(dplyr)
+# library(flair)
+# library(lme4)
+# library(MCMCglmm)
+# library(scales)
+# library(knitr)
 set.seed(25)
 ```
 This vignette assumes that you are generally happy with how the `sim_population()` function works.
@@ -19,19 +18,27 @@ In order to simulate breeding values (additive genetic effects), we can provide 
 
 When simulating breeding values, **all** individuals in pedigree need to be in the data_structure and *vice versa*. Having unsampled individuals (for example the base population) can be achieved in the sampling stage (not implemented yet). 
 
-Lets start by importing a pedigree
+Lets start by importing a pedigree from the pedtricks package
 ```{r, eval=TRUE, message=FALSE,warning=FALSE}
-library(MCMCglmm)
-data(BTped)
-head(BTped)
+library(squidSim)
+library(nadiv)
+library(gremlin)
+library(pedtricks)
+
+data(gryphons)
+
+ped <- fix_ped(gryphons[,1:3])
+head(ped)
+names(ped)[1]<-"animal"
+
 ```
 
 We can use this pedigree as a data_structure
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 squid_data <- simulate_population(
-  data_structure = BTped, 
+  data_structure = ped[,1:3], 
  
-  pedigree = list(animal=BTped),
+  pedigree = list(animal=ped[,1:3]),
   
   parameters =list(
     animal = list(
@@ -45,11 +52,47 @@ squid_data <- simulate_population(
 
 data <- get_population_data(squid_data)
 head(data)
-
-# Ainv<-inverseA(BTped)$Ainv
-# mod <- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)
-# summary(mod)
 ```
+
+We can use the grelim pacakge to run a REML animal model
+```{r, eval=TRUE, cache=TRUE}
+Ainv <- makeAinv(ped)$Ainv
+
+mod <- gremlin(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv))
+summary(mod)
+```
+
+
+We don't have to simulate a phenotype for everyone in the pedigree, so can include a subset of IDs in the data strcuture
+```{r, eval=TRUE}
+ds <- data.frame(animal =ped[sample(1:nrow(ped),1000,replace=FALSE),1])
+
+squid_data <- simulate_population(
+  data_structure = ds, 
+ 
+  pedigree = list(animal=ped[,1:3]),
+  
+  parameters =list(
+    animal = list(
+      vcov = 0.2
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+```
+
+```{r, eval=TRUE, cache=TRUE}
+Ainv <- makeAinv(ped)$Ainv
+
+mod <- gremlin(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv))
+summary(mod)
+```
+
 
 We might want to simulate repeated measurements to allow estimation of permanent environment effects. The simplest way to do this is to create a duplicated column in the data structure of the individual IDs. Permanent environment effects that are not linked to the pedigree can then be simulated.
 
@@ -65,20 +108,20 @@ The instructions given for simulating permanent environment effects using squidS
 ::::
 
 
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 
 ## make data structure with two observations per individual, with ID duplicated in two columns, animal and individual, and link the animal column in the data structure to the pedigree
-ds <- data.frame(animal=rep(BTped[,1], 2),individual=rep(BTped[,1], 2))
+ds <- data.frame(animal=rep(ped[,1], 2),individual=rep(ped[,1], 2))
 
 squid_data <- simulate_population(
   data_structure = ds, 
-  pedigree=list(animal=BTped),
+  pedigree=list(animal=ped),
   parameters = list(
-    individual = list(
-      vcov = 0.3
-    ),
     animal = list(
       vcov = 0.2
+    ),
+    individual = list(
+      vcov = 0.3
     ),
     residual = list(
       vcov = 0.5
@@ -88,12 +131,13 @@ squid_data <- simulate_population(
 
 data <- get_population_data(squid_data)
 head(data)
+```
 
+```{r, eval=TRUE, cache=TRUE}
+Ainv <- makeAinv(ped)$Ainv
 
-# Ainv<-inverseA(BTped)$Ainv
-# data$animal_id <- data$individual
-# mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
-# summary(mod)
+mod_pe <- gremlin(y~1, random=~ animal + individual,data=data,ginverse=list(animal=Ainv))
+summary(mod_pe)
 
 ```
 
@@ -101,11 +145,11 @@ head(data)
 ## Multivariate genetic effects
 
 We can simulate genetic effects affecting multiple phenotypes and the covariance between them, by specifying the number of response variables, and a covariance matrix, instead of only a variance.
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 
 squid_data <- simulate_population(
-  data_structure = BTped,
-  pedigree = list(animal = BTped),
+  data_structure = ped,
+  pedigree = list(animal = ped),
   n_response=2,
   parameters = list(
     animal = list(
@@ -120,10 +164,20 @@ squid_data <- simulate_population(
 
 data <- get_population_data(squid_data)
 head(data)
+```
 
-# Ainv<-inverseA(BTped)$Ainv
-# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE,ginverse=list(animal=Ainv))
-# summary(mod)
+
+```{r a_multi, eval=TRUE, cache=TRUE}
+library(MCMCglmm)
+Ainv<-inverseA(ped)$Ainv
+mod <- MCMCglmm(cbind(y1,y2)~1,
+  random=~us(trait):animal, 
+  rcov=~us(trait):units,
+  data=data,
+  ginverse=list(animal=Ainv),
+  family=rep("gaussian",2),
+  verbose=FALSE)
+summary(mod)
 
 ```
 
@@ -136,7 +190,7 @@ head(data)
 
 ```{r,fig.width=10,fig.height=6}
 
-ds <- data.frame(animal=BTped[,"animal"],sex=sample(c("Female","Male"),nrow(BTped), replace=TRUE))
+ds <- data.frame(animal=gryphons[,"id"],sex=sample(c("Female","Male"),nrow(gryphons), replace=TRUE))
 
 squid_data <- simulate_population(
   parameters = list(
@@ -155,7 +209,7 @@ squid_data <- simulate_population(
     )
   ),
   data_structure = ds,
-  pedigree = list(animal=BTped),
+  pedigree = list(animal=ped),
   model = "y = Female + Male + I(Female)*G_female + I(Male)*G_male + residual"
 )
 
@@ -173,7 +227,7 @@ Indirect genetic effects are a bit more difficult to code. Lets take the example
 
 Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 squid_data <- simulate_population(
   parameters=list(
     animal = list(
@@ -185,8 +239,8 @@ squid_data <- simulate_population(
       vcov = 0.5
     )
   ),
-  data_structure=BTped,
-  pedigree=list(animal=BTped),
+  data_structure=ped,
+  pedigree=list(animal=ped),
   index_link=list(dam_link="dam-animal"),
   model = "y = direct + maternal[dam_link] + residual"
 )
@@ -200,12 +254,9 @@ head(data)
 
 
 ## GxE
-Coming soon...
 
-<!-- 
-  I dont know why this doesnt work
+```{r, eval=TRUE}
 
-  
 squid_data <- simulate_population(
   parameters = list(
     animal = list(
@@ -227,8 +278,8 @@ squid_data <- simulate_population(
       beta = 1
     )
   ),
-  data_structure=rbind(BTped,BTped,BTped,BTped,BTped),
-  pedigree = list(animal=BTped)
+  data_structure=rbind(ped,ped,ped,ped,ped),
+  pedigree = list(animal=ped)
 )
 
 data <- get_population_data(squid_data)
@@ -236,18 +287,59 @@ library(lme4)
 short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FALSE, ranef.comp = c("Variance"))
 
 short_summary(lmer(y ~ environment + (1+environment|animal),data))
-
- -->
+```
 
 
 ## Dominance
-Coming soon...
-<!--
 Here we can make use of the dominance relatedness matrices that can be generated in the `nadiv` package
 
-NOTE: not working fully yet!!! 
+```{r, eval=TRUE, cache=TRUE}
+data(warcolak)
+
+pedD <- warcolak[,1:3]
+
+Dmats <- makeD(pedD)
+Dmat <- Dmats$D
+```
+
+We can input this into `simulate_population()` with the `cov_str` argument:
+```{r, eval=TRUE}
+ds <- data.frame(animal = pedD[,1], animalD = pedD[,1])
+
+squid_data <- simulate_population(
+  data_structure = ds, 
  
- -->
+  pedigree = list(animal=pedD[,1:3]),
+  cov_str = list(animalD=Dmat),
+
+  parameters =list(
+    animal = list(
+      vcov = 0.2
+    ),
+    animalD = list(
+      vcov = 0.2
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+
+```
+
+We can then run a model to check the simulation, using {gremlin}, with inverse A and D matrices:
+```{r, eval=TRUE, cache=TRUE}
+Dinv <- Dmats$Dinv
+Ainv_dom <- makeAinv(pedD)$Ainv
+
+mod_dom <- gremlin(y~1, random=~ animal + animalD,data=data,ginverse=list(animal=Ainv_dom,animalD=Dinv))
+summary(mod_dom)
+
+```
+
+
 
 ## Inbreeding depression
 Coming soon...

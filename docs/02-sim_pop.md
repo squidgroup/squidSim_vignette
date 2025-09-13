@@ -362,7 +362,7 @@ $$
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>names = c("temperature","rainfall", "wind"),</span>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>mean = c(10,1,20),</span>   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: CornflowerBlue;'>vcov = c(1,0.1,2),</span>   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: purple;'>beta = c(0.5,-0.3, 0.4)</span>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: purple;'>beta = c(0.5,-3, 0.4)</span>   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>)</span>,  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: orange;'>residual = list(</span>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: orange;'>vcov = 0.8</span>  
@@ -370,8 +370,6 @@ $$
 &nbsp;&nbsp;&nbsp;&nbsp; )  
 &nbsp;&nbsp; )
 </span>
-
-
 
 
 
@@ -383,7 +381,7 @@ coef(lm(body_mass ~ temperature + rainfall + wind, data))
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.8151163   0.5078401  -3.0425996   0.4088486
+##  10.6351760   0.4610888  -3.0227161   0.3875934
 ```
 
 ``` r
@@ -404,7 +402,7 @@ colMeans(predictors)
 
 ```
 ## temperature    rainfall        wind 
-##   10.026389    0.984711   19.972831
+##    9.971433    1.005550   19.958695
 ```
 
 ``` r
@@ -412,10 +410,10 @@ cov(predictors)
 ```
 
 ```
-##             temperature   rainfall        wind
-## temperature 1.022800759 0.01207170 0.008560134
-## rainfall    0.012071704 0.10157462 0.019360030
-## wind        0.008560134 0.01936003 1.988802856
+##              temperature     rainfall         wind
+## temperature  0.977831756 -0.004972014  0.027147642
+## rainfall    -0.004972014  0.100500727 -0.003564289
+## wind         0.027147642 -0.003564289  1.919863567
 ```
 
 It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the `simulated_variance()` function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and hierarchical levels to the these.
@@ -495,7 +493,7 @@ coef(lm(body_mass ~ temperature + rainfall + wind, data))
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.6889225   0.5234006  -3.0645581   0.4075788
+##   9.8512456   0.4947747  -3.0476278   0.4139908
 ```
 
 <style>
@@ -557,9 +555,9 @@ cor(data[,c("temperature","rainfall", "wind")])
 
 ```
 ##             temperature   rainfall      wind
-## temperature   1.0000000 -0.1985238 0.4907554
-## rainfall     -0.1985238  1.0000000 0.3168025
-## wind          0.4907554  0.3168025 1.0000000
+## temperature   1.0000000 -0.2195430 0.5029664
+## rainfall     -0.2195430  1.0000000 0.2634006
+## wind          0.5029664  0.2634006 1.0000000
 ```
 
 Through simulating correlated predictors, we can also simulate more interesting phenomena. For example, we may want to simulate the effect of a correlated missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured:
@@ -603,7 +601,7 @@ coef(lm(body_mass ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-##  14.0527179   0.8850595  -2.9014623
+##  14.2776190   0.8765735  -3.0422601
 ```
 
 ``` r
@@ -612,7 +610,7 @@ coef(lm(body_mass ~ temperature + rainfall + wind, data))
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.8665830   0.4735790  -2.8697070   0.4138906
+##  10.1035658   0.4516304  -3.0698659   0.4221429
 ```
 
 We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain effect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).
@@ -659,20 +657,13 @@ head(data)
 ```
 
 ```
-##     body_mass temperature     rainfall   residual temperature:rainfall
-## 1  0.10157809 -0.52578806 -0.900467583 0.68195791          0.473455102
-## 2  1.27037941  0.15685679  0.008508931 1.18953180          0.001334684
-## 3  1.09260136  1.43214672 -0.599461006 0.47051469         -0.858516115
-## 4  0.88371868  0.95614001 -1.155390758 0.64179436         -1.104715333
-## 5 -0.04515612  0.05988423 -0.439114402 0.05400648         -0.026296028
-## 6  2.11519536  2.73482346 -0.855646194 0.77047337         -2.340041281
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1
+##    body_mass temperature   rainfall   residual temperature:rainfall squid_pop
+## 1 -0.1950863   0.6545190  1.5577734 -0.8877186            1.0195922         1
+## 2 -0.8352969  -1.3405423  0.3989025 -0.3381711           -0.5347457         1
+## 3 -0.2615434  -1.2677241 -0.2484353  0.4783440            0.3149474         1
+## 4  0.8427175   0.8669511  0.1360867  0.3802140            0.1179805         1
+## 5 -0.8451921  -1.8557505  0.8777406 -0.3435258           -1.6288676         1
+## 6  0.7969244  -0.2192104  0.8250010  0.6409444           -0.1808488         1
 ```
 
 ``` r
@@ -681,9 +672,9 @@ coef(lm(body_mass ~ temperature * rainfall, data))
 
 ```
 ##          (Intercept)          temperature             rainfall 
-##         -0.003407952          0.494634096          0.321720430 
+##          0.006055206          0.487910683          0.284464667 
 ## temperature:rainfall 
-##         -0.101798139
+##         -0.084342268
 ```
 
 ### Non-linear effects
@@ -721,7 +712,7 @@ coef(lm(body_mass ~ temperature + I(temperature^2), data))
 
 ```
 ##      (Intercept)      temperature I(temperature^2) 
-##       0.01706406       0.49566769      -0.29948675
+##     -0.003753765      0.510987516     -0.299719778
 ```
 
 <br>
@@ -753,20 +744,20 @@ head(data)
 ```
 
 ```
-##     body_mass temperature   rainfall    residual squid_pop
-## 1  2.23414000   0.4636584 6.43472266  0.07189402         1
-## 2  3.21999448   0.4212297 8.48891935  0.46270384         1
-## 3  0.41133202  -1.0239810 1.11223174  0.58965301         1
-## 4  0.21987152   0.6901097 0.08942481 -0.15201079         1
-## 5  0.95848362   0.3854402 3.50801476 -0.28664089         1
-## 6 -0.01932124  -0.2807366 0.63155389 -0.06841912         1
+##    body_mass temperature  rainfall    residual squid_pop
+## 1 -0.4802574  -1.7993007 1.1968797  0.06032903         1
+## 2  1.3707870   1.4074719 0.7272089  0.44888842         1
+## 3  0.7889858  -0.2554504 0.4193276  0.79091279         1
+## 4 -0.1540081  -1.3475335 2.4882118 -0.22670489         1
+## 5  0.2024938   2.3573010 0.6904820 -1.18330134         1
+## 6  0.7422072  -0.1211901 2.0345061  0.19245041         1
 ```
 
 ``` r
 hist(data$rainfall, xlab="Rainfall",main="", breaks=100)
 ```
 
-<img src="02-sim_pop_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="02-sim_pop_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 If a covariance between variables is specified, this covariance is on the untransformed (Gaussian) scale (as the variables are simulated as multivariate normal), NOT on the transformed scale, so care should be taken with this. For example:
 
@@ -794,7 +785,7 @@ cov(data$temperature,data$rainfall)
 ```
 
 ```
-## [1] 1.150717
+## [1] 1.15377
 ```
 
 ``` r
@@ -802,7 +793,7 @@ cov(data$temperature,log(data$rainfall))
 ```
 
 ```
-## [1] 0.6853024
+## [1] 0.7097114
 ```
 The simulated covariance can be recovered on the back-transformed predictor.
 
@@ -856,27 +847,20 @@ head(data)
 ```
 
 ```
-##    body_mass temperature   rainfall    residual  hatchdate      tarsus
-## 1 -3.5309476   1.3004885  0.7155515  0.07613918 -0.6874021 -1.89229718
-## 2  1.8773811   1.9101220  1.3150074 -1.05699967 -0.6874021  1.13610981
-## 3  2.4868250   1.9870723  1.0214374 -0.35453990 -0.4279814  0.98468946
-## 4 -1.7633309   0.3030570 -0.9352512 -0.92663611 -1.4656641  0.37900806
-## 5 -0.8751930   0.6905079  0.3606059  0.28754126 -1.4656641 -0.07525299
-## 6 -0.4201177   1.6268158 -0.5810690  0.86090541  0.3502805 -1.13519543
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1
+##   body_mass temperature    rainfall   residual  hatchdate      tarsus squid_pop
+## 1 -4.996900  -0.7657209  1.28487082 -0.5275048 -0.6874021 -1.89229718         1
+## 2  1.471921  -0.9411953  0.79162697  0.1202132 -0.6874021  1.13610981         1
+## 3  1.452619  -0.8870048  0.05252918  0.3389656 -0.4279814  0.98468946         1
+## 4 -1.154444   0.5958834 -0.90299287 -0.4738395 -1.4656641  0.37900806         1
+## 5 -1.304388   1.7752999  0.34752697 -0.6801262 -1.4656641 -0.07525299         1
+## 6 -1.168326   0.2084304  1.99982911  0.0476203  0.3502805 -1.13519543         1
 ```
 
 ``` r
 plot(body_mass~hatchdate,data)
 ```
 
-<img src="02-sim_pop_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="02-sim_pop_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
 
@@ -928,13 +912,13 @@ head(data)
 ```
 
 ```
-##    y temperature    rainfall     residual squid_pop
-## 1  5  0.80122572  1.51171175 -0.009892707         1
-## 2 11  0.19315205 -0.09121688  0.555220760         1
-## 3  7 -0.05978012  0.27519677 -0.158106894         1
-## 4  2 -1.94741262  0.79497686 -0.587682748         1
-## 5  9 -0.62235194  1.65578543  0.112234603         1
-## 6  8  0.07763423 -0.65812238  0.090078300         1
+##    y temperature   rainfall    residual squid_pop
+## 1  7   1.3004885  0.7155515  0.06216738         1
+## 2  6   1.9101220  1.3150074 -0.86303661         1
+## 3  7   1.9870723  1.0214374 -0.28948062         1
+## 4  2   0.3030570 -0.9352512 -0.75659522         1
+## 5 11   0.6905079  0.3606059  0.23477646         1
+## 6 22   1.6268158 -0.5810690  0.70292633         1
 ```
 
 ``` r
@@ -954,11 +938,11 @@ glm(y ~ temperature + rainfall, data, family="poisson")
 ## 
 ## Coefficients:
 ## (Intercept)  temperature     rainfall  
-##      1.8627       0.1947       0.1189  
+##     1.83996      0.17567      0.09701  
 ## 
 ## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
-## Null Deviance:	    5409 
-## Residual Deviance: 4692 	AIC: 11730
+## Null Deviance:	    4808 
+## Residual Deviance: 4290 	AIC: 11320
 ```
 
 Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit' and 'cloglog'.
@@ -1008,7 +992,7 @@ mean(data$y)
 ```
 
 ```
-## [1] 5.896
+## [1] 5.9065
 ```
 
 ``` r
@@ -1016,7 +1000,7 @@ var(data$y)
 ```
 
 ```
-## [1] 15.13175
+## [1] 15.18635
 ```
 
 As you can see, we retrieve very similar values to those we were after. 
@@ -1060,7 +1044,7 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-## -0.02072982  0.51421066  0.30970403
+##  0.01644183  0.52629681  0.29528224
 ```
 
 In the formula, we write out how the variables are added up. *Everything that you want exported needs to be defined and named* (e.g. `y=...`). By default, all predictors are multiplied by their respective beta values before this happens. Sometimes it is useful to prevent this multiplication (e.g. multiply two traits together without them being multiplied by their respective beta). We can do this by using `I()`.
@@ -1088,8 +1072,8 @@ coef(lm(y ~ temperature + rainfall, data))
 ```
 
 ```
-##  (Intercept)  temperature     rainfall 
-## -0.001082762  0.473551969  1.000847611
+## (Intercept) temperature    rainfall 
+##  0.02091335  0.52161524  1.00733900
 ```
 
 We can also add extra parameters to the parameter list, which we can call from within the function. In combination with `I()` we can then customise the model formula a bit
@@ -1119,7 +1103,7 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-##  0.03913471  0.49214594  0.08060627
+##  0.02424607  0.47309430  0.08440587
 ```
 
 Finally, we can use `[]` to index the levels of the random effects within the formula.. An example of this is given Section \@ref(IGE), along with use of the `index_link` argument.
@@ -1155,13 +1139,13 @@ head(data)
 ```
 
 ```
-##   body_mass temperature   rainfall       wind    residual squid_pop
-## 1 11.005226  -1.8727163 -1.4047080 -0.7400397  1.81618743         1
-## 2  9.036770  -0.5297638  0.7530046  1.1945503 -0.95026697         1
-## 3  9.458323  -0.1054163 -0.5120713  0.7014982 -0.92318933         1
-## 4 10.013197   0.3494991 -0.1389098 -0.7104103  0.08093893         1
-## 5  8.339910   0.2269021  1.5342122  0.3712021 -1.46175871         1
-## 6  9.538418  -0.8228852 -0.1279289  0.9499106 -0.46848205         1
+##   body_mass temperature   rainfall        wind    residual squid_pop
+## 1 10.132368  -1.9546951  0.4197320  0.21029426  1.15151743         1
+## 2  8.687849  -0.9974609 -0.3074322 -0.99049972 -0.50945076         1
+## 3  9.531882   0.5667092  0.1024663 -0.01125458 -0.71623081         1
+## 4 10.089348  -0.2627402  1.8010146 -0.71568383  1.04729598         1
+## 5 11.162227  -0.4583614 -1.6298772 -0.61950140  1.15024515         1
+## 6 10.154952   0.4401542  0.3017782  0.22296725 -0.06377881         1
 ```
 
 ``` r
@@ -1169,13 +1153,13 @@ tail(data)
 ```
 
 ```
-##       body_mass temperature   rainfall         wind    residual squid_pop
-## 9995   9.432963 -0.24449153  1.4748153 -0.740536096  0.29386791         5
-## 9996  11.619580  0.27952629 -0.4021390 -0.008896803  1.36273375         5
-## 9997  10.799467  0.27860645 -0.8437127 -0.788461164  0.72243480         5
-## 9998   9.488702 -2.66231456  1.3492665  0.650127585  0.96458811         5
-## 9999   9.948296  0.08454109  0.1613247 -0.352362135  0.09536773         5
-## 10000  8.940678 -1.26133105 -0.1903078  0.516066626 -0.69217548         5
+##       body_mass temperature   rainfall        wind   residual squid_pop
+## 9995  10.782432  1.05603425 -0.8132784  1.12810452 -0.4408101         5
+## 9996  10.458162  0.04709716 -0.3317510 -0.30729659  0.4580066         5
+## 9997  12.266405  2.09337257  0.6128256  0.27880803  1.2920434         5
+## 9998   8.853503  1.31778772  2.3277415 -0.55672678 -0.8843778         5
+## 9999   8.352746 -1.79613660 -0.7984681 -0.35913346 -0.8450724         5
+## 10000 10.080702 -2.51007818 -0.4660681 -0.04906956  1.2155489         5
 ```
 
 It can also be output as a list, which might be more useful for processing many iterations of a simulation. 

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.4 Spatial Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.1</title>
+  <title>6.4 Spatial Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.4 Spatial Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta property="og:title" content="6.4 Spatial Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.4 Spatial Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.1" />
+  <meta name="twitter:title" content="6.4 Spatial Autocorrelation | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2025-09-08" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.1</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -268,7 +274,125 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="spatialauto" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> Spatial Autocorrelation<a href="6.4-spatialauto.html#spatialauto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Spatial autocorrelation can be simulate by passing a spatial correlation matrix to the <code>cov_str</code> argument of <code>simulate_population()</code>.</p>
+<p>First we need some kind of spatial autocorrelation matrix. This is a large correlation matrix, showing how close all the locations are to each other. We create different kinds of these. Here, we use the <code>corClasses</code> structures in the <code>nlme</code> package. To demonstrate, we generate a exponential spatial correlation matrix, with strong autocorrelation.</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="6.4-spatialauto.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:lme4&#39;:
+## 
+##     lmList</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     collapse</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="6.4-spatialauto.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(squidSim)</span>
+<span id="cb237-2"><a href="6.4-spatialauto.html#cb237-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-3"><a href="6.4-spatialauto.html#cb237-3" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">make_structure</span>(<span class="st">&quot;location(2500)&quot;</span>)</span>
+<span id="cb237-4"><a href="6.4-spatialauto.html#cb237-4" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2500</span>,<span class="at">nrow=</span><span class="dv">50</span>,<span class="at">ncol=</span><span class="dv">50</span>)</span>
+<span id="cb237-5"><a href="6.4-spatialauto.html#cb237-5" aria-hidden="true" tabindex="-1"></a>locations2<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(<span class="fu">t</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2500</span>,<span class="cf">function</span>(x)<span class="fu">which</span>(locations<span class="sc">==</span>x, <span class="at">arr.ind=</span><span class="cn">TRUE</span>))))</span>
+<span id="cb237-6"><a href="6.4-spatialauto.html#cb237-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(locations2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>,<span class="st">&quot;y&quot;</span>)</span>
+<span id="cb237-7"><a href="6.4-spatialauto.html#cb237-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-8"><a href="6.4-spatialauto.html#cb237-8" aria-hidden="true" tabindex="-1"></a>cs1Exp <span class="ot">&lt;-</span> <span class="fu">corExp</span>(<span class="dv">5</span>, <span class="at">form =</span> <span class="sc">~</span> x <span class="sc">+</span> y)</span>
+<span id="cb237-9"><a href="6.4-spatialauto.html#cb237-9" aria-hidden="true" tabindex="-1"></a>cs1Exp <span class="ot">&lt;-</span> <span class="fu">Initialize</span>(cs1Exp, locations2)</span>
+<span id="cb237-10"><a href="6.4-spatialauto.html#cb237-10" aria-hidden="true" tabindex="-1"></a>spM<span class="ot">&lt;-</span> <span class="fu">corMatrix</span>(cs1Exp)</span>
+<span id="cb237-11"><a href="6.4-spatialauto.html#cb237-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(spM) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(spM) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2500</span></span></code></pre></div>
+<p>We can feed this matrix into the <code>cor_str</code> argument of <code>simulate_population()</code>. Here we simulate with and without spatial autocorrelation to show the difference.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="6.4-spatialauto.html#cb238-1" aria-hidden="true" tabindex="-1"></a>sim_dat_auto<span class="ot">&lt;-</span><span class="fu">simulate_population</span>(</span>
+<span id="cb238-2"><a href="6.4-spatialauto.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">22</span>,</span>
+<span id="cb238-3"><a href="6.4-spatialauto.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb238-4"><a href="6.4-spatialauto.html#cb238-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb238-5"><a href="6.4-spatialauto.html#cb238-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">4</span>),</span>
+<span id="cb238-6"><a href="6.4-spatialauto.html#cb238-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">1</span>)</span>
+<span id="cb238-7"><a href="6.4-spatialauto.html#cb238-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb238-8"><a href="6.4-spatialauto.html#cb238-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">cov_str =</span> <span class="fu">list</span>(<span class="at">location=</span>spM)</span>
+<span id="cb238-9"><a href="6.4-spatialauto.html#cb238-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb238-10"><a href="6.4-spatialauto.html#cb238-10" aria-hidden="true" tabindex="-1"></a>dat_auto<span class="ot">&lt;-</span><span class="fu">get_population_data</span>(sim_dat_auto)</span>
+<span id="cb238-11"><a href="6.4-spatialauto.html#cb238-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-12"><a href="6.4-spatialauto.html#cb238-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-13"><a href="6.4-spatialauto.html#cb238-13" aria-hidden="true" tabindex="-1"></a>sim_dat_no<span class="ot">&lt;-</span><span class="fu">simulate_population</span>(</span>
+<span id="cb238-14"><a href="6.4-spatialauto.html#cb238-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">27</span>,</span>
+<span id="cb238-15"><a href="6.4-spatialauto.html#cb238-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb238-16"><a href="6.4-spatialauto.html#cb238-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb238-17"><a href="6.4-spatialauto.html#cb238-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">4</span>),</span>
+<span id="cb238-18"><a href="6.4-spatialauto.html#cb238-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="dv">1</span>)</span>
+<span id="cb238-19"><a href="6.4-spatialauto.html#cb238-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb238-20"><a href="6.4-spatialauto.html#cb238-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb238-21"><a href="6.4-spatialauto.html#cb238-21" aria-hidden="true" tabindex="-1"></a>dat_no<span class="ot">&lt;-</span><span class="fu">get_population_data</span>(sim_dat_no)</span>
+<span id="cb238-22"><a href="6.4-spatialauto.html#cb238-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-23"><a href="6.4-spatialauto.html#cb238-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span></code></pre></div>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre><code>## 
+## Attaching package: &#39;viridis&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:scales&#39;:
+## 
+##     viridis_pal</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="6.4-spatialauto.html#cb242-1" aria-hidden="true" tabindex="-1"></a>color_scale <span class="ot">&lt;-</span> <span class="fu">viridis</span>(<span class="dv">20</span>)</span>
+<span id="cb242-2"><a href="6.4-spatialauto.html#cb242-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb242-3"><a href="6.4-spatialauto.html#cb242-3" aria-hidden="true" tabindex="-1"></a>dat_auto<span class="sc">$</span>y_group <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">cut</span>(dat_auto<span class="sc">$</span>y, <span class="at">breaks=</span><span class="dv">20</span>))</span>
+<span id="cb242-4"><a href="6.4-spatialauto.html#cb242-4" aria-hidden="true" tabindex="-1"></a>dat_no<span class="sc">$</span>y_group <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">cut</span>(dat_no<span class="sc">$</span>y, <span class="at">breaks=</span><span class="dv">20</span>))</span>
+<span id="cb242-5"><a href="6.4-spatialauto.html#cb242-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb242-6"><a href="6.4-spatialauto.html#cb242-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb242-7"><a href="6.4-spatialauto.html#cb242-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x,locations2, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span>color_scale[dat_auto<span class="sc">$</span>y_group], <span class="at">cex=</span><span class="dv">1</span>, <span class="at">main=</span><span class="st">&quot;Spatial Autocorrelation&quot;</span>)</span>
+<span id="cb242-8"><a href="6.4-spatialauto.html#cb242-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x,locations2, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span>color_scale[dat_no<span class="sc">$</span>y_group], <span class="at">cex=</span><span class="dv">1</span>, <span class="at">main=</span><span class="st">&quot;No Autocorrelation&quot;</span>)</span></code></pre></div>
+<p><img src="07-temporal_files/figure-html/sa_eg-1.png" width="672" /></p>
+<div id="example-species-occurrence-data-with-spatial-autocorrelation" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Example: Species occurrence data with spatial autocorrelation<a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="6.4-spatialauto.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb243-2"><a href="6.4-spatialauto.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(squidSim)</span>
+<span id="cb243-3"><a href="6.4-spatialauto.html#cb243-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-4"><a href="6.4-spatialauto.html#cb243-4" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">make_structure</span>(<span class="st">&quot;location(2500)&quot;</span>)</span>
+<span id="cb243-5"><a href="6.4-spatialauto.html#cb243-5" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2500</span>,<span class="at">nrow=</span><span class="dv">50</span>,<span class="at">ncol=</span><span class="dv">50</span>)</span>
+<span id="cb243-6"><a href="6.4-spatialauto.html#cb243-6" aria-hidden="true" tabindex="-1"></a>locations2<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(<span class="fu">t</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2500</span>,<span class="cf">function</span>(x)<span class="fu">which</span>(locations<span class="sc">==</span>x, <span class="at">arr.ind=</span><span class="cn">TRUE</span>))))</span>
+<span id="cb243-7"><a href="6.4-spatialauto.html#cb243-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(locations2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>,<span class="st">&quot;y&quot;</span>)</span>
+<span id="cb243-8"><a href="6.4-spatialauto.html#cb243-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-9"><a href="6.4-spatialauto.html#cb243-9" aria-hidden="true" tabindex="-1"></a>cs1Exp <span class="ot">&lt;-</span> <span class="fu">corExp</span>(<span class="dv">3</span>, <span class="at">form =</span> <span class="sc">~</span> x <span class="sc">+</span> y)</span>
+<span id="cb243-10"><a href="6.4-spatialauto.html#cb243-10" aria-hidden="true" tabindex="-1"></a>cs1Exp <span class="ot">&lt;-</span> <span class="fu">Initialize</span>(cs1Exp, locations2)</span>
+<span id="cb243-11"><a href="6.4-spatialauto.html#cb243-11" aria-hidden="true" tabindex="-1"></a>spM<span class="ot">&lt;-</span> <span class="fu">corMatrix</span>(cs1Exp)</span>
+<span id="cb243-12"><a href="6.4-spatialauto.html#cb243-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(spM) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(spM) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2500</span></span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="6.4-spatialauto.html#cb244-1" aria-hidden="true" tabindex="-1"></a>sim_dat<span class="ot">&lt;-</span><span class="fu">simulate_population</span>(</span>
+<span id="cb244-2"><a href="6.4-spatialauto.html#cb244-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">236</span>,</span>
+<span id="cb244-3"><a href="6.4-spatialauto.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb244-4"><a href="6.4-spatialauto.html#cb244-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb244-5"><a href="6.4-spatialauto.html#cb244-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_names =</span> <span class="fu">c</span>(<span class="st">&quot;occurrence&quot;</span>,<span class="st">&quot;observation&quot;</span>),</span>
+<span id="cb244-6"><a href="6.4-spatialauto.html#cb244-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb244-7"><a href="6.4-spatialauto.html#cb244-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">0</span>),</span>
+<span id="cb244-8"><a href="6.4-spatialauto.html#cb244-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="fu">list</span>(<span class="at">vcov=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">0</span>)),</span>
+<span id="cb244-9"><a href="6.4-spatialauto.html#cb244-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># age=list(covariate=TRUE,  beta=matrix(c(-0.2,0),ncol=2)),</span></span>
+<span id="cb244-10"><a href="6.4-spatialauto.html#cb244-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(<span class="at">vcov=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb244-11"><a href="6.4-spatialauto.html#cb244-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb244-12"><a href="6.4-spatialauto.html#cb244-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">cov_str =</span> <span class="fu">list</span>(<span class="at">location=</span>spM),</span>
+<span id="cb244-13"><a href="6.4-spatialauto.html#cb244-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span> <span class="st">&quot;binomial&quot;</span>,</span>
+<span id="cb244-14"><a href="6.4-spatialauto.html#cb244-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">link=</span><span class="st">&quot;probit&quot;</span></span>
+<span id="cb244-15"><a href="6.4-spatialauto.html#cb244-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb244-16"><a href="6.4-spatialauto.html#cb244-16" aria-hidden="true" tabindex="-1"></a>dat<span class="ot">&lt;-</span><span class="fu">get_population_data</span>(sim_dat)</span>
+<span id="cb244-17"><a href="6.4-spatialauto.html#cb244-17" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>seen <span class="ot">&lt;-</span> dat<span class="sc">$</span>occurrence<span class="sc">*</span> dat<span class="sc">$</span>observation</span>
+<span id="cb244-18"><a href="6.4-spatialauto.html#cb244-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-19"><a href="6.4-spatialauto.html#cb244-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-20"><a href="6.4-spatialauto.html#cb244-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-21"><a href="6.4-spatialauto.html#cb244-21" aria-hidden="true" tabindex="-1"></a>sim_dat_R<span class="ot">&lt;-</span><span class="fu">simulate_population</span>(</span>
+<span id="cb244-22"><a href="6.4-spatialauto.html#cb244-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">224</span>,</span>
+<span id="cb244-23"><a href="6.4-spatialauto.html#cb244-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure =</span> ds,</span>
+<span id="cb244-24"><a href="6.4-spatialauto.html#cb244-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb244-25"><a href="6.4-spatialauto.html#cb244-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">response_names =</span> <span class="fu">c</span>(<span class="st">&quot;occurrence&quot;</span>,<span class="st">&quot;observation&quot;</span>),</span>
+<span id="cb244-26"><a href="6.4-spatialauto.html#cb244-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb244-27"><a href="6.4-spatialauto.html#cb244-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">0</span>),</span>
+<span id="cb244-28"><a href="6.4-spatialauto.html#cb244-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual=</span><span class="fu">list</span>(<span class="at">vcov=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">0</span>))</span>
+<span id="cb244-29"><a href="6.4-spatialauto.html#cb244-29" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb244-30"><a href="6.4-spatialauto.html#cb244-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">family=</span> <span class="st">&quot;binomial&quot;</span>,</span>
+<span id="cb244-31"><a href="6.4-spatialauto.html#cb244-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">link=</span><span class="st">&quot;probit&quot;</span></span>
+<span id="cb244-32"><a href="6.4-spatialauto.html#cb244-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb244-33"><a href="6.4-spatialauto.html#cb244-33" aria-hidden="true" tabindex="-1"></a>dat_R<span class="ot">&lt;-</span><span class="fu">get_population_data</span>(sim_dat_R)</span>
+<span id="cb244-34"><a href="6.4-spatialauto.html#cb244-34" aria-hidden="true" tabindex="-1"></a>dat_R<span class="sc">$</span>seen <span class="ot">&lt;-</span> dat_R<span class="sc">$</span>occurrence<span class="sc">*</span> dat_R<span class="sc">$</span>observation</span>
+<span id="cb244-35"><a href="6.4-spatialauto.html#cb244-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-36"><a href="6.4-spatialauto.html#cb244-36" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb244-37"><a href="6.4-spatialauto.html#cb244-37" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x,locations2, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span>dat<span class="sc">$</span>occurrence)</span>
+<span id="cb244-38"><a href="6.4-spatialauto.html#cb244-38" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y<span class="sc">~</span>x,locations2[dat<span class="sc">$</span>seen<span class="sc">==</span><span class="dv">1</span>,], <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="at">cex=</span><span class="fl">0.5</span>)</span>
+<span id="cb244-39"><a href="6.4-spatialauto.html#cb244-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb244-40"><a href="6.4-spatialauto.html#cb244-40" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x,locations2, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span>dat_R<span class="sc">$</span>occurrence)</span>
+<span id="cb244-41"><a href="6.4-spatialauto.html#cb244-41" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y<span class="sc">~</span>x,locations2[dat_R<span class="sc">$</span>seen<span class="sc">==</span><span class="dv">1</span>,], <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="07-temporal_files/figure-html/sa-1.png" width="672" /></p>
 
+</div>
 </div>
 <!-- </div> -->
             </section>
