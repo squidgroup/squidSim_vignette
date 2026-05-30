@@ -64,6 +64,7 @@ for(i in unique(recapture_dat$individual) ){
 
 library(nlme)
 library(squidSim)
+library(Matrix)
 
 ds <- make_structure("location(2500)")
 locations <- matrix(1:2500,nrow=50,ncol=50)
@@ -77,14 +78,15 @@ cs1Exp <- Initialize(cs1Exp, locations2)
 spM<- corMatrix(cs1Exp)
 colnames(spM) <- rownames(spM) <- 1:2500
 spM[1:10,1:10]
-spm_c <- chol(spM)
- spm_c2 <- methods::as(spM, "dgCMatrix")
-system.time({x1<-chol(spm_c)})
-system.time({x2<-chol(spm_c2)})
+# spm_c <- chol(spM)
+ # spm_c2 <- Matrix::Matrix(spM, sparse=TRUE)
+# spm_c2 <- methods::as(spM, "dgCMatrix")
+# system.time({x1<-chol(spm_c)})
+# system.time({x2<-chol(spm_c2)})
 
 x<-rnorm(2500)
 
-Matrix::crossprod(x1,x)
+# Matrix::crossprod(x1,x)
 
 sim_dat<-simulate_population(
 	data_structure = ds,
@@ -143,9 +145,11 @@ sim_dat_R<-simulate_population(
 dat_R<-get_population_data(sim_dat_R)
 dat_R$seen <- dat_R$occurrence* dat_R$observation
 
+pdf("/Users/joelpick/github/squidSim/docs/spatial_fig.pdf", height=6, width=12)
 par(mfrow=c(1,2))
-plot(y~x,locations2, pch=19, col=dat$occurrence)
-points(y~x,locations2[dat$seen==1,], pch=19, col="yellow", cex=0.5)
+plot(y~x,locations2, pch=19, col=c(0,"grey")[as.factor(dat$occurrence)])
+points(y~x,locations2[dat$seen==1,], pch=19, col="red", cex=0.4)
 
-plot(y~x,locations2, pch=19, col=dat_R$occurrence)
-points(y~x,locations2[dat_R$seen==1,], pch=19, col="yellow", cex=0.5)
+plot(y~x,locations2, pch=19, col=c(0,"grey")[as.factor(dat_R$occurrence)])
+points(y~x,locations2[dat_R$seen==1,], pch=19, col="red", cex=0.4)
+dev.off()

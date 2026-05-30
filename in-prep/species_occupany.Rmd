@@ -1,0 +1,15 @@
+%%%%%%%%%%%%
+\subsubsection{Species occupancy data}
+%%%%%%%%%%%%
+
+Similar to mark-recapture data, species occurrence data is characterised by whether a species is present at a location and, conditional on its presence, whether it observed.
+%by both species presence and the probability of observation (or re-capture).
+
+%mixute model
+N-mixture model?
+
+As with CMR data, we can simulate this as two Bernoulli processes in a multi-response model; the probability of occurrence in a location and the probability of observation. We can simply multiply the two simulated response variables together to get the actual observation.
+
+We can imagine that occurrence might be spatially autocorrelated (individuals are more likely to be found near others), if for example resources are spatially distribution.  
+
+From existing temporal or spatial data, these correlation matrices can be generated using the \texttt{corClasses} functions in the \texttt{nlme} R package, and passed to the \texttt{cov\_str} argument of \texttt{simulate\_population()}.
