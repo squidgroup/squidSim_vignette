@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8.1 Double hierarchical models (DHGLMs) | The {squidSim} R Package Vignette</title>
+  <title>8.1 Double hierarchical models (DHGLMs) | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8.1 Double hierarchical models (DHGLMs) | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="8.1 Double hierarchical models (DHGLMs) | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8.1 Double hierarchical models (DHGLMs) | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="8.1 Double hierarchical models (DHGLMs) | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2024-12-11" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -141,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
 <li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
 <li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
@@ -167,7 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
 <li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
 <li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
 <li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
 <li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
@@ -212,13 +217,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
 <li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a></li>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
 <li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
 <li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
@@ -243,6 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -252,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -264,66 +276,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Double hierarchical models (DHGLMs)<a href="8.1-double-hierarchical-models-dhglms.html#double-hierarchical-models-dhglms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="dhglm" class="section level3 hasAnchor" number="8.1.1">
 <h3><span class="header-section-number">8.1.1</span> DHGLM<a href="8.1-double-hierarchical-models-dhglms.html#dhglm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb209-2"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(50)&quot;</span>,<span class="at">N=</span><span class="dv">10</span>),</span>
-<span id="cb209-3"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb209-4"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb209-5"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int&quot;</span>,<span class="st">&quot;ind_slopes&quot;</span>,<span class="st">&quot;ind_lnsd&quot;</span>),</span>
-<span id="cb209-6"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
-<span id="cb209-7"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>),</span>
-<span id="cb209-8"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb209-9"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">functions=</span><span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>) </span>
-<span id="cb209-10"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb209-11"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span><span class="fu">list</span>(</span>
-<span id="cb209-12"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;environment&quot;</span>,</span>
-<span id="cb209-13"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fl">0.2</span></span>
-<span id="cb209-14"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb209-15"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb209-16"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span>,</span>
-<span id="cb209-17"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="dv">0</span></span>
-<span id="cb209-18"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb209-19"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
-<span id="cb209-20"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slopes:environment&quot;</span>,<span class="st">&quot;ind_lnsd:residual&quot;</span>),</span>
-<span id="cb209-21"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb209-22"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-22" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb209-23"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-23" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb209-24"><a href="8.1-double-hierarchical-models-dhglms.html#cb209-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb264-2"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(50)&quot;</span>,<span class="at">N=</span><span class="dv">10</span>),</span>
+<span id="cb264-3"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb264-4"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb264-5"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int&quot;</span>,<span class="st">&quot;ind_slopes&quot;</span>,<span class="st">&quot;ind_lnsd&quot;</span>),</span>
+<span id="cb264-6"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb264-7"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb264-8"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb264-9"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">functions=</span><span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>) </span>
+<span id="cb264-10"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb264-11"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span><span class="fu">list</span>(</span>
+<span id="cb264-12"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;environment&quot;</span>,</span>
+<span id="cb264-13"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fl">0.2</span></span>
+<span id="cb264-14"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb264-15"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb264-16"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="dv">1</span>,</span>
+<span id="cb264-17"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="dv">0</span></span>
+<span id="cb264-18"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb264-19"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
+<span id="cb264-20"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slopes:environment&quot;</span>,<span class="st">&quot;ind_lnsd:residual&quot;</span>),</span>
+<span id="cb264-21"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb264-22"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb264-23"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb264-24"><a href="8.1-double-hierarchical-models-dhglms.html#cb264-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="bivariate-dhglm" class="section level3 hasAnchor" number="8.1.2">
 <h3><span class="header-section-number">8.1.2</span> Bivariate DHGLM<a href="8.1-double-hierarchical-models-dhglms.html#bivariate-dhglm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb210-2"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
-<span id="cb210-3"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
-<span id="cb210-4"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
-<span id="cb210-5"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int1&quot;</span>,<span class="st">&quot;ind_slopes1&quot;</span>,<span class="st">&quot;ind_lnsd1&quot;</span>,<span class="st">&quot;ind_int2&quot;</span>,<span class="st">&quot;ind_slopes2&quot;</span>,<span class="st">&quot;ind_lnsd2&quot;</span>),</span>
-<span id="cb210-6"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>), </span>
-<span id="cb210-7"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.4</span>,<span class="fl">0.2</span>,<span class="fl">0.05</span>),</span>
-<span id="cb210-8"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>( <span class="dv">1</span>,<span class="dv">0</span>,</span>
-<span id="cb210-9"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-9" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span>,</span>
-<span id="cb210-10"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-10" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span>,</span>
-<span id="cb210-11"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-11" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">1</span>,</span>
-<span id="cb210-12"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-12" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span>,</span>
-<span id="cb210-13"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-13" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span></span>
-<span id="cb210-14"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-14" aria-hidden="true" tabindex="-1"></a>      ), <span class="at">byrow=</span><span class="cn">TRUE</span>,<span class="at">ncol=</span><span class="dv">2</span>),</span>
-<span id="cb210-15"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-15" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb210-16"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">functions=</span><span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>) </span>
-<span id="cb210-17"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb210-18"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span><span class="fu">list</span>(</span>
-<span id="cb210-19"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;environment&quot;</span>,</span>
-<span id="cb210-20"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.2</span>,<span class="sc">-</span><span class="fl">0.3</span>),<span class="at">ncol=</span><span class="dv">2</span>)</span>
-<span id="cb210-21"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb210-22"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
-<span id="cb210-23"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;residual1&quot;</span>,<span class="st">&quot;residual2&quot;</span>),</span>
-<span id="cb210-24"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
-<span id="cb210-25"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">ncol=</span><span class="dv">2</span>)</span>
-<span id="cb210-26"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-26" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb210-27"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
-<span id="cb210-28"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slopes1:environment&quot;</span>,<span class="st">&quot;ind_lnsd1:residual1&quot;</span>,<span class="st">&quot;ind_slopes2:environment&quot;</span>,<span class="st">&quot;ind_lnsd2:residual2&quot;</span>),</span>
-<span id="cb210-29"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">byrow=</span><span class="cn">TRUE</span>,<span class="at">ncol=</span><span class="dv">2</span>)</span>
-<span id="cb210-30"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb210-31"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-31" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb210-32"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(50)&quot;</span>,<span class="at">N=</span><span class="dv">10</span>)</span>
-<span id="cb210-33"><a href="8.1-double-hierarchical-models-dhglms.html#cb210-33" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-1" aria-hidden="true" tabindex="-1"></a>squid_data <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb265-2"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_response=</span><span class="dv">2</span>,</span>
+<span id="cb265-3"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">parameters =</span> <span class="fu">list</span>(</span>
+<span id="cb265-4"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">individual =</span> <span class="fu">list</span>(</span>
+<span id="cb265-5"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_int1&quot;</span>,<span class="st">&quot;ind_slopes1&quot;</span>,<span class="st">&quot;ind_lnsd1&quot;</span>,<span class="st">&quot;ind_int2&quot;</span>,<span class="st">&quot;ind_slopes2&quot;</span>,<span class="st">&quot;ind_lnsd2&quot;</span>),</span>
+<span id="cb265-6"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb265-7"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.4</span>,<span class="fl">0.2</span>,<span class="fl">0.05</span>),</span>
+<span id="cb265-8"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>( <span class="dv">1</span>,<span class="dv">0</span>,</span>
+<span id="cb265-9"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-9" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span>,</span>
+<span id="cb265-10"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-10" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span>,</span>
+<span id="cb265-11"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-11" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">1</span>,</span>
+<span id="cb265-12"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-12" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span>,</span>
+<span id="cb265-13"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-13" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">0</span>,<span class="dv">0</span></span>
+<span id="cb265-14"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-14" aria-hidden="true" tabindex="-1"></a>      ), <span class="at">byrow=</span><span class="cn">TRUE</span>,<span class="at">ncol=</span><span class="dv">2</span>),</span>
+<span id="cb265-15"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-15" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb265-16"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">functions=</span><span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&quot;exp&quot;</span>) </span>
+<span id="cb265-17"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb265-18"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span><span class="fu">list</span>(</span>
+<span id="cb265-19"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">names=</span><span class="st">&quot;environment&quot;</span>,</span>
+<span id="cb265-20"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.2</span>,<span class="sc">-</span><span class="fl">0.3</span>),<span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb265-21"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb265-22"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> <span class="fu">list</span>(</span>
+<span id="cb265-23"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;residual1&quot;</span>,<span class="st">&quot;residual2&quot;</span>),</span>
+<span id="cb265-24"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">vcov =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb265-25"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb265-26"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-26" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb265-27"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">interactions =</span> <span class="fu">list</span>(</span>
+<span id="cb265-28"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;ind_slopes1:environment&quot;</span>,<span class="st">&quot;ind_lnsd1:residual1&quot;</span>,<span class="st">&quot;ind_slopes2:environment&quot;</span>,<span class="st">&quot;ind_lnsd2:residual2&quot;</span>),</span>
+<span id="cb265-29"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">beta =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">byrow=</span><span class="cn">TRUE</span>,<span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb265-30"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb265-31"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-31" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb265-32"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_structure=</span><span class="fu">make_structure</span>(<span class="st">&quot;individual(50)&quot;</span>,<span class="at">N=</span><span class="dv">10</span>)</span>
+<span id="cb265-33"><a href="8.1-double-hierarchical-models-dhglms.html#cb265-33" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
             </section>
@@ -346,42 +358,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

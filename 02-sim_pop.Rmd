@@ -1,6 +1,6 @@
 # Simulating from linear models {#linearmod}
 
-```{r, echo=FALSE, message=FALSE,warning=FALSE}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 rm(list=ls())
 library(dplyr)
 library(flair)
@@ -138,6 +138,13 @@ colorize <- function(x, color) {
       x)
   } else x
 }
+indent <- function(n) {
+  if (knitr::is_latex_output()) {
+    # sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    paste(rep("&nbsp;&nbsp;",n),collapse="")
+  } else x
+}
 ```
 
 `r colorize("intercept", "red")` + `r colorize("observation", "blue")` level predictors + `r colorize("residual", "orange")`
@@ -210,18 +217,20 @@ $$
 \color{orange}{\epsilon_i \sim \mathcal{N}(0,\sigma^2_\epsilon)}
 $$
 
-```{r, echo = FALSE}
 
-decorate("buildcode1") %>%
-  flair("intercept=10",color = "red") %>%
-  flair('observation = list(
-      names = c("temperature","rainfall", "wind"),
-      beta = c(0.5,-0.3, 0.4)    
-    )',color = "blue") %>%
-  flair('residual = list(
-      vcov = 0.8
-    )',color = "orange")
-```
+
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+parameters = list(  
+`r indent(1)` `r colorize("intercept = 10", "red")`,  
+`r indent(1)` `r colorize("observation = list(", "blue")`  
+`r indent(2)` `r colorize("names = c(\"temperature\",\"rainfall\", \"wind\"),", "blue")`  
+`r indent(2)` `r colorize("beta = c(0.5,-0.3, 0.4)" , "blue")`   
+`r indent(1)` `r colorize( ")", "blue")`,  
+`r indent(1)` `r colorize("residual = list(", "orange")`  
+`r indent(2)` `r colorize("vcov = 0.8", "orange")`  
+`r indent(1)` `r colorize(")", "orange")`  
+)
+</span>
 
 
 
@@ -323,17 +332,26 @@ squid_data <- simulate_population(
   )
 )
 ```
+<br><br>
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+`r indent(1)` squid_data <- simulate_population(  
+`r indent(2)` n=2000,  
+`r indent(2)` response_name = "body_mass",  
+`r indent(2)`  parameters = list(  
+`r indent(3)` `r colorize("intercept = 10", "red")`,  
+`r indent(3)` `r colorize("observation = list(", "blue")`  
+`r indent(4)` `r colorize("names = c(\"temperature\",\"rainfall\", \"wind\"),", "blue")`  
+`r indent(4)` `r colorize("mean = c(10,1,20)," , "blue")`   
+`r indent(4)` `r colorize("vcov = c(1,0.1,2)," , "CornflowerBlue")`   
+`r indent(4)` `r colorize("beta = c(0.5,-3, 0.4)" , "purple")`   
+`r indent(3)` `r colorize( ")", "blue")`,  
+`r indent(3)` `r colorize("residual = list(", "orange")`  
+`r indent(4)` `r colorize("vcov = 0.8", "orange")`  
+`r indent(3)` `r colorize(")", "orange")`  
+`r indent(2)` )  
+`r indent(1)` )
+</span>
 
-
-```{r, echo = FALSE}
-
-decorate("buildcode2") %>%
-  flair("intercept = 10",color = "red") %>%
-  flair('mean = c(10,1,20)',color = "blue")%>% 
-  flair('vcov = c(1,0.1,2)',color = "CornflowerBlue") %>%
-  flair('beta = c(0.5,-3,0.4)',color = "purple") %>%
-  flair('vcov = 0.8',color = "orange")
-```
 
 ```{r, 'lm2',fig.width=10,fig.height=4}
 
@@ -689,12 +707,12 @@ The only change in the code that is needed is the addition of the link and famil
 
 squid_data <- simulate_population(
   parameters = list(
+    intercept = 1.75,
     observation = list(
       names = c("temperature","rainfall"),
       beta = c(0.2,0.1)
     ),
     residual = list(
-      mean = 1.75,
       vcov = 0.2
     )
   ),
@@ -712,7 +730,47 @@ glm(y ~ temperature + rainfall, data, family="poisson")
 
 ```
 
-Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'.
+Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit' and 'cloglog'.
+
+
+### Transforming across scales
+
+It can be difficult to simulate data with a certain mean and variance on the 'observed' scale when using parameters on the 'latent' scale. {squidSim} provides two functions `lat2exp()` and `exp2lat()` that help do with the log transformation. `lat2exp()` transforms means and (co)variances from the latent (normal) scale to the expected (log-normal) scale, whilst `exp2lat()` does the reverse. 
+
+
+Let us take an example. We want to simulate some count data that has a mean of 6 and variance 15. In a Poisson distribution, the mean is equal to the variance. This means that a variance of 6 will be added on to the expected scale variation through the stochastic Poisson sampling process. This means that we want to simulate data on the expected scale with a variance of 9. We can use the `exp2lat()` function to work out the mean and variance on the latent scale that will give us what we want on the expected scale. 
+
+```{r}
+
+latent_params <- exp2lat(mean=6, cov=9)
+latent_params
+```
+
+This gives us a list of parameters with which we can simulate:
+
+```{r, 'scales',fig.width=6,fig.height=6}
+squid_data <- simulate_population(
+  parameters = list(
+    intercept = latent_params[["mean"]],
+    residual = list(
+      vcov = latent_params[["cov"]]
+    )
+  ),
+  n = 2000,
+  family = "poisson", 
+  link = "log"
+)
+
+data <- get_population_data(squid_data)
+
+mean(data$y)
+var(data$y)
+```
+
+As you can see, we retrieve very similar values to those we were after. 
+
+
+We can do with with other transformation. Another one with a simple transformation across scales is the probit. The probit transformation is simply the cumulative distribution function of a normal distribution, and so we can use the functions `pnorm()` and `qnorm()` to transform between latent and expected. 
 
 
 ## Model equations {#modeleq}

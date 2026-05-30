@@ -6,7 +6,7 @@
 ### DHGLM
 
 
-```r
+``` r
 squid_data <- simulate_population(
   data_structure=make_structure("individual(50)",N=10),
   parameters = list(
@@ -36,7 +36,7 @@ squid_data <- simulate_population(
 ### Bivariate DHGLM
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n_response=2,
   parameters = list(
@@ -81,7 +81,7 @@ squidSim doesn't generate zero-inflated data directly, but it can be easily made
 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   make_structure(structure = "mother(100)",repeat_obs=5),
   n_response = 2,
@@ -140,7 +140,7 @@ head(data,10)
 ## 10      2         1  6
 ```
 
-```r
+``` r
 plot(table(data$y))
 ```
 

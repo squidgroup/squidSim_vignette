@@ -1,4 +1,58 @@
 # Phylogenetic Effects {#phylogenetic}
-Coming Soon
 
 
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+library(dplyr)
+library(flair)
+library(lme4)
+library(MCMCglmm)
+library(scales)
+library(squidSim)
+library(knitr)
+set.seed(25)
+```
+
+## Brownian motion
+
+We can simulate some data using the bird families phylogeny from the {ape} package. Here we have a grouping variables called taxa in the data structure, which links to the phylogeny. We can then specify the phylogenetic variance.
+
+```{r}
+library(ape)
+
+data(bird.families)
+
+squid_dat <- simulate_population(
+	data_structure=data.frame(taxon=bird.families$tip.label),
+	parameters=list(
+		taxon=list(
+			vcov=1
+		),
+		residual=list(
+			vcov=1
+		)
+	),
+	phylogeny=list(taxon=bird.families)
+)
+
+pop_dat <- get_population_data(squid_dat)
+```
+
+Run model to check 
+```{r,cache=TRUE}
+library(MCMCglmm)
+
+Ainv<-inverseA(bird.families)$Ainv
+prior<-list(
+	R=list(V=1, nu=0.002), 
+	G=list(G1=list(V=1, nu=0.002)))
+
+model1<-MCMCglmm(y~1, 
+	random=~taxon, 
+	ginverse=list(taxon=Ainv),
+	data=pop_dat, 
+	prior=prior, 
+	verbose=FALSE, nitt=13000, burnin=3000, thin=10)
+
+summary(model1)
+```

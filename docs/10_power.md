@@ -1,0 +1,78 @@
+# Conducting a power analysis using squidSim {#power}
+
+Simulations are useful for many reasons. For more complex models they may well be used to conduct power analyses, as it is difficult to derive the sampling distribution of a given parameter analytically. Here, we provide a simple example of a power analysis. {squidSim} doesn't perform power analyses as part of the package, but the simulated datasets can easily be used for this. 
+
+There are may stages to a power analysis, and the first ones relates to working out how the data should be structured, and what parameters are of interest, and what effect sizes are of interest, and so how a simulation should be parametrised. We do not cover this here, simply we provide a worked example of doing a power analysis, once we have worked those things out.
+
+Here we take a fictional example, where we are interested in working out the power to detect a repeatability (proportion of total variance) among individuals of 0.2. We have a data structure that includes repeated measures of individual across years. 
+
+The first step in the simulation procedure is to simulate many datasets. We can easily to this using the `n_pop` argument in `simulate_population()`:
+
+
+``` r
+library(squidSim)
+
+## generate a data structure, here 100 individuals measured in each of 10 years
+ds <- make_structure("individual(20) + year(10)")
+
+
+squid_data <- simulate_population(
+  data_structure = ds,
+  parameters = list(
+    individual = list(
+      vcov = 0.2 ## effect size of interest
+    ),
+    year = list(
+      vcov = 0.3
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  ),
+  n_pop = 1000
+)
+```
+
+We can then extract our individual datasets as a list for more easy processing:
+
+``` r
+sim_data <- get_population_data(squid_data, list=TRUE)
+```
+
+We can then run our model or models of interest across each of the datasets and then extract the parameter of interest. With a power analysis, typically this is a p-value for a given parameter, but might be another parameter such as a variance, if building a sampling distribution. Here, I will use a likelihood ratio test to derive a p-value between a model that does estimate among individual variance and ones that does not. To efficiently run the models across all datasets, we need a little more coding. You can use loops, here I will use the `*apply` functions. `sapply` applies a function to each element of the list (here I call that element `dat`), and then returns a vector or matrix of the output of each (here the p-value from the likelihood ratio test).
+
+
+``` r
+# dat<-sim_data[[1]]
+models_out <- sapply(sim_data, function(dat){
+	mod1 <- lme4::lmer(y ~ 1 + (1|year) + (1|individual), dat,REML=FALSE)
+	mod2 <- lme4::lmer(y ~ 1 + (1|year) , dat,REML=FALSE)
+	anova(mod1,mod2)["Pr(>Chisq)"][[1]][2]
+})	
+```
+
+```
+## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00226498 (tol = 0.002, component 1)
+```
+
+```
+## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+## Model failed to converge with max|grad| = 0.00228789 (tol = 0.002, component 1)
+```
+
+```
+## boundary (singular) fit: see help('isSingular')
+```
+
+With this vector of p-values, I can then calculate the power. Power is defined as the probability of finding a significant results when there is a true effect. To estimate this, we can look at the proportion of the tests that give a p-value of <0.05:
+
+
+``` r
+mean(models_out<0.05)
+```
+
+```
+## [1] 0.997
+```
+

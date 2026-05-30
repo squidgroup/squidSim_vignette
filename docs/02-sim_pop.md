@@ -162,7 +162,7 @@ Note that the order of the names and betas has to match. We can then specify the
 We can then put this all together: 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -193,11 +193,24 @@ $$
 
 
 
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+parameters = list(  
+&nbsp;&nbsp; <span style='color: red;'>intercept = 10</span>,  
+&nbsp;&nbsp; <span style='color: blue;'>observation = list(</span>  
+&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>names = c("temperature","rainfall", "wind"),</span>  
+&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>beta = c(0.5,-0.3, 0.4)</span>   
+&nbsp;&nbsp; <span style='color: blue;'>)</span>,  
+&nbsp;&nbsp; <span style='color: orange;'>residual = list(</span>  
+&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: orange;'>vcov = 0.8</span>  
+&nbsp;&nbsp; <span style='color: orange;'>)</span>  
+)
+</span>
+
 
 
 This generates a squid object, which when run returns a friendly message:
 
-```r
+``` r
 squid_data
 ```
 
@@ -227,26 +240,26 @@ squid_data
 ```
  and contains all our simulation parameters as well as the simulated data. At this point we want to be able to access the simulated data. There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using `get_population_data()` The generated response is returned, along with simulated predictors and the data structure (not relevant here). 
 
-```r
+``` r
 data <- get_population_data(squid_data)
 head(data)
 ```
 
 ```
-##   body_mass temperature    rainfall       wind    residual squid_pop
-## 1  9.809451  -0.5478939  0.20508206  0.1508594  0.08457911         1
-## 2  6.726013   0.1829981  1.46962434 -1.2879690 -2.40941140         1
-## 3  9.811235  -0.8048619 -0.16589518  0.1486768  0.10442629         1
-## 4  7.985417  -1.9522468 -1.23337257 -1.8210313 -0.68005930         1
-## 5  8.161597   0.2863420  0.09892012 -0.3421751 -1.81502750         1
-## 6 10.372638   0.9476735  1.55338036  0.4065158  0.20220909         1
+##   body_mass temperature     rainfall       wind   residual squid_pop
+## 1 10.187011   2.4800342  0.455257003  0.7825594 -1.2294526         1
+## 2 10.949223  -0.2569207 -1.474704317  0.3857166  0.4809849         1
+## 3 10.845240   0.2189803  1.463922216 -0.8564840  1.5175202         1
+## 4  9.916527   0.7198543 -1.037817017  2.3682777 -1.7020568         1
+## 5 10.216552   1.7756108 -0.003199892 -0.1130542 -0.6269915         1
+## 6 10.054326   1.2120665  0.558004447  0.8376667 -0.7193723         1
 ```
 
 Later on we will explore how to simulate data for multiple populations with the same parameters (Section \@ref(npop)). `squid_pop` is an identifier for the population number, but is not relevant here.
 
 We can plot what we have simulated:
 
-```r
+``` r
 library(scales)
 par(mfrow=c(1,3))
 plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha(1,0.5))
@@ -256,37 +269,37 @@ plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha
 
 and run a linear model to check that we get back the betas that we simulated:
 
-```r
+``` r
 coef(lm(body_mass ~ temperature + rainfall + wind,data))
 ```
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.9752151   0.4610888  -0.3071835   0.3824544
+##   9.9898809   0.4891688  -0.3473308   0.3994893
 ```
 
 We can also check the means and variances of the predictors
 
 
-```r
+``` r
 predictors <- data[,c("temperature","rainfall","wind")]
 colMeans(predictors)
 ```
 
 ```
 ## temperature    rainfall        wind 
-## -0.02856731  0.01754939 -0.02920685
+##  0.02084866 -0.02319050  0.04471757
 ```
 
-```r
+``` r
 cov(predictors)
 ```
 
 ```
 ##             temperature     rainfall         wind
-## temperature  0.97783176 -0.015722888  0.019196282
-## rainfall    -0.01572289  1.005007268 -0.007969993
-## wind         0.01919628 -0.007969993  0.959931783
+## temperature  1.03670554 -0.035961509 -0.028953762
+## rainfall    -0.03596151  0.978340502 -0.003275084
+## wind        -0.02895376 -0.003275084  1.017055449
 ```
 
 
@@ -294,7 +307,7 @@ It's worth noting that these values are not *exactly* what we simulated. That is
 <!-- 
 We can extract the parameters we used for the simulations
 
-```r
+``` r
 # get_parameters(squid_data)
 ```
  -->
@@ -338,12 +351,29 @@ $$
 $$
 
 
+<br><br>
+<span style="font-family:Menlo, Monaco, Consolas, Courier New, monospace">
+&nbsp;&nbsp; squid_data <- simulate_population(  
+&nbsp;&nbsp;&nbsp;&nbsp; n=2000,  
+&nbsp;&nbsp;&nbsp;&nbsp; response_name = "body_mass",  
+&nbsp;&nbsp;&nbsp;&nbsp;  parameters = list(  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: red;'>intercept = 10</span>,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>observation = list(</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>names = c("temperature","rainfall", "wind"),</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>mean = c(10,1,20),</span>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: CornflowerBlue;'>vcov = c(1,0.1,2),</span>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: purple;'>beta = c(0.5,-3, 0.4)</span>   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: blue;'>)</span>,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: orange;'>residual = list(</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: orange;'>vcov = 0.8</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style='color: orange;'>)</span>  
+&nbsp;&nbsp;&nbsp;&nbsp; )  
+&nbsp;&nbsp; )
+</span>
 
 
 
-
-
-```r
+``` r
 data <- get_population_data(squid_data)
 
 coef(lm(body_mass ~ temperature + rainfall + wind, data))
@@ -351,10 +381,10 @@ coef(lm(body_mass ~ temperature + rainfall + wind, data))
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.6936858   0.5277087  -3.0577425   0.4047932
+##  10.6351760   0.4610888  -3.0227161   0.3875934
 ```
 
-```r
+``` r
 library(scales)
 par(mfrow=c(1,3))
 plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha(1,0.5))
@@ -365,30 +395,30 @@ plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha
 Again, we can check that the means and variances of the predictors are being simulated as we think they should be
 
 
-```r
+``` r
 predictors <- data[,c("temperature","rainfall","wind")]
 colMeans(predictors)
 ```
 
 ```
 ## temperature    rainfall        wind 
-##    10.00240     1.00085    20.01790
+##    9.971433    1.005550   19.958695
 ```
 
-```r
+``` r
 cov(predictors)
 ```
 
 ```
-##              temperature     rainfall        wind
-## temperature  0.990823966 -0.006253787  0.03013589
-## rainfall    -0.006253787  0.098287391 -0.01134461
-## wind         0.030135886 -0.011344607  2.08443275
+##              temperature     rainfall         wind
+## temperature  0.977831756 -0.004972014  0.027147642
+## rainfall    -0.004972014  0.100500727 -0.003564289
+## wind         0.027147642 -0.003564289  1.919863567
 ```
 
 It can be complicated to keep up with how these different values combine to give the mean and variance of the response. To help with this, the `simulated_variance()` function calculates the expected mean and variance of the response variable, as well as breaking down the contribution of different predictors and hierarchical levels to the these.
 
-```r
+``` r
  simulated_variance(squid_data)
 ```
 
@@ -426,7 +456,7 @@ It can be complicated to keep up with how these different values combine to give
 We can also simulate correlations between these predictors, as `vcov` specifies the variance/covariance matrix of the predictors.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -457,13 +487,13 @@ plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha
 
 <img src="02-sim_pop_files/figure-html/lm3-1.png" width="960" />
 
-```r
+``` r
 coef(lm(body_mass ~ temperature + rainfall + wind, data))
 ```
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##  10.1035658   0.4516304  -3.0698659   0.4221429
+##   9.8512456   0.4947747  -3.0476278   0.4139908
 ```
 
 <style>
@@ -474,7 +504,7 @@ div.blue { background-color:#fcba03; border-radius: 5px; padding: 20px;}
 
 To code a matrix in R we use the `matrix` function (see `?matrix`). This takes a vector of values, and arranges then in a matrix, with dimensions specified with `nrow` and `ncol`. By default it fills the matrix by column, which can be changed to per row, by specifying `byrow=TRUE`. For big matrices this can be petty annoying. The`Tri2M()` function from the package `MCMCglmm` allows you to just give the lower or upper half of the matrix, and it will fill the rest out for you. For example, we can make a correlation matrix using:
 
-```r
+``` r
 Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE, diag=TRUE)
 ```
 
@@ -496,7 +526,7 @@ make little shiny app that allows you to enter diagonal and
 Instead of specifying a variance-covariance matrix (`vcov`), we can also specify a variance-correlation matrix (variance on the diagonals and correlations on the off-diagonals), using `vcorr`
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -525,16 +555,16 @@ cor(data[,c("temperature","rainfall", "wind")])
 
 ```
 ##             temperature   rainfall      wind
-## temperature   1.0000000 -0.2118314 0.5082047
-## rainfall     -0.2118314  1.0000000 0.2690873
-## wind          0.5082047  0.2690873 1.0000000
+## temperature   1.0000000 -0.2195430 0.5029664
+## rainfall     -0.2195430  1.0000000 0.2634006
+## wind          0.5029664  0.2634006 1.0000000
 ```
 
 Through simulating correlated predictors, we can also simulate more interesting phenomena. For example, we may want to simulate the effect of a correlated missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured:
 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -565,22 +595,22 @@ plot(body_mass ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha
 
 <img src="02-sim_pop_files/figure-html/lm5-1.png" width="960" />
 
-```r
+``` r
 coef(lm(body_mass ~ temperature + rainfall, data))
 ```
 
 ```
 ## (Intercept) temperature    rainfall 
-##   13.944305    0.913508   -3.088825
+##  14.2776190   0.8765735  -3.0422601
 ```
 
-```r
+``` r
 coef(lm(body_mass ~ temperature + rainfall + wind, data))
 ```
 
 ```
 ## (Intercept) temperature    rainfall        wind 
-##   9.7004101   0.4747701  -3.0718309   0.4308823
+##  10.1035658   0.4516304  -3.0698659   0.4221429
 ```
 
 We can also use this to induce measurement error in a predictor - we can simulate the true variable with a certain effect on the response, and another correlated variable - the measured variable - with no direct effect on the response. The correlation between these two variables represents the measurement error (the repeatability of the variable is the correlation squared).
@@ -603,7 +633,7 @@ $$
 We can specify the interaction between two predictors by adding an `interactions` list to the parameters list. Interactions can then be specified between two named variables using ":". Interactions can be specified between two predictors at the same level, or at different hierarchical levels. 
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -627,31 +657,31 @@ head(data)
 ```
 
 ```
-##     body_mass temperature   rainfall    residual temperature:rainfall squid_pop
-## 1 -0.75306930  -1.7993007  0.1797179  0.06032903          -0.32336662         1
-## 2  1.10189574   1.4074719 -0.3185415  0.44888842          -0.44833826         1
-## 3  0.38025544  -0.2554504 -0.8691029  0.79091279           0.22201270         1
-## 4 -0.50416601  -1.3475335  0.9115643 -0.22670489          -1.22836340         1
-## 5 -0.02845418   2.3573010 -0.3703654 -1.18330134          -0.87306263         1
-## 6  0.35353883  -0.1211901  0.7102531  0.19245041          -0.08607567         1
+##    body_mass temperature   rainfall   residual temperature:rainfall squid_pop
+## 1 -0.1950863   0.6545190  1.5577734 -0.8877186            1.0195922         1
+## 2 -0.8352969  -1.3405423  0.3989025 -0.3381711           -0.5347457         1
+## 3 -0.2615434  -1.2677241 -0.2484353  0.4783440            0.3149474         1
+## 4  0.8427175   0.8669511  0.1360867  0.3802140            0.1179805         1
+## 5 -0.8451921  -1.8557505  0.8777406 -0.3435258           -1.6288676         1
+## 6  0.7969244  -0.2192104  0.8250010  0.6409444           -0.1808488         1
 ```
 
-```r
+``` r
 coef(lm(body_mass ~ temperature * rainfall, data))
 ```
 
 ```
 ##          (Intercept)          temperature             rainfall 
-##           0.01766038           0.48214243           0.32101602 
+##          0.006055206          0.487910683          0.284464667 
 ## temperature:rainfall 
-##          -0.08422462
+##         -0.084342268
 ```
 
 ### Non-linear effects
 Polynomial (quadratic, cubic, etc) functions are essentially interactions with the same predictor. They can therefore be specified in the same way:
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -676,13 +706,13 @@ plot(body_mass ~ temperature, data, pch=19, cex=0.5, col=alpha(1,0.5))
 
 <img src="02-sim_pop_files/figure-html/non-linear-1.png" width="576" />
 
-```r
+``` r
 coef(lm(body_mass ~ temperature + I(temperature^2), data))
 ```
 
 ```
 ##      (Intercept)      temperature I(temperature^2) 
-##      -0.02261543       0.50498361      -0.30214780
+##     -0.003753765      0.510987516     -0.299719778
 ```
 
 <br>
@@ -693,7 +723,7 @@ coef(lm(body_mass ~ temperature + I(temperature^2), data))
 We may want to simulate predictors that are not normally distributed. Although the underlying simulation procedure assumes multivariate normality, the predictors can be transformed, before they are multiplied by the beta values. To do this we can provide the transformation function to the functions option of a given parameter list, as a character vector. The given function needs to be a known function in R. The below code will exponentiate rainfall (using the `exp` function), before it is scaled by its beta (here 2).
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -714,25 +744,25 @@ head(data)
 ```
 
 ```
-##     body_mass temperature  rainfall   residual squid_pop
-## 1  0.17389503  -0.7657209 3.6142011 -0.5275048         1
-## 2  0.31171085  -0.9411953 2.2069842  0.1202132         1
-## 3  0.21164317  -0.8870048 1.0539333  0.3389656         1
-## 4 -0.05429141   0.5958834 0.4053547 -0.4738395         1
-## 5  0.63219255   1.7752999 1.4155625 -0.6801262         1
-## 6  2.36817352   0.2084304 7.3877935  0.0476203         1
+##    body_mass temperature  rainfall    residual squid_pop
+## 1 -0.4802574  -1.7993007 1.1968797  0.06032903         1
+## 2  1.3707870   1.4074719 0.7272089  0.44888842         1
+## 3  0.7889858  -0.2554504 0.4193276  0.79091279         1
+## 4 -0.1540081  -1.3475335 2.4882118 -0.22670489         1
+## 5  0.2024938   2.3573010 0.6904820 -1.18330134         1
+## 6  0.7422072  -0.1211901 2.0345061  0.19245041         1
 ```
 
-```r
+``` r
 hist(data$rainfall, xlab="Rainfall",main="", breaks=100)
 ```
 
-<img src="02-sim_pop_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="02-sim_pop_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 If a covariance between variables is specified, this covariance is on the untransformed (Gaussian) scale (as the variables are simulated as multivariate normal), NOT on the transformed scale, so care should be taken with this. For example:
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -755,15 +785,15 @@ cov(data$temperature,data$rainfall)
 ```
 
 ```
-## [1] 1.167142
+## [1] 1.15377
 ```
 
-```r
+``` r
 cov(data$temperature,log(data$rainfall))
 ```
 
 ```
-## [1] 0.6892072
+## [1] 0.7097114
 ```
 The simulated covariance can be recovered on the back-transformed predictor.
 
@@ -775,7 +805,7 @@ The `simulated_variance()` function will also no longer be accurate, as the calc
 We might want to use existing predictors, rather than simulated ones, in our simulations. This has the advantage that any quirks of existing data (like a strange distribution) can be maintained. These predictors can be fed into the `simulate_population()` function, using the `known_predictors` argument. This argument takes a list, with one item, called `predictors`, a matrix or dataframe of predictors (the column names of which are used as variable names), and one item called `beta`, a vector with the beta values for the respective predictors. Importantly, the predictors have to be the same length as number of observations in the simulated data, and the betas have to be in the same order as the predictors. We can demonstrate this using the blue tit data set that comes with the MCMCglmm package.
 
 
-```r
+``` r
 library(MCMCglmm)
 data(BTdata)
 
@@ -794,7 +824,7 @@ head(BTdata)
 We can see that in this dataset there are several continuous predictors. Here we will use "hatchdate" and "tarsus".
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n = nrow(BTdata),
   response_name = "body_mass",
@@ -817,27 +847,20 @@ head(data)
 ```
 
 ```
-##   body_mass temperature    rainfall    residual  hatchdate      tarsus
-## 1 -3.629986  0.80122572  1.51171175 -0.01211604 -0.6874021 -1.89229718
-## 2  2.334032  0.19315205 -0.09121688  0.68000378 -0.6874021  1.13610981
-## 3  1.400426 -0.05978012  0.27519677 -0.19364061 -0.4279814  0.98468946
-## 4 -2.162623 -1.94741262  0.79497686 -0.71976143 -1.4656641  0.37900806
-## 5 -1.293152 -0.62235194  1.65578543  0.13745875 -1.4656641 -0.07525299
-## 6 -1.968407  0.07763423 -0.65812238  0.11032294  0.3502805 -1.13519543
-##   squid_pop
-## 1         1
-## 2         1
-## 3         1
-## 4         1
-## 5         1
-## 6         1
+##   body_mass temperature    rainfall   residual  hatchdate      tarsus squid_pop
+## 1 -4.996900  -0.7657209  1.28487082 -0.5275048 -0.6874021 -1.89229718         1
+## 2  1.471921  -0.9411953  0.79162697  0.1202132 -0.6874021  1.13610981         1
+## 3  1.452619  -0.8870048  0.05252918  0.3389656 -0.4279814  0.98468946         1
+## 4 -1.154444   0.5958834 -0.90299287 -0.4738395 -1.4656641  0.37900806         1
+## 5 -1.304388   1.7752999  0.34752697 -0.6801262 -1.4656641 -0.07525299         1
+## 6 -1.168326   0.2084304  1.99982911  0.0476203  0.3502805 -1.13519543         1
 ```
 
-```r
+``` r
 plot(body_mass~hatchdate,data)
 ```
 
-<img src="02-sim_pop_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="02-sim_pop_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
 
@@ -867,15 +890,15 @@ $$
 The only change in the code that is needed is the addition of the link and family arguments.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   parameters = list(
+    intercept = 1.75,
     observation = list(
       names = c("temperature","rainfall"),
       beta = c(0.2,0.1)
     ),
     residual = list(
-      mean = 1.75,
       vcov = 0.2
     )
   ),
@@ -889,22 +912,22 @@ head(data)
 ```
 
 ```
-##    y temperature   rainfall residual squid_pop
-## 1  2  -0.5092091 -0.5464299 1.152254         1
-## 2  8  -0.2682265  0.6459884 2.084300         1
-## 3  4  -1.0337567 -0.1713375 1.579655         1
-## 4  7   0.6838892  0.4909524 1.517778         1
-## 5 16   1.0748364  0.4885968 2.185156         1
-## 6 11  -0.9866906  0.1611376 1.788293         1
+##    y temperature   rainfall    residual squid_pop
+## 1  7   1.3004885  0.7155515  0.06216738         1
+## 2  6   1.9101220  1.3150074 -0.86303661         1
+## 3  7   1.9870723  1.0214374 -0.28948062         1
+## 4  2   0.3030570 -0.9352512 -0.75659522         1
+## 5 11   0.6905079  0.3606059  0.23477646         1
+## 6 22   1.6268158 -0.5810690  0.70292633         1
 ```
 
-```r
+``` r
 plot(table(data$y), ylab="Frequency", xlab="z")
 ```
 
 <img src="02-sim_pop_files/figure-html/non-gaussian-1.png" width="576" />
 
-```r
+``` r
 glm(y ~ temperature + rainfall, data, family="poisson")
 ```
 
@@ -915,14 +938,75 @@ glm(y ~ temperature + rainfall, data, family="poisson")
 ## 
 ## Coefficients:
 ## (Intercept)  temperature     rainfall  
-##      1.8464       0.1895       0.1207  
+##     1.83996      0.17567      0.09701  
 ## 
 ## Degrees of Freedom: 1999 Total (i.e. Null);  1997 Residual
-## Null Deviance:	    5448 
-## Residual Deviance: 4759 	AIC: 11780
+## Null Deviance:	    4808 
+## Residual Deviance: 4290 	AIC: 11320
 ```
 
-Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'.
+Available families are 'gaussian', 'poisson' or 'binomial' and link functions 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit' and 'cloglog'.
+
+
+### Transforming across scales
+
+It can be difficult to simulate data with a certain mean and variance on the 'observed' scale when using parameters on the 'latent' scale. {squidSim} provides two functions `lat2exp()` and `exp2lat()` that help do with the log transformation. `lat2exp()` transforms means and (co)variances from the latent (normal) scale to the expected (log-normal) scale, whilst `exp2lat()` does the reverse. 
+
+
+Let us take an example. We want to simulate some count data that has a mean of 6 and variance 15. In a Poisson distribution, the mean is equal to the variance. This means that a variance of 6 will be added on to the expected scale variation through the stochastic Poisson sampling process. This means that we want to simulate data on the expected scale with a variance of 9. We can use the `exp2lat()` function to work out the mean and variance on the latent scale that will give us what we want on the expected scale. 
+
+
+``` r
+latent_params <- exp2lat(mean=6, cov=9)
+latent_params
+```
+
+```
+## $mean
+## [1] 1.680188
+## 
+## $cov
+##           [,1]
+## [1,] 0.2231436
+```
+
+This gives us a list of parameters with which we can simulate:
+
+
+``` r
+squid_data <- simulate_population(
+  parameters = list(
+    intercept = latent_params[["mean"]],
+    residual = list(
+      vcov = latent_params[["cov"]]
+    )
+  ),
+  n = 2000,
+  family = "poisson", 
+  link = "log"
+)
+
+data <- get_population_data(squid_data)
+
+mean(data$y)
+```
+
+```
+## [1] 5.9065
+```
+
+``` r
+var(data$y)
+```
+
+```
+## [1] 15.18635
+```
+
+As you can see, we retrieve very similar values to those we were after. 
+
+
+We can do with with other transformation. Another one with a simple transformation across scales is the probit. The probit transformation is simply the cumulative distribution function of a normal distribution, and so we can use the functions `pnorm()` and `qnorm()` to transform between latent and expected. 
 
 
 ## Model equations {#modeleq}
@@ -937,7 +1021,7 @@ In all the examples so far, the predictors are simulated, multiplied by their re
 To introduce this increased complexity, we can specify a model formula. This explicitly tells `simulate_population()` how to put the simulated predictors together to form the response variable. We can first demonstrate this with a simple linear model.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   parameters=list(
     observation= list(
@@ -960,13 +1044,13 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-##  0.01438998  0.54824742  0.31448835
+##  0.01644183  0.52629681  0.29528224
 ```
 
 In the formula, we write out how the variables are added up. *Everything that you want exported needs to be defined and named* (e.g. `y=...`). By default, all predictors are multiplied by their respective beta values before this happens. Sometimes it is useful to prevent this multiplication (e.g. multiply two traits together without them being multiplied by their respective beta). We can do this by using `I()`.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   parameters=list(
     observation= list(
@@ -989,13 +1073,13 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-##  0.02271624  0.49949825  0.98793882
+##  0.02091335  0.52161524  1.00733900
 ```
 
 We can also add extra parameters to the parameter list, which we can call from within the function. In combination with `I()` we can then customise the model formula a bit
 
 
-```r
+``` r
 squid_data <- simulate_population(
   parameters=list(
     observation= list(
@@ -1019,7 +1103,7 @@ coef(lm(y ~ temperature + rainfall, data))
 
 ```
 ## (Intercept) temperature    rainfall 
-##  0.02018766  0.51125796  0.10202578
+##  0.02424607  0.47309430  0.08440587
 ```
 
 Finally, we can use `[]` to index the levels of the random effects within the formula.. An example of this is given Section \@ref(IGE), along with use of the `index_link` argument.
@@ -1030,7 +1114,7 @@ Finally, we can use `[]` to index the levels of the random effects within the fo
 We can use the `simulate_population()` function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the `n_pop` argument in `simulate_population()`. This defaults to 1.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   n=2000,
   response_name = "body_mass",
@@ -1049,38 +1133,38 @@ squid_data <- simulate_population(
 ```
 By default `get_population_data` returns a data.frame, where the `squid_pop` column indicates the population
 
-```r
+``` r
 data <- get_population_data(squid_data)
 head(data)
 ```
 
 ```
-##   body_mass temperature    rainfall        wind   residual squid_pop
-## 1  9.369764  -1.1830537 -0.46893722  0.88840715 -0.5347529         1
-## 2  8.499772  -1.7192827 -0.05694062 -0.01411928 -0.6520216         1
-## 3 11.151019  -0.3770438 -0.15465879 -0.81390605  1.6187058         1
-## 4 10.592297  -1.1760859  0.55469813  1.31959453  0.8189114         1
-## 5 11.541493  -0.5370830 -2.66897280 -0.42429615  1.1790607         1
-## 6 10.155592  -0.2426915  0.05478356  0.04630962  0.2748485         1
+##   body_mass temperature   rainfall        wind    residual squid_pop
+## 1 10.132368  -1.9546951  0.4197320  0.21029426  1.15151743         1
+## 2  8.687849  -0.9974609 -0.3074322 -0.99049972 -0.50945076         1
+## 3  9.531882   0.5667092  0.1024663 -0.01125458 -0.71623081         1
+## 4 10.089348  -0.2627402  1.8010146 -0.71568383  1.04729598         1
+## 5 11.162227  -0.4583614 -1.6298772 -0.61950140  1.15024515         1
+## 6 10.154952   0.4401542  0.3017782  0.22296725 -0.06377881         1
 ```
 
-```r
+``` r
 tail(data)
 ```
 
 ```
-##       body_mass temperature   rainfall       wind   residual squid_pop
-## 9995  10.116462  -1.0543945 -1.8597309 -0.8617747  0.4304499         5
-## 9996   9.121754   0.6501680  0.3395459  0.3824208 -1.2544341         5
-## 9997   9.142314  -0.3360826  0.8804852 -0.7172734 -0.1385899         5
-## 9998   7.694607  -0.3669761  3.2124110 -0.0745173 -1.1283751         5
-## 9999   9.306256   1.1088145 -1.6084340 -2.2160486 -0.8442623         5
-## 10000  8.276687   0.5646602  0.6777146 -1.2828554 -1.2891862         5
+##       body_mass temperature   rainfall        wind   residual squid_pop
+## 9995  10.782432  1.05603425 -0.8132784  1.12810452 -0.4408101         5
+## 9996  10.458162  0.04709716 -0.3317510 -0.30729659  0.4580066         5
+## 9997  12.266405  2.09337257  0.6128256  0.27880803  1.2920434         5
+## 9998   8.853503  1.31778772  2.3277415 -0.55672678 -0.8843778         5
+## 9999   8.352746 -1.79613660 -0.7984681 -0.35913346 -0.8450724         5
+## 10000 10.080702 -2.51007818 -0.4660681 -0.04906956  1.2155489         5
 ```
 
 It can also be output as a list, which might be more useful for processing many iterations of a simulation. 
 
-```r
+``` r
 data <- get_population_data(squid_data, list=TRUE)
 length(data)
 ```

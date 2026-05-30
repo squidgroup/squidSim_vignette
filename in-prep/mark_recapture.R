@@ -78,11 +78,23 @@ cs1Exp <- Initialize(cs1Exp, locations2)
 spM<- corMatrix(cs1Exp)
 colnames(spM) <- rownames(spM) <- 1:2500
 spM[1:10,1:10]
+<<<<<<< HEAD
 # spm_c <- chol(spM)
  # spm_c2 <- Matrix::Matrix(spM, sparse=TRUE)
 # spm_c2 <- methods::as(spM, "dgCMatrix")
 # system.time({x1<-chol(spm_c)})
 # system.time({x2<-chol(spm_c2)})
+=======
+spm_c <- chol(spM)
+ spm_c2 <- methods::as(spM, "dgCMatrix")
+
+system.time({x1<-chol(spM)})
+system.time({x2<-chol( methods::as(spM, "CsparseMatrix"))})
+system.time({x3<-chol( Matrix(spM, sparse=TRUE))})
+system.time({x4<-chol( methods::as(spM, "dgCMatrix"))})
+Matrix::as.CsparseMatrix(spM)
+Matrix::coerce(spM,)
+>>>>>>> ac1d3c4efb64338b198d8e9f5f805fe012dbc457
 
 x<-rnorm(2500)
 

@@ -9,31 +9,41 @@ In order to simulate breeding values (additive genetic effects), we can provide 
 
 When simulating breeding values, **all** individuals in pedigree need to be in the data_structure and *vice versa*. Having unsampled individuals (for example the base population) can be achieved in the sampling stage (not implemented yet). 
 
-Lets start by importing a pedigree
+Lets start by importing a pedigree from the pedtricks package
 
-```r
-library(MCMCglmm)
-data(BTped)
-head(BTped)
+``` r
+library(squidSim)
+library(nadiv)
+library(gremlin)
+library(pedtricks)
+
+data(gryphons)
+
+ped <- fix_ped(gryphons[,1:3])
+head(ped)
 ```
 
 ```
-##    animal  dam sire
-## 1 R187557 <NA> <NA>
-## 2 R187559 <NA> <NA>
-## 3 R187568 <NA> <NA>
-## 4 R187518 <NA> <NA>
-## 5 R187528 <NA> <NA>
-## 6 R187945 <NA> <NA>
+##    id  dam sire
+## 1 204 <NA> <NA>
+## 2 205 <NA> <NA>
+## 3 206 <NA> <NA>
+## 4 207 <NA> <NA>
+## 5 208 <NA> <NA>
+## 6 209 <NA> <NA>
+```
+
+``` r
+names(ped)[1]<-"animal"
 ```
 
 We can use this pedigree as a data_structure
 
-```r
+``` r
 squid_data <- simulate_population(
-  data_structure = BTped, 
+  data_structure = ped[,1:3], 
  
-  pedigree = list(animal=BTped),
+  pedigree = list(animal=ped[,1:3]),
   
   parameters =list(
     animal = list(
@@ -50,39 +60,92 @@ head(data)
 ```
 
 ```
-##                  y animal_effect   residual  animal  dam sire squid_pop
-## R187557 -0.7104031    -0.1749195 -0.5354836 R187557 <NA> <NA>         1
-## R187559  1.2892857     0.6665992  0.6226864 R187559 <NA> <NA>         1
-## R187568  1.6393384     0.6900526  0.9492857 R187568 <NA> <NA>         1
-## R187518  1.2545103     0.3999815  0.8545287 R187518 <NA> <NA>         1
-## R187528 -0.4945722    -0.3827869 -0.1117853 R187528 <NA> <NA>         1
-## R187945  0.1780773    -0.3703026  0.5483799 R187945 <NA> <NA>         1
+##            y animal_effect   residual animal  dam sire squid_pop
+## 1 -2.3553680    -0.2981992 -2.0571688    204 <NA> <NA>         1
+## 2 -0.0831304     0.2218079 -0.3049383    205 <NA> <NA>         1
+## 3 -0.1690798    -0.2820988  0.1130190    206 <NA> <NA>         1
+## 4  1.6868459     0.6530291  1.0338168    207 <NA> <NA>         1
+## 5 -0.4311466    -0.5338738  0.1027271    208 <NA> <NA>         1
+## 6 -0.1819541    -0.4747195  0.2927654    209 <NA> <NA>         1
 ```
 
-```r
-# Ainv<-inverseA(BTped)$Ainv
-# mod <- MCMCglmm(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv),verbose=FALSE)
-# summary(mod)
+We can use the grelim pacakge to run a REML animal model
+
+``` r
+Ainv <- makeAinv(ped)$Ainv
+
+mod <- gremlin(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv))
+```
+
+```
+## gremlin started:		 18:14:56
+```
+
+```
+## 'as(<dsyMatrix>, "dsCMatrix")' is deprecated.
+## Use 'as(., "CsparseMatrix")' instead.
+## See help("Deprecated") and help("Matrix-deprecated").
+```
+
+```
+##   1 of max 20		lL:-7685.481081		took 0.0037 sec.
+##   2 of max 20		lL:-1671.313492		took 0.0026 sec.
+##   3 of max 20		lL:-1604.018169		took 0.0026 sec.
+##   4 of max 20		lL:-1601.696981		took 0.0026 sec.
+##   5 of max 20		lL:-1601.692845		took 0.0026 sec.
+##   6 of max 20		lL:-1601.692845		took 0.0026 sec.
+##   7 of max 20		lL:-1601.692845		took 0.0026 sec.
+## 
+## ***  REML converged  ***
+## 
+## gremlin ended:		 18:14:56
+```
+
+``` r
+summary(mod)
+```
+
+```
+## 
+##  Linear mixed model fit by REML [' gremlin ']
+##  REML log-likelihood: -1601.693 
+## 	 lambda: FALSE 
+## 
+##  elapsed time for model: 0.0564 
+## 
+##  Scaled residuals:
+##      Min       1Q   Median       3Q      Max 
+## -3.05039 -0.54998  0.00371  0.54487  3.14710 
+## 
+##  (co)variance parameters: ~animal 
+## 		    rcov: ~units 
+##          Estimate Std. Error
+## G.animal   0.2854    0.02908
+## ResVar1    0.4477    0.02554
+## 
+##  (co)variance parameter sampling correlations:
+##          G.animal ResVar1
+## G.animal   1.0000 -0.8469
+## ResVar1   -0.8469  1.0000
+## 
+##  Fixed effects: y ~ 1 
+##             Estimate Std. Error z value
+## (Intercept) -0.02358    0.01526  -1.545
 ```
 
 
+We don't have to simulate a phenotype for everyone in the pedigree, so can include a subset of IDs in the data strcuture
 
-We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.
-
-
-```r
-## make data structure with two observations per individual
-ds <- data.frame(individual=rep(BTped[,1], 2))
+``` r
+ds <- data.frame(animal =ped[sample(1:nrow(ped),1000,replace=FALSE),1])
 
 squid_data <- simulate_population(
   data_structure = ds, 
-  pedigree=list(animal=BTped),
-  parameters = list(
-    individual = list(
-      vcov = 0.3
-    ),
+ 
+  pedigree = list(animal=ped[,1:3]),
+  
+  parameters =list(
     animal = list(
-      group="individual",
       vcov = 0.2
     ),
     residual = list(
@@ -96,37 +159,200 @@ head(data)
 ```
 
 ```
-##                   y individual_effect animal_effect   residual individual
-## R187888 -0.29800108        -0.3030617    -0.2605827  0.2656433    R187557
-## R187646  0.17464214         0.3344371    -0.5309132  0.3711182    R187559
-## R187330  1.17443051         0.7872808     0.9885985 -0.6014488    R187568
-## R187374 -0.88713844        -0.4727921    -0.1421482 -0.2721982    R187518
-## R187225 -0.06469935        -0.2399442     0.5130975 -0.3378527    R187528
-## R187133  1.72913172         0.5764696     0.7417825  0.4108797    R187945
-##         squid_pop
-## R187888         1
-## R187646         1
-## R187330         1
-## R187374         1
-## R187225         1
-## R187133         1
+##             y animal_effect    residual animal squid_pop
+## 1 -0.46968357   -0.17338301 -0.29630056   3380         1
+## 2 -0.08352477   -0.17213302  0.08860825    362         1
+## 3 -1.48977040   -0.85945395 -0.63031645   1918         1
+## 4 -0.20485162   -0.50879642  0.30394481   2708         1
+## 5  0.39879740   -0.08200417  0.48080157   4287         1
+## 6 -0.59120933   -0.19983313 -0.39137620   3418         1
 ```
 
-```r
-# Ainv<-inverseA(BTped)$Ainv
-# data$animal_id <- data$individual
-# mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
-# summary(mod)
+
+``` r
+Ainv <- makeAinv(ped)$Ainv
+
+mod <- gremlin(y~1, random=~ animal,data=data,ginverse=list(animal=Ainv))
 ```
+
+```
+## gremlin started:		 11:24:44
+```
+
+```
+## 'as(<dsyMatrix>, "dsCMatrix")' is deprecated.
+## Use 'as(., "CsparseMatrix")' instead.
+## See help("Deprecated") and help("Matrix-deprecated").
+```
+
+```
+##   1 of max 20		lL:-1551.356413		took 0.0034 sec.
+##   2 of max 20		lL:-418.535368		took 0.0023 sec.
+##   3 of max 20		lL:-365.175306		took 0.0022 sec.
+##   4 of max 20		lL:-359.174824		took 0.0022 sec.
+##   5 of max 20		lL:-359.005605		took 0.0022 sec.
+##   6 of max 20		lL:-359.005415		took 0.0022 sec.
+##   7 of max 20		lL:-359.005415		took 0.0022 sec.
+## 
+## ***  REML converged  ***
+## 
+## gremlin ended:		 11:24:44
+```
+
+``` r
+summary(mod)
+```
+
+```
+## 
+##  Linear mixed model fit by REML [' gremlin ']
+##  REML log-likelihood: -359.0054 
+## 	 lambda: FALSE 
+## 
+##  elapsed time for model: 0.0457 
+## 
+##  Scaled residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.43366 -0.45542  0.02354  0.43253  2.86515 
+## 
+##  (co)variance parameters: ~animal 
+## 		    rcov: ~units 
+##          Estimate Std. Error
+## G.animal   0.4207    0.09582
+## ResVar1    0.3480    0.08755
+## 
+##  (co)variance parameter sampling correlations:
+##          G.animal ResVar1
+## G.animal   1.0000 -0.9299
+## ResVar1   -0.9299  1.0000
+## 
+##  Fixed effects: y ~ 1 
+##             Estimate Std. Error z value
+## (Intercept) -0.04197    0.03176  -1.321
+```
+
+
+We might want to simulate repeated measurements to allow estimation of permanent environment effects. The simplest way to do this is to create a duplicated column in the data structure of the individual IDs. Permanent environment effects that are not linked to the pedigree can then be simulated.
+
+<!-- 
+We might want to simulate repeated measurements to allow estimation of permanent environment effects. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated in different parts of the parameter list, and linked to the same part of the data_structure.
+ -->
+
+:::: {.blackbox data-latex=""}
+::: {.center data-latex=""}
+**NOTICE!**
+:::
+The instructions given for simulating permanent environment effects using squidSim were incorrect in the vignette prior to version 0.2.0 (updated in September 2025). 
+::::
+
+
+
+``` r
+## make data structure with two observations per individual, with ID duplicated in two columns, animal and individual, and link the animal column in the data structure to the pedigree
+ds <- data.frame(animal=rep(ped[,1], 2),individual=rep(ped[,1], 2))
+
+squid_data <- simulate_population(
+  data_structure = ds, 
+  pedigree=list(animal=ped),
+  parameters = list(
+    animal = list(
+      vcov = 0.2
+    ),
+    individual = list(
+      vcov = 0.3
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+head(data)
+```
+
+```
+##            y animal_effect individual_effect   residual animal individual
+## 1 -0.7812849     0.4665620        -1.0389875 -0.2088594    204        204
+## 2 -0.3499417    -0.9695562         0.2860528  0.3335617    205        205
+## 3 -0.7490084    -0.5394729         0.2739732 -0.4835087    206        206
+## 4 -1.1704516    -0.2701808         0.1314451 -1.0317159    207        207
+## 5  0.2931743     0.1025247        -0.6129429  0.8035925    208        208
+## 6 -0.1245506     0.7061392        -0.1828131 -0.6478767    209        209
+##   squid_pop
+## 1         1
+## 2         1
+## 3         1
+## 4         1
+## 5         1
+## 6         1
+```
+
+
+``` r
+Ainv <- makeAinv(ped)$Ainv
+
+mod_pe <- gremlin(y~1, random=~ animal + individual,data=data,ginverse=list(animal=Ainv))
+```
+
+```
+## gremlin started:		 11:24:44 
+##   1 of max 20		lL:-12123.358564		took 0.0051 sec.
+##   2 of max 20		lL:-4380.793795		took 0.0043 sec.
+##   3 of max 20		lL:-4212.077157		took 0.0042 sec.
+##   4 of max 20		lL:-4204.524508		took 0.0042 sec.
+##   5 of max 20		lL:-4204.496825		took 0.0042 sec.
+##   6 of max 20		lL:-4204.496825		took 0.0042 sec.
+##   7 of max 20		lL:-4204.496825		took 0.0041 sec.
+## 
+## ***  REML converged  ***
+## 
+## gremlin ended:		 11:24:44
+```
+
+``` r
+summary(mod_pe)
+```
+
+```
+## 
+##  Linear mixed model fit by REML [' gremlin ']
+##  REML log-likelihood: -4204.497 
+## 	 lambda: FALSE 
+## 
+##  elapsed time for model: 0.0596 
+## 
+##  Scaled residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.8558 -0.5524 -0.0036  0.5431  3.0406 
+## 
+##  (co)variance parameters: ~animal + individual 
+## 		    rcov: ~units 
+##              Estimate Std. Error
+## G.animal       0.2237   0.029221
+## G.individual   0.3022   0.027781
+## ResVar1        0.4947   0.009977
+## 
+##  (co)variance parameter sampling correlations:
+##                G.animal G.individual    ResVar1
+## G.animal      1.000e+00      -0.8268 -1.794e-15
+## G.individual -8.268e-01       1.0000 -1.796e-01
+## ResVar1      -1.977e-15      -0.1796  1.000e+00
+## 
+##  Fixed effects: y ~ 1 
+##             Estimate Std. Error z value
+## (Intercept) 0.002897    0.01537  0.1885
+```
+
 
 ## Multivariate genetic effects
 
 We can simulate genetic effects affecting multiple phenotypes and the covariance between them, by specifying the number of response variables, and a covariance matrix, instead of only a variance.
 
-```r
+``` r
 squid_data <- simulate_population(
-  data_structure = BTped,
-  pedigree = list(animal = BTped),
+  data_structure = ped,
+  pedigree = list(animal = ped),
   n_response=2,
   parameters = list(
     animal = list(
@@ -144,26 +370,65 @@ head(data)
 ```
 
 ```
-##                 y1         y2 animal_effect1 animal_effect2  residual1
-## R187557 -0.8385548  0.1841058      0.6786441     -0.3935136 -1.5171990
-## R187559 -0.4701207  1.0400757     -1.4113157      1.0666325  0.9411949
-## R187568 -0.1846425  0.3584195      1.0712568      0.3008260 -1.2558993
-## R187518 -0.9746306  1.1945939     -2.3299460      0.7226137  1.3553154
-## R187528 -0.8318896  0.2290793      0.3754430      0.3256557 -1.2073326
-## R187945  1.8103155 -1.2127095      2.1203028     -1.2159118 -0.3099873
-##            residual2  animal  dam sire squid_pop
-## R187557  0.577619380 R187557 <NA> <NA>         1
-## R187559 -0.026556865 R187559 <NA> <NA>         1
-## R187568  0.057593543 R187568 <NA> <NA>         1
-## R187518  0.471980260 R187518 <NA> <NA>         1
-## R187528 -0.096576413 R187528 <NA> <NA>         1
-## R187945  0.003202301 R187945 <NA> <NA>         1
+##           y1          y2 animal_effect1 animal_effect2  residual1  residual2
+## 1  0.6642658  0.83471076     0.46407220     0.22094082  0.2001936  0.6137699
+## 2 -0.7466087  0.14747280     0.54421651     0.52761540 -1.2908253 -0.3801426
+## 3  1.6963890 -0.40456141     0.39385325    -0.30347849  1.3025357 -0.1010829
+## 4  1.9764612  0.85993234     0.08271504     0.26908060  1.8937461  0.5908517
+## 5 -0.8080648 -0.09793586    -1.85489445     0.07503407  1.0468296 -0.1729699
+## 6  3.0311582  0.96837367     2.32009932     0.25440902  0.7110589  0.7139646
+##   animal  dam sire squid_pop
+## 1    204 <NA> <NA>         1
+## 2    205 <NA> <NA>         1
+## 3    206 <NA> <NA>         1
+## 4    207 <NA> <NA>         1
+## 5    208 <NA> <NA>         1
+## 6    209 <NA> <NA>         1
 ```
 
-```r
-# Ainv<-inverseA(BTped)$Ainv
-# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE,ginverse=list(animal=Ainv))
-# summary(mod)
+
+
+``` r
+library(MCMCglmm)
+Ainv<-inverseA(ped)$Ainv
+mod <- MCMCglmm(cbind(y1,y2)~1,
+  random=~us(trait):animal, 
+  rcov=~us(trait):units,
+  data=data,
+  ginverse=list(animal=Ainv),
+  family=rep("gaussian",2),
+  verbose=FALSE)
+summary(mod)
+```
+
+```
+## 
+##  Iterations = 3001:12991
+##  Thinning interval  = 10
+##  Sample size  = 1000 
+## 
+##  DIC: 32469.06 
+## 
+##  G-structure:  ~us(trait):animal
+## 
+##                        post.mean l-95% CI u-95% CI eff.samp
+## traity1:traity1.animal   0.99346  0.82773   1.1631    162.4
+## traity2:traity1.animal   0.01649 -0.09408   0.1259    211.7
+## traity1:traity2.animal   0.01649 -0.09408   0.1259    211.7
+## traity2:traity2.animal   1.06973  0.87654   1.2265    202.6
+## 
+##  R-structure:  ~us(trait):units
+## 
+##                       post.mean l-95% CI u-95% CI eff.samp
+## traity1:traity1.units   1.06566   0.9433  1.21635    206.0
+## traity2:traity1.units  -0.05158  -0.1421  0.04004    209.5
+## traity1:traity2.units  -0.05158  -0.1421  0.04004    209.5
+## traity2:traity2.units   0.97807   0.8336  1.10499    211.3
+## 
+##  Location effects: cbind(y1, y2) ~ 1 
+## 
+##             post.mean l-95% CI u-95% CI eff.samp pMCMC
+## (Intercept)  -0.02171 -0.05669  0.01237    893.3 0.242
 ```
 
 <br>
@@ -174,8 +439,8 @@ head(data)
 ## Sex specific genetic variance and inter-sexual genetic correlations
 
 
-```r
-ds <- data.frame(animal=BTped[,"animal"],sex=sample(c("Female","Male"),nrow(BTped), replace=TRUE))
+``` r
+ds <- data.frame(animal=gryphons[,"id"],sex=sample(c("Female","Male"),nrow(gryphons), replace=TRUE))
 
 squid_data <- simulate_population(
   parameters = list(
@@ -194,7 +459,7 @@ squid_data <- simulate_population(
     )
   ),
   data_structure = ds,
-  pedigree = list(animal=BTped),
+  pedigree = list(animal=ped),
   model = "y = Female + Male + I(Female)*G_female + I(Male)*G_male + residual"
 )
 
@@ -203,13 +468,13 @@ head(data)
 ```
 
 ```
-##            y Female Male    G_female      G_male    residual  animal    sex
-## 1  0.2055466      0    1  0.47080769 -0.73545126  0.44099788 R187557   Male
-## 2  0.4324628      0    1 -0.62078654 -0.01386573 -0.05367147 R187559   Male
-## 3 -0.5981933      1    0 -0.14154068  0.15570322  0.04334741 R187568 Female
-## 4 -0.8820294      1    0 -0.09385028 -0.33749998 -0.28817915 R187518 Female
-## 5 -0.5110713      0    1  0.31509524 -0.70944997 -0.30162129 R187528   Male
-## 6 -0.1480012      1    0  0.07452335  0.34664838  0.27747548 R187945 Female
+##            y Female Male    G_female     G_male    residual animal    sex
+## 1 -1.1406269      1    0 -0.41650798  0.8611695 -0.22411895    204 Female
+## 2 -0.9338681      1    0  0.02895999  0.7161771 -0.46282805    205 Female
+## 3 -0.5726704      1    0 -0.11908647  0.3606215  0.04641609    206 Female
+## 4  0.5511020      0    1 -0.45076138  0.2253053 -0.17420333    207   Male
+## 5 -0.6838055      1    0 -0.12133713 -0.3310633 -0.06246839    208 Female
+## 6 -0.1827386      0    1  0.33321284 -0.6581778 -0.02456084    209   Male
 ##   squid_pop
 ## 1         1
 ## 2         1
@@ -219,13 +484,13 @@ head(data)
 ## 6         1
 ```
 
-```r
+``` r
 par(mfrow=c(1,2))
 boxplot(y~factor(sex),data)
 plot(G_female~G_male,data)
 ```
 
-<img src="05-animal_files/figure-html/unnamed-chunk-6-1.png" width="960" />
+<img src="05-animal_files/figure-html/unnamed-chunk-10-1.png" width="960" />
 <br>
 
 ## Indirect Genetic Effects {#IGE}
@@ -234,7 +499,7 @@ Indirect genetic effects are a bit more difficult to code. Lets take the example
 Using this indexing trick, we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
 
-```r
+``` r
 squid_data <- simulate_population(
   parameters=list(
     animal = list(
@@ -246,43 +511,40 @@ squid_data <- simulate_population(
       vcov = 0.5
     )
   ),
-  data_structure=BTped,
-  pedigree=list(animal=BTped),
+  data_structure=ped,
+  pedigree=list(animal=ped),
   index_link=list(dam_link="dam-animal"),
   model = "y = direct + maternal[dam_link] + residual"
 )
 ```
 
 ```
-## Warning in FUN(X[[i]], ...): Not all levels are of dam are present in animal
-## meaning that there will be NAs in the new grouping factor
+## Warning: Not all levels are of dam are present in animal meaning that there
+## will be NAs in the new grouping factor
 ```
 
-```r
+``` r
 data <- get_population_data(squid_data)
 
 head(data)
 ```
 
 ```
-##    y     direct    maternal    residual  animal  dam sire squid_pop
-## 1 NA -1.1765364 -0.33246522  0.98593948 R187557 <NA> <NA>         1
-## 2 NA  1.0032654  0.17594714  0.46289797 R187559 <NA> <NA>         1
-## 3 NA -1.3823286 -0.43613248 -0.89167875 R187568 <NA> <NA>         1
-## 4 NA  0.3973638 -0.07201462  0.16249743 R187518 <NA> <NA>         1
-## 5 NA -1.2407912 -0.56117955 -0.01929683 R187528 <NA> <NA>         1
-## 6 NA  0.6117901  0.45613335  1.49005498 R187945 <NA> <NA>         1
+##    y     direct     maternal    residual animal  dam sire squid_pop
+## 1 NA -1.3868139 -0.958645316 -0.53517980    204 <NA> <NA>         1
+## 2 NA -0.3557084 -0.020020959 -0.05060699    205 <NA> <NA>         1
+## 3 NA -1.6063940 -0.008095092  0.44336246    206 <NA> <NA>         1
+## 4 NA -0.5702206  1.481172744 -0.31267001    207 <NA> <NA>         1
+## 5 NA -0.6878199  1.331302491 -0.68215405    208 <NA> <NA>         1
+## 6 NA -0.4438793  0.168884393 -0.70437684    209 <NA> <NA>         1
 ```
 
 
 
 ## GxE
-Coming soon...
 
-<!-- 
-  I dont know why this doesnt work
 
-  
+``` r
 squid_data <- simulate_population(
   parameters = list(
     animal = list(
@@ -304,8 +566,8 @@ squid_data <- simulate_population(
       beta = 1
     )
   ),
-  data_structure=rbind(BTped,BTped,BTped,BTped,BTped),
-  pedigree = list(animal=BTped)
+  data_structure=rbind(ped,ped,ped,ped,ped),
+  pedigree = list(animal=ped)
 )
 
 data <- get_population_data(squid_data)
@@ -313,18 +575,136 @@ library(lme4)
 short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FALSE, ranef.comp = c("Variance"))
 
 short_summary(lmer(y ~ environment + (1+environment|animal),data))
+```
 
- -->
+```
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: y ~ environment + (1 + environment | animal)
+##    Data: data
+## 
+## REML criterion at convergence: 66750.8
+## 
+## Random effects:
+##  Groups   Name        Variance Cov 
+##  animal   (Intercept) 0.9920       
+##           environment 0.5068   0.30
+##  Residual             0.4955       
+## Number of obs: 24590, groups:  animal, 4918
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  0.02510    0.01497   1.677
+## environment  0.98595    0.01580  62.386
+```
 
 
 ## Dominance
-Coming soon...
-<!--
 Here we can make use of the dominance relatedness matrices that can be generated in the `nadiv` package
 
-NOTE: not working fully yet!!! 
+
+``` r
+data(warcolak)
+
+pedD <- warcolak[,1:3]
+
+Dmats <- makeD(pedD)
+```
+
+```
+## starting to make D....done 
+## starting to invert D....done
+```
+
+``` r
+Dmat <- Dmats$D
+```
+
+We can input this into `simulate_population()` with the `cov_str` argument:
+
+``` r
+ds <- data.frame(animal = pedD[,1], animalD = pedD[,1])
+
+squid_data <- simulate_population(
+  data_structure = ds, 
  
- -->
+  pedigree = list(animal=pedD[,1:3]),
+  cov_str = list(animalD=Dmat),
+
+  parameters =list(
+    animal = list(
+      vcov = 0.2
+    ),
+    animalD = list(
+      vcov = 0.2
+    ),
+    residual = list(
+      vcov = 0.5
+    )
+  )
+)
+
+data <- get_population_data(squid_data)
+```
+
+We can then run a model to check the simulation, using {gremlin}, with inverse A and D matrices:
+
+``` r
+Dinv <- Dmats$Dinv
+Ainv_dom <- makeAinv(pedD)$Ainv
+
+mod_dom <- gremlin(y~1, random=~ animal + animalD,data=data,ginverse=list(animal=Ainv_dom,animalD=Dinv))
+```
+
+```
+## gremlin started:		 11:24:45 
+##   1 of max 20		lL:-5762.227161		took 0.0061 sec.
+##   2 of max 20		lL:-2494.762867		took 0.0049 sec.
+##   3 of max 20		lL:-2312.124280		took 0.0049 sec.
+##   4 of max 20		lL:-2299.455179		took 0.0048 sec.
+##   5 of max 20		lL:-2299.355390		took 0.0048 sec.
+##   6 of max 20		lL:-2299.355382		took 0.0048 sec.
+##   7 of max 20		lL:-2299.355382		took 0.0048 sec.
+## 
+## ***  REML converged  ***
+## 
+## gremlin ended:		 11:24:45
+```
+
+``` r
+summary(mod_dom)
+```
+
+```
+## 
+##  Linear mixed model fit by REML [' gremlin ']
+##  REML log-likelihood: -2299.355 
+## 	 lambda: FALSE 
+## 
+##  elapsed time for model: 0.0863 
+## 
+##  Scaled residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.92188 -0.54659  0.02061  0.55849  3.09950 
+## 
+##  (co)variance parameters: ~animal + animalD 
+## 		    rcov: ~units 
+##           Estimate Std. Error
+## G.animal    0.2068    0.02422
+## G.animalD   0.1588    0.04980
+## ResVar1     0.5437    0.04572
+## 
+##  (co)variance parameter sampling correlations:
+##           G.animal G.animalD  ResVar1
+## G.animal   1.00000   -0.2807 -0.01946
+## G.animalD -0.28069    1.0000 -0.89553
+## ResVar1   -0.01946   -0.8955  1.00000
+## 
+##  Fixed effects: y ~ 1 
+##             Estimate Std. Error z value
+## (Intercept) -0.02196    0.02418 -0.9084
+```
+
+
 
 ## Inbreeding depression
 Coming soon...

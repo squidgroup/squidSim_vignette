@@ -8,6 +8,7 @@ non-linear-effects
 transformations
 knownpreds
 nonGaussian
+transforming-across-scales
 modeleq
 npop
 parameter-list-summary
@@ -40,11 +41,13 @@ dominance
 inbreeding-depression
 genetic-groups
 phylogenetic
+brownian-motion
 temporal-and-spatial-effects
 simple-temporal-effects
 cyclical-temporal-effects
 temporalauto
 spatialauto
+example-species-occurrence-data-with-spatial-autocorrelation
 sampling
 nested
 worked-example-1
@@ -58,3 +61,4 @@ double-hierarchical-models-dhglms
 dhglm
 bivariate-dhglm
 zero-inflated-poisson
+power

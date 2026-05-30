@@ -4,19 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.1 Brownian motion | The {squidSim} R Package Vignette</title>
+  <title>5.1 Brownian motion | The {squidSim} R Package Vignette   Version 0.2.2</title>
   <meta name="description" content="This is a vignette for using the squidSim R package." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.1 Brownian motion | The {squidSim} R Package Vignette" />
+  <meta property="og:title" content="5.1 Brownian motion | The {squidSim} R Package Vignette   Version 0.2.2" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a vignette for using the squidSim R package." />
   <meta name="github-repo" content="squidgroup/squidSim" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.1 Brownian motion | The {squidSim} R Package Vignette" />
+  <meta name="twitter:title" content="5.1 Brownian motion | The {squidSim} R Package Vignette   Version 0.2.2" />
   
   <meta name="twitter:description" content="This is a vignette for using the squidSim R package." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Joel Pick" />
 
 
-<meta name="date" content="2022-09-23" />
+<meta name="date" content="2025-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +31,7 @@
   
   
 <link rel="prev" href="5-phylogenetic.html"/>
-<link rel="next" href="5.2-ornsteinuhlenbeck-process.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<link rel="next" href="6-temporal-and-spatial-effects.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -121,7 +119,12 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -134,107 +137,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="index.html#intro">The {squidSim} R package<span></span></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>The {squidSim} R package</a>
 <ul>
-<li><a href="index.html#why-use-squidsim">Why use {squidSim}?<span></span></a></li>
-<li><a href="index.html#using-the-vignette">Using the vignette<span></span></a></li>
-<li><a href="index.html#installation">Installation<span></span></a></li>
-<li><a href="index.html#issues-and-bugs">Issues and bugs<span></span></a></li>
-<li><a href="simulate_population-function.html#simulate_population-function"><code>simulate_population()</code> function<span></span></a></li>
-<li><a href="terminology-and-notation.html#terminology-and-notation">Terminology and notation<span></span></a></li>
-<li><a href="mathematical-notation.html#mathematical-notation">Mathematical Notation<span></span></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-use-squidsim"><i class="fa fa-check"></i>Why use {squidSim}?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-the-vignette"><i class="fa fa-check"></i>Using the vignette</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installation"><i class="fa fa-check"></i>Installation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-squidsim"><i class="fa fa-check"></i>Citing {squidSim}</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#issues-and-bugs"><i class="fa fa-check"></i>Issues and bugs</a></li>
+<li class="chapter" data-level="" data-path="simulate_population-function.html"><a href="simulate_population-function.html"><i class="fa fa-check"></i><code>simulate_population()</code> function</a></li>
+<li class="chapter" data-level="" data-path="terminology-and-notation.html"><a href="terminology-and-notation.html"><i class="fa fa-check"></i>Terminology and notation</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html"><i class="fa fa-check"></i>Mathematical Notation</a>
 <ul>
-<li><a href="mathematical-notation.html#general-rules">General rules<span></span></a></li>
-<li><a href="mathematical-notation.html#notation-for-a-linear-mixed-model">Notation for a linear mixed model<span></span></a></li>
-<li><a href="mathematical-notation.html#distributions">Distributions<span></span></a></li>
-<li><a href="mathematical-notation.html#interactions-random-regression">Interactions / Random regression<span></span></a></li>
-<li><a href="mathematical-notation.html#multi-response">Multi-response<span></span></a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#general-rules"><i class="fa fa-check"></i>General rules</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#notation-for-a-linear-mixed-model"><i class="fa fa-check"></i>Notation for a linear mixed model</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#distributions"><i class="fa fa-check"></i>Distributions</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#interactions-random-regression"><i class="fa fa-check"></i>Interactions / Random regression</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html#multi-response"><i class="fa fa-check"></i>Multi-response</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models<span></span></a>
+<li class="chapter" data-level="1" data-path="1-linearmod.html"><a href="1-linearmod.html"><i class="fa fa-check"></i><b>1</b> Simulating from linear models</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html"><i class="fa fa-check"></i><b>1.1</b> Simple Linear Model<span></span></a>
+<li class="chapter" data-level="1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html"><i class="fa fa-check"></i><b>1.1</b> Simple Linear Model</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.1.1</b> Adding more information about the predictors<span></span></a></li>
+<li class="chapter" data-level="1.1.1" data-path="1.1-simple-linear-model.html"><a href="1.1-simple-linear-model.html#adding-more-information-about-the-predictors"><i class="fa fa-check"></i><b>1.1.1</b> Adding more information about the predictors</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="1.2-corpred.html"><a href="1.2-corpred.html"><i class="fa fa-check"></i><b>1.2</b> Correlated predictors<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="1.3-interactions.html"><a href="1.3-interactions.html"><i class="fa fa-check"></i><b>1.3</b> Interactions and non-linear effects<span></span></a>
+<li class="chapter" data-level="1.2" data-path="1.2-corpred.html"><a href="1.2-corpred.html"><i class="fa fa-check"></i><b>1.2</b> Correlated predictors</a></li>
+<li class="chapter" data-level="1.3" data-path="1.3-interactions.html"><a href="1.3-interactions.html"><i class="fa fa-check"></i><b>1.3</b> Interactions and non-linear effects</a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="1.3-interactions.html"><a href="1.3-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.3.1</b> Interactions<span></span></a></li>
-<li class="chapter" data-level="1.3.2" data-path="1.3-interactions.html"><a href="1.3-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.3.2</b> Non-linear effects<span></span></a></li>
+<li class="chapter" data-level="1.3.1" data-path="1.3-interactions.html"><a href="1.3-interactions.html#interactions-1"><i class="fa fa-check"></i><b>1.3.1</b> Interactions</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1.3-interactions.html"><a href="1.3-interactions.html#non-linear-effects"><i class="fa fa-check"></i><b>1.3.2</b> Non-linear effects</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations<span></span></a></li>
-<li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes<span></span></a></li>
-<li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations<span></span></a></li>
-<li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations<span></span></a></li>
-<li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure<span></span></a>
+<li class="chapter" data-level="1.4" data-path="1.4-transformations.html"><a href="1.4-transformations.html"><i class="fa fa-check"></i><b>1.4</b> Transformations</a></li>
+<li class="chapter" data-level="1.5" data-path="1.5-knownpreds.html"><a href="1.5-knownpreds.html"><i class="fa fa-check"></i><b>1.5</b> Known Predictors</a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html"><i class="fa fa-check"></i><b>1.6</b> Non-Gaussian phenotypes</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure<span></span></a>
+<li class="chapter" data-level="1.6.1" data-path="1.6-nonGaussian.html"><a href="1.6-nonGaussian.html#transforming-across-scales"><i class="fa fa-check"></i><b>1.6.1</b> Transforming across scales</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="1.7-modeleq.html"><a href="1.7-modeleq.html"><i class="fa fa-check"></i><b>1.7</b> Model equations</a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-npop.html"><a href="1.8-npop.html"><i class="fa fa-check"></i><b>1.8</b> Simulating multiple populations</a></li>
+<li class="chapter" data-level="1.9" data-path="1.9-parameter-list-summary.html"><a href="1.9-parameter-list-summary.html"><i class="fa fa-check"></i><b>1.9</b> Parameter list summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-hierarchical.html"><a href="2-hierarchical.html"><i class="fa fa-check"></i><b>2</b> Hierarchical structure</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor<span></span></a></li>
-<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors<span></span></a></li>
-<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors<span></span></a></li>
-<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure<span></span></a></li>
-<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors<span></span></a>
+<li class="chapter" data-level="2.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html"><i class="fa fa-check"></i><b>2.1</b> Making a hierarchical structure</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions<span></span></a></li>
+<li class="chapter" data-level="2.1.1" data-path="2.1-makestr.html"><a href="2.1-makestr.html#single-factor"><i class="fa fa-check"></i><b>2.1.1</b> Single Factor</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2.1-makestr.html"><a href="2.1-makestr.html#nested-factors"><i class="fa fa-check"></i><b>2.1.2</b> Nested factors</a></li>
+<li class="chapter" data-level="2.1.3" data-path="2.1-makestr.html"><a href="2.1-makestr.html#crossed-factors"><i class="fa fa-check"></i><b>2.1.3</b> Crossed factors</a></li>
+<li class="chapter" data-level="2.1.4" data-path="2.1-makestr.html"><a href="2.1-makestr.html#temporal-structure"><i class="fa fa-check"></i><b>2.1.4</b> Temporal structure</a></li>
+<li class="chapter" data-level="2.1.5" data-path="2.1-makestr.html"><a href="2.1-makestr.html#naming-factor-levels"><i class="fa fa-check"></i><b>2.1.5</b> Naming factor levels</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels<span></span></a>
+<li class="chapter" data-level="2.2" data-path="2.2-factors.html"><a href="2.2-factors.html"><i class="fa fa-check"></i><b>2.2</b> Factors</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects<span></span></a></li>
-<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures<span></span></a></li>
+<li class="chapter" data-level="2.2.1" data-path="2.2-factors.html"><a href="2.2-factors.html#fixed-factor-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Fixed Factor Interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random Regression<span></span></a></li>
-<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Between- and within-group effects<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models<span></span></a>
+<li class="chapter" data-level="2.3" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html"><i class="fa fa-check"></i><b>2.3</b> Simulating predictors at different hierarchical levels</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="3.1-one-response-repeatedly-measured-the-other-not.html"><a href="3.1-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.1</b> One response repeatedly measured, the other not<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="3.2-different-distributions.html"><a href="3.2-different-distributions.html"><i class="fa fa-check"></i><b>3.2</b> Different distributions<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="3.3-multivariate-random-slopes.html"><a href="3.3-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.3</b> Multivariate Random Slopes<span></span></a></li>
+<li class="chapter" data-level="2.3.1" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#simulating-random-effects"><i class="fa fa-check"></i><b>2.3.1</b> Simulating ‘random’ effects</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-simulating-predictors-at-different-hierarchical-levels.html"><a href="2.3-simulating-predictors-at-different-hierarchical-levels.html#incorporating-existing-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Incorporating existing data structures</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects<span></span></a>
+<li class="chapter" data-level="2.4" data-path="2.4-randomslopes.html"><a href="2.4-randomslopes.html"><i class="fa fa-check"></i><b>2.4</b> Random Regression</a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-BetweenWithin.html"><a href="2.5-BetweenWithin.html"><i class="fa fa-check"></i><b>2.5</b> Among- and within-group effects</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-multivariate.html"><a href="3-multivariate.html"><i class="fa fa-check"></i><b>3</b> Multi-response Models</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="4.4-gxe.html"><a href="4.4-gxe.html"><i class="fa fa-check"></i><b>4.4</b> GxE<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="4.5-indirect-genetic-effects.html"><a href="4.5-indirect-genetic-effects.html"><i class="fa fa-check"></i><b>4.5</b> Indirect Genetic Effects<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression<span></span></a></li>
-<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups<span></span></a></li>
+<li class="chapter" data-level="3.1" data-path="3.1-predictors-affecting-multiple-responses.html"><a href="3.1-predictors-affecting-multiple-responses.html"><i class="fa fa-check"></i><b>3.1</b> Predictors affecting multiple responses</a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-one-response-repeatedly-measured-the-other-not.html"><a href="3.2-one-response-repeatedly-measured-the-other-not.html"><i class="fa fa-check"></i><b>3.2</b> One response repeatedly measured, the other not</a></li>
+<li class="chapter" data-level="3.3" data-path="3.3-different-distributions.html"><a href="3.3-different-distributions.html"><i class="fa fa-check"></i><b>3.3</b> Different distributions</a></li>
+<li class="chapter" data-level="3.4" data-path="3.4-multivariate-random-slopes.html"><a href="3.4-multivariate-random-slopes.html"><i class="fa fa-check"></i><b>3.4</b> Multivariate Random Slopes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects<span></span></a>
+<li class="chapter" data-level="4" data-path="4-animal.html"><a href="4-animal.html"><i class="fa fa-check"></i><b>4</b> Genetic effects</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="5.2-ornsteinuhlenbeck-process.html"><a href="5.2-ornsteinuhlenbeck-process.html"><i class="fa fa-check"></i><b>5.2</b> Ornstein–Uhlenbeck Process<span></span></a></li>
+<li class="chapter" data-level="4.1" data-path="4.1-va.html"><a href="4.1-va.html"><i class="fa fa-check"></i><b>4.1</b> Additive genetics effects</a></li>
+<li class="chapter" data-level="4.2" data-path="4.2-multivariate-genetic-effects.html"><a href="4.2-multivariate-genetic-effects.html"><i class="fa fa-check"></i><b>4.2</b> Multivariate genetic effects</a></li>
+<li class="chapter" data-level="4.3" data-path="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><a href="4.3-sex-specific-genetic-variance-and-inter-sexual-genetic-correlations.html"><i class="fa fa-check"></i><b>4.3</b> Sex specific genetic variance and inter-sexual genetic correlations</a></li>
+<li class="chapter" data-level="4.4" data-path="4.4-IGE.html"><a href="4.4-IGE.html"><i class="fa fa-check"></i><b>4.4</b> Indirect Genetic Effects</a></li>
+<li class="chapter" data-level="4.5" data-path="4.5-gxe.html"><a href="4.5-gxe.html"><i class="fa fa-check"></i><b>4.5</b> GxE</a></li>
+<li class="chapter" data-level="4.6" data-path="4.6-dominance.html"><a href="4.6-dominance.html"><i class="fa fa-check"></i><b>4.6</b> Dominance</a></li>
+<li class="chapter" data-level="4.7" data-path="4.7-inbreeding-depression.html"><a href="4.7-inbreeding-depression.html"><i class="fa fa-check"></i><b>4.7</b> Inbreeding depression</a></li>
+<li class="chapter" data-level="4.8" data-path="4.8-genetic-groups.html"><a href="4.8-genetic-groups.html"><i class="fa fa-check"></i><b>4.8</b> Genetic Groups</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects<span></span></a>
+<li class="chapter" data-level="5" data-path="5-phylogenetic.html"><a href="5-phylogenetic.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Effects</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="5.1" data-path="5.1-brownian-motion.html"><a href="5.1-brownian-motion.html"><i class="fa fa-check"></i><b>5.1</b> Brownian motion</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling<span></span></a>
+<li class="chapter" data-level="6" data-path="6-temporal-and-spatial-effects.html"><a href="6-temporal-and-spatial-effects.html"><i class="fa fa-check"></i><b>6</b> Temporal and Spatial Effects</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested<span></span></a>
+<li class="chapter" data-level="6.1" data-path="6.1-simple-temporal-effects.html"><a href="6.1-simple-temporal-effects.html"><i class="fa fa-check"></i><b>6.1</b> Simple Temporal Effects</a></li>
+<li class="chapter" data-level="6.2" data-path="6.2-cyclical-temporal-effects.html"><a href="6.2-cyclical-temporal-effects.html"><i class="fa fa-check"></i><b>6.2</b> Cyclical Temporal Effects</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-temporalauto.html"><a href="6.3-temporalauto.html"><i class="fa fa-check"></i><b>6.3</b> Temporal Autocorrelation</a></li>
+<li class="chapter" data-level="6.4" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html"><i class="fa fa-check"></i><b>6.4</b> Spatial Autocorrelation</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1<span></span></a></li>
+<li class="chapter" data-level="6.4.1" data-path="6.4-spatialauto.html"><a href="6.4-spatialauto.html#example-species-occurrence-data-with-spatial-autocorrelation"><i class="fa fa-check"></i><b>6.4.1</b> Example: Species occurrence data with spatial autocorrelation</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data<span></span></a>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-sampling.html"><a href="7-sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR<span></span></a></li>
-<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR<span></span></a></li>
-<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR<span></span></a></li>
+<li class="chapter" data-level="7.1" data-path="7.1-nested.html"><a href="7.1-nested.html"><i class="fa fa-check"></i><b>7.1</b> Nested</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="7.1-nested.html"><a href="7.1-nested.html#worked-example-1"><i class="fa fa-check"></i><b>7.1.1</b> Worked example 1</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html"><i class="fa fa-check"></i><b>7.2</b> Missing data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mcar"><i class="fa fa-check"></i><b>7.2.1</b> MCAR</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mar"><i class="fa fa-check"></i><b>7.2.2</b> MAR</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-missing-data.html"><a href="7.2-missing-data.html#mnar"><i class="fa fa-check"></i><b>7.2.3</b> MNAR</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-temporal-sampling.html"><a href="7.3-temporal-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Temporal Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-other-model-types.html"><a href="8-other-model-types.html"><i class="fa fa-check"></i><b>8</b> Other model Types</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="8.1-double-hierarchical-models-dhglms.html"><a href="8.1-double-hierarchical-models-dhglms.html"><i class="fa fa-check"></i><b>8.1</b> Double hierarchical models (DHGLMs)</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-double-hierarchical-models-dhglms.html"><a href="8.1-double-hierarchical-models-dhglms.html#dhglm"><i class="fa fa-check"></i><b>8.1.1</b> DHGLM</a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-double-hierarchical-models-dhglms.html"><a href="8.1-double-hierarchical-models-dhglms.html#bivariate-dhglm"><i class="fa fa-check"></i><b>8.1.2</b> Bivariate DHGLM</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-zero-inflated-poisson.html"><a href="8.2-zero-inflated-poisson.html"><i class="fa fa-check"></i><b>8.2</b> Zero-inflated Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-power.html"><a href="9-power.html"><i class="fa fa-check"></i><b>9</b> Conducting a power analysis using squidSim</a></li>
 </ul>
 
       </nav>
@@ -244,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The {squidSim} R Package Vignette <br> Version 0.2.2</a>
           </h1>
         </div>
 
@@ -254,70 +274,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="brownian-motion" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Brownian motion<a href="5.1-brownian-motion.html#brownian-motion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="5.1-brownian-motion.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb179-2"><a href="5.1-brownian-motion.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb179-3"><a href="5.1-brownian-motion.html#cb179-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bird.families)</span>
-<span id="cb179-4"><a href="5.1-brownian-motion.html#cb179-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb179-5"><a href="5.1-brownian-motion.html#cb179-5" aria-hidden="true" tabindex="-1"></a>squid_dat <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
-<span id="cb179-6"><a href="5.1-brownian-motion.html#cb179-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_structure=</span><span class="fu">data.frame</span>(<span class="at">taxon=</span>bird.families<span class="sc">$</span>tip.label),</span>
-<span id="cb179-7"><a href="5.1-brownian-motion.html#cb179-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameters=</span><span class="fu">list</span>(</span>
-<span id="cb179-8"><a href="5.1-brownian-motion.html#cb179-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">taxon=</span><span class="fu">list</span>(</span>
-<span id="cb179-9"><a href="5.1-brownian-motion.html#cb179-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
-<span id="cb179-10"><a href="5.1-brownian-motion.html#cb179-10" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb179-11"><a href="5.1-brownian-motion.html#cb179-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">residual=</span><span class="fu">list</span>(</span>
-<span id="cb179-12"><a href="5.1-brownian-motion.html#cb179-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
-<span id="cb179-13"><a href="5.1-brownian-motion.html#cb179-13" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb179-14"><a href="5.1-brownian-motion.html#cb179-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb179-15"><a href="5.1-brownian-motion.html#cb179-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">phylogeny=</span><span class="fu">list</span>(<span class="at">taxon=</span>bird.families)</span>
-<span id="cb179-16"><a href="5.1-brownian-motion.html#cb179-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb179-17"><a href="5.1-brownian-motion.html#cb179-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb179-18"><a href="5.1-brownian-motion.html#cb179-18" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_dat)</span>
-<span id="cb179-19"><a href="5.1-brownian-motion.html#cb179-19" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(pop_dat<span class="sc">$</span>taxon_effect)</span></code></pre></div>
-<pre><code>## [1] 0.8017967</code></pre>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="5.1-brownian-motion.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
-<span id="cb181-2"><a href="5.1-brownian-motion.html#cb181-2" aria-hidden="true" tabindex="-1"></a>Ainv<span class="ot">&lt;-</span><span class="fu">inverseA</span>(bird.families)<span class="sc">$</span>Ainv</span>
-<span id="cb181-3"><a href="5.1-brownian-motion.html#cb181-3" aria-hidden="true" tabindex="-1"></a>prior<span class="ot">&lt;-</span><span class="fu">list</span>(</span>
-<span id="cb181-4"><a href="5.1-brownian-motion.html#cb181-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">R=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>), </span>
-<span id="cb181-5"><a href="5.1-brownian-motion.html#cb181-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">G=</span><span class="fu">list</span>(<span class="at">G1=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>)))</span>
-<span id="cb181-6"><a href="5.1-brownian-motion.html#cb181-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-7"><a href="5.1-brownian-motion.html#cb181-7" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">&lt;-</span><span class="fu">MCMCglmm</span>(y<span class="sc">~</span><span class="dv">1</span>, </span>
-<span id="cb181-8"><a href="5.1-brownian-motion.html#cb181-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="sc">~</span>taxon, </span>
-<span id="cb181-9"><a href="5.1-brownian-motion.html#cb181-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ginverse=</span><span class="fu">list</span>(<span class="at">taxon=</span>Ainv),</span>
-<span id="cb181-10"><a href="5.1-brownian-motion.html#cb181-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>pop_dat, </span>
-<span id="cb181-11"><a href="5.1-brownian-motion.html#cb181-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior=</span>prior, </span>
-<span id="cb181-12"><a href="5.1-brownian-motion.html#cb181-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose=</span><span class="cn">FALSE</span>, <span class="at">nitt=</span><span class="dv">13000</span>, <span class="at">burnin=</span><span class="dv">3000</span>, <span class="at">thin=</span><span class="dv">10</span>)</span>
-<span id="cb181-13"><a href="5.1-brownian-motion.html#cb181-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-14"><a href="5.1-brownian-motion.html#cb181-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<p>We can simulate some data using the bird families phylogeny from the {ape} package. Here we have a grouping variables called taxa in the data structure, which links to the phylogeny. We can then specify the phylogenetic variance.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="5.1-brownian-motion.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb216-2"><a href="5.1-brownian-motion.html#cb216-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-3"><a href="5.1-brownian-motion.html#cb216-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bird.families)</span>
+<span id="cb216-4"><a href="5.1-brownian-motion.html#cb216-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-5"><a href="5.1-brownian-motion.html#cb216-5" aria-hidden="true" tabindex="-1"></a>squid_dat <span class="ot">&lt;-</span> <span class="fu">simulate_population</span>(</span>
+<span id="cb216-6"><a href="5.1-brownian-motion.html#cb216-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_structure=</span><span class="fu">data.frame</span>(<span class="at">taxon=</span>bird.families<span class="sc">$</span>tip.label),</span>
+<span id="cb216-7"><a href="5.1-brownian-motion.html#cb216-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameters=</span><span class="fu">list</span>(</span>
+<span id="cb216-8"><a href="5.1-brownian-motion.html#cb216-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">taxon=</span><span class="fu">list</span>(</span>
+<span id="cb216-9"><a href="5.1-brownian-motion.html#cb216-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
+<span id="cb216-10"><a href="5.1-brownian-motion.html#cb216-10" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb216-11"><a href="5.1-brownian-motion.html#cb216-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">residual=</span><span class="fu">list</span>(</span>
+<span id="cb216-12"><a href="5.1-brownian-motion.html#cb216-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov=</span><span class="dv">1</span></span>
+<span id="cb216-13"><a href="5.1-brownian-motion.html#cb216-13" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb216-14"><a href="5.1-brownian-motion.html#cb216-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb216-15"><a href="5.1-brownian-motion.html#cb216-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">phylogeny=</span><span class="fu">list</span>(<span class="at">taxon=</span>bird.families)</span>
+<span id="cb216-16"><a href="5.1-brownian-motion.html#cb216-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb216-17"><a href="5.1-brownian-motion.html#cb216-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-18"><a href="5.1-brownian-motion.html#cb216-18" aria-hidden="true" tabindex="-1"></a>pop_dat <span class="ot">&lt;-</span> <span class="fu">get_population_data</span>(squid_dat)</span></code></pre></div>
+<p>Run model to check</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="5.1-brownian-motion.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCglmm)</span>
+<span id="cb217-2"><a href="5.1-brownian-motion.html#cb217-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-3"><a href="5.1-brownian-motion.html#cb217-3" aria-hidden="true" tabindex="-1"></a>Ainv<span class="ot">&lt;-</span><span class="fu">inverseA</span>(bird.families)<span class="sc">$</span>Ainv</span>
+<span id="cb217-4"><a href="5.1-brownian-motion.html#cb217-4" aria-hidden="true" tabindex="-1"></a>prior<span class="ot">&lt;-</span><span class="fu">list</span>(</span>
+<span id="cb217-5"><a href="5.1-brownian-motion.html#cb217-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">R=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>), </span>
+<span id="cb217-6"><a href="5.1-brownian-motion.html#cb217-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">G=</span><span class="fu">list</span>(<span class="at">G1=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">1</span>, <span class="at">nu=</span><span class="fl">0.002</span>)))</span>
+<span id="cb217-7"><a href="5.1-brownian-motion.html#cb217-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-8"><a href="5.1-brownian-motion.html#cb217-8" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">&lt;-</span><span class="fu">MCMCglmm</span>(y<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb217-9"><a href="5.1-brownian-motion.html#cb217-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">random=</span><span class="sc">~</span>taxon, </span>
+<span id="cb217-10"><a href="5.1-brownian-motion.html#cb217-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ginverse=</span><span class="fu">list</span>(<span class="at">taxon=</span>Ainv),</span>
+<span id="cb217-11"><a href="5.1-brownian-motion.html#cb217-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>pop_dat, </span>
+<span id="cb217-12"><a href="5.1-brownian-motion.html#cb217-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior=</span>prior, </span>
+<span id="cb217-13"><a href="5.1-brownian-motion.html#cb217-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose=</span><span class="cn">FALSE</span>, <span class="at">nitt=</span><span class="dv">13000</span>, <span class="at">burnin=</span><span class="dv">3000</span>, <span class="at">thin=</span><span class="dv">10</span>)</span>
+<span id="cb217-14"><a href="5.1-brownian-motion.html#cb217-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-15"><a href="5.1-brownian-motion.html#cb217-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
 <pre><code>## 
 ##  Iterations = 3001:12991
 ##  Thinning interval  = 10
 ##  Sample size  = 1000 
 ## 
-##  DIC: 168.1167 
+##  DIC: 420.2962 
 ## 
 ##  G-structure:  ~taxon
 ## 
 ##       post.mean l-95% CI u-95% CI eff.samp
-## taxon     1.643   0.1346    2.938    23.95
+## taxon     1.108    0.209    2.469    60.44
 ## 
 ##  R-structure:  ~units
 ## 
-##       post.mean  l-95% CI u-95% CI eff.samp
-## units    0.5758 0.0007948      1.4    28.69
+##       post.mean l-95% CI u-95% CI eff.samp
+## units     1.034   0.1187    1.637    82.43
 ## 
 ##  Location effects: y ~ 1 
 ## 
 ##             post.mean l-95% CI u-95% CI eff.samp pMCMC
-## (Intercept)    0.2780  -0.5114   1.0552     1000 0.458</code></pre>
-<p><br><br></p>
+## (Intercept)    0.0956  -0.5763   0.7307    986.9 0.736</code></pre>
+
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="5-phylogenetic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5.2-ornsteinuhlenbeck-process.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="6-temporal-and-spatial-effects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -331,42 +353,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -377,7 +399,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
